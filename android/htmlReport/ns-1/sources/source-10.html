@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > JSInjector</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: JSInjector (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JSInjector</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import java.io.ByteArrayInputStream;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;import java.io.Reader;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;
+&nbsp;/**
+&nbsp; * JSInject is responsible for returning Capacitor&#39;s core
+&nbsp; * runtime JS and any plugin JS back into HTML page responses
+&nbsp; * to the client.
+&nbsp; */
+&nbsp;class JSInjector {
+&nbsp;
+&nbsp;    private String globalJS;
+&nbsp;    private String bridgeJS;
+&nbsp;    private String pluginJS;
+&nbsp;    private String cordovaJS;
+&nbsp;    private String cordovaPluginsJS;
+&nbsp;    private String cordovaPluginsFileJS;
+&nbsp;    private String localUrlJS;
+&nbsp;    private String miscJS;
+&nbsp;
+&nbsp;    public JSInjector(
+&nbsp;        String globalJS,
+&nbsp;        String bridgeJS,
+&nbsp;        String pluginJS,
+&nbsp;        String cordovaJS,
+&nbsp;        String cordovaPluginsJS,
+&nbsp;        String cordovaPluginsFileJS,
+&nbsp;        String localUrlJS
+&nbsp;    ) {
+<b class="nc">&nbsp;        this(globalJS, bridgeJS, pluginJS, cordovaJS, cordovaPluginsJS, cordovaPluginsFileJS, localUrlJS, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JSInjector(
+&nbsp;        String globalJS,
+&nbsp;        String bridgeJS,
+&nbsp;        String pluginJS,
+&nbsp;        String cordovaJS,
+&nbsp;        String cordovaPluginsJS,
+&nbsp;        String cordovaPluginsFileJS,
+&nbsp;        String localUrlJS,
+&nbsp;        String miscJS
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        this.globalJS = globalJS;</b>
+<b class="nc">&nbsp;        this.bridgeJS = bridgeJS;</b>
+<b class="nc">&nbsp;        this.pluginJS = pluginJS;</b>
+<b class="nc">&nbsp;        this.cordovaJS = cordovaJS;</b>
+<b class="nc">&nbsp;        this.cordovaPluginsJS = cordovaPluginsJS;</b>
+<b class="nc">&nbsp;        this.cordovaPluginsFileJS = cordovaPluginsFileJS;</b>
+<b class="nc">&nbsp;        this.localUrlJS = localUrlJS;</b>
+<b class="nc">&nbsp;        this.miscJS = miscJS;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Generates injectable JS content.
+&nbsp;     * This may be used in other forms of injecting that aren&#39;t using an InputStream.
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    public String getScriptString() {
+<b class="nc">&nbsp;        String scriptString =</b>
+&nbsp;            globalJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            localUrlJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            bridgeJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            pluginJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            cordovaJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            cordovaPluginsFileJS +
+&nbsp;            &quot;\n\n&quot; +
+&nbsp;            cordovaPluginsJS;
+&nbsp;
+<b class="nc">&nbsp;        if (miscJS != null) {</b>
+<b class="nc">&nbsp;            scriptString += &quot;\n\n&quot; + miscJS;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return scriptString;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Given an InputStream from the web server, prepend it with
+&nbsp;     * our JS stream
+&nbsp;     * @param responseStream
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    public InputStream getInjectedStream(InputStream responseStream) {
+<b class="nc">&nbsp;        String js = &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;&quot; + getScriptString() + &quot;&lt;/script&gt;&quot;;</b>
+<b class="nc">&nbsp;        String html = this.readAssetStream(responseStream);</b>
+&nbsp;
+&nbsp;        // Insert the js string at the position after &lt;head&gt; or before &lt;/head&gt; using StringBuilder
+<b class="nc">&nbsp;        StringBuilder modifiedHtml = new StringBuilder(html);</b>
+<b class="nc">&nbsp;        if (html.contains(&quot;&lt;head&gt;&quot;)) {</b>
+<b class="nc">&nbsp;            modifiedHtml.insert(html.indexOf(&quot;&lt;head&gt;&quot;) + &quot;&lt;head&gt;&quot;.length(), &quot;\n&quot; + js + &quot;\n&quot;);</b>
+<b class="nc">&nbsp;            html = modifiedHtml.toString();</b>
+<b class="nc">&nbsp;        } else if (html.contains(&quot;&lt;/head&gt;&quot;)) {</b>
+<b class="nc">&nbsp;            modifiedHtml.insert(html.indexOf(&quot;&lt;/head&gt;&quot;), &quot;\n&quot; + js + &quot;\n&quot;);</b>
+<b class="nc">&nbsp;            html = modifiedHtml.toString();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to inject Capacitor, Plugins won&#39;t work&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return new ByteArrayInputStream(html.getBytes(StandardCharsets.UTF_8));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String readAssetStream(InputStream stream) {
+&nbsp;        try {
+<b class="nc">&nbsp;            final int bufferSize = 1024;</b>
+<b class="nc">&nbsp;            final char[] buffer = new char[bufferSize];</b>
+<b class="nc">&nbsp;            final StringBuilder out = new StringBuilder();</b>
+<b class="nc">&nbsp;            Reader in = new InputStreamReader(stream, StandardCharsets.UTF_8);</b>
+&nbsp;            for (;;) {
+<b class="nc">&nbsp;                int rsz = in.read(buffer, 0, buffer.length);</b>
+<b class="nc">&nbsp;                if (rsz &lt; 0) break;</b>
+<b class="nc">&nbsp;                out.append(buffer, 0, rsz);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return out.toString();</b>
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to process HTML asset file. This is a fatal error&quot;, e);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return &quot;&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

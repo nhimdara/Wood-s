@@ -1,0 +1,631 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CapacitorHttpUrlConnection</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.plugin.util</a>
+</div>
+
+<h1>Coverage Summary for Class: CapacitorHttpUrlConnection (com.getcapacitor.plugin.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CapacitorHttpUrlConnection</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/64)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/129)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.plugin.util;
+&nbsp;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.LocaleList;
+&nbsp;import android.text.TextUtils;
+&nbsp;import com.getcapacitor.Bridge;
+&nbsp;import com.getcapacitor.JSArray;
+&nbsp;import com.getcapacitor.JSObject;
+&nbsp;import com.getcapacitor.JSValue;
+&nbsp;import com.getcapacitor.PluginCall;
+&nbsp;import java.io.DataOutputStream;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.lang.reflect.Method;
+&nbsp;import java.net.HttpURLConnection;
+&nbsp;import java.net.ProtocolException;
+&nbsp;import java.net.SocketTimeoutException;
+&nbsp;import java.net.URL;
+&nbsp;import java.net.URLEncoder;
+&nbsp;import java.net.UnknownServiceException;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.util.Base64;
+&nbsp;import java.util.Iterator;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.UUID;
+&nbsp;import javax.net.ssl.HttpsURLConnection;
+&nbsp;import javax.net.ssl.SSLSocketFactory;
+&nbsp;import org.json.JSONException;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;public class CapacitorHttpUrlConnection implements ICapacitorHttpUrlConnection {
+&nbsp;
+&nbsp;    private final HttpURLConnection connection;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Make a new CapacitorHttpUrlConnection instance, which wraps around HttpUrlConnection
+&nbsp;     * and provides some helper functions for setting request headers and the request body
+&nbsp;     * @param conn the base HttpUrlConnection. You can pass the value from
+&nbsp;     *             {@code (HttpUrlConnection) URL.openConnection()}
+&nbsp;     */
+<b class="nc">&nbsp;    public CapacitorHttpUrlConnection(HttpURLConnection conn) {</b>
+<b class="nc">&nbsp;        connection = conn;</b>
+<b class="nc">&nbsp;        this.setDefaultRequestProperties();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the underlying HttpUrlConnection value
+&nbsp;     * @return the underlying HttpUrlConnection value
+&nbsp;     */
+&nbsp;    public HttpURLConnection getHttpConnection() {
+<b class="nc">&nbsp;        return connection;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void disconnect() {
+<b class="nc">&nbsp;        connection.disconnect();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the value of the {@code allowUserInteraction} field of
+&nbsp;     * this {@code URLConnection}.
+&nbsp;     *
+&nbsp;     * @param   isAllowedInteraction   the new value.
+&nbsp;     * @throws IllegalStateException if already connected
+&nbsp;     */
+&nbsp;    public void setAllowUserInteraction(boolean isAllowedInteraction) {
+<b class="nc">&nbsp;        connection.setAllowUserInteraction(isAllowedInteraction);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the method for the URL request, one of:
+&nbsp;     * &lt;UL&gt;
+&nbsp;     *  &lt;LI&gt;GET
+&nbsp;     *  &lt;LI&gt;POST
+&nbsp;     *  &lt;LI&gt;HEAD
+&nbsp;     *  &lt;LI&gt;OPTIONS
+&nbsp;     *  &lt;LI&gt;PUT
+&nbsp;     *  &lt;LI&gt;DELETE
+&nbsp;     *  &lt;LI&gt;TRACE
+&nbsp;     * &lt;/UL&gt; are legal, subject to protocol restrictions.  The default
+&nbsp;     * method is GET.
+&nbsp;     *
+&nbsp;     * @param method the HTTP method
+&nbsp;     * @exception ProtocolException if the method cannot be reset or if
+&nbsp;     *              the requested method isn&#39;t valid for HTTP.
+&nbsp;     * @exception SecurityException if a security manager is set and the
+&nbsp;     *              method is &quot;TRACE&quot;, but the &quot;allowHttpTrace&quot;
+&nbsp;     *              NetPermission is not granted.
+&nbsp;     */
+&nbsp;    public void setRequestMethod(String method) throws ProtocolException {
+<b class="nc">&nbsp;        connection.setRequestMethod(method);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets a specified timeout value, in milliseconds, to be used
+&nbsp;     * when opening a communications link to the resource referenced
+&nbsp;     * by this URLConnection.  If the timeout expires before the
+&nbsp;     * connection can be established, a
+&nbsp;     * java.net.SocketTimeoutException is raised. A timeout of zero is
+&nbsp;     * interpreted as an infinite timeout.
+&nbsp;     *
+&nbsp;     * &lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt;: If the hostname resolves to multiple IP
+&nbsp;     * addresses, Android&#39;s default implementation of {@link HttpURLConnection}
+&nbsp;     * will try each in
+&nbsp;     * &lt;a href=&quot;http://www.ietf.org/rfc/rfc3484.txt&quot;&gt;RFC 3484&lt;/a&gt; order. If
+&nbsp;     * connecting to each of these addresses fails, multiple timeouts will
+&nbsp;     * elapse before the connect attempt throws an exception. Host names
+&nbsp;     * that support both IPv6 and IPv4 always have at least 2 IP addresses.
+&nbsp;     *
+&nbsp;     * @param timeout an {@code int} that specifies the connect
+&nbsp;     *               timeout value in milliseconds
+&nbsp;     * @throws IllegalArgumentException if the timeout parameter is negative
+&nbsp;     */
+&nbsp;    public void setConnectTimeout(int timeout) {
+<b class="nc">&nbsp;        if (timeout &lt; 0) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;timeout can not be negative&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        connection.setConnectTimeout(timeout);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the read timeout to a specified timeout, in
+&nbsp;     * milliseconds. A non-zero value specifies the timeout when
+&nbsp;     * reading from Input stream when a connection is established to a
+&nbsp;     * resource. If the timeout expires before there is data available
+&nbsp;     * for read, a java.net.SocketTimeoutException is raised. A
+&nbsp;     * timeout of zero is interpreted as an infinite timeout.
+&nbsp;     *
+&nbsp;     * @param timeout an {@code int} that specifies the timeout
+&nbsp;     * value to be used in milliseconds
+&nbsp;     * @throws IllegalArgumentException if the timeout parameter is negative
+&nbsp;     */
+&nbsp;    public void setReadTimeout(int timeout) {
+<b class="nc">&nbsp;        if (timeout &lt; 0) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;timeout can not be negative&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        connection.setReadTimeout(timeout);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets whether automatic HTTP redirects should be disabled
+&nbsp;     * @param disableRedirects the flag to determine if redirects should be followed
+&nbsp;     */
+&nbsp;    public void setDisableRedirects(boolean disableRedirects) {
+<b class="nc">&nbsp;        connection.setInstanceFollowRedirects(!disableRedirects);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the request headers given a JSObject of key-value pairs
+&nbsp;     * @param headers the JSObject values to map to the HttpUrlConnection request headers
+&nbsp;     */
+&nbsp;    public void setRequestHeaders(JSObject headers) {
+<b class="nc">&nbsp;        Iterator&lt;String&gt; keys = headers.keys();</b>
+<b class="nc">&nbsp;        while (keys.hasNext()) {</b>
+<b class="nc">&nbsp;            String key = keys.next();</b>
+<b class="nc">&nbsp;            String value = headers.getString(key);</b>
+<b class="nc">&nbsp;            connection.setRequestProperty(key, value);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the value of the {@code doOutput} field for this
+&nbsp;     * {@code URLConnection} to the specified value.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * A URL connection can be used for input and/or output.  Set the DoOutput
+&nbsp;     * flag to true if you intend to use the URL connection for output,
+&nbsp;     * false if not.  The default is false.
+&nbsp;     *
+&nbsp;     * @param  shouldDoOutput   the new value.
+&nbsp;     * @throws IllegalStateException if already connected
+&nbsp;     */
+&nbsp;    public void setDoOutput(boolean shouldDoOutput) {
+<b class="nc">&nbsp;        connection.setDoOutput(shouldDoOutput);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param call
+&nbsp;     * @throws JSONException
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    public void setRequestBody(PluginCall call, JSValue body) throws JSONException, IOException {
+<b class="nc">&nbsp;        setRequestBody(call, body, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param call
+&nbsp;     * @throws JSONException
+&nbsp;     * @throws IOException
+&nbsp;     */
+&nbsp;    public void setRequestBody(PluginCall call, JSValue body, String bodyType) throws JSONException, IOException {
+<b class="nc">&nbsp;        String contentType = connection.getRequestProperty(&quot;Content-Type&quot;);</b>
+<b class="nc">&nbsp;        String dataString = &quot;&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (contentType == null || contentType.isEmpty()) return;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (contentType.contains(&quot;application/json&quot;)) {</b>
+<b class="nc">&nbsp;            JSArray jsArray = null;</b>
+<b class="nc">&nbsp;            if (body != null) {</b>
+<b class="nc">&nbsp;                dataString = body.toString();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                jsArray = call.getArray(&quot;data&quot;, null);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (jsArray != null) {</b>
+<b class="nc">&nbsp;                dataString = jsArray.toString();</b>
+<b class="nc">&nbsp;            } else if (body == null) {</b>
+<b class="nc">&nbsp;                dataString = call.getString(&quot;data&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            this.writeRequestBody(dataString != null ? dataString : &quot;&quot;);</b>
+<b class="nc">&nbsp;        } else if (bodyType != null &amp;&amp; bodyType.equals(&quot;file&quot;)) {</b>
+<b class="nc">&nbsp;            try (DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {</b>
+<b class="nc">&nbsp;                if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</b>
+<b class="nc">&nbsp;                    os.write(Base64.getDecoder().decode(body.toString()));</b>
+&nbsp;                }
+<b class="nc">&nbsp;                os.flush();</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } else if (contentType.contains(&quot;application/x-www-form-urlencoded&quot;)) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                JSObject obj = body.toJSObject();</b>
+<b class="nc">&nbsp;                this.writeObjectRequestBody(obj);</b>
+&nbsp;            } catch (Exception e) {
+&nbsp;                // Body is not a valid JSON, treat it as an already formatted string
+<b class="nc">&nbsp;                this.writeRequestBody(body.toString());</b>
+&nbsp;            }
+<b class="nc">&nbsp;        } else if (bodyType != null &amp;&amp; bodyType.equals(&quot;formData&quot;)) {</b>
+<b class="nc">&nbsp;            String boundary = extractBoundaryFromContentType(contentType);</b>
+<b class="nc">&nbsp;            if (boundary == null) {</b>
+&nbsp;                // If no boundary is provided, generate a random one and set the Content-Type header accordingly
+&nbsp;                // or otherwise servers will not be able to parse the request body. Browsers do this automatically
+&nbsp;                // but here we need to do this manually in order to comply with browser api behavior.
+<b class="nc">&nbsp;                boundary = UUID.randomUUID().toString();</b>
+<b class="nc">&nbsp;                connection.setRequestProperty(&quot;Content-Type&quot;, &quot;multipart/form-data; boundary=&quot; + boundary);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            this.writeFormDataRequestBody(boundary, body.toJSArray());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.writeRequestBody(body.toString());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Writes the provided string to the HTTP connection managed by this instance.
+&nbsp;     *
+&nbsp;     * @param body The string value to write to the connection stream.
+&nbsp;     */
+&nbsp;    private void writeRequestBody(String body) throws IOException {
+<b class="nc">&nbsp;        try (DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {</b>
+<b class="nc">&nbsp;            os.write(body.getBytes(StandardCharsets.UTF_8));</b>
+<b class="nc">&nbsp;            os.flush();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void writeObjectRequestBody(JSObject object) throws IOException, JSONException {
+<b class="nc">&nbsp;        try (DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {</b>
+<b class="nc">&nbsp;            Iterator&lt;String&gt; keys = object.keys();</b>
+<b class="nc">&nbsp;            while (keys.hasNext()) {</b>
+<b class="nc">&nbsp;                String key = keys.next();</b>
+<b class="nc">&nbsp;                Object d = object.get(key);</b>
+<b class="nc">&nbsp;                os.writeBytes(URLEncoder.encode(key, &quot;UTF-8&quot;));</b>
+<b class="nc">&nbsp;                os.writeBytes(&quot;=&quot;);</b>
+<b class="nc">&nbsp;                os.writeBytes(URLEncoder.encode(d.toString(), &quot;UTF-8&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;                if (keys.hasNext()) {</b>
+<b class="nc">&nbsp;                    os.writeBytes(&quot;&amp;&quot;);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            os.flush();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void writeFormDataRequestBody(String boundary, JSArray entries) throws IOException, JSONException {
+<b class="nc">&nbsp;        try (DataOutputStream os = new DataOutputStream(connection.getOutputStream())) {</b>
+<b class="nc">&nbsp;            String lineEnd = &quot;\r\n&quot;;</b>
+<b class="nc">&nbsp;            String twoHyphens = &quot;--&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            for (Object e : entries.toList()) {</b>
+<b class="nc">&nbsp;                if (e instanceof JSONObject) {</b>
+<b class="nc">&nbsp;                    JSONObject entry = (JSONObject) e;</b>
+<b class="nc">&nbsp;                    String type = entry.getString(&quot;type&quot;);</b>
+<b class="nc">&nbsp;                    String key = entry.getString(&quot;key&quot;);</b>
+<b class="nc">&nbsp;                    String value = entry.getString(&quot;value&quot;);</b>
+<b class="nc">&nbsp;                    if (type.equals(&quot;string&quot;)) {</b>
+<b class="nc">&nbsp;                        os.writeBytes(twoHyphens + boundary + lineEnd);</b>
+<b class="nc">&nbsp;                        os.writeBytes(&quot;Content-Disposition: form-data; name=\&quot;&quot; + key + &quot;\&quot;&quot; + lineEnd + lineEnd);</b>
+<b class="nc">&nbsp;                        os.write(value.getBytes(StandardCharsets.UTF_8));</b>
+<b class="nc">&nbsp;                        os.writeBytes(lineEnd);</b>
+<b class="nc">&nbsp;                    } else if (type.equals(&quot;base64File&quot;)) {</b>
+<b class="nc">&nbsp;                        String fileName = entry.getString(&quot;fileName&quot;);</b>
+<b class="nc">&nbsp;                        String fileContentType = entry.getString(&quot;contentType&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;                        os.writeBytes(twoHyphens + boundary + lineEnd);</b>
+<b class="nc">&nbsp;                        os.writeBytes(&quot;Content-Disposition: form-data; name=\&quot;&quot; + key + &quot;\&quot;; filename=\&quot;&quot; + fileName + &quot;\&quot;&quot; + lineEnd);</b>
+<b class="nc">&nbsp;                        os.writeBytes(&quot;Content-Type: &quot; + fileContentType + lineEnd);</b>
+<b class="nc">&nbsp;                        os.writeBytes(&quot;Content-Transfer-Encoding: binary&quot; + lineEnd);</b>
+<b class="nc">&nbsp;                        os.writeBytes(lineEnd);</b>
+&nbsp;
+<b class="nc">&nbsp;                        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {</b>
+<b class="nc">&nbsp;                            os.write(Base64.getDecoder().decode(value));</b>
+&nbsp;                        } else {
+<b class="nc">&nbsp;                            os.write(android.util.Base64.decode(value, android.util.Base64.DEFAULT));</b>
+&nbsp;                        }
+&nbsp;
+<b class="nc">&nbsp;                        os.writeBytes(lineEnd);</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            os.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);</b>
+<b class="nc">&nbsp;            os.flush();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Extracts the boundary value from the `Content-Type` header for multipart/form-data requests, if provided.
+&nbsp;     *
+&nbsp;     * The boundary value might be surrounded by double quotes (&quot;) which will be stripped away.
+&nbsp;     *
+&nbsp;     * @param contentType The `Content-Type` header string.
+&nbsp;     * @return The boundary value if found, otherwise `null`.
+&nbsp;     */
+&nbsp;    public static String extractBoundaryFromContentType(String contentType) {
+<b class="nc">&nbsp;        String boundaryPrefix = &quot;boundary=&quot;;</b>
+<b class="nc">&nbsp;        int boundaryIndex = contentType.indexOf(boundaryPrefix);</b>
+<b class="nc">&nbsp;        if (boundaryIndex == -1) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Extract the substring starting right after &quot;boundary=&quot;
+<b class="nc">&nbsp;        String boundary = contentType.substring(boundaryIndex + boundaryPrefix.length());</b>
+&nbsp;
+&nbsp;        // Find the end of the boundary value by looking for the next &quot;;&quot;
+<b class="nc">&nbsp;        int endIndex = boundary.indexOf(&quot;;&quot;);</b>
+<b class="nc">&nbsp;        if (endIndex != -1) {</b>
+<b class="nc">&nbsp;            boundary = boundary.substring(0, endIndex);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Remove surrounding double quotes if present
+<b class="nc">&nbsp;        boundary = boundary.trim();</b>
+<b class="nc">&nbsp;        if (boundary.startsWith(&quot;\&quot;&quot;) &amp;&amp; boundary.endsWith(&quot;\&quot;&quot;)) {</b>
+<b class="nc">&nbsp;            boundary = boundary.substring(1, boundary.length() - 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return boundary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Opens a communications link to the resource referenced by this
+&nbsp;     * URL, if such a connection has not already been established.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * If the {@code connect} method is called when the connection
+&nbsp;     * has already been opened (indicated by the {@code connected}
+&nbsp;     * field having the value {@code true}), the call is ignored.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * URLConnection objects go through two phases: first they are
+&nbsp;     * created, then they are connected.  After being created, and
+&nbsp;     * before being connected, various options can be specified
+&nbsp;     * (e.g., doInput and UseCaches).  After connecting, it is an
+&nbsp;     * error to try to set them.  Operations that depend on being
+&nbsp;     * connected, like getContentLength, will implicitly perform the
+&nbsp;     * connection, if necessary.
+&nbsp;     *
+&nbsp;     * @throws SocketTimeoutException if the timeout expires before
+&nbsp;     *               the connection can be established
+&nbsp;     * @exception  IOException  if an I/O error occurs while opening the
+&nbsp;     *               connection.
+&nbsp;     */
+&nbsp;    public void connect() throws IOException {
+<b class="nc">&nbsp;        connection.connect();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the status code from an HTTP response message.
+&nbsp;     * For example, in the case of the following status lines:
+&nbsp;     * &lt;PRE&gt;
+&nbsp;     * HTTP/1.0 200 OK
+&nbsp;     * HTTP/1.0 401 Unauthorized
+&nbsp;     * &lt;/PRE&gt;
+&nbsp;     * It will return 200 and 401 respectively.
+&nbsp;     * Returns -1 if no code can be discerned
+&nbsp;     * from the response (i.e., the response is not valid HTTP).
+&nbsp;     * @throws IOException if an error occurred connecting to the server.
+&nbsp;     * @return the HTTP Status-Code, or -1
+&nbsp;     */
+&nbsp;    public int getResponseCode() throws IOException {
+<b class="nc">&nbsp;        return connection.getResponseCode();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the value of this {@code URLConnection}&#39;s {@code URL}
+&nbsp;     * field.
+&nbsp;     *
+&nbsp;     * @return  the value of this {@code URLConnection}&#39;s {@code URL}
+&nbsp;     *          field.
+&nbsp;     */
+&nbsp;    public URL getURL() {
+<b class="nc">&nbsp;        return connection.getURL();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the error stream if the connection failed
+&nbsp;     * but the server sent useful data nonetheless. The
+&nbsp;     * typical example is when an HTTP server responds
+&nbsp;     * with a 404, which will cause a FileNotFoundException
+&nbsp;     * to be thrown in connect, but the server sent an HTML
+&nbsp;     * help page with suggestions as to what to do.
+&nbsp;     *
+&nbsp;     * &lt;p&gt;This method will not cause a connection to be initiated.  If
+&nbsp;     * the connection was not connected, or if the server did not have
+&nbsp;     * an error while connecting or if the server had an error but
+&nbsp;     * no error data was sent, this method will return null. This is
+&nbsp;     * the default.
+&nbsp;     *
+&nbsp;     * @return an error stream if any, null if there have been no
+&nbsp;     * errors, the connection is not connected or the server sent no
+&nbsp;     * useful data.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public InputStream getErrorStream() {
+<b class="nc">&nbsp;        return connection.getErrorStream();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the value of the named header field.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * If called on a connection that sets the same header multiple times
+&nbsp;     * with possibly different values, only the last value is returned.
+&nbsp;     *
+&nbsp;     *
+&nbsp;     * @param   name   the name of a header field.
+&nbsp;     * @return  the value of the named header field, or {@code null}
+&nbsp;     *          if there is no such field in the header.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String getHeaderField(String name) {
+<b class="nc">&nbsp;        return connection.getHeaderField(name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns an input stream that reads from this open connection.
+&nbsp;     *
+&nbsp;     * A SocketTimeoutException can be thrown when reading from the
+&nbsp;     * returned input stream if the read timeout expires before data
+&nbsp;     * is available for read.
+&nbsp;     *
+&nbsp;     * @return     an input stream that reads from this open connection.
+&nbsp;     * @exception  IOException              if an I/O error occurs while
+&nbsp;     *               creating the input stream.
+&nbsp;     * @exception UnknownServiceException  if the protocol does not support
+&nbsp;     *               input.
+&nbsp;     * @see #setReadTimeout(int)
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public InputStream getInputStream() throws IOException {
+<b class="nc">&nbsp;        return connection.getInputStream();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns an unmodifiable Map of the header fields.
+&nbsp;     * The Map keys are Strings that represent the
+&nbsp;     * response-header field names. Each Map value is an
+&nbsp;     * unmodifiable List of Strings that represents
+&nbsp;     * the corresponding field values.
+&nbsp;     *
+&nbsp;     * @return a Map of header fields
+&nbsp;     */
+&nbsp;    public Map&lt;String, List&lt;String&gt;&gt; getHeaderFields() {
+<b class="nc">&nbsp;        return connection.getHeaderFields();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the default request properties on the newly created connection.
+&nbsp;     * This is called as early as possible to allow overrides by user-provided values.
+&nbsp;     */
+&nbsp;    private void setDefaultRequestProperties() {
+<b class="nc">&nbsp;        String acceptLanguage = buildDefaultAcceptLanguageProperty();</b>
+<b class="nc">&nbsp;        if (!TextUtils.isEmpty(acceptLanguage)) {</b>
+<b class="nc">&nbsp;            connection.setRequestProperty(&quot;Accept-Language&quot;, acceptLanguage);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Builds and returns a locale string describing the device&#39;s current locale preferences.
+&nbsp;     */
+&nbsp;    private String buildDefaultAcceptLanguageProperty() {
+<b class="nc">&nbsp;        Locale locale = LocaleList.getDefault().get(0);</b>
+<b class="nc">&nbsp;        String result = &quot;&quot;;</b>
+<b class="nc">&nbsp;        String lang = locale.getLanguage();</b>
+<b class="nc">&nbsp;        String country = locale.getCountry();</b>
+<b class="nc">&nbsp;        if (!TextUtils.isEmpty(lang)) {</b>
+<b class="nc">&nbsp;            if (!TextUtils.isEmpty(country)) {</b>
+<b class="nc">&nbsp;                result = String.format(&quot;%s-%s,%s;q=0.5&quot;, lang, country, lang);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                result = String.format(&quot;%s;q=0.5&quot;, lang);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSSLSocketFactory(Bridge bridge) {
+&nbsp;        // Attach SSL Certificates if Enterprise Plugin is available
+&nbsp;        try {
+<b class="nc">&nbsp;            Class&lt;?&gt; sslPinningImpl = Class.forName(&quot;io.ionic.sslpinning.SSLPinning&quot;);</b>
+<b class="nc">&nbsp;            Method method = sslPinningImpl.getDeclaredMethod(&quot;getSSLSocketFactory&quot;, Bridge.class);</b>
+<b class="nc">&nbsp;            SSLSocketFactory sslSocketFactory = (SSLSocketFactory) method.invoke(</b>
+<b class="nc">&nbsp;                sslPinningImpl.getDeclaredConstructor().newInstance(),</b>
+&nbsp;                bridge
+&nbsp;            );
+<b class="nc">&nbsp;            if (sslSocketFactory != null) {</b>
+<b class="nc">&nbsp;                ((HttpsURLConnection) this.connection).setSSLSocketFactory(sslSocketFactory);</b>
+&nbsp;            }
+&nbsp;        } catch (Exception ignored) {}
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

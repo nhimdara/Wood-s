@@ -1,0 +1,1004 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > WebViewLocalServer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: WebViewLocalServer (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WebViewLocalServer</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/158)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/266)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">WebViewLocalServer$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WebViewLocalServer$LazyInputStream</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WebViewLocalServer$LollipopLazyInputStream</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">WebViewLocalServer$PathHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/184)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/327)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp;Copyright 2015 Google Inc. All rights reserved.
+&nbsp;
+&nbsp;Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+&nbsp;you may not use this file except in compliance with the License.
+&nbsp;You may obtain a copy of the License at
+&nbsp;
+&nbsp;    http://www.apache.org/licenses/LICENSE-2.0
+&nbsp;
+&nbsp;Unless required by applicable law or agreed to in writing, software
+&nbsp;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+&nbsp;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+&nbsp;See the License for the specific language governing permissions and
+&nbsp;limitations under the License.
+&nbsp; */
+&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import static com.getcapacitor.plugin.util.HttpRequestHandler.isDomainExcludedFromSSL;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.net.Uri;
+&nbsp;import android.util.Base64;
+&nbsp;import android.webkit.CookieManager;
+&nbsp;import android.webkit.WebResourceRequest;
+&nbsp;import android.webkit.WebResourceResponse;
+&nbsp;import com.getcapacitor.plugin.util.CapacitorHttpUrlConnection;
+&nbsp;import com.getcapacitor.plugin.util.HttpRequestHandler;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.net.HttpURLConnection;
+&nbsp;import java.net.URL;
+&nbsp;import java.net.URLConnection;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.LinkedHashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * Helper class meant to be used with the android.webkit.WebView class to enable hosting assets,
+&nbsp; * resources and other data on &#39;virtual&#39; https:// URL.
+&nbsp; * Hosting assets and resources on https:// URLs is desirable as it is compatible with the
+&nbsp; * Same-Origin policy.
+&nbsp; * &lt;p&gt;
+&nbsp; * This class is intended to be used from within the
+&nbsp; * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView, String)} and
+&nbsp; * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView,
+&nbsp; * android.webkit.WebResourceRequest)}
+&nbsp; * methods.
+&nbsp; */
+&nbsp;public class WebViewLocalServer {
+&nbsp;
+&nbsp;    private static final String capacitorFileStart = Bridge.CAPACITOR_FILE_START;
+&nbsp;    private static final String capacitorContentStart = Bridge.CAPACITOR_CONTENT_START;
+&nbsp;    private String basePath;
+&nbsp;
+&nbsp;    private final UriMatcher uriMatcher;
+&nbsp;    private final AndroidProtocolHandler protocolHandler;
+&nbsp;    private final ArrayList&lt;String&gt; authorities;
+&nbsp;    private boolean isAsset;
+&nbsp;    // Whether to route all requests to paths without extensions back to `index.html`
+&nbsp;    private final boolean html5mode;
+&nbsp;    private final JSInjector jsInjector;
+&nbsp;    private final Bridge bridge;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A handler that produces responses for paths on the virtual asset server.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * Methods of this handler will be invoked on a background thread and care must be taken to
+&nbsp;     * correctly synchronize access to any shared state.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * On Android KitKat and above these methods may be called on more than one thread. This thread
+&nbsp;     * may be different than the thread on which the shouldInterceptRequest method was invoke.
+&nbsp;     * This means that on Android KitKat and above it is possible to block in this method without
+&nbsp;     * blocking other resources from loading. The number of threads used to parallelize loading
+&nbsp;     * is an internal implementation detail of the WebView and may change between updates which
+&nbsp;     * means that the amount of time spend blocking in this method should be kept to an absolute
+&nbsp;     * minimum.
+&nbsp;     */
+&nbsp;    public abstract static class PathHandler {
+&nbsp;
+&nbsp;        protected String mimeType;
+&nbsp;        private String encoding;
+&nbsp;        private String charset;
+&nbsp;        private int statusCode;
+&nbsp;        private String reasonPhrase;
+&nbsp;        private Map&lt;String, String&gt; responseHeaders;
+&nbsp;
+&nbsp;        public PathHandler() {
+<b class="nc">&nbsp;            this(null, null, 200, &quot;OK&quot;, null);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        public PathHandler(String encoding, String charset, int statusCode, String reasonPhrase, Map&lt;String, String&gt; responseHeaders) {</b>
+<b class="nc">&nbsp;            this.encoding = encoding;</b>
+<b class="nc">&nbsp;            this.charset = charset;</b>
+<b class="nc">&nbsp;            this.statusCode = statusCode;</b>
+<b class="nc">&nbsp;            this.reasonPhrase = reasonPhrase;</b>
+&nbsp;            Map&lt;String, String&gt; tempResponseHeaders;
+<b class="nc">&nbsp;            if (responseHeaders == null) {</b>
+<b class="nc">&nbsp;                tempResponseHeaders = new HashMap&lt;&gt;();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                tempResponseHeaders = responseHeaders;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            tempResponseHeaders.put(&quot;Cache-Control&quot;, &quot;no-cache&quot;);</b>
+<b class="nc">&nbsp;            this.responseHeaders = tempResponseHeaders;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public InputStream handle(WebResourceRequest request) {
+<b class="nc">&nbsp;            return handle(request.getUrl());</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public abstract InputStream handle(Uri url);
+&nbsp;
+&nbsp;        public String getEncoding() {
+<b class="nc">&nbsp;            return encoding;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public String getCharset() {
+<b class="nc">&nbsp;            return charset;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getStatusCode() {
+<b class="nc">&nbsp;            return statusCode;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public String getReasonPhrase() {
+<b class="nc">&nbsp;            return reasonPhrase;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /**
+&nbsp;         * @deprecated This method may return incorrect headers in concurrent range requests.
+&nbsp;         * &lt;p&gt;
+&nbsp;         * Use {@link #buildDefaultResponseHeaders()} instead, which returns a copy of the map.
+&nbsp;         * &lt;/p&gt;
+&nbsp;         * This method will be removed in a future major version of Capacitor.
+&nbsp;         * &lt;/p&gt;
+&nbsp;         */
+&nbsp;        @Deprecated(forRemoval = true) // adjust version as appropriate
+&nbsp;        public Map&lt;String, String&gt; getResponseHeaders() {
+<b class="nc">&nbsp;            return responseHeaders;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public Map&lt;String, String&gt; buildDefaultResponseHeaders() {
+<b class="nc">&nbsp;            return new HashMap&lt;&gt;(responseHeaders);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    WebViewLocalServer(Context context, Bridge bridge, JSInjector jsInjector, ArrayList&lt;String&gt; authorities, boolean html5mode) {</b>
+<b class="nc">&nbsp;        uriMatcher = new UriMatcher(null);</b>
+<b class="nc">&nbsp;        this.html5mode = html5mode;</b>
+<b class="nc">&nbsp;        this.protocolHandler = new AndroidProtocolHandler(context.getApplicationContext());</b>
+<b class="nc">&nbsp;        this.authorities = authorities;</b>
+<b class="nc">&nbsp;        this.bridge = bridge;</b>
+<b class="nc">&nbsp;        this.jsInjector = jsInjector;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Uri parseAndVerifyUrl(String url) {
+<b class="nc">&nbsp;        if (url == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        Uri uri = Uri.parse(url);</b>
+<b class="nc">&nbsp;        if (uri == null) {</b>
+<b class="nc">&nbsp;            Logger.error(&quot;Malformed URL: &quot; + url);</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        String path = uri.getPath();</b>
+<b class="nc">&nbsp;        if (path == null || path.isEmpty()) {</b>
+<b class="nc">&nbsp;            Logger.error(&quot;URL does not have a path: &quot; + url);</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return uri;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Attempt to retrieve the WebResourceResponse associated with the given &lt;code&gt;request&lt;/code&gt;.
+&nbsp;     * This method should be invoked from within
+&nbsp;     * {@link android.webkit.WebViewClient#shouldInterceptRequest(android.webkit.WebView,
+&nbsp;     * android.webkit.WebResourceRequest)}.
+&nbsp;     *
+&nbsp;     * @param request the request to process.
+&nbsp;     * @return a response if the request URL had a matching handler, null if no handler was found.
+&nbsp;     */
+&nbsp;    public WebResourceResponse shouldInterceptRequest(WebResourceRequest request) {
+<b class="nc">&nbsp;        Uri loadingUrl = request.getUrl();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (null != loadingUrl.getPath() &amp;&amp; loadingUrl.getPath().startsWith(Bridge.CAPACITOR_HTTP_INTERCEPTOR_START)) {</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;Handling CapacitorHttp request: &quot; + loadingUrl);</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                return handleCapacitorHttpRequest(request);</b>
+&nbsp;            } catch (Exception e) {
+<b class="nc">&nbsp;                Logger.error(e.getLocalizedMessage());</b>
+<b class="nc">&nbsp;                return null;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        PathHandler handler;
+<b class="nc">&nbsp;        synchronized (uriMatcher) {</b>
+<b class="nc">&nbsp;            handler = (PathHandler) uriMatcher.match(request.getUrl());</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        if (handler == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (isLocalFile(loadingUrl) || isMainUrl(loadingUrl) || !isAllowedUrl(loadingUrl) || isErrorUrl(loadingUrl)) {</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;Handling local request: &quot; + request.getUrl().toString());</b>
+<b class="nc">&nbsp;            return handleLocalRequest(request, handler);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return handleProxyRequest(request, handler);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isLocalFile(Uri uri) {
+<b class="nc">&nbsp;        String path = uri.getPath();</b>
+<b class="nc">&nbsp;        return path.startsWith(capacitorContentStart) || path.startsWith(capacitorFileStart);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isErrorUrl(Uri uri) {
+<b class="nc">&nbsp;        String url = uri.toString();</b>
+<b class="nc">&nbsp;        return url.equals(bridge.getErrorUrl());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isMainUrl(Uri loadingUrl) {
+<b class="nc">&nbsp;        return (bridge.getServerUrl() == null &amp;&amp; loadingUrl.getHost().equalsIgnoreCase(bridge.getHost()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isAllowedUrl(Uri loadingUrl) {
+<b class="nc">&nbsp;        return !(bridge.getServerUrl() == null &amp;&amp; !bridge.getAppAllowNavigationMask().matches(loadingUrl.getHost()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getReasonPhraseFromResponseCode(int code) {
+<b class="nc">&nbsp;        return switch (code) {</b>
+<b class="nc">&nbsp;            case 100 -&gt; &quot;Continue&quot;;</b>
+<b class="nc">&nbsp;            case 101 -&gt; &quot;Switching Protocols&quot;;</b>
+<b class="nc">&nbsp;            case 200 -&gt; &quot;OK&quot;;</b>
+<b class="nc">&nbsp;            case 201 -&gt; &quot;Created&quot;;</b>
+<b class="nc">&nbsp;            case 202 -&gt; &quot;Accepted&quot;;</b>
+<b class="nc">&nbsp;            case 203 -&gt; &quot;Non-Authoritative Information&quot;;</b>
+<b class="nc">&nbsp;            case 204 -&gt; &quot;No Content&quot;;</b>
+<b class="nc">&nbsp;            case 205 -&gt; &quot;Reset Content&quot;;</b>
+<b class="nc">&nbsp;            case 206 -&gt; &quot;Partial Content&quot;;</b>
+<b class="nc">&nbsp;            case 300 -&gt; &quot;Multiple Choices&quot;;</b>
+<b class="nc">&nbsp;            case 301 -&gt; &quot;Moved Permanently&quot;;</b>
+<b class="nc">&nbsp;            case 302 -&gt; &quot;Found&quot;;</b>
+<b class="nc">&nbsp;            case 303 -&gt; &quot;See Other&quot;;</b>
+<b class="nc">&nbsp;            case 304 -&gt; &quot;Not Modified&quot;;</b>
+<b class="nc">&nbsp;            case 400 -&gt; &quot;Bad Request&quot;;</b>
+<b class="nc">&nbsp;            case 401 -&gt; &quot;Unauthorized&quot;;</b>
+<b class="nc">&nbsp;            case 403 -&gt; &quot;Forbidden&quot;;</b>
+<b class="nc">&nbsp;            case 404 -&gt; &quot;Not Found&quot;;</b>
+<b class="nc">&nbsp;            case 405 -&gt; &quot;Method Not Allowed&quot;;</b>
+<b class="nc">&nbsp;            case 406 -&gt; &quot;Not Acceptable&quot;;</b>
+<b class="nc">&nbsp;            case 407 -&gt; &quot;Proxy Authentication Required&quot;;</b>
+<b class="nc">&nbsp;            case 408 -&gt; &quot;Request Timeout&quot;;</b>
+<b class="nc">&nbsp;            case 409 -&gt; &quot;Conflict&quot;;</b>
+<b class="nc">&nbsp;            case 410 -&gt; &quot;Gone&quot;;</b>
+<b class="nc">&nbsp;            case 500 -&gt; &quot;Internal Server Error&quot;;</b>
+<b class="nc">&nbsp;            case 501 -&gt; &quot;Not Implemented&quot;;</b>
+<b class="nc">&nbsp;            case 502 -&gt; &quot;Bad Gateway&quot;;</b>
+<b class="nc">&nbsp;            case 503 -&gt; &quot;Service Unavailable&quot;;</b>
+<b class="nc">&nbsp;            case 504 -&gt; &quot;Gateway Timeout&quot;;</b>
+<b class="nc">&nbsp;            case 505 -&gt; &quot;HTTP Version Not Supported&quot;;</b>
+<b class="nc">&nbsp;            default -&gt; &quot;Unknown&quot;;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    private WebResourceResponse handleCapacitorHttpRequest(WebResourceRequest request) throws IOException {
+<b class="nc">&nbsp;        String urlString = request.getUrl().getQueryParameter(Bridge.CAPACITOR_HTTP_INTERCEPTOR_URL_PARAM);</b>
+<b class="nc">&nbsp;        URL url = new URL(urlString);</b>
+<b class="nc">&nbsp;        JSObject headers = new JSObject();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Map.Entry&lt;String, String&gt; header : request.getRequestHeaders().entrySet()) {</b>
+<b class="nc">&nbsp;            headers.put(header.getKey(), header.getValue());</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // a workaround for the following android web view issue:
+&nbsp;        // https://issues.chromium.org/issues/40450316
+&nbsp;        // x-cap-user-agent contains the user agent set in JavaScript
+<b class="nc">&nbsp;        String userAgentValue = headers.getString(&quot;x-cap-user-agent&quot;);</b>
+<b class="nc">&nbsp;        if (userAgentValue != null) {</b>
+<b class="nc">&nbsp;            headers.put(&quot;User-Agent&quot;, userAgentValue);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        headers.remove(&quot;x-cap-user-agent&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        HttpRequestHandler.HttpURLConnectionBuilder connectionBuilder = new HttpRequestHandler.HttpURLConnectionBuilder()</b>
+<b class="nc">&nbsp;            .setUrl(url)</b>
+<b class="nc">&nbsp;            .setMethod(request.getMethod())</b>
+<b class="nc">&nbsp;            .setHeaders(headers)</b>
+<b class="nc">&nbsp;            .openConnection();</b>
+&nbsp;
+<b class="nc">&nbsp;        CapacitorHttpUrlConnection connection = connectionBuilder.build();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!isDomainExcludedFromSSL(bridge, url)) {</b>
+<b class="nc">&nbsp;            connection.setSSLSocketFactory(bridge);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        connection.connect();</b>
+&nbsp;
+<b class="nc">&nbsp;        String mimeType = null;</b>
+<b class="nc">&nbsp;        String encoding = null;</b>
+<b class="nc">&nbsp;        Map&lt;String, String&gt; responseHeaders = new LinkedHashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : connection.getHeaderFields().entrySet()) {</b>
+<b class="nc">&nbsp;            StringBuilder builder = new StringBuilder();</b>
+<b class="nc">&nbsp;            for (String value : entry.getValue()) {</b>
+<b class="nc">&nbsp;                builder.append(value);</b>
+<b class="nc">&nbsp;                builder.append(&quot;, &quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            builder.setLength(builder.length() - 2);</b>
+&nbsp;
+<b class="nc">&nbsp;            if (&quot;Content-Type&quot;.equalsIgnoreCase(entry.getKey())) {</b>
+<b class="nc">&nbsp;                String[] contentTypeParts = builder.toString().split(&quot;;&quot;);</b>
+<b class="nc">&nbsp;                mimeType = contentTypeParts[0].trim();</b>
+<b class="nc">&nbsp;                if (contentTypeParts.length &gt; 1) {</b>
+<b class="nc">&nbsp;                    String[] encodingParts = contentTypeParts[1].split(&quot;=&quot;);</b>
+<b class="nc">&nbsp;                    if (encodingParts.length &gt; 1) {</b>
+<b class="nc">&nbsp;                        encoding = encodingParts[1].trim();</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            } else {
+<b class="nc">&nbsp;                responseHeaders.put(entry.getKey(), builder.toString());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        InputStream inputStream = connection.getErrorStream();</b>
+<b class="nc">&nbsp;        if (inputStream == null) {</b>
+<b class="nc">&nbsp;            inputStream = connection.getInputStream();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (null == mimeType) {</b>
+<b class="nc">&nbsp;            mimeType = getMimeType(request.getUrl().getPath(), inputStream);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int responseCode = connection.getResponseCode();</b>
+<b class="nc">&nbsp;        String reasonPhrase = getReasonPhraseFromResponseCode(responseCode);</b>
+&nbsp;
+<b class="nc">&nbsp;        return new WebResourceResponse(mimeType, encoding, responseCode, reasonPhrase, responseHeaders, inputStream);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private WebResourceResponse handleLocalRequest(WebResourceRequest request, PathHandler handler) {
+<b class="nc">&nbsp;        String path = request.getUrl().getPath();</b>
+&nbsp;
+<b class="nc">&nbsp;        Map&lt;String, String&gt; requestHeaders = request.getRequestHeaders();</b>
+<b class="nc">&nbsp;        String rangeString = requestHeaders.get(&quot;Range&quot;) != null ? requestHeaders.get(&quot;Range&quot;) : requestHeaders.get(&quot;range&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (rangeString != null) {</b>
+<b class="nc">&nbsp;            InputStream responseStream = new LollipopLazyInputStream(handler, request);</b>
+<b class="nc">&nbsp;            String mimeType = getMimeType(path, responseStream);</b>
+<b class="nc">&nbsp;            Map&lt;String, String&gt; tempResponseHeaders = handler.buildDefaultResponseHeaders();</b>
+<b class="nc">&nbsp;            int statusCode = 206;</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                int totalRange = responseStream.available();</b>
+<b class="nc">&nbsp;                String[] parts = rangeString.split(&quot;=&quot;);</b>
+<b class="nc">&nbsp;                String[] streamParts = parts[1].split(&quot;-&quot;);</b>
+<b class="nc">&nbsp;                String fromRange = streamParts[0];</b>
+<b class="nc">&nbsp;                int range = totalRange - 1;</b>
+<b class="nc">&nbsp;                if (streamParts.length &gt; 1) {</b>
+<b class="nc">&nbsp;                    range = Integer.parseInt(streamParts[1]);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                tempResponseHeaders.put(&quot;Accept-Ranges&quot;, &quot;bytes&quot;);</b>
+<b class="nc">&nbsp;                tempResponseHeaders.put(&quot;Content-Range&quot;, &quot;bytes &quot; + fromRange + &quot;-&quot; + range + &quot;/&quot; + totalRange);</b>
+&nbsp;            } catch (IOException e) {
+<b class="nc">&nbsp;                statusCode = 404;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return new WebResourceResponse(</b>
+&nbsp;                mimeType,
+<b class="nc">&nbsp;                handler.getEncoding(),</b>
+&nbsp;                statusCode,
+<b class="nc">&nbsp;                handler.getReasonPhrase(),</b>
+&nbsp;                tempResponseHeaders,
+&nbsp;                responseStream
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (isLocalFile(request.getUrl()) || isErrorUrl(request.getUrl())) {</b>
+<b class="nc">&nbsp;            InputStream responseStream = new LollipopLazyInputStream(handler, request);</b>
+<b class="nc">&nbsp;            String mimeType = getMimeType(request.getUrl().getPath(), responseStream);</b>
+<b class="nc">&nbsp;            int statusCode = getStatusCode(responseStream, handler.getStatusCode());</b>
+<b class="nc">&nbsp;            return new WebResourceResponse(</b>
+&nbsp;                mimeType,
+<b class="nc">&nbsp;                handler.getEncoding(),</b>
+&nbsp;                statusCode,
+<b class="nc">&nbsp;                handler.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                handler.buildDefaultResponseHeaders(),</b>
+&nbsp;                responseStream
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (path.equals(&quot;/cordova.js&quot;)) {</b>
+<b class="nc">&nbsp;            return new WebResourceResponse(</b>
+&nbsp;                &quot;application/javascript&quot;,
+<b class="nc">&nbsp;                handler.getEncoding(),</b>
+<b class="nc">&nbsp;                handler.getStatusCode(),</b>
+<b class="nc">&nbsp;                handler.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                handler.buildDefaultResponseHeaders(),</b>
+&nbsp;                null
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (path.equals(&quot;/&quot;) || (!request.getUrl().getLastPathSegment().contains(&quot;.&quot;) &amp;&amp; html5mode)) {</b>
+&nbsp;            InputStream responseStream;
+&nbsp;            try {
+<b class="nc">&nbsp;                String startPath = this.basePath + &quot;/index.html&quot;;</b>
+<b class="nc">&nbsp;                if (bridge.getRouteProcessor() != null) {</b>
+<b class="nc">&nbsp;                    ProcessedRoute processedRoute = bridge.getRouteProcessor().process(this.basePath, &quot;/index.html&quot;);</b>
+<b class="nc">&nbsp;                    startPath = processedRoute.getPath();</b>
+<b class="nc">&nbsp;                    isAsset = processedRoute.isAsset();</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (isAsset) {</b>
+<b class="nc">&nbsp;                    responseStream = protocolHandler.openAsset(startPath);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    responseStream = protocolHandler.openFile(startPath);</b>
+&nbsp;                }
+&nbsp;            } catch (IOException e) {
+<b class="nc">&nbsp;                Logger.error(&quot;Unable to open index.html&quot;, e);</b>
+<b class="nc">&nbsp;                return null;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (jsInjector != null) {</b>
+<b class="nc">&nbsp;                responseStream = jsInjector.getInjectedStream(responseStream);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            int statusCode = getStatusCode(responseStream, handler.getStatusCode());</b>
+<b class="nc">&nbsp;            return new WebResourceResponse(</b>
+&nbsp;                &quot;text/html&quot;,
+<b class="nc">&nbsp;                handler.getEncoding(),</b>
+&nbsp;                statusCode,
+<b class="nc">&nbsp;                handler.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                handler.buildDefaultResponseHeaders(),</b>
+&nbsp;                responseStream
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (&quot;/favicon.ico&quot;.equalsIgnoreCase(path)) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                return new WebResourceResponse(&quot;image/png&quot;, null, null);</b>
+&nbsp;            } catch (Exception e) {
+<b class="nc">&nbsp;                Logger.error(&quot;favicon handling failed&quot;, e);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int periodIndex = path.lastIndexOf(&quot;.&quot;);</b>
+<b class="nc">&nbsp;        if (periodIndex &gt;= 0) {</b>
+<b class="nc">&nbsp;            String ext = path.substring(path.lastIndexOf(&quot;.&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;            InputStream responseStream = new LollipopLazyInputStream(handler, request);</b>
+&nbsp;
+&nbsp;            // TODO: Conjure up a bit more subtlety than this
+<b class="nc">&nbsp;            if (ext.equals(&quot;.html&quot;) &amp;&amp; jsInjector != null) {</b>
+<b class="nc">&nbsp;                responseStream = jsInjector.getInjectedStream(responseStream);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            String mimeType = getMimeType(path, responseStream);</b>
+<b class="nc">&nbsp;            int statusCode = getStatusCode(responseStream, handler.getStatusCode());</b>
+<b class="nc">&nbsp;            return new WebResourceResponse(</b>
+&nbsp;                mimeType,
+<b class="nc">&nbsp;                handler.getEncoding(),</b>
+&nbsp;                statusCode,
+<b class="nc">&nbsp;                handler.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                handler.buildDefaultResponseHeaders(),</b>
+&nbsp;                responseStream
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prepends an {@code InputStream} with the JavaScript required by Capacitor.
+&nbsp;     * This method only changes the original {@code InputStream} if {@code WebView} does not
+&nbsp;     * support the {@code DOCUMENT_START_SCRIPT} feature.
+&nbsp;     * @param original the original {@code InputStream}
+&nbsp;     * @return the modified {@code InputStream}
+&nbsp;     */
+&nbsp;    public InputStream getJavaScriptInjectedStream(InputStream original) {
+<b class="nc">&nbsp;        if (jsInjector != null) {</b>
+<b class="nc">&nbsp;            return jsInjector.getInjectedStream(original);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return original;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instead of reading files from the filesystem/assets, proxy through to the URL
+&nbsp;     * and let an external server handle it.
+&nbsp;     * @param request
+&nbsp;     * @param handler
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    private WebResourceResponse handleProxyRequest(WebResourceRequest request, PathHandler handler) {
+<b class="nc">&nbsp;        if (jsInjector != null) {</b>
+<b class="nc">&nbsp;            final String method = request.getMethod();</b>
+<b class="nc">&nbsp;            if (method.equals(&quot;GET&quot;)) {</b>
+&nbsp;                try {
+<b class="nc">&nbsp;                    String url = request.getUrl().toString();</b>
+<b class="nc">&nbsp;                    Map&lt;String, String&gt; headers = request.getRequestHeaders();</b>
+<b class="nc">&nbsp;                    boolean isHtmlText = false;</b>
+<b class="nc">&nbsp;                    for (Map.Entry&lt;String, String&gt; header : headers.entrySet()) {</b>
+<b class="nc">&nbsp;                        if (header.getKey().equalsIgnoreCase(&quot;Accept&quot;) &amp;&amp; header.getValue().toLowerCase().contains(&quot;text/html&quot;)) {</b>
+<b class="nc">&nbsp;                            isHtmlText = true;</b>
+&nbsp;                            break;
+&nbsp;                        }
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (isHtmlText) {</b>
+<b class="nc">&nbsp;                        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();</b>
+<b class="nc">&nbsp;                        for (Map.Entry&lt;String, String&gt; header : headers.entrySet()) {</b>
+<b class="nc">&nbsp;                            conn.setRequestProperty(header.getKey(), header.getValue());</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        String getCookie = CookieManager.getInstance().getCookie(url);</b>
+<b class="nc">&nbsp;                        if (getCookie != null) {</b>
+<b class="nc">&nbsp;                            conn.setRequestProperty(&quot;Cookie&quot;, getCookie);</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        conn.setRequestMethod(method);</b>
+<b class="nc">&nbsp;                        conn.setReadTimeout(30 * 1000);</b>
+<b class="nc">&nbsp;                        conn.setConnectTimeout(30 * 1000);</b>
+<b class="nc">&nbsp;                        if (request.getUrl().getUserInfo() != null) {</b>
+<b class="nc">&nbsp;                            byte[] userInfoBytes = request.getUrl().getUserInfo().getBytes(StandardCharsets.UTF_8);</b>
+<b class="nc">&nbsp;                            String base64 = Base64.encodeToString(userInfoBytes, Base64.NO_WRAP);</b>
+<b class="nc">&nbsp;                            conn.setRequestProperty(&quot;Authorization&quot;, &quot;Basic &quot; + base64);</b>
+&nbsp;                        }
+&nbsp;
+<b class="nc">&nbsp;                        List&lt;String&gt; cookies = conn.getHeaderFields().get(&quot;Set-Cookie&quot;);</b>
+<b class="nc">&nbsp;                        if (cookies != null) {</b>
+<b class="nc">&nbsp;                            for (String cookie : cookies) {</b>
+<b class="nc">&nbsp;                                CookieManager.getInstance().setCookie(url, cookie);</b>
+&nbsp;                            }
+&nbsp;                        }
+<b class="nc">&nbsp;                        InputStream responseStream = conn.getInputStream();</b>
+<b class="nc">&nbsp;                        responseStream = jsInjector.getInjectedStream(responseStream);</b>
+&nbsp;
+<b class="nc">&nbsp;                        return new WebResourceResponse(</b>
+&nbsp;                            &quot;text/html&quot;,
+<b class="nc">&nbsp;                            handler.getEncoding(),</b>
+<b class="nc">&nbsp;                            handler.getStatusCode(),</b>
+<b class="nc">&nbsp;                            handler.getReasonPhrase(),</b>
+<b class="nc">&nbsp;                            handler.buildDefaultResponseHeaders(),</b>
+&nbsp;                            responseStream
+&nbsp;                        );
+&nbsp;                    }
+&nbsp;                } catch (Exception ex) {
+<b class="nc">&nbsp;                    bridge.handleAppUrlLoadError(ex);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getMimeType(String path, InputStream stream) {
+<b class="nc">&nbsp;        String mimeType = null;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            mimeType = URLConnection.guessContentTypeFromName(path); // Does not recognize *.js</b>
+<b class="nc">&nbsp;            if (mimeType != null &amp;&amp; path.endsWith(&quot;.js&quot;) &amp;&amp; mimeType.equals(&quot;image/x-icon&quot;)) {</b>
+<b class="nc">&nbsp;                Logger.debug(&quot;We shouldn&#39;t be here&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (mimeType == null) {</b>
+<b class="nc">&nbsp;                if (path.endsWith(&quot;.js&quot;) || path.endsWith(&quot;.mjs&quot;)) {</b>
+&nbsp;                    // Make sure JS files get the proper mimetype to support ES modules
+<b class="nc">&nbsp;                    mimeType = &quot;application/javascript&quot;;</b>
+<b class="nc">&nbsp;                } else if (path.endsWith(&quot;.wasm&quot;)) {</b>
+<b class="nc">&nbsp;                    mimeType = &quot;application/wasm&quot;;</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    mimeType = URLConnection.guessContentTypeFromStream(stream);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to get mime type&quot; + path, ex);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return mimeType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int getStatusCode(InputStream stream, int defaultCode) {
+<b class="nc">&nbsp;        int finalStatusCode = defaultCode;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            if (stream.available() == -1) {</b>
+<b class="nc">&nbsp;                finalStatusCode = 404;</b>
+&nbsp;            }
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            finalStatusCode = 500;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return finalStatusCode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Registers a handler for the given &lt;code&gt;uri&lt;/code&gt;. The &lt;code&gt;handler&lt;/code&gt; will be invoked
+&nbsp;     * every time the &lt;code&gt;shouldInterceptRequest&lt;/code&gt; method of the instance is called with
+&nbsp;     * a matching &lt;code&gt;uri&lt;/code&gt;.
+&nbsp;     *
+&nbsp;     * @param uri     the uri to use the handler for. The scheme and authority (domain) will be matched
+&nbsp;     *                exactly. The path may contain a &#39;*&#39; element which will match a single element of
+&nbsp;     *                a path (so a handler registered for /a/* will be invoked for /a/b and /a/c.html
+&nbsp;     *                but not for /a/b/b) or the &#39;**&#39; element which will match any number of path
+&nbsp;     *                elements.
+&nbsp;     * @param handler the handler to use for the uri.
+&nbsp;     */
+&nbsp;    void register(Uri uri, PathHandler handler) {
+<b class="nc">&nbsp;        synchronized (uriMatcher) {</b>
+<b class="nc">&nbsp;            uriMatcher.addURI(uri.getScheme(), uri.getAuthority(), uri.getPath(), handler);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Hosts the application&#39;s assets on an https:// URL. Assets from the local path
+&nbsp;     * &lt;code&gt;assetPath/...&lt;/code&gt; will be available under
+&nbsp;     * &lt;code&gt;https://{uuid}.androidplatform.net/assets/...&lt;/code&gt;.
+&nbsp;     *
+&nbsp;     * @param assetPath the local path in the application&#39;s asset folder which will be made
+&nbsp;     *                  available by the server (for example &quot;/www&quot;).
+&nbsp;     * @return prefixes under which the assets are hosted.
+&nbsp;     */
+&nbsp;    public void hostAssets(String assetPath) {
+<b class="nc">&nbsp;        this.isAsset = true;</b>
+<b class="nc">&nbsp;        this.basePath = assetPath;</b>
+<b class="nc">&nbsp;        createHostingDetails();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Hosts the application&#39;s files on an https:// URL. Files from the basePath
+&nbsp;     * &lt;code&gt;basePath/...&lt;/code&gt; will be available under
+&nbsp;     * &lt;code&gt;https://{uuid}.androidplatform.net/...&lt;/code&gt;.
+&nbsp;     *
+&nbsp;     * @param basePath the local path in the application&#39;s data folder which will be made
+&nbsp;     *                  available by the server (for example &quot;/www&quot;).
+&nbsp;     * @return prefixes under which the assets are hosted.
+&nbsp;     */
+&nbsp;    public void hostFiles(final String basePath) {
+<b class="nc">&nbsp;        this.isAsset = false;</b>
+<b class="nc">&nbsp;        this.basePath = basePath;</b>
+<b class="nc">&nbsp;        createHostingDetails();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void createHostingDetails() {
+<b class="nc">&nbsp;        final String assetPath = this.basePath;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (assetPath.indexOf(&#39;*&#39;) != -1) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;assetPath cannot contain the &#39;*&#39; character.&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        PathHandler handler = new PathHandler() {</b>
+&nbsp;            @Override
+&nbsp;            public InputStream handle(Uri url) {
+<b class="nc">&nbsp;                InputStream stream = null;</b>
+<b class="nc">&nbsp;                String path = url.getPath();</b>
+&nbsp;
+&nbsp;                // Pass path to routeProcessor if present
+<b class="nc">&nbsp;                RouteProcessor routeProcessor = bridge.getRouteProcessor();</b>
+<b class="nc">&nbsp;                boolean ignoreAssetPath = false;</b>
+<b class="nc">&nbsp;                if (routeProcessor != null) {</b>
+<b class="nc">&nbsp;                    ProcessedRoute processedRoute = bridge.getRouteProcessor().process(&quot;&quot;, path);</b>
+<b class="nc">&nbsp;                    path = processedRoute.getPath();</b>
+<b class="nc">&nbsp;                    isAsset = processedRoute.isAsset();</b>
+<b class="nc">&nbsp;                    ignoreAssetPath = processedRoute.isIgnoreAssetPath();</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                try {
+<b class="nc">&nbsp;                    if (path.startsWith(capacitorContentStart)) {</b>
+<b class="nc">&nbsp;                        stream = protocolHandler.openContentUrl(url);</b>
+<b class="nc">&nbsp;                    } else if (path.startsWith(capacitorFileStart)) {</b>
+<b class="nc">&nbsp;                        stream = protocolHandler.openFile(path);</b>
+<b class="nc">&nbsp;                    } else if (!isAsset) {</b>
+<b class="nc">&nbsp;                        if (routeProcessor == null) {</b>
+<b class="nc">&nbsp;                            path = basePath + url.getPath();</b>
+&nbsp;                        }
+&nbsp;
+<b class="nc">&nbsp;                        stream = protocolHandler.openFile(path);</b>
+<b class="nc">&nbsp;                    } else if (ignoreAssetPath) {</b>
+<b class="nc">&nbsp;                        stream = protocolHandler.openAsset(path);</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        stream = protocolHandler.openAsset(assetPath + path);</b>
+&nbsp;                    }
+&nbsp;                } catch (IOException e) {
+<b class="nc">&nbsp;                    Logger.error(&quot;Unable to open asset URL: &quot; + url);</b>
+<b class="nc">&nbsp;                    return null;</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                return stream;</b>
+&nbsp;            }
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        for (String authority : authorities) {</b>
+<b class="nc">&nbsp;            registerUriForScheme(Bridge.CAPACITOR_HTTP_SCHEME, handler, authority);</b>
+<b class="nc">&nbsp;            registerUriForScheme(Bridge.CAPACITOR_HTTPS_SCHEME, handler, authority);</b>
+&nbsp;
+<b class="nc">&nbsp;            String customScheme = this.bridge.getScheme();</b>
+<b class="nc">&nbsp;            if (!customScheme.equals(Bridge.CAPACITOR_HTTP_SCHEME) &amp;&amp; !customScheme.equals(Bridge.CAPACITOR_HTTPS_SCHEME)) {</b>
+<b class="nc">&nbsp;                registerUriForScheme(customScheme, handler, authority);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void registerUriForScheme(String scheme, PathHandler handler, String authority) {
+<b class="nc">&nbsp;        Uri.Builder uriBuilder = new Uri.Builder();</b>
+<b class="nc">&nbsp;        uriBuilder.scheme(scheme);</b>
+<b class="nc">&nbsp;        uriBuilder.authority(authority);</b>
+<b class="nc">&nbsp;        uriBuilder.path(&quot;&quot;);</b>
+<b class="nc">&nbsp;        Uri uriPrefix = uriBuilder.build();</b>
+&nbsp;
+<b class="nc">&nbsp;        register(Uri.withAppendedPath(uriPrefix, &quot;/&quot;), handler);</b>
+<b class="nc">&nbsp;        register(Uri.withAppendedPath(uriPrefix, &quot;**&quot;), handler);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The KitKat WebView reads the InputStream on a separate threadpool. We can use that to
+&nbsp;     * parallelize loading.
+&nbsp;     */
+&nbsp;    private abstract static class LazyInputStream extends InputStream {
+&nbsp;
+&nbsp;        protected final PathHandler handler;
+<b class="nc">&nbsp;        private InputStream is = null;</b>
+&nbsp;
+<b class="nc">&nbsp;        public LazyInputStream(PathHandler handler) {</b>
+<b class="nc">&nbsp;            this.handler = handler;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        private InputStream getInputStream() {
+<b class="nc">&nbsp;            if (is == null) {</b>
+<b class="nc">&nbsp;                is = handle();</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return is;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        protected abstract InputStream handle();
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public int available() throws IOException {
+<b class="nc">&nbsp;            InputStream is = getInputStream();</b>
+<b class="nc">&nbsp;            return (is != null) ? is.available() : -1;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public int read() throws IOException {
+<b class="nc">&nbsp;            InputStream is = getInputStream();</b>
+<b class="nc">&nbsp;            return (is != null) ? is.read() : -1;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public int read(byte[] b) throws IOException {
+<b class="nc">&nbsp;            InputStream is = getInputStream();</b>
+<b class="nc">&nbsp;            return (is != null) ? is.read(b) : -1;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public int read(byte[] b, int off, int len) throws IOException {
+<b class="nc">&nbsp;            InputStream is = getInputStream();</b>
+<b class="nc">&nbsp;            return (is != null) ? is.read(b, off, len) : -1;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public long skip(long n) throws IOException {
+<b class="nc">&nbsp;            InputStream is = getInputStream();</b>
+<b class="nc">&nbsp;            return (is != null) ? is.skip(n) : 0;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // For L and above.
+&nbsp;    private static class LollipopLazyInputStream extends LazyInputStream {
+&nbsp;
+&nbsp;        private WebResourceRequest request;
+&nbsp;        private InputStream is;
+&nbsp;
+&nbsp;        public LollipopLazyInputStream(PathHandler handler, WebResourceRequest request) {
+<b class="nc">&nbsp;            super(handler);</b>
+<b class="nc">&nbsp;            this.request = request;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        protected InputStream handle() {
+<b class="nc">&nbsp;            return handler.handle(request);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getBasePath() {
+<b class="nc">&nbsp;        return this.basePath;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

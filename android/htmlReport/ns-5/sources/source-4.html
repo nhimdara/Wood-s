@@ -1,0 +1,230 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PermissionHelper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.util</a>
+</div>
+
+<h1>Coverage Summary for Class: PermissionHelper (com.getcapacitor.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PermissionHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.util;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.pm.PackageInfo;
+&nbsp;import android.content.pm.PackageManager;
+&nbsp;import androidx.core.app.ActivityCompat;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * A helper class for checking permissions.
+&nbsp; *
+&nbsp; * @since 3.0.0
+&nbsp; */
+<b class="nc">&nbsp;public class PermissionHelper {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if a list of given permissions are all granted by the user
+&nbsp;     *
+&nbsp;     * @since 3.0.0
+&nbsp;     * @param permissions Permissions to check.
+&nbsp;     * @return True if all permissions are granted, false if at least one is not.
+&nbsp;     */
+&nbsp;    public static boolean hasPermissions(Context context, String[] permissions) {
+<b class="nc">&nbsp;        for (String perm : permissions) {</b>
+<b class="nc">&nbsp;            if (ActivityCompat.checkSelfPermission(context, perm) != PackageManager.PERMISSION_GRANTED) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check whether the given permission has been defined in the AndroidManifest.xml
+&nbsp;     *
+&nbsp;     * @since 3.0.0
+&nbsp;     * @param permission A permission to check.
+&nbsp;     * @return True if the permission has been defined in the Manifest, false if not.
+&nbsp;     */
+&nbsp;    public static boolean hasDefinedPermission(Context context, String permission) {
+<b class="nc">&nbsp;        boolean hasPermission = false;</b>
+<b class="nc">&nbsp;        String[] requestedPermissions = PermissionHelper.getManifestPermissions(context);</b>
+<b class="nc">&nbsp;        if (requestedPermissions != null &amp;&amp; requestedPermissions.length &gt; 0) {</b>
+<b class="nc">&nbsp;            List&lt;String&gt; requestedPermissionsList = Arrays.asList(requestedPermissions);</b>
+<b class="nc">&nbsp;            ArrayList&lt;String&gt; requestedPermissionsArrayList = new ArrayList&lt;&gt;(requestedPermissionsList);</b>
+<b class="nc">&nbsp;            if (requestedPermissionsArrayList.contains(permission)) {</b>
+<b class="nc">&nbsp;                hasPermission = true;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return hasPermission;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check whether all of the given permissions have been defined in the AndroidManifest.xml
+&nbsp;     * @param context the app context
+&nbsp;     * @param permissions a list of permissions
+&nbsp;     * @return true only if all permissions are defined in the AndroidManifest.xml
+&nbsp;     */
+&nbsp;    public static boolean hasDefinedPermissions(Context context, String[] permissions) {
+<b class="nc">&nbsp;        for (String permission : permissions) {</b>
+<b class="nc">&nbsp;            if (!PermissionHelper.hasDefinedPermission(context, permission)) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the permissions defined in AndroidManifest.xml
+&nbsp;     *
+&nbsp;     * @since 3.0.0
+&nbsp;     * @return The permissions defined in AndroidManifest.xml
+&nbsp;     */
+&nbsp;    public static String[] getManifestPermissions(Context context) {
+<b class="nc">&nbsp;        String[] requestedPermissions = null;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            PackageManager pm = context.getPackageManager();</b>
+<b class="nc">&nbsp;            PackageInfo packageInfo = InternalUtils.getPackageInfo(pm, context.getPackageName(), PackageManager.GET_PERMISSIONS);</b>
+&nbsp;
+<b class="nc">&nbsp;            if (packageInfo != null) {</b>
+<b class="nc">&nbsp;                requestedPermissions = packageInfo.requestedPermissions;</b>
+&nbsp;            }
+&nbsp;        } catch (Exception ex) {}
+<b class="nc">&nbsp;        return requestedPermissions;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Given a list of permissions, return a new list with the ones not present in AndroidManifest.xml
+&nbsp;     *
+&nbsp;     * @since 3.0.0
+&nbsp;     * @param neededPermissions The permissions needed.
+&nbsp;     * @return The permissions not present in AndroidManifest.xml
+&nbsp;     */
+&nbsp;    public static String[] getUndefinedPermissions(Context context, String[] neededPermissions) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; undefinedPermissions = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        String[] requestedPermissions = getManifestPermissions(context);</b>
+<b class="nc">&nbsp;        if (requestedPermissions != null &amp;&amp; requestedPermissions.length &gt; 0) {</b>
+<b class="nc">&nbsp;            List&lt;String&gt; requestedPermissionsList = Arrays.asList(requestedPermissions);</b>
+<b class="nc">&nbsp;            ArrayList&lt;String&gt; requestedPermissionsArrayList = new ArrayList&lt;&gt;(requestedPermissionsList);</b>
+<b class="nc">&nbsp;            for (String permission : neededPermissions) {</b>
+<b class="nc">&nbsp;                if (!requestedPermissionsArrayList.contains(permission)) {</b>
+<b class="nc">&nbsp;                    undefinedPermissions.add(permission);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            String[] undefinedPermissionArray = new String[undefinedPermissions.size()];</b>
+<b class="nc">&nbsp;            undefinedPermissionArray = undefinedPermissions.toArray(undefinedPermissionArray);</b>
+&nbsp;
+<b class="nc">&nbsp;            return undefinedPermissionArray;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return neededPermissions;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

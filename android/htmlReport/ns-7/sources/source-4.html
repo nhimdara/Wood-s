@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CapacitorPlugin</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.annotation</a>
+</div>
+
+<h1>Coverage Summary for Class: CapacitorPlugin (com.getcapacitor.annotation)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CapacitorPlugin</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.annotation;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import com.getcapacitor.PluginCall;
+&nbsp;import java.lang.annotation.Retention;
+&nbsp;import java.lang.annotation.RetentionPolicy;
+&nbsp;
+&nbsp;/**
+&nbsp; * Base annotation for all Plugins
+&nbsp; */
+&nbsp;@Retention(RetentionPolicy.RUNTIME)
+&nbsp;public @interface CapacitorPlugin {
+&nbsp;    /**
+&nbsp;     * A custom name for the plugin, otherwise uses the
+&nbsp;     * simple class name.
+&nbsp;     */
+&nbsp;    String name() default &quot;&quot;;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Request codes this plugin uses and responds to, in order to tie
+&nbsp;     * Android events back the plugin to handle.
+&nbsp;     *
+&nbsp;     * NOTE: This is a legacy option provided to support third party libraries
+&nbsp;     * not currently implementing the new AndroidX Activity Results API. Plugins
+&nbsp;     * without this limitation should use a registered callback with
+&nbsp;     * {@link com.getcapacitor.Plugin#startActivityForResult(PluginCall, Intent, String)}
+&nbsp;     */
+&nbsp;    int[] requestCodes() default {};
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Permissions this plugin needs, in order to make permission requests
+&nbsp;     * easy if the plugin only needs basic permission prompting
+&nbsp;     */
+&nbsp;    Permission[] permissions() default {};
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

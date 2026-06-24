@@ -1,0 +1,334 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BridgeActivity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: BridgeActivity (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BridgeActivity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/69)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.content.Intent;
+&nbsp;import android.content.res.Configuration;
+&nbsp;import android.os.Bundle;
+&nbsp;import androidx.appcompat.app.AppCompatActivity;
+&nbsp;import com.getcapacitor.android.R;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class BridgeActivity extends AppCompatActivity {</b>
+&nbsp;
+&nbsp;    protected Bridge bridge;
+<b class="nc">&nbsp;    protected boolean keepRunning = true;</b>
+&nbsp;    protected CapConfig config;
+&nbsp;
+<b class="nc">&nbsp;    protected int activityDepth = 0;</b>
+<b class="nc">&nbsp;    protected List&lt;Class&lt;? extends Plugin&gt;&gt; initialPlugins = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    protected final Bridge.Builder bridgeBuilder = new Bridge.Builder(this);</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc">&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc">&nbsp;        bridgeBuilder.setInstanceState(savedInstanceState);</b>
+<b class="nc">&nbsp;        getApplication().setTheme(R.style.AppTheme_NoActionBar);</b>
+<b class="nc">&nbsp;        setTheme(R.style.AppTheme_NoActionBar);</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            setContentView(R.layout.capacitor_bridge_layout_main);</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            setContentView(R.layout.no_webview);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        PluginManager loader = new PluginManager(getAssets());</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            bridgeBuilder.addPlugins(loader.loadPluginClasses());</b>
+&nbsp;        } catch (PluginLoadException ex) {
+<b class="nc">&nbsp;            Logger.error(&quot;Error loading plugins.&quot;, ex);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        this.load();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected void load() {
+<b class="nc">&nbsp;        Logger.debug(&quot;Starting BridgeActivity&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        bridge = bridgeBuilder.addPlugins(initialPlugins).setConfig(config).create();</b>
+&nbsp;
+<b class="nc">&nbsp;        this.keepRunning = bridge.shouldKeepRunning();</b>
+<b class="nc">&nbsp;        this.onNewIntent(getIntent());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void registerPlugin(Class&lt;? extends Plugin&gt; plugin) {
+<b class="nc">&nbsp;        bridgeBuilder.addPlugin(plugin);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void registerPlugins(List&lt;Class&lt;? extends Plugin&gt;&gt; plugins) {
+<b class="nc">&nbsp;        bridgeBuilder.addPlugins(plugins);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Bridge getBridge() {
+<b class="nc">&nbsp;        return this.bridge;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onSaveInstanceState(Bundle outState) {
+<b class="nc">&nbsp;        super.onSaveInstanceState(outState);</b>
+<b class="nc">&nbsp;        if (bridge != null) {</b>
+<b class="nc">&nbsp;            bridge.saveInstanceState(outState);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onStart() {
+<b class="nc">&nbsp;        super.onStart();</b>
+<b class="nc">&nbsp;        activityDepth++;</b>
+<b class="nc">&nbsp;        if (this.bridge != null) {</b>
+<b class="nc">&nbsp;            this.bridge.onStart();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App started&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onRestart() {
+<b class="nc">&nbsp;        super.onRestart();</b>
+<b class="nc">&nbsp;        if (this.bridge != null) {</b>
+<b class="nc">&nbsp;            this.bridge.onRestart();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App restarted&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onResume() {
+<b class="nc">&nbsp;        super.onResume();</b>
+<b class="nc">&nbsp;        if (bridge != null) {</b>
+<b class="nc">&nbsp;            bridge.getApp().fireStatusChange(true);</b>
+<b class="nc">&nbsp;            this.bridge.onResume();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App resumed&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onPause() {
+<b class="nc">&nbsp;        super.onPause();</b>
+<b class="nc">&nbsp;        if (bridge != null) {</b>
+<b class="nc">&nbsp;            this.bridge.onPause();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App paused&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onStop() {
+<b class="nc">&nbsp;        super.onStop();</b>
+<b class="nc">&nbsp;        if (bridge != null) {</b>
+<b class="nc">&nbsp;            activityDepth = Math.max(0, activityDepth - 1);</b>
+<b class="nc">&nbsp;            if (activityDepth == 0) {</b>
+<b class="nc">&nbsp;                bridge.getApp().fireStatusChange(false);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            this.bridge.onStop();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App stopped&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onDestroy() {
+<b class="nc">&nbsp;        super.onDestroy();</b>
+<b class="nc">&nbsp;        if (this.bridge != null) {</b>
+<b class="nc">&nbsp;            this.bridge.onDestroy();</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;App destroyed&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onDetachedFromWindow() {
+<b class="nc">&nbsp;        super.onDetachedFromWindow();</b>
+<b class="nc">&nbsp;        if (this.bridge != null) {</b>
+<b class="nc">&nbsp;            this.bridge.onDetachedFromWindow();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handles permission request results.
+&nbsp;     *
+&nbsp;     * Capacitor is backwards compatible such that plugins using legacy permission request codes
+&nbsp;     * may coexist with plugins using the AndroidX Activity v1.2 permission callback flow introduced
+&nbsp;     * in Capacitor 3.0.
+&nbsp;     *
+&nbsp;     * In this method, plugins are checked first for ownership of the legacy permission request code.
+&nbsp;     * If the {@link Bridge#onRequestPermissionsResult(int, String[], int[])} method indicates it has
+&nbsp;     * handled the permission, then the permission callback will be considered complete. Otherwise,
+&nbsp;     * the permission will be handled using the AndroidX Activity flow.
+&nbsp;     *
+&nbsp;     * @param requestCode the request code associated with the permission request
+&nbsp;     * @param permissions the Android permission strings requested
+&nbsp;     * @param grantResults the status result of the permission request
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+<b class="nc">&nbsp;        if (this.bridge == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (!bridge.onRequestPermissionsResult(requestCode, permissions, grantResults)) {</b>
+<b class="nc">&nbsp;            super.onRequestPermissionsResult(requestCode, permissions, grantResults);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handles activity results.
+&nbsp;     *
+&nbsp;     * Capacitor is backwards compatible such that plugins using legacy activity result codes
+&nbsp;     * may coexist with plugins using the AndroidX Activity v1.2 activity callback flow introduced
+&nbsp;     * in Capacitor 3.0.
+&nbsp;     *
+&nbsp;     * In this method, plugins are checked first for ownership of the legacy request code. If the
+&nbsp;     * {@link Bridge#onActivityResult(int, int, Intent)} method indicates it has handled the activity
+&nbsp;     * result, then the callback will be considered complete. Otherwise, the result will be handled
+&nbsp;     * using the AndroidX Activiy flow.
+&nbsp;     *
+&nbsp;     * @param requestCode the request code associated with the activity result
+&nbsp;     * @param resultCode the result code
+&nbsp;     * @param data any data included with the activity result
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+<b class="nc">&nbsp;        if (this.bridge == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (!bridge.onActivityResult(requestCode, resultCode, data)) {</b>
+<b class="nc">&nbsp;            super.onActivityResult(requestCode, resultCode, data);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void onNewIntent(Intent intent) {
+<b class="nc">&nbsp;        super.onNewIntent(intent);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (this.bridge == null || intent == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        this.bridge.onNewIntent(intent);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onConfigurationChanged(Configuration newConfig) {
+<b class="nc">&nbsp;        super.onConfigurationChanged(newConfig);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (this.bridge == null) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        this.bridge.onConfigurationChanged(newConfig);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

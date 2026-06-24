@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AndroidProtocolHandler</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: AndroidProtocolHandler (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AndroidProtocolHandler</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Copyright 2012 The Chromium Authors. All rights reserved.
+&nbsp;// Use of this source code is governed by a BSD-style license that can be
+&nbsp;// found in the LICENSE file.
+&nbsp;
+&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.res.AssetManager;
+&nbsp;import android.net.Uri;
+&nbsp;import android.util.TypedValue;
+&nbsp;import java.io.File;
+&nbsp;import java.io.FileInputStream;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class AndroidProtocolHandler {</b>
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;
+<b class="nc">&nbsp;    public AndroidProtocolHandler(Context context) {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public InputStream openAsset(String path) throws IOException {
+<b class="nc">&nbsp;        return context.getAssets().open(path, AssetManager.ACCESS_STREAMING);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public InputStream openResource(Uri uri) {
+<b class="nc">&nbsp;        assert uri.getPath() != null;</b>
+&nbsp;        // The path must be of the form &quot;.../asset_type/asset_name.ext&quot;.
+<b class="nc">&nbsp;        List&lt;String&gt; pathSegments = uri.getPathSegments();</b>
+<b class="nc">&nbsp;        String assetType = pathSegments.get(pathSegments.size() - 2);</b>
+<b class="nc">&nbsp;        String assetName = pathSegments.get(pathSegments.size() - 1);</b>
+&nbsp;
+&nbsp;        // Drop the file extension.
+<b class="nc">&nbsp;        assetName = assetName.split(&quot;\\.&quot;)[0];</b>
+&nbsp;        try {
+&nbsp;            // Use the application context for resolving the resource package name so that we do
+&nbsp;            // not use the browser&#39;s own resources. Note that if &#39;context&#39; here belongs to the
+&nbsp;            // test suite, it does not have a separate application context. In that case we use
+&nbsp;            // the original context object directly.
+<b class="nc">&nbsp;            if (context.getApplicationContext() != null) {</b>
+<b class="nc">&nbsp;                context = context.getApplicationContext();</b>
+&nbsp;            }
+<b class="nc">&nbsp;            int fieldId = getFieldId(context, assetType, assetName);</b>
+<b class="nc">&nbsp;            int valueType = getValueType(context, fieldId);</b>
+<b class="nc">&nbsp;            if (valueType == TypedValue.TYPE_STRING) {</b>
+<b class="nc">&nbsp;                return context.getResources().openRawResource(fieldId);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                Logger.error(&quot;Asset not of type string: &quot; + uri);</b>
+&nbsp;            }
+&nbsp;        } catch (ClassNotFoundException | IllegalAccessException | NoSuchFieldException e) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to open resource URL: &quot; + uri, e);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static int getFieldId(Context context, String assetType, String assetName)
+&nbsp;        throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+<b class="nc">&nbsp;        Class&lt;?&gt; d = context.getClassLoader().loadClass(context.getPackageName() + &quot;.R$&quot; + assetType);</b>
+<b class="nc">&nbsp;        java.lang.reflect.Field field = d.getField(assetName);</b>
+<b class="nc">&nbsp;        return field.getInt(null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public InputStream openFile(String filePath) throws IOException {
+<b class="nc">&nbsp;        String realPath = filePath.replace(Bridge.CAPACITOR_FILE_START, &quot;&quot;);</b>
+<b class="nc">&nbsp;        File localFile = new File(realPath);</b>
+<b class="nc">&nbsp;        return new FileInputStream(localFile);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public InputStream openContentUrl(Uri uri) throws IOException {
+<b class="nc">&nbsp;        Integer port = uri.getPort();</b>
+<b class="nc">&nbsp;        String baseUrl = uri.getScheme() + &quot;://&quot; + uri.getHost();</b>
+<b class="nc">&nbsp;        if (port != -1) {</b>
+<b class="nc">&nbsp;            baseUrl += &quot;:&quot; + port;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        String realPath = uri.toString().replace(baseUrl + Bridge.CAPACITOR_CONTENT_START, &quot;content:/&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        InputStream stream = null;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            stream = context.getContentResolver().openInputStream(Uri.parse(realPath));</b>
+&nbsp;        } catch (SecurityException e) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to open content URL: &quot; + uri, e);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return stream;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static int getValueType(Context context, int fieldId) {
+<b class="nc">&nbsp;        TypedValue value = new TypedValue();</b>
+<b class="nc">&nbsp;        context.getResources().getValue(fieldId, value, true);</b>
+<b class="nc">&nbsp;        return value.type;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

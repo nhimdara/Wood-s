@@ -1,0 +1,324 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > JSExport</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: JSExport (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JSExport</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/75)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import static com.getcapacitor.FileUtils.readFileFromAssets;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.text.TextUtils;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.List;
+&nbsp;import org.json.JSONArray;
+&nbsp;import org.json.JSONException;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+<b class="nc">&nbsp;public class JSExport {</b>
+&nbsp;
+<b class="nc">&nbsp;    private static String CATCHALL_OPTIONS_PARAM = &quot;_options&quot;;</b>
+<b class="nc">&nbsp;    private static String CALLBACK_PARAM = &quot;_callback&quot;;</b>
+&nbsp;
+&nbsp;    public static String getGlobalJS(Context context, boolean loggingEnabled, boolean isDebug) {
+<b class="nc">&nbsp;        return &quot;window.Capacitor = { DEBUG: &quot; + isDebug + &quot;, isLoggingEnabled: &quot; + loggingEnabled + &quot;, Plugins: {} };&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getMiscFileJS(ArrayList&lt;String&gt; paths, Context context) {
+<b class="nc">&nbsp;        List&lt;String&gt; lines = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (String path : paths) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                String fileContent = readFileFromAssets(context.getAssets(), &quot;public/&quot; + path);</b>
+<b class="nc">&nbsp;                lines.add(fileContent);</b>
+&nbsp;            } catch (IOException ex) {
+<b class="nc">&nbsp;                Logger.error(&quot;Unable to read public/&quot; + path);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return TextUtils.join(&quot;\n&quot;, lines);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getCordovaJS(Context context) {
+<b class="nc">&nbsp;        String fileContent = &quot;&quot;;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            fileContent = readFileFromAssets(context.getAssets(), &quot;public/cordova.js&quot;);</b>
+&nbsp;        } catch (IOException ex) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to read public/cordova.js file, Cordova plugins will not work&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return fileContent;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getCordovaPluginsFileJS(Context context) {
+<b class="nc">&nbsp;        String fileContent = &quot;&quot;;</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            fileContent = readFileFromAssets(context.getAssets(), &quot;public/cordova_plugins.js&quot;);</b>
+&nbsp;        } catch (IOException ex) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to read public/cordova_plugins.js file, Cordova plugins will not work&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return fileContent;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getPluginJS(Collection&lt;PluginHandle&gt; plugins) {
+<b class="nc">&nbsp;        List&lt;String&gt; lines = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        JSONArray pluginArray = new JSONArray();</b>
+&nbsp;
+<b class="nc">&nbsp;        lines.add(&quot;// Begin: Capacitor Plugin JS&quot;);</b>
+<b class="nc">&nbsp;        for (PluginHandle plugin : plugins) {</b>
+<b class="nc">&nbsp;            lines.add(</b>
+&nbsp;                &quot;(function(w) {\n&quot; +
+&nbsp;                    &quot;var a = (w.Capacitor = w.Capacitor || {});\n&quot; +
+&nbsp;                    &quot;var p = (a.Plugins = a.Plugins || {});\n&quot; +
+&nbsp;                    &quot;var t = (p[&#39;&quot; +
+<b class="nc">&nbsp;                    plugin.getId() +</b>
+&nbsp;                    &quot;&#39;] = {});\n&quot; +
+&nbsp;                    &quot;t.addListener = function(eventName, callback) {\n&quot; +
+&nbsp;                    &quot;  return w.Capacitor.addListener(&#39;&quot; +
+<b class="nc">&nbsp;                    plugin.getId() +</b>
+&nbsp;                    &quot;&#39;, eventName, callback);\n&quot; +
+&nbsp;                    &quot;}&quot;
+&nbsp;            );
+<b class="nc">&nbsp;            Collection&lt;PluginMethodHandle&gt; methods = plugin.getMethods();</b>
+<b class="nc">&nbsp;            for (PluginMethodHandle method : methods) {</b>
+<b class="nc">&nbsp;                if (method.getName().equals(&quot;addListener&quot;) || method.getName().equals(&quot;removeListener&quot;)) {</b>
+&nbsp;                    // Don&#39;t export add/remove listener, we do that automatically above as they are &quot;special snowflakes&quot;
+&nbsp;                    continue;
+&nbsp;                }
+<b class="nc">&nbsp;                lines.add(generateMethodJS(plugin, method));</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            lines.add(&quot;})(window);\n&quot;);</b>
+<b class="nc">&nbsp;            pluginArray.put(createPluginHeader(plugin));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return TextUtils.join(&quot;\n&quot;, lines) + &quot;\nwindow.Capacitor.PluginHeaders = &quot; + pluginArray.toString() + &quot;;&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getCordovaPluginJS(Context context) {
+<b class="nc">&nbsp;        return getFilesContent(context, &quot;public/plugins&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getFilesContent(Context context, String path) {
+<b class="nc">&nbsp;        StringBuilder builder = new StringBuilder();</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            String[] content = context.getAssets().list(path);</b>
+<b class="nc">&nbsp;            if (content.length &gt; 0) {</b>
+<b class="nc">&nbsp;                for (String file : content) {</b>
+<b class="nc">&nbsp;                    if (!file.endsWith(&quot;.map&quot;)) {</b>
+<b class="nc">&nbsp;                        builder.append(getFilesContent(context, path + &quot;/&quot; + file));</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            } else {
+<b class="nc">&nbsp;                return readFileFromAssets(context.getAssets(), path);</b>
+&nbsp;            }
+&nbsp;        } catch (IOException ex) {
+<b class="nc">&nbsp;            Logger.warn(&quot;Unable to read file at path &quot; + path);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return builder.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static JSONObject createPluginHeader(PluginHandle plugin) {
+<b class="nc">&nbsp;        JSONObject pluginObj = new JSONObject();</b>
+<b class="nc">&nbsp;        Collection&lt;PluginMethodHandle&gt; methods = plugin.getMethods();</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            String id = plugin.getId();</b>
+<b class="nc">&nbsp;            JSONArray methodArray = new JSONArray();</b>
+<b class="nc">&nbsp;            pluginObj.put(&quot;name&quot;, id);</b>
+&nbsp;
+<b class="nc">&nbsp;            for (PluginMethodHandle method : methods) {</b>
+<b class="nc">&nbsp;                methodArray.put(createPluginMethodHeader(method));</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            pluginObj.put(&quot;methods&quot;, methodArray);</b>
+&nbsp;        } catch (JSONException e) {
+&nbsp;            // ignore
+&nbsp;        }
+<b class="nc">&nbsp;        return pluginObj;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static JSONObject createPluginMethodHeader(PluginMethodHandle method) {
+<b class="nc">&nbsp;        JSONObject methodObj = new JSONObject();</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            methodObj.put(&quot;name&quot;, method.getName());</b>
+<b class="nc">&nbsp;            if (!method.getReturnType().equals(PluginMethod.RETURN_NONE)) {</b>
+<b class="nc">&nbsp;                methodObj.put(&quot;rtype&quot;, method.getReturnType());</b>
+&nbsp;            }
+&nbsp;        } catch (JSONException e) {
+&nbsp;            // ignore
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return methodObj;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getBridgeJS(Context context) throws JSExportException {
+<b class="nc">&nbsp;        return getFilesContent(context, &quot;native-bridge.js&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String generateMethodJS(PluginHandle plugin, PluginMethodHandle method) {
+<b class="nc">&nbsp;        List&lt;String&gt; lines = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;String&gt; args = new ArrayList&lt;&gt;();</b>
+&nbsp;        // Add the catch all param that will take a full javascript object to pass to the plugin
+<b class="nc">&nbsp;        args.add(CATCHALL_OPTIONS_PARAM);</b>
+&nbsp;
+<b class="nc">&nbsp;        String returnType = method.getReturnType();</b>
+<b class="nc">&nbsp;        if (returnType.equals(PluginMethod.RETURN_CALLBACK)) {</b>
+<b class="nc">&nbsp;            args.add(CALLBACK_PARAM);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Create the method function declaration
+<b class="nc">&nbsp;        lines.add(&quot;t[&#39;&quot; + method.getName() + &quot;&#39;] = function(&quot; + TextUtils.join(&quot;, &quot;, args) + &quot;) {&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        switch (returnType) {</b>
+&nbsp;            case PluginMethod.RETURN_NONE:
+<b class="nc">&nbsp;                lines.add(</b>
+&nbsp;                    &quot;return w.Capacitor.nativeCallback(&#39;&quot; +
+<b class="nc">&nbsp;                        plugin.getId() +</b>
+&nbsp;                        &quot;&#39;, &#39;&quot; +
+<b class="nc">&nbsp;                        method.getName() +</b>
+&nbsp;                        &quot;&#39;, &quot; +
+&nbsp;                        CATCHALL_OPTIONS_PARAM +
+&nbsp;                        &quot;)&quot;
+&nbsp;                );
+&nbsp;                break;
+&nbsp;            case PluginMethod.RETURN_PROMISE:
+<b class="nc">&nbsp;                lines.add(</b>
+<b class="nc">&nbsp;                    &quot;return w.Capacitor.nativePromise(&#39;&quot; + plugin.getId() + &quot;&#39;, &#39;&quot; + method.getName() + &quot;&#39;, &quot; + CATCHALL_OPTIONS_PARAM + &quot;)&quot;</b>
+&nbsp;                );
+&nbsp;                break;
+&nbsp;            case PluginMethod.RETURN_CALLBACK:
+<b class="nc">&nbsp;                lines.add(</b>
+&nbsp;                    &quot;return w.Capacitor.nativeCallback(&#39;&quot; +
+<b class="nc">&nbsp;                        plugin.getId() +</b>
+&nbsp;                        &quot;&#39;, &#39;&quot; +
+<b class="nc">&nbsp;                        method.getName() +</b>
+&nbsp;                        &quot;&#39;, &quot; +
+&nbsp;                        CATCHALL_OPTIONS_PARAM +
+&nbsp;                        &quot;, &quot; +
+&nbsp;                        CALLBACK_PARAM +
+&nbsp;                        &quot;)&quot;
+&nbsp;                );
+&nbsp;                break;
+&nbsp;            default:
+&nbsp;            // TODO: Do something here?
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        lines.add(&quot;}&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        return TextUtils.join(&quot;\n&quot;, lines);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

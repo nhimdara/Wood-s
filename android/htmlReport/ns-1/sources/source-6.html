@@ -1,0 +1,604 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BridgeWebChromeClient</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: BridgeWebChromeClient (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BridgeWebChromeClient</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/94)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/199)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BridgeWebChromeClient$ActivityResultListener</td>
+  </tr>
+  <tr>
+    <td class="name">BridgeWebChromeClient$PermissionListener</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/94)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/199)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.Manifest;
+&nbsp;import android.annotation.SuppressLint;
+&nbsp;import android.app.Activity;
+&nbsp;import android.app.AlertDialog;
+&nbsp;import android.content.ActivityNotFoundException;
+&nbsp;import android.content.Intent;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.Build;
+&nbsp;import android.os.Environment;
+&nbsp;import android.provider.MediaStore;
+&nbsp;import android.view.View;
+&nbsp;import android.webkit.ConsoleMessage;
+&nbsp;import android.webkit.GeolocationPermissions;
+&nbsp;import android.webkit.JsPromptResult;
+&nbsp;import android.webkit.JsResult;
+&nbsp;import android.webkit.MimeTypeMap;
+&nbsp;import android.webkit.PermissionRequest;
+&nbsp;import android.webkit.ValueCallback;
+&nbsp;import android.webkit.WebChromeClient;
+&nbsp;import android.webkit.WebView;
+&nbsp;import android.widget.EditText;
+&nbsp;import androidx.activity.result.ActivityResult;
+&nbsp;import androidx.activity.result.ActivityResultCallback;
+&nbsp;import androidx.activity.result.ActivityResultLauncher;
+&nbsp;import androidx.activity.result.contract.ActivityResultContracts;
+&nbsp;import androidx.core.content.FileProvider;
+&nbsp;import com.getcapacitor.util.PermissionHelper;
+&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.text.SimpleDateFormat;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * Custom WebChromeClient handler, required for showing dialogs, confirms, etc. in our
+&nbsp; * WebView instance.
+&nbsp; */
+&nbsp;public class BridgeWebChromeClient extends WebChromeClient {
+&nbsp;
+&nbsp;    private interface PermissionListener {
+&nbsp;        void onPermissionSelect(Boolean isGranted);
+&nbsp;    }
+&nbsp;
+&nbsp;    private interface ActivityResultListener {
+&nbsp;        void onActivityResult(ActivityResult result);
+&nbsp;    }
+&nbsp;
+&nbsp;    private ActivityResultLauncher permissionLauncher;
+&nbsp;    private ActivityResultLauncher activityLauncher;
+&nbsp;    private PermissionListener permissionListener;
+&nbsp;    private ActivityResultListener activityListener;
+&nbsp;
+&nbsp;    private Bridge bridge;
+&nbsp;
+<b class="nc">&nbsp;    public BridgeWebChromeClient(Bridge bridge) {</b>
+<b class="nc">&nbsp;        this.bridge = bridge;</b>
+&nbsp;
+<b class="nc">&nbsp;        ActivityResultCallback&lt;Map&lt;String, Boolean&gt;&gt; permissionCallback = (Map&lt;String, Boolean&gt; isGranted) -&gt; {</b>
+<b class="nc">&nbsp;            if (permissionListener != null) {</b>
+<b class="nc">&nbsp;                boolean granted = true;</b>
+<b class="nc">&nbsp;                for (Map.Entry&lt;String, Boolean&gt; permission : isGranted.entrySet()) {</b>
+<b class="nc">&nbsp;                    if (!permission.getValue()) granted = false;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                permissionListener.onPermissionSelect(granted);</b>
+&nbsp;            }
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        permissionLauncher = bridge.registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), permissionCallback);</b>
+<b class="nc">&nbsp;        activityLauncher = bridge.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (result) -&gt; {</b>
+<b class="nc">&nbsp;            if (activityListener != null) {</b>
+<b class="nc">&nbsp;                activityListener.onActivityResult(result);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Render web content in `view`.
+&nbsp;     *
+&nbsp;     * Both this method and {@link #onHideCustomView()} are required for
+&nbsp;     * rendering web content in full screen.
+&nbsp;     *
+&nbsp;     * @see &lt;a href=&quot;https://developer.android.com/reference/android/webkit/WebChromeClient#onShowCustomView(android.view.View,%20android.webkit.WebChromeClient.CustomViewCallback)&quot;&gt;onShowCustomView() docs&lt;/a&gt;
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void onShowCustomView(View view, CustomViewCallback callback) {
+<b class="nc">&nbsp;        callback.onCustomViewHidden();</b>
+<b class="nc">&nbsp;        super.onShowCustomView(view, callback);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Render web content in the original Web View again.
+&nbsp;     *
+&nbsp;     * Do not remove this method--@see #onShowCustomView(View, CustomViewCallback).
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void onHideCustomView() {
+<b class="nc">&nbsp;        super.onHideCustomView();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onPermissionRequest(final PermissionRequest request) {
+<b class="nc">&nbsp;        List&lt;String&gt; permissionList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        if (Arrays.asList(request.getResources()).contains(&quot;android.webkit.resource.VIDEO_CAPTURE&quot;)) {</b>
+<b class="nc">&nbsp;            permissionList.add(Manifest.permission.CAMERA);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (Arrays.asList(request.getResources()).contains(&quot;android.webkit.resource.AUDIO_CAPTURE&quot;)) {</b>
+<b class="nc">&nbsp;            permissionList.add(Manifest.permission.MODIFY_AUDIO_SETTINGS);</b>
+<b class="nc">&nbsp;            permissionList.add(Manifest.permission.RECORD_AUDIO);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (!permissionList.isEmpty()) {</b>
+<b class="nc">&nbsp;            String[] permissions = permissionList.toArray(new String[0]);</b>
+<b class="nc">&nbsp;            permissionListener = (isGranted) -&gt; {</b>
+<b class="nc">&nbsp;                if (isGranted) {</b>
+<b class="nc">&nbsp;                    request.grant(request.getResources());</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    request.deny();</b>
+&nbsp;                }
+&nbsp;            };
+<b class="nc">&nbsp;            permissionLauncher.launch(permissions);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            request.grant(request.getResources());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Show the browser alert modal
+&nbsp;     * @param view
+&nbsp;     * @param url
+&nbsp;     * @param message
+&nbsp;     * @param result
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+<b class="nc">&nbsp;        if (bridge.getActivity().isFinishing()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());</b>
+<b class="nc">&nbsp;        builder</b>
+<b class="nc">&nbsp;            .setMessage(message)</b>
+<b class="nc">&nbsp;            .setPositiveButton(&quot;OK&quot;, (dialog, buttonIndex) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.confirm();</b>
+&nbsp;            })
+<b class="nc">&nbsp;            .setOnCancelListener((dialog) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.cancel();</b>
+&nbsp;            });
+&nbsp;
+<b class="nc">&nbsp;        AlertDialog dialog = builder.create();</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog.show();</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Show the browser confirm modal
+&nbsp;     * @param view
+&nbsp;     * @param url
+&nbsp;     * @param message
+&nbsp;     * @param result
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+<b class="nc">&nbsp;        if (bridge.getActivity().isFinishing()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());</b>
+&nbsp;
+<b class="nc">&nbsp;        builder</b>
+<b class="nc">&nbsp;            .setMessage(message)</b>
+<b class="nc">&nbsp;            .setPositiveButton(&quot;OK&quot;, (dialog, buttonIndex) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.confirm();</b>
+&nbsp;            })
+<b class="nc">&nbsp;            .setNegativeButton(&quot;Cancel&quot;, (dialog, buttonIndex) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.cancel();</b>
+&nbsp;            })
+<b class="nc">&nbsp;            .setOnCancelListener((dialog) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.cancel();</b>
+&nbsp;            });
+&nbsp;
+<b class="nc">&nbsp;        AlertDialog dialog = builder.create();</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog.show();</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Show the browser prompt modal
+&nbsp;     * @param view
+&nbsp;     * @param url
+&nbsp;     * @param message
+&nbsp;     * @param defaultValue
+&nbsp;     * @param result
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
+<b class="nc">&nbsp;        if (bridge.getActivity().isFinishing()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());</b>
+<b class="nc">&nbsp;        final EditText input = new EditText(view.getContext());</b>
+&nbsp;
+<b class="nc">&nbsp;        builder</b>
+<b class="nc">&nbsp;            .setMessage(message)</b>
+<b class="nc">&nbsp;            .setView(input)</b>
+<b class="nc">&nbsp;            .setPositiveButton(&quot;OK&quot;, (dialog, buttonIndex) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+&nbsp;
+<b class="nc">&nbsp;                String inputText1 = input.getText().toString().trim();</b>
+<b class="nc">&nbsp;                result.confirm(inputText1);</b>
+&nbsp;            })
+<b class="nc">&nbsp;            .setNegativeButton(&quot;Cancel&quot;, (dialog, buttonIndex) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.cancel();</b>
+&nbsp;            })
+<b class="nc">&nbsp;            .setOnCancelListener((dialog) -&gt; {</b>
+<b class="nc">&nbsp;                dialog.dismiss();</b>
+<b class="nc">&nbsp;                result.cancel();</b>
+&nbsp;            });
+&nbsp;
+<b class="nc">&nbsp;        AlertDialog dialog = builder.create();</b>
+&nbsp;
+<b class="nc">&nbsp;        dialog.show();</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handle the browser geolocation permission prompt
+&nbsp;     * @param origin
+&nbsp;     * @param callback
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+<b class="nc">&nbsp;        super.onGeolocationPermissionsShowPrompt(origin, callback);</b>
+<b class="nc">&nbsp;        Logger.debug(&quot;onGeolocationPermissionsShowPrompt: DOING IT HERE FOR ORIGIN: &quot; + origin);</b>
+<b class="nc">&nbsp;        final String[] geoPermissions = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION };</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!PermissionHelper.hasPermissions(bridge.getContext(), geoPermissions)) {</b>
+<b class="nc">&nbsp;            permissionListener = (isGranted) -&gt; {</b>
+<b class="nc">&nbsp;                if (isGranted) {</b>
+<b class="nc">&nbsp;                    callback.invoke(origin, true, false);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    final String[] coarsePermission = { Manifest.permission.ACCESS_COARSE_LOCATION };</b>
+<b class="nc">&nbsp;                    if (</b>
+&nbsp;                        Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S &amp;&amp;
+<b class="nc">&nbsp;                        PermissionHelper.hasPermissions(bridge.getContext(), coarsePermission)</b>
+&nbsp;                    ) {
+<b class="nc">&nbsp;                        callback.invoke(origin, true, false);</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        callback.invoke(origin, false, false);</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            };
+<b class="nc">&nbsp;            permissionLauncher.launch(geoPermissions);</b>
+&nbsp;        } else {
+&nbsp;            // permission is already granted
+<b class="nc">&nbsp;            callback.invoke(origin, true, false);</b>
+<b class="nc">&nbsp;            Logger.debug(&quot;onGeolocationPermissionsShowPrompt: has required permission&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean onShowFileChooser(
+&nbsp;        WebView webView,
+&nbsp;        final ValueCallback&lt;Uri[]&gt; filePathCallback,
+&nbsp;        final FileChooserParams fileChooserParams
+&nbsp;    ) {
+<b class="nc">&nbsp;        List&lt;String&gt; acceptTypes = Arrays.asList(fileChooserParams.getAcceptTypes());</b>
+<b class="nc">&nbsp;        boolean captureEnabled = fileChooserParams.isCaptureEnabled();</b>
+<b class="nc">&nbsp;        boolean capturePhoto = captureEnabled &amp;&amp; acceptTypes.contains(&quot;image/*&quot;);</b>
+<b class="nc">&nbsp;        final boolean captureVideo = captureEnabled &amp;&amp; acceptTypes.contains(&quot;video/*&quot;);</b>
+<b class="nc">&nbsp;        if ((capturePhoto || captureVideo)) {</b>
+<b class="nc">&nbsp;            if (isMediaCaptureSupported()) {</b>
+<b class="nc">&nbsp;                showMediaCaptureOrFilePicker(filePathCallback, fileChooserParams, captureVideo);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                permissionListener = (isGranted) -&gt; {</b>
+<b class="nc">&nbsp;                    if (isGranted) {</b>
+<b class="nc">&nbsp;                        showMediaCaptureOrFilePicker(filePathCallback, fileChooserParams, captureVideo);</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        Logger.warn(Logger.tags(&quot;FileChooser&quot;), &quot;Camera permission not granted&quot;);</b>
+<b class="nc">&nbsp;                        filePathCallback.onReceiveValue(null);</b>
+&nbsp;                    }
+&nbsp;                };
+<b class="nc">&nbsp;                final String[] camPermission = { Manifest.permission.CAMERA };</b>
+<b class="nc">&nbsp;                permissionLauncher.launch(camPermission);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            showFilePicker(filePathCallback, fileChooserParams);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isMediaCaptureSupported() {
+<b class="nc">&nbsp;        String[] permissions = { Manifest.permission.CAMERA };</b>
+<b class="nc">&nbsp;        return (</b>
+<b class="nc">&nbsp;            PermissionHelper.hasPermissions(bridge.getContext(), permissions) ||</b>
+<b class="nc">&nbsp;            !PermissionHelper.hasDefinedPermission(bridge.getContext(), Manifest.permission.CAMERA)</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showMediaCaptureOrFilePicker(ValueCallback&lt;Uri[]&gt; filePathCallback, FileChooserParams fileChooserParams, boolean isVideo) {
+&nbsp;        boolean shown;
+<b class="nc">&nbsp;        if (isVideo) {</b>
+<b class="nc">&nbsp;            shown = showVideoCapturePicker(filePathCallback);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            shown = showImageCapturePicker(filePathCallback);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (!shown) {</b>
+<b class="nc">&nbsp;            Logger.warn(Logger.tags(&quot;FileChooser&quot;), &quot;Media capture intent could not be launched. Falling back to default file picker.&quot;);</b>
+<b class="nc">&nbsp;            showFilePicker(filePathCallback, fileChooserParams);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;QueryPermissionsNeeded&quot;)
+&nbsp;    private boolean showImageCapturePicker(final ValueCallback&lt;Uri[]&gt; filePathCallback) {
+<b class="nc">&nbsp;        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);</b>
+<b class="nc">&nbsp;        if (takePictureIntent.resolveActivity(bridge.getActivity().getPackageManager()) == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        final Uri imageFileUri;
+&nbsp;        try {
+<b class="nc">&nbsp;            imageFileUri = createImageFileUri();</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            Logger.error(&quot;Unable to create temporary media capture file: &quot; + ex.getMessage());</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);</b>
+<b class="nc">&nbsp;        activityListener = (activityResult) -&gt; {</b>
+<b class="nc">&nbsp;            Uri[] result = null;</b>
+<b class="nc">&nbsp;            if (activityResult.getResultCode() == Activity.RESULT_OK) {</b>
+<b class="nc">&nbsp;                result = new Uri[] { imageFileUri };</b>
+&nbsp;            }
+<b class="nc">&nbsp;            filePathCallback.onReceiveValue(result);</b>
+&nbsp;        };
+<b class="nc">&nbsp;        activityLauncher.launch(takePictureIntent);</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressLint(&quot;QueryPermissionsNeeded&quot;)
+&nbsp;    private boolean showVideoCapturePicker(final ValueCallback&lt;Uri[]&gt; filePathCallback) {
+<b class="nc">&nbsp;        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);</b>
+<b class="nc">&nbsp;        if (takeVideoIntent.resolveActivity(bridge.getActivity().getPackageManager()) == null) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        activityListener = (activityResult) -&gt; {</b>
+<b class="nc">&nbsp;            Uri[] result = null;</b>
+<b class="nc">&nbsp;            if (activityResult.getResultCode() == Activity.RESULT_OK) {</b>
+<b class="nc">&nbsp;                result = new Uri[] { activityResult.getData().getData() };</b>
+&nbsp;            }
+<b class="nc">&nbsp;            filePathCallback.onReceiveValue(result);</b>
+&nbsp;        };
+<b class="nc">&nbsp;        activityLauncher.launch(takeVideoIntent);</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showFilePicker(final ValueCallback&lt;Uri[]&gt; filePathCallback, FileChooserParams fileChooserParams) {
+<b class="nc">&nbsp;        Intent intent = fileChooserParams.createIntent();</b>
+<b class="nc">&nbsp;        if (fileChooserParams.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE) {</b>
+<b class="nc">&nbsp;            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (fileChooserParams.getAcceptTypes().length &gt; 1 || intent.getType().startsWith(&quot;.&quot;)) {</b>
+<b class="nc">&nbsp;            String[] validTypes = getValidTypes(fileChooserParams.getAcceptTypes());</b>
+<b class="nc">&nbsp;            intent.putExtra(Intent.EXTRA_MIME_TYPES, validTypes);</b>
+<b class="nc">&nbsp;            if (intent.getType().startsWith(&quot;.&quot;)) {</b>
+<b class="nc">&nbsp;                intent.setType(validTypes[0]);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        try {
+<b class="nc">&nbsp;            activityListener = (activityResult) -&gt; {</b>
+&nbsp;                Uri[] result;
+<b class="nc">&nbsp;                Intent resultIntent = activityResult.getData();</b>
+<b class="nc">&nbsp;                if (activityResult.getResultCode() == Activity.RESULT_OK &amp;&amp; resultIntent.getClipData() != null) {</b>
+<b class="nc">&nbsp;                    final int numFiles = resultIntent.getClipData().getItemCount();</b>
+<b class="nc">&nbsp;                    result = new Uri[numFiles];</b>
+<b class="nc">&nbsp;                    for (int i = 0; i &lt; numFiles; i++) {</b>
+<b class="nc">&nbsp;                        result[i] = resultIntent.getClipData().getItemAt(i).getUri();</b>
+&nbsp;                    }
+&nbsp;                } else {
+<b class="nc">&nbsp;                    result = WebChromeClient.FileChooserParams.parseResult(activityResult.getResultCode(), resultIntent);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                filePathCallback.onReceiveValue(result);</b>
+&nbsp;            };
+<b class="nc">&nbsp;            activityLauncher.launch(intent);</b>
+&nbsp;        } catch (ActivityNotFoundException e) {
+<b class="nc">&nbsp;            filePathCallback.onReceiveValue(null);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private String[] getValidTypes(String[] currentTypes) {
+<b class="nc">&nbsp;        List&lt;String&gt; validTypes = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        MimeTypeMap mtm = MimeTypeMap.getSingleton();</b>
+<b class="nc">&nbsp;        for (String mime : currentTypes) {</b>
+<b class="nc">&nbsp;            if (mime.startsWith(&quot;.&quot;)) {</b>
+<b class="nc">&nbsp;                String extension = mime.substring(1);</b>
+<b class="nc">&nbsp;                String extensionMime = mtm.getMimeTypeFromExtension(extension);</b>
+<b class="nc">&nbsp;                if (extensionMime != null &amp;&amp; !validTypes.contains(extensionMime)) {</b>
+<b class="nc">&nbsp;                    validTypes.add(extensionMime);</b>
+&nbsp;                }
+<b class="nc">&nbsp;            } else if (!validTypes.contains(mime)) {</b>
+<b class="nc">&nbsp;                validTypes.add(mime);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        Object[] validObj = validTypes.toArray();</b>
+<b class="nc">&nbsp;        return Arrays.copyOf(validObj, validObj.length, String[].class);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+<b class="nc">&nbsp;        String tag = Logger.tags(&quot;Console&quot;);</b>
+<b class="nc">&nbsp;        if (consoleMessage.message() != null &amp;&amp; isValidMsg(consoleMessage.message())) {</b>
+<b class="nc">&nbsp;            String msg = String.format(</b>
+&nbsp;                &quot;File: %s - Line %d - Msg: %s&quot;,
+<b class="nc">&nbsp;                consoleMessage.sourceId(),</b>
+<b class="nc">&nbsp;                consoleMessage.lineNumber(),</b>
+<b class="nc">&nbsp;                consoleMessage.message()</b>
+&nbsp;            );
+<b class="nc">&nbsp;            String level = consoleMessage.messageLevel().name();</b>
+<b class="nc">&nbsp;            if (&quot;ERROR&quot;.equalsIgnoreCase(level)) {</b>
+<b class="nc">&nbsp;                Logger.error(tag, msg, null);</b>
+<b class="nc">&nbsp;            } else if (&quot;WARNING&quot;.equalsIgnoreCase(level)) {</b>
+<b class="nc">&nbsp;                Logger.warn(tag, msg);</b>
+<b class="nc">&nbsp;            } else if (&quot;TIP&quot;.equalsIgnoreCase(level)) {</b>
+<b class="nc">&nbsp;                Logger.debug(tag, msg);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                Logger.info(tag, msg);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isValidMsg(String msg) {
+<b class="nc">&nbsp;        return !(msg.contains(&quot;%cresult %c&quot;) || (msg.contains(&quot;%cnative %c&quot;)) || msg.equalsIgnoreCase(&quot;console.groupEnd&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Uri createImageFileUri() throws IOException {
+<b class="nc">&nbsp;        Activity activity = bridge.getActivity();</b>
+<b class="nc">&nbsp;        File photoFile = createImageFile(activity);</b>
+<b class="nc">&nbsp;        return FileProvider.getUriForFile(activity, bridge.getContext().getPackageName() + &quot;.fileprovider&quot;, photoFile);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private File createImageFile(Activity activity) throws IOException {
+&nbsp;        // Create an image file name
+<b class="nc">&nbsp;        String timeStamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</b>
+<b class="nc">&nbsp;        String imageFileName = &quot;JPEG_&quot; + timeStamp + &quot;_&quot;;</b>
+<b class="nc">&nbsp;        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);</b>
+&nbsp;
+<b class="nc">&nbsp;        return File.createTempFile(imageFileName, &quot;.jpg&quot;, storageDir);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

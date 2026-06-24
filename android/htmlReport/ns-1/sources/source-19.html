@@ -1,0 +1,276 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PluginHandle</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: PluginHandle (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PluginHandle</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/51)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import com.getcapacitor.annotation.CapacitorPlugin;
+&nbsp;import java.lang.reflect.InvocationTargetException;
+&nbsp;import java.lang.reflect.Method;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * PluginHandle is an instance of a plugin that has been registered
+&nbsp; * and indexed. Think of it as a Plugin instance with extra metadata goodies
+&nbsp; */
+&nbsp;public class PluginHandle {
+&nbsp;
+&nbsp;    private final Bridge bridge;
+&nbsp;    private final Class&lt;? extends Plugin&gt; pluginClass;
+&nbsp;
+<b class="nc">&nbsp;    private final Map&lt;String, PluginMethodHandle&gt; pluginMethods = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;    private final String pluginId;
+&nbsp;
+&nbsp;    @SuppressWarnings(&quot;deprecation&quot;)
+&nbsp;    private NativePlugin legacyPluginAnnotation;
+&nbsp;
+&nbsp;    private CapacitorPlugin pluginAnnotation;
+&nbsp;
+&nbsp;    private Plugin instance;
+&nbsp;
+&nbsp;    @SuppressWarnings(&quot;deprecation&quot;)
+<b class="nc">&nbsp;    private PluginHandle(Class&lt;? extends Plugin&gt; clazz, Bridge bridge) throws InvalidPluginException {</b>
+<b class="nc">&nbsp;        this.bridge = bridge;</b>
+<b class="nc">&nbsp;        this.pluginClass = clazz;</b>
+&nbsp;
+<b class="nc">&nbsp;        CapacitorPlugin pluginAnnotation = pluginClass.getAnnotation(CapacitorPlugin.class);</b>
+<b class="nc">&nbsp;        if (pluginAnnotation == null) {</b>
+&nbsp;            // Check for legacy plugin annotation, @NativePlugin
+<b class="nc">&nbsp;            NativePlugin legacyPluginAnnotation = pluginClass.getAnnotation(NativePlugin.class);</b>
+<b class="nc">&nbsp;            if (legacyPluginAnnotation == null) {</b>
+<b class="nc">&nbsp;                throw new InvalidPluginException(&quot;No @CapacitorPlugin annotation found for plugin &quot; + pluginClass.getName());</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (!legacyPluginAnnotation.name().equals(&quot;&quot;)) {</b>
+<b class="nc">&nbsp;                this.pluginId = legacyPluginAnnotation.name();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                this.pluginId = pluginClass.getSimpleName();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            this.legacyPluginAnnotation = legacyPluginAnnotation;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            if (!pluginAnnotation.name().equals(&quot;&quot;)) {</b>
+<b class="nc">&nbsp;                this.pluginId = pluginAnnotation.name();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                this.pluginId = pluginClass.getSimpleName();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            this.pluginAnnotation = pluginAnnotation;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        this.indexMethods(clazz);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public PluginHandle(Bridge bridge, Class&lt;? extends Plugin&gt; pluginClass) throws InvalidPluginException, PluginLoadException {
+<b class="nc">&nbsp;        this(pluginClass, bridge);</b>
+<b class="nc">&nbsp;        this.load();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public PluginHandle(Bridge bridge, Plugin plugin) throws InvalidPluginException {
+<b class="nc">&nbsp;        this(plugin.getClass(), bridge);</b>
+<b class="nc">&nbsp;        this.loadInstance(plugin);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Class&lt;? extends Plugin&gt; getPluginClass() {
+<b class="nc">&nbsp;        return pluginClass;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getId() {
+<b class="nc">&nbsp;        return this.pluginId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressWarnings(&quot;deprecation&quot;)
+&nbsp;    public NativePlugin getLegacyPluginAnnotation() {
+<b class="nc">&nbsp;        return this.legacyPluginAnnotation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public CapacitorPlugin getPluginAnnotation() {
+<b class="nc">&nbsp;        return this.pluginAnnotation;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Plugin getInstance() {
+<b class="nc">&nbsp;        return this.instance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Collection&lt;PluginMethodHandle&gt; getMethods() {
+<b class="nc">&nbsp;        return this.pluginMethods.values();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Plugin load() throws PluginLoadException {
+<b class="nc">&nbsp;        if (this.instance != null) {</b>
+<b class="nc">&nbsp;            return this.instance;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            this.instance = this.pluginClass.getDeclaredConstructor().newInstance();</b>
+<b class="nc">&nbsp;            return this.loadInstance(instance);</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            throw new PluginLoadException(&quot;Unable to load plugin instance. Ensure plugin is publicly accessible&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public Plugin loadInstance(Plugin plugin) {
+<b class="nc">&nbsp;        this.instance = plugin;</b>
+<b class="nc">&nbsp;        this.instance.setPluginHandle(this);</b>
+<b class="nc">&nbsp;        this.instance.setBridge(this.bridge);</b>
+<b class="nc">&nbsp;        this.instance.load();</b>
+<b class="nc">&nbsp;        this.instance.initializeActivityLaunchers();</b>
+<b class="nc">&nbsp;        return this.instance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Call a method on a plugin.
+&nbsp;     * @param methodName the name of the method to call
+&nbsp;     * @param call the constructed PluginCall with parameters from the caller
+&nbsp;     * @throws InvalidPluginMethodException if no method was found on that plugin
+&nbsp;     */
+&nbsp;    public void invoke(String methodName, PluginCall call)
+&nbsp;        throws PluginLoadException, InvalidPluginMethodException, InvocationTargetException, IllegalAccessException {
+<b class="nc">&nbsp;        if (this.instance == null) {</b>
+&nbsp;            // Can throw PluginLoadException
+<b class="nc">&nbsp;            this.load();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        PluginMethodHandle methodMeta = pluginMethods.get(methodName);</b>
+<b class="nc">&nbsp;        if (methodMeta == null) {</b>
+<b class="nc">&nbsp;            throw new InvalidPluginMethodException(&quot;No method &quot; + methodName + &quot; found for plugin &quot; + pluginClass.getName());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        methodMeta.getMethod().invoke(this.instance, call);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Index all the known callable methods for a plugin for faster
+&nbsp;     * invocation later
+&nbsp;     */
+&nbsp;    private void indexMethods(Class&lt;? extends Plugin&gt; plugin) {
+&nbsp;        //Method[] methods = pluginClass.getDeclaredMethods();
+<b class="nc">&nbsp;        Method[] methods = pluginClass.getMethods();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Method methodReflect : methods) {</b>
+<b class="nc">&nbsp;            PluginMethod method = methodReflect.getAnnotation(PluginMethod.class);</b>
+&nbsp;
+<b class="nc">&nbsp;            if (method == null) {</b>
+&nbsp;                continue;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            PluginMethodHandle methodMeta = new PluginMethodHandle(methodReflect, method);</b>
+<b class="nc">&nbsp;            pluginMethods.put(methodReflect.getName(), methodMeta);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > WebViewListener</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: WebViewListener (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WebViewListener</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.webkit.RenderProcessGoneDetail;
+&nbsp;import android.webkit.WebView;
+&nbsp;
+&nbsp;/**
+&nbsp; * Provides callbacks associated with the {@link BridgeWebViewClient}
+&nbsp; */
+<b class="nc">&nbsp;public abstract class WebViewListener {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for page load event.
+&nbsp;     *
+&nbsp;     * @param webView The WebView that loaded
+&nbsp;     */
+&nbsp;    public void onPageLoaded(WebView webView) {
+&nbsp;        // Override me to add behavior to the page loaded event
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for onReceivedError event.
+&nbsp;     *
+&nbsp;     * @param webView The WebView that loaded
+&nbsp;     */
+&nbsp;    public void onReceivedError(WebView webView) {
+&nbsp;        // Override me to add behavior to handle the onReceivedError event
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for onReceivedHttpError event.
+&nbsp;     *
+&nbsp;     * @param webView The WebView that loaded
+&nbsp;     */
+&nbsp;    public void onReceivedHttpError(WebView webView) {
+&nbsp;        // Override me to add behavior to handle the onReceivedHttpError event
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for page start event.
+&nbsp;     *
+&nbsp;     * @param webView The WebView that loaded
+&nbsp;     */
+&nbsp;    public void onPageStarted(WebView webView) {
+&nbsp;        // Override me to add behavior to the page started event
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for render process gone event. Return true if the state is handled.
+&nbsp;     *
+&nbsp;     * @param webView The WebView that loaded
+&nbsp;     * @return returns false by default if the listener is not overridden and used
+&nbsp;     */
+&nbsp;    public boolean onRenderProcessGone(WebView webView, RenderProcessGoneDetail detail) {
+&nbsp;        // Override me to add behavior to the web view render process gone event
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Callback for page start event.
+&nbsp;     *
+&nbsp;     * @param view The WebView for which the navigation occurred.
+&nbsp;     * @param url The URL corresponding to the page navigation that triggered this callback.
+&nbsp;     */
+&nbsp;    public void onPageCommitVisible(WebView view, String url) {
+&nbsp;        // Override me to add behavior to handle the onPageCommitVisible event
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

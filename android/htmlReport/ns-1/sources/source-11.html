@@ -1,0 +1,280 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > JSObject</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: JSObject (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JSObject</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import androidx.annotation.Nullable;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Iterator;
+&nbsp;import java.util.List;
+&nbsp;import org.json.JSONException;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;/**
+&nbsp; * A wrapper around JSONObject that isn&#39;t afraid to do simple
+&nbsp; * JSON put operations without having to throw an exception
+&nbsp; * for every little thing jeez
+&nbsp; */
+&nbsp;public class JSObject extends JSONObject {
+&nbsp;
+&nbsp;    public JSObject() {
+<b class="nc">&nbsp;        super();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JSObject(String json) throws JSONException {
+<b class="nc">&nbsp;        super(json);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JSObject(JSONObject obj, String[] names) throws JSONException {
+<b class="nc">&nbsp;        super(obj, names);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Convert a pathetic JSONObject into a JSObject
+&nbsp;     * @param obj
+&nbsp;     */
+&nbsp;    public static JSObject fromJSONObject(JSONObject obj) throws JSONException {
+<b class="nc">&nbsp;        Iterator&lt;String&gt; keysIter = obj.keys();</b>
+<b class="nc">&nbsp;        List&lt;String&gt; keys = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        while (keysIter.hasNext()) {</b>
+<b class="nc">&nbsp;            keys.add(keysIter.next());</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return new JSObject(obj, keys.toArray(new String[keys.size()]));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Nullable
+&nbsp;    public String getString(String key) {
+<b class="nc">&nbsp;        return getString(key, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public String getString(String key, @Nullable String defaultValue) {
+&nbsp;        try {
+<b class="nc">&nbsp;            String value = super.getString(key);</b>
+<b class="nc">&nbsp;            if (!super.isNull(key)) {</b>
+<b class="nc">&nbsp;                return value;</b>
+&nbsp;            }
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return defaultValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public Integer getInteger(String key) {
+<b class="nc">&nbsp;        return getInteger(key, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public Integer getInteger(String key, @Nullable Integer defaultValue) {
+&nbsp;        try {
+<b class="nc">&nbsp;            return super.getInt(key);</b>
+&nbsp;        } catch (JSONException e) {}
+<b class="nc">&nbsp;        return defaultValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public Boolean getBoolean(String key, @Nullable Boolean defaultValue) {
+&nbsp;        try {
+<b class="nc">&nbsp;            return super.getBoolean(key);</b>
+&nbsp;        } catch (JSONException e) {}
+<b class="nc">&nbsp;        return defaultValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Fetch boolean from jsonObject
+&nbsp;     */
+&nbsp;    @Nullable
+&nbsp;    public Boolean getBool(String key) {
+<b class="nc">&nbsp;        return getBoolean(key, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public JSObject getJSObject(String name) {
+&nbsp;        try {
+<b class="nc">&nbsp;            return getJSObject(name, null);</b>
+&nbsp;        } catch (JSONException e) {}
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Nullable
+&nbsp;    public JSObject getJSObject(String name, @Nullable JSObject defaultValue) throws JSONException {
+&nbsp;        try {
+<b class="nc">&nbsp;            Object obj = get(name);</b>
+<b class="nc">&nbsp;            if (obj instanceof JSONObject) {</b>
+<b class="nc">&nbsp;                Iterator&lt;String&gt; keysIter = ((JSONObject) obj).keys();</b>
+<b class="nc">&nbsp;                List&lt;String&gt; keys = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;                while (keysIter.hasNext()) {</b>
+<b class="nc">&nbsp;                    keys.add(keysIter.next());</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                return new JSObject((JSONObject) obj, keys.toArray(new String[keys.size()]));</b>
+&nbsp;            }
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return defaultValue;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JSObject put(String key, boolean value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JSObject put(String key, int value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JSObject put(String key, long value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JSObject put(String key, double value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public JSObject put(String key, Object value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JSObject put(String key, String value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            super.put(key, value);</b>
+&nbsp;        } catch (JSONException ex) {}
+<b class="nc">&nbsp;        return this;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public JSObject putSafe(String key, Object value) throws JSONException {
+<b class="nc">&nbsp;        return (JSObject) super.put(key, value);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

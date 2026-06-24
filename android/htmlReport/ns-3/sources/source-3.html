@@ -1,0 +1,269 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CapacitorHttp</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.plugin</a>
+</div>
+
+<h1>Coverage Summary for Class: CapacitorHttp (com.getcapacitor.plugin)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CapacitorHttp</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CapacitorHttp$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.plugin;
+&nbsp;
+&nbsp;import android.Manifest;
+&nbsp;import android.webkit.JavascriptInterface;
+&nbsp;import com.getcapacitor.JSObject;
+&nbsp;import com.getcapacitor.Plugin;
+&nbsp;import com.getcapacitor.PluginCall;
+&nbsp;import com.getcapacitor.PluginConfig;
+&nbsp;import com.getcapacitor.PluginMethod;
+&nbsp;import com.getcapacitor.annotation.CapacitorPlugin;
+&nbsp;import com.getcapacitor.annotation.Permission;
+&nbsp;import com.getcapacitor.plugin.util.CapacitorHttpUrlConnection;
+&nbsp;import com.getcapacitor.plugin.util.HttpRequestHandler;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.concurrent.ConcurrentHashMap;
+&nbsp;import java.util.concurrent.ExecutorService;
+&nbsp;import java.util.concurrent.Executors;
+&nbsp;
+&nbsp;@CapacitorPlugin(
+&nbsp;    permissions = {
+&nbsp;        @Permission(strings = { Manifest.permission.WRITE_EXTERNAL_STORAGE }, alias = &quot;HttpWrite&quot;),
+&nbsp;        @Permission(strings = { Manifest.permission.READ_EXTERNAL_STORAGE }, alias = &quot;HttpRead&quot;)
+&nbsp;    }
+&nbsp;)
+<b class="nc">&nbsp;public class CapacitorHttp extends Plugin {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final Map&lt;Runnable, PluginCall&gt; activeRequests = new ConcurrentHashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;    private final ExecutorService executor = Executors.newCachedThreadPool();</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void load() {
+<b class="nc">&nbsp;        this.bridge.getWebView().addJavascriptInterface(this, &quot;CapacitorHttpAndroidInterface&quot;);</b>
+<b class="nc">&nbsp;        super.load();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    protected void handleOnDestroy() {
+<b class="nc">&nbsp;        super.handleOnDestroy();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (Map.Entry&lt;Runnable, PluginCall&gt; entry : activeRequests.entrySet()) {</b>
+<b class="nc">&nbsp;            Runnable job = entry.getKey();</b>
+<b class="nc">&nbsp;            PluginCall call = entry.getValue();</b>
+&nbsp;
+<b class="nc">&nbsp;            if (call.getData().has(&quot;activeCapacitorHttpUrlConnection&quot;)) {</b>
+&nbsp;                try {
+<b class="nc">&nbsp;                    CapacitorHttpUrlConnection connection = (CapacitorHttpUrlConnection) call</b>
+<b class="nc">&nbsp;                        .getData()</b>
+<b class="nc">&nbsp;                        .get(&quot;activeCapacitorHttpUrlConnection&quot;);</b>
+<b class="nc">&nbsp;                    connection.disconnect();</b>
+<b class="nc">&nbsp;                    call.getData().remove(&quot;activeCapacitorHttpUrlConnection&quot;);</b>
+&nbsp;                } catch (Exception ignored) {}
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            getBridge().releaseCall(call);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        activeRequests.clear();</b>
+<b class="nc">&nbsp;        executor.shutdownNow();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void http(final PluginCall call, final String httpMethod) {
+<b class="nc">&nbsp;        Runnable asyncHttpCall = new Runnable() {</b>
+&nbsp;            @Override
+&nbsp;            public void run() {
+&nbsp;                try {
+<b class="nc">&nbsp;                    JSObject response = HttpRequestHandler.request(call, httpMethod, getBridge());</b>
+<b class="nc">&nbsp;                    call.resolve(response);</b>
+&nbsp;                } catch (Exception e) {
+<b class="nc">&nbsp;                    call.reject(e.getLocalizedMessage(), e.getClass().getSimpleName(), e);</b>
+&nbsp;                } finally {
+<b class="nc">&nbsp;                    activeRequests.remove(this);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        if (!executor.isShutdown()) {</b>
+<b class="nc">&nbsp;            activeRequests.put(asyncHttpCall, call);</b>
+<b class="nc">&nbsp;            executor.submit(asyncHttpCall);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            call.reject(&quot;Failed to execute request - Http Plugin was shutdown&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @JavascriptInterface
+&nbsp;    public boolean isEnabled() {
+<b class="nc">&nbsp;        PluginConfig pluginConfig = getBridge().getConfig().getPluginConfiguration(&quot;CapacitorHttp&quot;);</b>
+<b class="nc">&nbsp;        return pluginConfig.getBoolean(&quot;enabled&quot;, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void request(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void get(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, &quot;GET&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void post(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, &quot;POST&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void put(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, &quot;PUT&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void patch(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, &quot;PATCH&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PluginMethod
+&nbsp;    public void delete(final PluginCall call) {
+<b class="nc">&nbsp;        this.http(call, &quot;DELETE&quot;);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

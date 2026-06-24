@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PluginConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: PluginConfig (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PluginConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import com.getcapacitor.util.JSONUtils;
+&nbsp;import org.json.JSONObject;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the configuration options for plugins used by Capacitor
+&nbsp; */
+&nbsp;public class PluginConfig {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The object containing plugin config values.
+&nbsp;     */
+&nbsp;    private final JSONObject config;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructs a PluginsConfig with the provided JSONObject value.
+&nbsp;     *
+&nbsp;     * @param config A plugin configuration expressed as a JSON Object
+&nbsp;     */
+<b class="nc">&nbsp;    PluginConfig(JSONObject config) {</b>
+<b class="nc">&nbsp;        this.config = config;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a string value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @return The value from the config, if exists. Null if not
+&nbsp;     */
+&nbsp;    public String getString(String configKey) {
+<b class="nc">&nbsp;        return getString(configKey, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a string value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @param defaultValue A default value to return if the key does not exist in the config
+&nbsp;     * @return The value from the config, if key exists. Default value returned if not
+&nbsp;     */
+&nbsp;    public String getString(String configKey, String defaultValue) {
+<b class="nc">&nbsp;        return JSONUtils.getString(config, configKey, defaultValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a boolean value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @param defaultValue A default value to return if the key does not exist in the config
+&nbsp;     * @return The value from the config, if key exists. Default value returned if not
+&nbsp;     */
+&nbsp;    public boolean getBoolean(String configKey, boolean defaultValue) {
+<b class="nc">&nbsp;        return JSONUtils.getBoolean(config, configKey, defaultValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get an integer value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @param defaultValue A default value to return if the key does not exist in the config
+&nbsp;     * @return The value from the config, if key exists. Default value returned if not
+&nbsp;     */
+&nbsp;    public int getInt(String configKey, int defaultValue) {
+<b class="nc">&nbsp;        return JSONUtils.getInt(config, configKey, defaultValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a string array value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @return The value from the config, if exists. Null if not
+&nbsp;     */
+&nbsp;    public String[] getArray(String configKey) {
+<b class="nc">&nbsp;        return getArray(configKey, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a string array value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @param defaultValue A default value to return if the key does not exist in the config
+&nbsp;     * @return The value from the config, if key exists. Default value returned if not
+&nbsp;     */
+&nbsp;    public String[] getArray(String configKey, String[] defaultValue) {
+<b class="nc">&nbsp;        return JSONUtils.getArray(config, configKey, defaultValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a JSON object value for a plugin in the Capacitor config.
+&nbsp;     *
+&nbsp;     * @param configKey The key of the value to retrieve
+&nbsp;     * @return The value from the config, if exists. Null if not
+&nbsp;     */
+&nbsp;    public JSONObject getObject(String configKey) {
+<b class="nc">&nbsp;        return JSONUtils.getObject(config, configKey);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check if the PluginConfig is empty.
+&nbsp;     *
+&nbsp;     * @return true if the plugin config has no entries
+&nbsp;     */
+&nbsp;    public boolean isEmpty() {
+<b class="nc">&nbsp;        return config.length() == 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the JSON Object containing the config of the the provided plugin ID.
+&nbsp;     *
+&nbsp;     * @return The config for that plugin
+&nbsp;     */
+&nbsp;    public JSONObject getConfigJSON() {
+<b class="nc">&nbsp;        return config;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

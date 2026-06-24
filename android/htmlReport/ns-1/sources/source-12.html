@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > JSValue</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: JSValue (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">JSValue</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import org.json.JSONException;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a single user-data value of any type on the capacitor PluginCall object.
+&nbsp; */
+&nbsp;public class JSValue {
+&nbsp;
+&nbsp;    private final Object value;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param call The capacitor plugin call, used for accessing the value safely.
+&nbsp;     * @param name The name of the property to access.
+&nbsp;     */
+<b class="nc">&nbsp;    public JSValue(PluginCall call, String name) {</b>
+<b class="nc">&nbsp;        this.value = this.toValue(call, name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the coerced but uncasted underlying value.
+&nbsp;     */
+&nbsp;    public Object getValue() {
+<b class="nc">&nbsp;        return this.value;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return this.getValue().toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the underlying value as a JSObject, or throwing if it cannot.
+&nbsp;     *
+&nbsp;     * @throws JSONException If the underlying value is not a JSObject.
+&nbsp;     */
+&nbsp;    public JSObject toJSObject() throws JSONException {
+<b class="nc">&nbsp;        if (this.value instanceof JSObject) return (JSObject) this.value;</b>
+<b class="nc">&nbsp;        throw new JSONException(&quot;JSValue could not be coerced to JSObject.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the underlying value as a JSArray, or throwing if it cannot.
+&nbsp;     *
+&nbsp;     * @throws JSONException If the underlying value is not a JSArray.
+&nbsp;     */
+&nbsp;    public JSArray toJSArray() throws JSONException {
+<b class="nc">&nbsp;        if (this.value instanceof JSArray) return (JSArray) this.value;</b>
+<b class="nc">&nbsp;        throw new JSONException(&quot;JSValue could not be coerced to JSArray.&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the underlying value this object represents, coercing it into a capacitor-friendly object if supported.
+&nbsp;     */
+&nbsp;    private Object toValue(PluginCall call, String name) {
+<b class="nc">&nbsp;        Object value = null;</b>
+<b class="nc">&nbsp;        value = call.getArray(name, null);</b>
+<b class="nc">&nbsp;        if (value != null) return value;</b>
+<b class="nc">&nbsp;        value = call.getObject(name, null);</b>
+<b class="nc">&nbsp;        if (value != null) return value;</b>
+<b class="nc">&nbsp;        value = call.getString(name, null);</b>
+<b class="nc">&nbsp;        if (value != null) return value;</b>
+<b class="nc">&nbsp;        return call.getData().opt(name);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

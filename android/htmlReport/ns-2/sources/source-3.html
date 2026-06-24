@@ -1,0 +1,440 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MockCordovaWebViewImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.cordova</a>
+</div>
+
+<h1>Coverage Summary for Class: MockCordovaWebViewImpl (com.getcapacitor.cordova)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MockCordovaWebViewImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/38)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/71)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MockCordovaWebViewImpl$CapacitorEvalBridgeMode</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/41)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/80)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.cordova;
+&nbsp;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.Intent;
+&nbsp;import android.os.Handler;
+&nbsp;import android.view.View;
+&nbsp;import android.webkit.ValueCallback;
+&nbsp;import android.webkit.WebChromeClient;
+&nbsp;import android.webkit.WebView;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import org.apache.cordova.CordovaInterface;
+&nbsp;import org.apache.cordova.CordovaPreferences;
+&nbsp;import org.apache.cordova.CordovaResourceApi;
+&nbsp;import org.apache.cordova.CordovaWebView;
+&nbsp;import org.apache.cordova.CordovaWebViewEngine;
+&nbsp;import org.apache.cordova.ICordovaCookieManager;
+&nbsp;import org.apache.cordova.NativeToJsMessageQueue;
+&nbsp;import org.apache.cordova.PluginEntry;
+&nbsp;import org.apache.cordova.PluginManager;
+&nbsp;import org.apache.cordova.PluginResult;
+&nbsp;
+&nbsp;public class MockCordovaWebViewImpl implements CordovaWebView {
+&nbsp;
+&nbsp;    private Context context;
+&nbsp;    private PluginManager pluginManager;
+&nbsp;    private CordovaPreferences preferences;
+&nbsp;    private CordovaResourceApi resourceApi;
+&nbsp;    private NativeToJsMessageQueue nativeToJsMessageQueue;
+&nbsp;    private CordovaInterface cordova;
+&nbsp;    private CapacitorCordovaCookieManager cookieManager;
+&nbsp;    private WebView webView;
+&nbsp;    private boolean hasPausedEver;
+&nbsp;
+<b class="nc">&nbsp;    public MockCordovaWebViewImpl(Context context) {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void init(CordovaInterface cordova, List&lt;PluginEntry&gt; pluginEntries, CordovaPreferences preferences) {
+<b class="nc">&nbsp;        this.cordova = cordova;</b>
+<b class="nc">&nbsp;        this.preferences = preferences;</b>
+<b class="nc">&nbsp;        this.pluginManager = new PluginManager(this, this.cordova, pluginEntries);</b>
+<b class="nc">&nbsp;        this.resourceApi = new CordovaResourceApi(this.context, this.pluginManager);</b>
+<b class="nc">&nbsp;        this.pluginManager.init();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void init(CordovaInterface cordova, List&lt;PluginEntry&gt; pluginEntries, CordovaPreferences preferences, WebView webView) {
+<b class="nc">&nbsp;        this.cordova = cordova;</b>
+<b class="nc">&nbsp;        this.webView = webView;</b>
+<b class="nc">&nbsp;        this.preferences = preferences;</b>
+<b class="nc">&nbsp;        this.pluginManager = new PluginManager(this, this.cordova, pluginEntries);</b>
+<b class="nc">&nbsp;        this.resourceApi = new CordovaResourceApi(this.context, this.pluginManager);</b>
+<b class="nc">&nbsp;        nativeToJsMessageQueue = new NativeToJsMessageQueue();</b>
+<b class="nc">&nbsp;        nativeToJsMessageQueue.addBridgeMode(new CapacitorEvalBridgeMode(webView, this.cordova));</b>
+<b class="nc">&nbsp;        nativeToJsMessageQueue.setBridgeMode(0);</b>
+<b class="nc">&nbsp;        this.cookieManager = new CapacitorCordovaCookieManager(webView);</b>
+<b class="nc">&nbsp;        this.pluginManager.init();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static class CapacitorEvalBridgeMode extends NativeToJsMessageQueue.BridgeMode {
+&nbsp;
+&nbsp;        private final WebView webView;
+&nbsp;        private final CordovaInterface cordova;
+&nbsp;
+<b class="nc">&nbsp;        public CapacitorEvalBridgeMode(WebView webView, CordovaInterface cordova) {</b>
+<b class="nc">&nbsp;            this.webView = webView;</b>
+<b class="nc">&nbsp;            this.cordova = cordova;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public void onNativeToJsMessageAvailable(final NativeToJsMessageQueue queue) {
+<b class="nc">&nbsp;            cordova</b>
+<b class="nc">&nbsp;                .getActivity()</b>
+<b class="nc">&nbsp;                .runOnUiThread(() -&gt; {</b>
+<b class="nc">&nbsp;                    String js = queue.popAndEncodeAsJs();</b>
+<b class="nc">&nbsp;                    if (js != null) {</b>
+<b class="nc">&nbsp;                        webView.evaluateJavascript(js, null);</b>
+&nbsp;                    }
+&nbsp;                });
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isInitialized() {
+<b class="nc">&nbsp;        return cordova != null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public View getView() {
+<b class="nc">&nbsp;        return this.webView;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void loadUrlIntoView(String url, boolean recreatePlugins) {
+<b class="nc">&nbsp;        if (url.equals(&quot;about:blank&quot;) || url.startsWith(&quot;javascript:&quot;)) {</b>
+<b class="nc">&nbsp;            webView.loadUrl(url);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void stopLoading() {}</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean canGoBack() {
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void clearCache() {}</b>
+&nbsp;
+&nbsp;    @Deprecated
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void clearCache(boolean b) {}</b>
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void clearHistory() {}</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean backHistory() {
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void handlePause(boolean keepRunning) {
+<b class="nc">&nbsp;        if (!isInitialized()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        hasPausedEver = true;</b>
+<b class="nc">&nbsp;        pluginManager.onPause(keepRunning);</b>
+<b class="nc">&nbsp;        triggerDocumentEvent(&quot;pause&quot;);</b>
+&nbsp;        // If app doesn&#39;t want to run in background
+<b class="nc">&nbsp;        if (!keepRunning) {</b>
+&nbsp;            // Pause JavaScript timers. This affects all webviews within the app!
+<b class="nc">&nbsp;            this.setPaused(true);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void onNewIntent(Intent intent) {
+<b class="nc">&nbsp;        if (this.pluginManager != null) {</b>
+<b class="nc">&nbsp;            this.pluginManager.onNewIntent(intent);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void handleResume(boolean keepRunning) {
+<b class="nc">&nbsp;        if (!isInitialized()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        this.setPaused(false);</b>
+<b class="nc">&nbsp;        this.pluginManager.onResume(keepRunning);</b>
+<b class="nc">&nbsp;        if (hasPausedEver) {</b>
+<b class="nc">&nbsp;            triggerDocumentEvent(&quot;resume&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void handleStart() {
+<b class="nc">&nbsp;        if (!isInitialized()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        pluginManager.onStart();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void handleStop() {
+<b class="nc">&nbsp;        if (!isInitialized()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        pluginManager.onStop();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void handleDestroy() {
+<b class="nc">&nbsp;        if (!isInitialized()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        this.pluginManager.onDestroy();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Deprecated
+&nbsp;    @Override
+&nbsp;    public void sendJavascript(String statememt) {
+<b class="nc">&nbsp;        nativeToJsMessageQueue.addJavaScript(statememt);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void eval(final String js, final ValueCallback&lt;String&gt; callback) {
+<b class="nc">&nbsp;        Handler mainHandler = new Handler(context.getMainLooper());</b>
+<b class="nc">&nbsp;        mainHandler.post(() -&gt; webView.evaluateJavascript(js, callback));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void triggerDocumentEvent(final String eventName) {
+<b class="nc">&nbsp;        eval(&quot;window.Capacitor.triggerEvent(&#39;&quot; + eventName + &quot;&#39;, &#39;document&#39;);&quot;, (s) -&gt; {});</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void showWebPage(String url, boolean openExternal, boolean clearHistory, Map&lt;String, Object&gt; params) {}</b>
+&nbsp;
+&nbsp;    @Deprecated
+&nbsp;    @Override
+&nbsp;    public boolean isCustomViewShowing() {
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Deprecated
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void showCustomView(View view, WebChromeClient.CustomViewCallback callback) {}</b>
+&nbsp;
+&nbsp;    @Deprecated
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void hideCustomView() {}</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public CordovaResourceApi getResourceApi() {
+<b class="nc">&nbsp;        return this.resourceApi;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void setButtonPlumbedToJs(int keyCode, boolean override) {}</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isButtonPlumbedToJs(int keyCode) {
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void sendPluginResult(PluginResult cr, String callbackId) {
+<b class="nc">&nbsp;        nativeToJsMessageQueue.addPluginResult(cr, callbackId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public PluginManager getPluginManager() {
+<b class="nc">&nbsp;        return this.pluginManager;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public CordovaWebViewEngine getEngine() {
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public CordovaPreferences getPreferences() {
+<b class="nc">&nbsp;        return this.preferences;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public ICordovaCookieManager getCookieManager() {
+<b class="nc">&nbsp;        return cookieManager;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getUrl() {
+<b class="nc">&nbsp;        return webView.getUrl();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Context getContext() {
+<b class="nc">&nbsp;        return this.webView.getContext();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void loadUrl(String url) {
+<b class="nc">&nbsp;        loadUrlIntoView(url, true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Object postMessage(String id, Object data) {
+<b class="nc">&nbsp;        return pluginManager.postMessage(id, data);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPaused(boolean value) {
+<b class="nc">&nbsp;        if (value) {</b>
+<b class="nc">&nbsp;            webView.onPause();</b>
+<b class="nc">&nbsp;            webView.pauseTimers();</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            webView.onResume();</b>
+<b class="nc">&nbsp;            webView.resumeTimers();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

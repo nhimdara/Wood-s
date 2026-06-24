@@ -1,0 +1,219 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Logger</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: Logger (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Logger</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.text.TextUtils;
+&nbsp;import android.util.Log;
+&nbsp;
+<b class="nc">&nbsp;public class Logger {</b>
+&nbsp;
+&nbsp;    public static final String LOG_TAG_CORE = &quot;Capacitor&quot;;
+&nbsp;    public static CapConfig config;
+&nbsp;
+&nbsp;    private static Logger instance;
+&nbsp;
+&nbsp;    private static Logger getInstance() {
+<b class="nc">&nbsp;        if (instance == null) {</b>
+<b class="nc">&nbsp;            instance = new Logger();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return instance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void init(CapConfig config) {
+<b class="nc">&nbsp;        Logger.getInstance().loadConfig(config);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void loadConfig(CapConfig config) {
+<b class="nc">&nbsp;        Logger.config = config;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String tags(String... subtags) {
+<b class="nc">&nbsp;        if (subtags != null &amp;&amp; subtags.length &gt; 0) {</b>
+<b class="nc">&nbsp;            return LOG_TAG_CORE + &quot;/&quot; + TextUtils.join(&quot;/&quot;, subtags);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return LOG_TAG_CORE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void verbose(String message) {
+<b class="nc">&nbsp;        verbose(LOG_TAG_CORE, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void verbose(String tag, String message) {
+<b class="nc">&nbsp;        if (!shouldLog()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Log.v(tag, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void debug(String message) {
+<b class="nc">&nbsp;        debug(LOG_TAG_CORE, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void debug(String tag, String message) {
+<b class="nc">&nbsp;        if (!shouldLog()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Log.d(tag, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void info(String message) {
+<b class="nc">&nbsp;        info(LOG_TAG_CORE, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void info(String tag, String message) {
+<b class="nc">&nbsp;        if (!shouldLog()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Log.i(tag, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void warn(String message) {
+<b class="nc">&nbsp;        warn(LOG_TAG_CORE, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void warn(String tag, String message) {
+<b class="nc">&nbsp;        if (!shouldLog()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Log.w(tag, message);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void error(String message) {
+<b class="nc">&nbsp;        error(LOG_TAG_CORE, message, null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void error(String message, Throwable e) {
+<b class="nc">&nbsp;        error(LOG_TAG_CORE, message, e);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void error(String tag, String message, Throwable e) {
+<b class="nc">&nbsp;        if (!shouldLog()) {</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Log.e(tag, message, e);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean shouldLog() {
+<b class="nc">&nbsp;        return config == null || config.isLoggingEnabled();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

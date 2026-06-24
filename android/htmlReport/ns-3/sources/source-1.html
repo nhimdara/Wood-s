@@ -1,0 +1,355 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CapacitorCookieManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.plugin</a>
+</div>
+
+<h1>Coverage Summary for Class: CapacitorCookieManager (com.getcapacitor.plugin)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CapacitorCookieManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/67)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.plugin;
+&nbsp;
+&nbsp;import com.getcapacitor.Bridge;
+&nbsp;import com.getcapacitor.Logger;
+&nbsp;import java.net.CookieManager;
+&nbsp;import java.net.CookiePolicy;
+&nbsp;import java.net.CookieStore;
+&nbsp;import java.net.HttpCookie;
+&nbsp;import java.net.URI;
+&nbsp;import java.net.URISyntaxException;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Locale;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class CapacitorCookieManager extends CookieManager {
+&nbsp;
+&nbsp;    private final android.webkit.CookieManager webkitCookieManager;
+&nbsp;
+&nbsp;    private final String localUrl;
+&nbsp;
+&nbsp;    private final String serverUrl;
+&nbsp;
+<b class="nc">&nbsp;    private final String TAG = &quot;CapacitorCookies&quot;;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Create a new cookie manager with the default cookie store and policy
+&nbsp;     */
+&nbsp;    public CapacitorCookieManager(Bridge bridge) {
+<b class="nc">&nbsp;        this(null, null, bridge);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Create a new cookie manager with specified cookie store and cookie policy.
+&nbsp;     * @param store a {@code CookieStore} to be used by CookieManager. if {@code null}, cookie
+&nbsp;     *              manager will use a default one, which is an in-memory CookieStore implementation.
+&nbsp;     * @param policy a {@code CookiePolicy} instance to be used by cookie manager as policy
+&nbsp;     *               callback. if {@code null}, ACCEPT_ORIGINAL_SERVER will be used.
+&nbsp;     */
+&nbsp;    public CapacitorCookieManager(CookieStore store, CookiePolicy policy, Bridge bridge) {
+<b class="nc">&nbsp;        super(store, policy);</b>
+<b class="nc">&nbsp;        webkitCookieManager = android.webkit.CookieManager.getInstance();</b>
+<b class="nc">&nbsp;        this.localUrl = bridge.getLocalUrl();</b>
+<b class="nc">&nbsp;        this.serverUrl = bridge.getServerUrl();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void removeSessionCookies() {
+<b class="nc">&nbsp;        this.webkitCookieManager.removeSessionCookies(null);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSanitizedDomain(String url) throws URISyntaxException {
+<b class="nc">&nbsp;        if (this.serverUrl != null &amp;&amp; !this.serverUrl.isEmpty() &amp;&amp; (url == null || url.isEmpty() || this.serverUrl.contains(url))) {</b>
+<b class="nc">&nbsp;            url = this.serverUrl;</b>
+<b class="nc">&nbsp;        } else if (this.localUrl != null &amp;&amp; !this.localUrl.isEmpty() &amp;&amp; (url == null || url.isEmpty() || this.localUrl.contains(url))) {</b>
+<b class="nc">&nbsp;            url = this.localUrl;</b>
+&nbsp;        } else try {
+<b class="nc">&nbsp;            URI uri = new URI(url);</b>
+<b class="nc">&nbsp;            String scheme = uri.getScheme();</b>
+<b class="nc">&nbsp;            if (scheme == null || scheme.isEmpty()) {</b>
+<b class="nc">&nbsp;                url = &quot;https://&quot; + url;</b>
+&nbsp;            }
+&nbsp;        } catch (URISyntaxException e) {
+<b class="nc">&nbsp;            Logger.error(TAG, &quot;Failed to get scheme from URL.&quot;, e);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            new URI(url);</b>
+&nbsp;        } catch (Exception error) {
+<b class="nc">&nbsp;            Logger.error(TAG, &quot;Failed to get sanitized URL.&quot;, error);</b>
+&nbsp;            throw error;
+&nbsp;        }
+<b class="nc">&nbsp;        return url;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private String getDomainFromCookieString(String cookie) throws URISyntaxException {
+<b class="nc">&nbsp;        String[] domain = cookie.toLowerCase(Locale.ROOT).split(&quot;domain=&quot;);</b>
+<b class="nc">&nbsp;        return getSanitizedDomain(domain.length &lt;= 1 ? null : domain[1].split(&quot;;&quot;)[0].trim());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the cookies for the given URL.
+&nbsp;     * @param url the URL for which the cookies are requested
+&nbsp;     * @return value the cookies as a string, using the format of the &#39;Cookie&#39; HTTP request header
+&nbsp;     */
+&nbsp;    public String getCookieString(String url) {
+&nbsp;        try {
+<b class="nc">&nbsp;            url = getSanitizedDomain(url);</b>
+<b class="nc">&nbsp;            Logger.info(TAG, &quot;Getting cookies at: &#39;&quot; + url + &quot;&#39;&quot;);</b>
+<b class="nc">&nbsp;            return webkitCookieManager.getCookie(url);</b>
+&nbsp;        } catch (Exception error) {
+<b class="nc">&nbsp;            Logger.error(TAG, &quot;Failed to get cookies at the given URL.&quot;, error);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets a cookie value for the given URL and key.
+&nbsp;     * @param url the URL for which the cookies are requested
+&nbsp;     * @param key the key of the cookie to search for
+&nbsp;     * @return the {@code HttpCookie} value of the cookie at the key,
+&nbsp;     *         otherwise it will return a new empty {@code HttpCookie}
+&nbsp;     */
+&nbsp;    public HttpCookie getCookie(String url, String key) {
+<b class="nc">&nbsp;        HttpCookie[] cookies = getCookies(url);</b>
+<b class="nc">&nbsp;        for (HttpCookie cookie : cookies) {</b>
+<b class="nc">&nbsp;            if (cookie.getName().equals(key)) {</b>
+<b class="nc">&nbsp;                return cookie;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets an array of {@code HttpCookie} given a URL.
+&nbsp;     * @param url the URL for which the cookies are requested
+&nbsp;     * @return an {@code HttpCookie} array of non-expired cookies
+&nbsp;     */
+&nbsp;    public HttpCookie[] getCookies(String url) {
+&nbsp;        try {
+<b class="nc">&nbsp;            ArrayList&lt;HttpCookie&gt; cookieList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;            String cookieString = getCookieString(url);</b>
+<b class="nc">&nbsp;            if (cookieString != null) {</b>
+<b class="nc">&nbsp;                String[] singleCookie = cookieString.split(&quot;;&quot;);</b>
+<b class="nc">&nbsp;                for (String c : singleCookie) {</b>
+<b class="nc">&nbsp;                    HttpCookie parsed = HttpCookie.parse(c).get(0);</b>
+<b class="nc">&nbsp;                    parsed.setValue(parsed.getValue());</b>
+<b class="nc">&nbsp;                    cookieList.add(parsed);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            HttpCookie[] cookies = new HttpCookie[cookieList.size()];</b>
+<b class="nc">&nbsp;            return cookieList.toArray(cookies);</b>
+&nbsp;        } catch (Exception ex) {
+<b class="nc">&nbsp;            return new HttpCookie[0];</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets a cookie for the given URL. Any existing cookie with the same host, path and name will
+&nbsp;     *  be replaced with the new cookie. The cookie being set will be ignored if it is expired.
+&nbsp;     * @param url the URL for which the cookie is to be set
+&nbsp;     * @param value the cookie as a string, using the format of the &#39;Set-Cookie&#39; HTTP response header
+&nbsp;     */
+&nbsp;    public void setCookie(String url, String value) {
+&nbsp;        try {
+<b class="nc">&nbsp;            url = getSanitizedDomain(url);</b>
+<b class="nc">&nbsp;            Logger.info(TAG, &quot;Setting cookie &#39;&quot; + value + &quot;&#39; at: &#39;&quot; + url + &quot;&#39;&quot;);</b>
+<b class="nc">&nbsp;            webkitCookieManager.setCookie(url, value);</b>
+<b class="nc">&nbsp;            flush();</b>
+&nbsp;        } catch (Exception error) {
+<b class="nc">&nbsp;            Logger.error(TAG, &quot;Failed to set cookie.&quot;, error);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets a cookie for the given URL. Any existing cookie with the same host, path and name will
+&nbsp;     *  be replaced with the new cookie. The cookie being set will be ignored if it is expired.
+&nbsp;     * @param url the URL for which the cookie is to be set
+&nbsp;     * @param key the {@code HttpCookie} name to use for lookup
+&nbsp;     * @param value the value of the {@code HttpCookie} given a key
+&nbsp;     */
+&nbsp;    public void setCookie(String url, String key, String value) {
+<b class="nc">&nbsp;        String cookieValue = key + &quot;=&quot; + value;</b>
+<b class="nc">&nbsp;        setCookie(url, cookieValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCookie(String url, String key, String value, String expires, String path) {
+<b class="nc">&nbsp;        String cookieValue = key + &quot;=&quot; + value + &quot;; expires=&quot; + expires + &quot;; path=&quot; + path;</b>
+<b class="nc">&nbsp;        setCookie(url, cookieValue);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Removes all cookies. This method is asynchronous.
+&nbsp;     */
+&nbsp;    public void removeAllCookies() {
+<b class="nc">&nbsp;        webkitCookieManager.removeAllCookies(null);</b>
+<b class="nc">&nbsp;        flush();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Ensures all cookies currently accessible through the getCookie API are written to persistent
+&nbsp;     *  storage. This call will block the caller until it is done and may perform I/O.
+&nbsp;     */
+&nbsp;    public void flush() {
+<b class="nc">&nbsp;        webkitCookieManager.flush();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void put(URI uri, Map&lt;String, List&lt;String&gt;&gt; responseHeaders) {
+&nbsp;        // make sure our args are valid
+<b class="nc">&nbsp;        if ((uri == null) || (responseHeaders == null)) return;</b>
+&nbsp;
+&nbsp;        // go over the headers
+<b class="nc">&nbsp;        for (String headerKey : responseHeaders.keySet()) {</b>
+&nbsp;            // ignore headers which aren&#39;t cookie related
+<b class="nc">&nbsp;            if ((headerKey == null) || !(headerKey.equalsIgnoreCase(&quot;Set-Cookie2&quot;) || headerKey.equalsIgnoreCase(&quot;Set-Cookie&quot;))) continue;</b>
+&nbsp;
+&nbsp;            // process each of the headers
+<b class="nc">&nbsp;            for (String headerValue : Objects.requireNonNull(responseHeaders.get(headerKey))) {</b>
+&nbsp;                try {
+&nbsp;                    // Set at the requested server url
+<b class="nc">&nbsp;                    setCookie(uri.toString(), headerValue);</b>
+&nbsp;
+&nbsp;                    // Set at the defined domain in the response or at default capacitor hosted url
+<b class="nc">&nbsp;                    setCookie(getDomainFromCookieString(headerValue), headerValue);</b>
+&nbsp;                } catch (Exception ignored) {}
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Map&lt;String, List&lt;String&gt;&gt; get(URI uri, Map&lt;String, List&lt;String&gt;&gt; requestHeaders) {
+&nbsp;        // make sure our args are valid
+<b class="nc">&nbsp;        if ((uri == null) || (requestHeaders == null)) throw new IllegalArgumentException(&quot;Argument is null&quot;);</b>
+&nbsp;
+&nbsp;        // save our url once
+<b class="nc">&nbsp;        String url = uri.toString();</b>
+&nbsp;
+&nbsp;        // prepare our response
+<b class="nc">&nbsp;        Map&lt;String, List&lt;String&gt;&gt; res = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;        // get the cookie
+<b class="nc">&nbsp;        String cookie = getCookieString(url);</b>
+&nbsp;
+&nbsp;        // return it
+<b class="nc">&nbsp;        if (cookie != null) res.put(&quot;Cookie&quot;, Collections.singletonList(cookie));</b>
+<b class="nc">&nbsp;        return res;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public CookieStore getCookieStore() {
+&nbsp;        // we don&#39;t want anyone to work with this cookie store directly
+<b class="nc">&nbsp;        throw new UnsupportedOperationException();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

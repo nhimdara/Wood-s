@@ -1,0 +1,474 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AssetUtil</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.plugin.util</a>
+</div>
+
+<h1>Coverage Summary for Class: AssetUtil (com.getcapacitor.plugin.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AssetUtil</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/46)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/109)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.plugin.util;
+&nbsp;
+&nbsp;import android.content.ContentResolver;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.res.AssetManager;
+&nbsp;import android.content.res.Resources;
+&nbsp;import android.graphics.Bitmap;
+&nbsp;import android.graphics.BitmapFactory;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.StrictMode;
+&nbsp;import androidx.core.content.FileProvider;
+&nbsp;import com.getcapacitor.Logger;
+&nbsp;import java.io.File;
+&nbsp;import java.io.FileNotFoundException;
+&nbsp;import java.io.FileOutputStream;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.net.HttpURLConnection;
+&nbsp;import java.net.MalformedURLException;
+&nbsp;import java.net.URL;
+&nbsp;import java.util.UUID;
+&nbsp;
+&nbsp;/**
+&nbsp; * Manager for assets.
+&nbsp; */
+&nbsp;public final class AssetUtil {
+&nbsp;
+&nbsp;    public static final int RESOURCE_ID_ZERO_VALUE = 0;
+&nbsp;    // Name of the storage folder
+&nbsp;    private static final String STORAGE_FOLDER = &quot;/capacitorassets&quot;;
+&nbsp;
+&nbsp;    // Ref to the context passed through the constructor to access the
+&nbsp;    // resources and app directory.
+&nbsp;    private final Context context;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor
+&nbsp;     *
+&nbsp;     * @param context Application context.
+&nbsp;     */
+<b class="nc">&nbsp;    private AssetUtil(Context context) {</b>
+<b class="nc">&nbsp;        this.context = context;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Static method to retrieve class instance.
+&nbsp;     *
+&nbsp;     * @param context Application context.
+&nbsp;     */
+&nbsp;    public static AssetUtil getInstance(Context context) {
+<b class="nc">&nbsp;        return new AssetUtil(context);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The URI for a path.
+&nbsp;     *
+&nbsp;     * @param path The given path.
+&nbsp;     */
+&nbsp;    public Uri parse(String path) {
+<b class="nc">&nbsp;        if (path == null || path.isEmpty()) {</b>
+<b class="nc">&nbsp;            return Uri.EMPTY;</b>
+<b class="nc">&nbsp;        } else if (path.startsWith(&quot;res:&quot;)) {</b>
+<b class="nc">&nbsp;            return getUriForResourcePath(path);</b>
+<b class="nc">&nbsp;        } else if (path.startsWith(&quot;file:///&quot;)) {</b>
+<b class="nc">&nbsp;            return getUriFromPath(path);</b>
+<b class="nc">&nbsp;        } else if (path.startsWith(&quot;file://&quot;)) {</b>
+<b class="nc">&nbsp;            return getUriFromAsset(path);</b>
+<b class="nc">&nbsp;        } else if (path.startsWith(&quot;http&quot;)) {</b>
+<b class="nc">&nbsp;            return getUriFromRemote(path);</b>
+<b class="nc">&nbsp;        } else if (path.startsWith(&quot;content://&quot;)) {</b>
+<b class="nc">&nbsp;            return Uri.parse(path);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return Uri.EMPTY;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * URI for a file.
+&nbsp;     *
+&nbsp;     * @param path Absolute path like file:///...
+&nbsp;     *
+&nbsp;     * @return URI pointing to the given path.
+&nbsp;     */
+&nbsp;    private Uri getUriFromPath(String path) {
+<b class="nc">&nbsp;        String absPath = path.replaceFirst(&quot;file://&quot;, &quot;&quot;).replaceFirst(&quot;\\?.*$&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;        File file = new File(absPath);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!file.exists()) {</b>
+<b class="nc">&nbsp;            Logger.error(&quot;File not found: &quot; + file.getAbsolutePath());</b>
+<b class="nc">&nbsp;            return Uri.EMPTY;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return getUriFromFile(file);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * URI for an asset.
+&nbsp;     *
+&nbsp;     * @param path Asset path like file://...
+&nbsp;     *
+&nbsp;     * @return URI pointing to the given path.
+&nbsp;     */
+&nbsp;    private Uri getUriFromAsset(String path) {
+<b class="nc">&nbsp;        String resPath = path.replaceFirst(&quot;file:/&quot;, &quot;www&quot;).replaceFirst(&quot;\\?.*$&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;        String fileName = resPath.substring(resPath.lastIndexOf(&#39;/&#39;) + 1);</b>
+<b class="nc">&nbsp;        File file = getTmpFile(fileName);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (file == null) return Uri.EMPTY;</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            AssetManager assets = context.getAssets();</b>
+<b class="nc">&nbsp;            InputStream in = assets.open(resPath);</b>
+<b class="nc">&nbsp;            FileOutputStream out = new FileOutputStream(file);</b>
+<b class="nc">&nbsp;            copyFile(in, out);</b>
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            Logger.error(&quot;File not found: assets/&quot; + resPath);</b>
+<b class="nc">&nbsp;            return Uri.EMPTY;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return getUriFromFile(file);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The URI for a resource.
+&nbsp;     *
+&nbsp;     * @param path The given relative path.
+&nbsp;     *
+&nbsp;     * @return URI pointing to the given path.
+&nbsp;     */
+&nbsp;    private Uri getUriForResourcePath(String path) {
+<b class="nc">&nbsp;        Resources res = context.getResources();</b>
+<b class="nc">&nbsp;        String resPath = path.replaceFirst(&quot;res://&quot;, &quot;&quot;);</b>
+<b class="nc">&nbsp;        int resId = getResId(resPath);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (resId == 0) {</b>
+<b class="nc">&nbsp;            Logger.error(&quot;File not found: &quot; + resPath);</b>
+<b class="nc">&nbsp;            return Uri.EMPTY;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return new Uri.Builder()</b>
+<b class="nc">&nbsp;            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)</b>
+<b class="nc">&nbsp;            .authority(res.getResourcePackageName(resId))</b>
+<b class="nc">&nbsp;            .appendPath(res.getResourceTypeName(resId))</b>
+<b class="nc">&nbsp;            .appendPath(res.getResourceEntryName(resId))</b>
+<b class="nc">&nbsp;            .build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Uri from remote located content.
+&nbsp;     *
+&nbsp;     * @param path Remote address.
+&nbsp;     *
+&nbsp;     * @return Uri of the downloaded file.
+&nbsp;     */
+&nbsp;    private Uri getUriFromRemote(String path) {
+<b class="nc">&nbsp;        File file = getTmpFile();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (file == null) return Uri.EMPTY;</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            URL url = new URL(path);</b>
+<b class="nc">&nbsp;            HttpURLConnection connection = (HttpURLConnection) url.openConnection();</b>
+&nbsp;
+<b class="nc">&nbsp;            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();</b>
+&nbsp;
+<b class="nc">&nbsp;            StrictMode.setThreadPolicy(policy);</b>
+&nbsp;
+<b class="nc">&nbsp;            connection.setRequestProperty(&quot;Connection&quot;, &quot;close&quot;);</b>
+<b class="nc">&nbsp;            connection.setConnectTimeout(5000);</b>
+<b class="nc">&nbsp;            connection.connect();</b>
+&nbsp;
+<b class="nc">&nbsp;            InputStream in = connection.getInputStream();</b>
+<b class="nc">&nbsp;            FileOutputStream out = new FileOutputStream(file);</b>
+&nbsp;
+<b class="nc">&nbsp;            copyFile(in, out);</b>
+<b class="nc">&nbsp;            return getUriFromFile(file);</b>
+&nbsp;        } catch (MalformedURLException e) {
+<b class="nc">&nbsp;            Logger.error(Logger.tags(&quot;Asset&quot;), &quot;Incorrect URL&quot;, e);</b>
+&nbsp;        } catch (FileNotFoundException e) {
+<b class="nc">&nbsp;            Logger.error(Logger.tags(&quot;Asset&quot;), &quot;Failed to create new File from HTTP Content&quot;, e);</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            Logger.error(Logger.tags(&quot;Asset&quot;), &quot;No Input can be created from http Stream&quot;, e);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return Uri.EMPTY;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Copy content from input stream into output stream.
+&nbsp;     *
+&nbsp;     * @param in  The input stream.
+&nbsp;     * @param out The output stream.
+&nbsp;     */
+&nbsp;    private void copyFile(InputStream in, FileOutputStream out) {
+<b class="nc">&nbsp;        byte[] buffer = new byte[1024];</b>
+&nbsp;        int read;
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            while ((read = in.read(buffer)) != -1) {</b>
+<b class="nc">&nbsp;                out.write(buffer, 0, read);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            out.flush();</b>
+&nbsp;            out.close();
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            Logger.error(&quot;Error copying&quot;, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Resource ID for drawable.
+&nbsp;     *
+&nbsp;     * @param resPath Resource path as string.
+&nbsp;     *
+&nbsp;     * @return The resource ID or 0 if not found.
+&nbsp;     */
+&nbsp;    public int getResId(String resPath) {
+<b class="nc">&nbsp;        int resId = getResId(context.getResources(), resPath);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (resId == 0) {</b>
+<b class="nc">&nbsp;            resId = getResId(Resources.getSystem(), resPath);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return resId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get resource ID.
+&nbsp;     *
+&nbsp;     * @param res     The resources where to look for.
+&nbsp;     * @param resPath The name of the resource.
+&nbsp;     *
+&nbsp;     * @return The resource ID or 0 if not found.
+&nbsp;     */
+&nbsp;    private int getResId(Resources res, String resPath) {
+<b class="nc">&nbsp;        String pkgName = getPkgName(res);</b>
+<b class="nc">&nbsp;        String resName = getBaseName(resPath);</b>
+&nbsp;        int resId;
+&nbsp;
+<b class="nc">&nbsp;        resId = res.getIdentifier(resName, &quot;mipmap&quot;, pkgName);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (resId == 0) {</b>
+<b class="nc">&nbsp;            resId = res.getIdentifier(resName, &quot;drawable&quot;, pkgName);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (resId == 0) {</b>
+<b class="nc">&nbsp;            resId = res.getIdentifier(resName, &quot;raw&quot;, pkgName);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return resId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Convert URI to Bitmap.
+&nbsp;     *
+&nbsp;     * @param uri Internal image URI
+&nbsp;     */
+&nbsp;    public Bitmap getIconFromUri(Uri uri) throws IOException {
+<b class="nc">&nbsp;        InputStream input = context.getContentResolver().openInputStream(uri);</b>
+<b class="nc">&nbsp;        return BitmapFactory.decodeStream(input);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Extract name of drawable resource from path.
+&nbsp;     *
+&nbsp;     * @param resPath Resource path as string.
+&nbsp;     */
+&nbsp;    private String getBaseName(String resPath) {
+<b class="nc">&nbsp;        String drawable = resPath;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (drawable.contains(&quot;/&quot;)) {</b>
+<b class="nc">&nbsp;            drawable = drawable.substring(drawable.lastIndexOf(&#39;/&#39;) + 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (resPath.contains(&quot;.&quot;)) {</b>
+<b class="nc">&nbsp;            drawable = drawable.substring(0, drawable.lastIndexOf(&#39;.&#39;));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return drawable;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a file located under the external cache dir of that app.
+&nbsp;     *
+&nbsp;     * @return File with a random UUID name.
+&nbsp;     */
+&nbsp;    private File getTmpFile() {
+<b class="nc">&nbsp;        return getTmpFile(UUID.randomUUID().toString());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a file located under the external cache dir of that app.
+&nbsp;     *
+&nbsp;     * @param name The name of the file.
+&nbsp;     *
+&nbsp;     * @return File with the provided name.
+&nbsp;     */
+&nbsp;    private File getTmpFile(String name) {
+<b class="nc">&nbsp;        File dir = context.getExternalCacheDir();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (dir == null) {</b>
+<b class="nc">&nbsp;            dir = context.getCacheDir();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (dir == null) {</b>
+<b class="nc">&nbsp;            Logger.error(Logger.tags(&quot;Asset&quot;), &quot;Missing cache dir&quot;, null);</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        String storage = dir.toString() + STORAGE_FOLDER;</b>
+&nbsp;
+&nbsp;        //noinspection ResultOfMethodCallIgnored
+<b class="nc">&nbsp;        new File(storage).mkdir();</b>
+&nbsp;
+<b class="nc">&nbsp;        return new File(storage, name);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get content URI for the specified file.
+&nbsp;     *
+&nbsp;     * @param file The file to get the URI.
+&nbsp;     *
+&nbsp;     * @return content://...
+&nbsp;     */
+&nbsp;    private Uri getUriFromFile(File file) {
+&nbsp;        try {
+<b class="nc">&nbsp;            String authority = context.getPackageName() + &quot;.provider&quot;;</b>
+<b class="nc">&nbsp;            return FileProvider.getUriForFile(context, authority, file);</b>
+&nbsp;        } catch (IllegalArgumentException e) {
+<b class="nc">&nbsp;            Logger.error(&quot;File not supported by provider&quot;, e);</b>
+<b class="nc">&nbsp;            return Uri.EMPTY;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Package name specified by the resource bundle.
+&nbsp;     */
+&nbsp;    private String getPkgName(Resources res) {
+<b class="nc">&nbsp;        return res == Resources.getSystem() ? &quot;android&quot; : context.getPackageName();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static int getResourceID(Context context, String resourceName, String dir) {
+<b class="nc">&nbsp;        return context.getResources().getIdentifier(resourceName, dir, context.getPackageName());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getResourceBaseName(String resPath) {
+<b class="nc">&nbsp;        if (resPath == null) return null;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (resPath.contains(&quot;/&quot;)) {</b>
+<b class="nc">&nbsp;            return resPath.substring(resPath.lastIndexOf(&#39;/&#39;) + 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (resPath.contains(&quot;.&quot;)) {</b>
+<b class="nc">&nbsp;            return resPath.substring(0, resPath.lastIndexOf(&#39;.&#39;));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return resPath;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

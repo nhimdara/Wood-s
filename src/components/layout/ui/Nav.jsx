@@ -1,0 +1,712 @@
+// components/layout/ui/Nav.jsx - Offline version (no external fonts)
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/logo/logo.png";
+
+const NAV_ITEMS = [
+  { label: "Home", href: "/" },
+  {
+    label: "Category",
+    children: [
+      {
+        label: "Milk",
+        href: "/product/1",
+        children: [
+          { label: "Organic Fresh Milk", href: "/product/1/milk-1" },
+          { label: "Sugar-Free Milk", href: "/product/1/milk-2" },
+          { label: "Yogurt Drink", href: "/product/1/milk-3" },
+        ],
+      },
+      {
+        label: "Tea",
+        href: "/product/2",
+        children: [
+          { label: "Green Tea", href: "/product/2/tea-1" },
+          { label: "Black Tea", href: "/product/2/tea-2" },
+          { label: "Herbal Tea", href: "/product/2/tea-3" },
+        ],
+      },
+      {
+        label: "Coffee",
+        href: "/product/3",
+        children: [
+          { label: "Espresso Roast", href: "/product/3/coffee-1" },
+          { label: "Cold Brew Blend", href: "/product/3/coffee-2" },
+          { label: "Single Origin", href: "/product/3/coffee-3" },
+        ],
+      },
+      {
+        label: "Noodle",
+        href: "/product/4",
+        children: [
+          { label: "Rice Noodle", href: "/product/4/noodle-1" },
+          { label: "Egg Noodle", href: "/product/4/noodle-2" },
+          { label: "Glass Noodle", href: "/product/4/noodle-3" },
+        ],
+      },
+    ],
+  },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+function useOutsideClick(ref, handler) {
+  useEffect(() => {
+    const listener = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) handler();
+    };
+    document.addEventListener("mousedown", listener);
+    return () => document.removeEventListener("mousedown", listener);
+  }, [ref, handler]);
+}
+
+function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
+  const [nestedOpen, setNestedOpen] = useState(null);
+  const nestedTimer = useRef(null);
+  const location = useLocation();
+
+  const clearNested = () => {
+    if (nestedTimer.current) clearTimeout(nestedTimer.current);
+  };
+  const openNested = (label) => {
+    clearNested();
+    setNestedOpen(label);
+  };
+  const closeNested = () => {
+    nestedTimer.current = setTimeout(() => setNestedOpen(null), 120);
+  };
+
+  const glassBase = {
+    background: "#FAF6F0",
+    backdropFilter: "blur(20px)",
+    border: "1px solid #8B5E3C",
+    borderRadius: 16,
+    padding: 8,
+    boxShadow: "0 20px 40px -12px rgba(61,43,31,0.3)",
+  };
+
+  const isActive = (href) => {
+    if (href === "/") return location.pathname === "/";
+    return location.pathname.startsWith(href);
+  };
+
+  return (
+    <div
+      style={{
+        ...glassBase,
+        position: "absolute",
+        top: "calc(100% + 10px)",
+        left: "50%",
+        transform: "translateX(-50%)",
+        minWidth: 220,
+        zIndex: 200,
+        animation: "fadeInDown 0.18s ease-out",
+      }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {items.map((item) => (
+        <div key={item.label} style={{ position: "relative" }}>
+          {item.children ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 10,
+                  padding: "10px 14px",
+                  borderRadius: 12,
+                  cursor: "pointer",
+                  background:
+                    nestedOpen === item.label
+                      ? "rgba(61,43,31,0.08)"
+                      : isActive(item.href)
+                        ? "rgba(139,94,60,0.1)"
+                        : "transparent",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={() => openNested(item.label)}
+                onMouseLeave={closeNested}
+              >
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontWeight: isActive(item.href) ? 600 : 500,
+                    color: isActive(item.href) ? "#8B5E3C" : "#3D2B1F",
+                  }}
+                >
+                  {item.label}
+                </span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  style={{ opacity: 0.6, flexShrink: 0 }}
+                >
+                  <path
+                    d="M4 2l4 4-4 4"
+                    stroke="#3D2B1F"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+
+              {nestedOpen === item.label && (
+                <div
+                  style={{
+                    ...glassBase,
+                    position: "absolute",
+                    top: 0,
+                    left: "calc(100% + 8px)",
+                    minWidth: 180,
+                    zIndex: 300,
+                    animation: "slideInRight 0.18s ease-out",
+                  }}
+                  onMouseEnter={() => {
+                    clearNested();
+                    setNestedOpen(item.label);
+                  }}
+                  onMouseLeave={closeNested}
+                >
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.label}
+                      to={child.href}
+                      style={{
+                        display: "block",
+                        padding: "10px 14px",
+                        borderRadius: 12,
+                        textDecoration: "none",
+                        fontSize: 14,
+                        fontWeight: isActive(child.href) ? 600 : 500,
+                        color: isActive(child.href) ? "#8B5E3C" : "#3D2B1F",
+                        background: isActive(child.href)
+                          ? "rgba(139,94,60,0.1)"
+                          : "transparent",
+                        transition: "background 0.15s",
+                      }}
+                      onMouseEnter={(e) => {
+                        if (!isActive(child.href)) {
+                          e.currentTarget.style.background =
+                            "rgba(61,43,31,0.08)";
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (!isActive(child.href)) {
+                          e.currentTarget.style.background = "transparent";
+                        }
+                      }}
+                    >
+                      {child.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <Link
+              to={item.href}
+              style={{
+                display: "block",
+                padding: "10px 14px",
+                borderRadius: 12,
+                textDecoration: "none",
+                fontSize: 14,
+                fontWeight: isActive(item.href) ? 600 : 500,
+                color: isActive(item.href) ? "#8B5E3C" : "#3D2B1F",
+                background: isActive(item.href)
+                  ? "rgba(139,94,60,0.1)"
+                  : "transparent",
+                transition: "background 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(item.href)) {
+                  e.currentTarget.style.background = "rgba(61,43,31,0.08)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(item.href)) {
+                  e.currentTarget.style.background = "transparent";
+                }
+              }}
+            >
+              {item.label}
+            </Link>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function Nav() {
+  const [open, setOpen] = useState(null);
+  const [isScrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [mobileL3, setMobileL3] = useState(null);
+
+  const location = useLocation();
+  const navRef = useRef(null);
+  const closeTimer = useRef(null);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileExpanded(null);
+    setMobileL3(null);
+    setOpen(null);
+  }, [location.pathname]);
+
+  useOutsideClick(navRef, () => {
+    setOpen(null);
+    setMobileOpen(false);
+  });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const openMenu = (label) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(label);
+  };
+  const closeMenu = () => {
+    closeTimer.current = setTimeout(() => setOpen(null), 150);
+  };
+  const keepOpen = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  };
+
+  const isActive = (item) => {
+    if (item.href === "/") return location.pathname === "/";
+    if (item.children) {
+      return item.children.some((c) => {
+        if (c.children) {
+          return c.children.some((child) =>
+            location.pathname.startsWith(child.href),
+          );
+        }
+        return location.pathname.startsWith(c.href);
+      });
+    }
+    return location.pathname.startsWith(item.href);
+  };
+
+  const getActiveClass = (item) => {
+    return isActive(item) ? " active" : "";
+  };
+
+  return (
+    <>
+      <style>{`
+        @keyframes fadeInDown {
+          from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(-8px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes glowPulse {
+          0%, 100% { opacity: 0.4; }
+          50%       { opacity: 1; }
+        }
+        @keyframes slideDown {
+          from { opacity: 0; max-height: 0; }
+          to   { opacity: 1; max-height: 800px; }
+        }
+
+        .nav-glow {
+          position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+          background: linear-gradient(90deg, transparent, #8B5E3C, #3D2B1F, #8B5E3C, transparent);
+          animation: glowPulse 3s ease-in-out infinite;
+        }
+        .nav-link-btn {
+          font-size: 14px; font-weight: 500;
+          color: rgba(61,43,31,0.8);
+          padding: 8px 18px; border-radius: 40px;
+          background: transparent; border: none;
+          cursor: pointer; transition: color 0.2s, background 0.2s;
+          display: flex; align-items: center; gap: 6px;
+          white-space: nowrap; text-decoration: none;
+        }
+        .nav-link-btn:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
+        .nav-link-btn.active { color: #8B5E3C; background: rgba(139,94,60,0.1); font-weight: 600; }
+        .btn-login {
+          font-size: 14px; font-weight: 500;
+          color: #3D2B1F; padding: 8px 20px; border-radius: 40px;
+          border: 1px solid #8B5E3C; background: transparent;
+          cursor: pointer; transition: all 0.2s;
+        }
+        .btn-login:hover { border-color: #3D2B1F; color: #3D2B1F; background: rgba(61,43,31,0.06); }
+        .btn-cta {
+          font-size: 14px; font-weight: 600;
+          color: #FAF6F0; padding: 8px 22px; border-radius: 40px; border: none;
+          background: linear-gradient(135deg, #3D2B1F, #8B5E3C);
+          cursor: pointer; transition: all 0.2s;
+          box-shadow: 0 2px 8px rgba(61,43,31,0.3);
+        }
+        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(61,43,31,0.45); }
+        .hamburger {
+          display: none; background: none; border: none;
+          color: #3D2B1F; cursor: pointer;
+          padding: 6px; border-radius: 8px; transition: color 0.2s;
+        }
+        .hamburger:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
+        .mob-link {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 11px 10px; font-size: 15px; font-weight: 500;
+          color: #3D2B1F; border-radius: 10px;
+          text-decoration: none; cursor: pointer;
+          background: none; border: none; width: 100%;
+          transition: color 0.15s, background 0.15s;
+        }
+        .mob-link:hover { color: #3D2B1F; background: rgba(61,43,31,0.05); }
+        .mob-link.active { color: #8B5E3C; font-weight: 600; background: rgba(139,94,60,0.07); }
+        .mob-sub a {
+          display: block; padding: 9px 10px 9px 26px; font-size: 14px;
+          color: rgba(61,43,31,0.7); border-radius: 8px;
+          text-decoration: none; transition: color 0.15s, background 0.15s;
+        }
+        .mob-sub a:hover { color: #3D2B1F; background: rgba(61,43,31,0.08); }
+        .mob-sub a.active { color: #8B5E3C; background: rgba(139,94,60,0.07); font-weight: 500; }
+        .mob-sub-sub a { padding-left: 42px !important; }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .nav-link-btn { padding: 8px 12px; font-size: 13px; }
+          .btn-login, .btn-cta { padding: 8px 16px; font-size: 13px; }
+        }
+        
+        @media (max-width: 768px) {
+          .desktop-nav, .desktop-actions { display: none !important; }
+          .hamburger { display: flex !important; }
+          .nav-glow { display: none; }
+        }
+      `}</style>
+
+      <nav
+        ref={navRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          background: isScrolled ? "#FAF6F0" : "rgba(250,246,240,0.95)",
+          backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
+          borderBottom: "1px solid rgba(139,94,60,0.2)",
+          transition: "all 0.3s ease",
+        }}
+      >
+        <div className="nav-glow" />
+
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "0 clamp(16px, 5vw, 32px)",
+            height: isScrolled
+              ? "clamp(50px, 8vh, 60px)"
+              : "clamp(60px, 9vh, 70px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            transition: "height 0.3s ease",
+          }}
+        >
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(6px, 2vw, 10px)",
+            }}
+          >
+            <div
+              style={{
+                width: "clamp(30px, 5vw, 34px)",
+                height: "clamp(30px, 5vw, 34px)",
+                borderRadius: 10,
+                overflow: "hidden",
+                background: "linear-gradient(135deg,#3D2B1F,#8B5E3C)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 4px 12px rgba(61,43,31,0.3)",
+                flexShrink: 0,
+              }}
+            >
+              <img
+                src={logo}
+                alt="Logo"
+                style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              />
+            </div>
+            <span
+              style={{
+                fontFamily: "Georgia, 'Times New Roman', Times, serif",
+                fontSize: "clamp(18px, 4vw, 21px)",
+                fontWeight: 500,
+                background: "linear-gradient(135deg,#3D2B1F,#8B5E3C)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              WOOD'S
+            </span>
+          </Link>
+
+          <div
+            className="desktop-nav"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(2px, 1vw, 6px)",
+            }}
+          >
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <div
+                  key={item.label}
+                  style={{ position: "relative" }}
+                  onMouseEnter={() => openMenu(item.label)}
+                  onMouseLeave={closeMenu}
+                >
+                  <button className={`nav-link-btn${getActiveClass(item)}`}>
+                    {item.label}
+                    <svg
+                      width="11"
+                      height="11"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      style={{
+                        transition: "transform 0.2s",
+                        transform:
+                          open === item.label ? "rotate(180deg)" : "none",
+                        opacity: 0.6,
+                      }}
+                    >
+                      <path
+                        d="M2 4l4 4 4-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  {open === item.label && (
+                    <NestedDropdown
+                      items={item.children}
+                      onMouseEnter={keepOpen}
+                      onMouseLeave={closeMenu}
+                    />
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`nav-link-btn${getActiveClass(item)}`}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
+          </div>
+
+          <div
+            className="desktop-actions"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "clamp(8px, 2vw, 14px)",
+            }}
+          >
+            <button className="btn-login">Log in</button>
+            <button className="btn-cta">Get Started</button>
+          </div>
+
+          <button
+            className="hamburger"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Menu"
+          >
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              {mobileOpen ? (
+                <path
+                  d="M4 4l14 14M18 4L4 18"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="M3 6h16M3 11h16M3 16h16"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {mobileOpen && (
+          <div
+            style={{
+              borderTop: "1px solid rgba(139,94,60,0.2)",
+              padding: "8px 16px 16px",
+              animation: "slideDown 0.22s ease",
+              overflow: "hidden",
+              background: "#FAF6F0",
+              maxHeight: "calc(100vh - 70px)",
+              overflowY: "auto",
+            }}
+          >
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <div key={item.label}>
+                  <button
+                    className={`mob-link${getActiveClass(item)}`}
+                    onClick={() => {
+                      setMobileExpanded(
+                        mobileExpanded === item.label ? null : item.label,
+                      );
+                      setMobileL3(null);
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      style={{
+                        transition: "transform 0.2s",
+                        transform:
+                          mobileExpanded === item.label
+                            ? "rotate(180deg)"
+                            : "none",
+                        opacity: 0.6,
+                      }}
+                    >
+                      <path
+                        d="M2 4l4 4 4-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  {mobileExpanded === item.label && (
+                    <div className="mob-sub">
+                      {item.children.map((child) =>
+                        child.children ? (
+                          <div key={child.label}>
+                            <button
+                              className="mob-link"
+                              style={{ fontSize: 14, paddingLeft: 26 }}
+                              onClick={() =>
+                                setMobileL3(
+                                  mobileL3 === child.label ? null : child.label,
+                                )
+                              }
+                            >
+                              <span>{child.label}</span>
+                              <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                style={{
+                                  transition: "transform 0.2s",
+                                  transform:
+                                    mobileL3 === child.label
+                                      ? "rotate(180deg)"
+                                      : "none",
+                                  opacity: 0.6,
+                                }}
+                              >
+                                <path
+                                  d="M2 4l4 4 4-4"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </button>
+                            {mobileL3 === child.label && (
+                              <div className="mob-sub mob-sub-sub">
+                                {child.children.map((sub) => (
+                                  <Link
+                                    key={sub.label}
+                                    to={sub.href}
+                                    className={
+                                      location.pathname === sub.href
+                                        ? "active"
+                                        : ""
+                                    }
+                                  >
+                                    {sub.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <Link
+                            key={child.label}
+                            to={child.href}
+                            className={
+                              location.pathname === child.href ? "active" : ""
+                            }
+                          >
+                            {child.label}
+                          </Link>
+                        ),
+                      )}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`mob-link${getActiveClass(item)}`}
+                >
+                  <span>{item.label}</span>
+                </Link>
+              ),
+            )}
+            <div
+              style={{
+                display: "flex",
+                gap: 10,
+                marginTop: 12,
+                padding: "0 2px",
+                flexDirection: window.innerWidth < 400 ? "column" : "row",
+              }}
+            >
+              <button className="btn-login" style={{ flex: 1 }}>
+                Log in
+              </button>
+              <button className="btn-cta" style={{ flex: 1 }}>
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+    </>
+  );
+}

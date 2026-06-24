@@ -1,0 +1,453 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > FileUtils</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor</a>
+</div>
+
+<h1>Coverage Summary for Class: FileUtils (com.getcapacitor)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FileUtils</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/106)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FileUtils$Type</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/110)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/**
+&nbsp; * Portions adopted from react-native-image-crop-picker
+&nbsp; *
+&nbsp; * MIT License
+&nbsp;
+&nbsp; * Copyright (c) 2017 Ivan Pusic
+&nbsp;
+&nbsp; * Permission is hereby granted, free of charge, to any person obtaining a copy
+&nbsp; * of this software and associated documentation files (the &quot;Software&quot;), to deal
+&nbsp; * in the Software without restriction, including without limitation the rights
+&nbsp; * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+&nbsp; * copies of the Software, and to permit persons to whom the Software is
+&nbsp; * furnished to do so, subject to the following conditions:
+&nbsp; *
+&nbsp; * The above copyright notice and this permission notice shall be included in all
+&nbsp; * copies or substantial portions of the Software.
+&nbsp; *
+&nbsp; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+&nbsp; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+&nbsp; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+&nbsp; * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+&nbsp; * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+&nbsp; * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+&nbsp; * SOFTWARE.
+&nbsp; */
+&nbsp;package com.getcapacitor;
+&nbsp;
+&nbsp;import android.content.ContentUris;
+&nbsp;import android.content.Context;
+&nbsp;import android.content.res.AssetManager;
+&nbsp;import android.database.Cursor;
+&nbsp;import android.net.Uri;
+&nbsp;import android.os.Environment;
+&nbsp;import android.provider.DocumentsContract;
+&nbsp;import android.provider.MediaStore;
+&nbsp;import android.provider.OpenableColumns;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.File;
+&nbsp;import java.io.FileOutputStream;
+&nbsp;import java.io.FileReader;
+&nbsp;import java.io.IOException;
+&nbsp;import java.io.InputStream;
+&nbsp;import java.io.InputStreamReader;
+&nbsp;
+&nbsp;/**
+&nbsp; * Common File utilities, such as resolve content URIs and
+&nbsp; * creating portable web paths from low-level files
+&nbsp; */
+<b class="nc">&nbsp;public class FileUtils {</b>
+&nbsp;
+<b class="nc">&nbsp;    private static String CapacitorFileScheme = Bridge.CAPACITOR_FILE_START;</b>
+&nbsp;
+<b class="nc">&nbsp;    public enum Type {</b>
+<b class="nc">&nbsp;        IMAGE(&quot;image&quot;);</b>
+&nbsp;
+&nbsp;        private String type;
+&nbsp;
+<b class="nc">&nbsp;        Type(String type) {</b>
+<b class="nc">&nbsp;            this.type = type;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getPortablePath(Context c, String host, Uri u) {
+<b class="nc">&nbsp;        String path = getFileUrlForUri(c, u);</b>
+<b class="nc">&nbsp;        if (path.startsWith(&quot;file://&quot;)) {</b>
+<b class="nc">&nbsp;            path = path.replace(&quot;file://&quot;, &quot;&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return host + Bridge.CAPACITOR_FILE_START + path;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getFileUrlForUri(final Context context, final Uri uri) {
+&nbsp;        // DocumentProvider
+<b class="nc">&nbsp;        if (DocumentsContract.isDocumentUri(context, uri)) {</b>
+&nbsp;            // ExternalStorageProvider
+<b class="nc">&nbsp;            if (isExternalStorageDocument(uri)) {</b>
+<b class="nc">&nbsp;                final String docId = DocumentsContract.getDocumentId(uri);</b>
+<b class="nc">&nbsp;                final String[] split = docId.split(&quot;:&quot;);</b>
+<b class="nc">&nbsp;                final String type = split[0];</b>
+&nbsp;
+<b class="nc">&nbsp;                if (&quot;primary&quot;.equalsIgnoreCase(type)) {</b>
+<b class="nc">&nbsp;                    return legacyPrimaryPath(split[1]);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    final int splitIndex = docId.indexOf(&#39;:&#39;, 1);</b>
+<b class="nc">&nbsp;                    final String tag = docId.substring(0, splitIndex);</b>
+<b class="nc">&nbsp;                    final String path = docId.substring(splitIndex + 1);</b>
+&nbsp;
+<b class="nc">&nbsp;                    String nonPrimaryVolume = getPathToNonPrimaryVolume(context, tag);</b>
+<b class="nc">&nbsp;                    if (nonPrimaryVolume != null) {</b>
+<b class="nc">&nbsp;                        String result = nonPrimaryVolume + &quot;/&quot; + path;</b>
+<b class="nc">&nbsp;                        File file = new File(result);</b>
+<b class="nc">&nbsp;                        if (file.exists() &amp;&amp; file.canRead()) {</b>
+<b class="nc">&nbsp;                            return result;</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        return null;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;            // DownloadsProvider
+<b class="nc">&nbsp;            else if (isDownloadsDocument(uri)) {</b>
+<b class="nc">&nbsp;                final String id = DocumentsContract.getDocumentId(uri);</b>
+<b class="nc">&nbsp;                final Uri contentUri = ContentUris.withAppendedId(Uri.parse(&quot;content://downloads/public_downloads&quot;), Long.valueOf(id));</b>
+&nbsp;
+<b class="nc">&nbsp;                return getDataColumn(context, contentUri, null, null);</b>
+&nbsp;            }
+&nbsp;            // MediaProvider
+<b class="nc">&nbsp;            else if (isMediaDocument(uri)) {</b>
+<b class="nc">&nbsp;                final String docId = DocumentsContract.getDocumentId(uri);</b>
+<b class="nc">&nbsp;                final String[] split = docId.split(&quot;:&quot;);</b>
+<b class="nc">&nbsp;                final String type = split[0];</b>
+&nbsp;
+<b class="nc">&nbsp;                Uri contentUri = null;</b>
+<b class="nc">&nbsp;                if (&quot;image&quot;.equals(type)) {</b>
+<b class="nc">&nbsp;                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;</b>
+<b class="nc">&nbsp;                } else if (&quot;video&quot;.equals(type)) {</b>
+<b class="nc">&nbsp;                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;</b>
+<b class="nc">&nbsp;                } else if (&quot;audio&quot;.equals(type)) {</b>
+<b class="nc">&nbsp;                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                final String selection = &quot;_id=?&quot;;</b>
+<b class="nc">&nbsp;                final String[] selectionArgs = new String[] { split[1] };</b>
+&nbsp;
+<b class="nc">&nbsp;                return getDataColumn(context, contentUri, selection, selectionArgs);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        // MediaStore (and general)
+<b class="nc">&nbsp;        else if (&quot;content&quot;.equalsIgnoreCase(uri.getScheme())) {</b>
+&nbsp;            // Return the remote address
+<b class="nc">&nbsp;            if (isGooglePhotosUri(uri)) return uri.getLastPathSegment();</b>
+<b class="nc">&nbsp;            return getDataColumn(context, uri, null, null);</b>
+&nbsp;        }
+&nbsp;        // File
+<b class="nc">&nbsp;        else if (&quot;file&quot;.equalsIgnoreCase(uri.getScheme())) {</b>
+<b class="nc">&nbsp;            return uri.getPath();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @SuppressWarnings(&quot;deprecation&quot;)
+&nbsp;    private static String legacyPrimaryPath(String pathPart) {
+<b class="nc">&nbsp;        return Environment.getExternalStorageDirectory() + &quot;/&quot; + pathPart;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Read a plaintext file from the assets directory.
+&nbsp;     *
+&nbsp;     * @param assetManager Used to open the file.
+&nbsp;     * @param fileName The path of the file to read.
+&nbsp;     * @return The contents of the file path.
+&nbsp;     * @throws IOException Thrown if any issues reading the provided file path.
+&nbsp;     */
+&nbsp;    static String readFileFromAssets(AssetManager assetManager, String fileName) throws IOException {
+<b class="nc">&nbsp;        try (BufferedReader reader = new BufferedReader(new InputStreamReader(assetManager.open(fileName)))) {</b>
+<b class="nc">&nbsp;            StringBuilder buffer = new StringBuilder();</b>
+&nbsp;            String line;
+<b class="nc">&nbsp;            while ((line = reader.readLine()) != null) {</b>
+<b class="nc">&nbsp;                buffer.append(line).append(&quot;\n&quot;);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            return buffer.toString();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Read a plaintext file from within the app disk space.
+&nbsp;     *
+&nbsp;     * @param file The file to read.
+&nbsp;     * @return The contents of the file path.
+&nbsp;     * @throws IOException Thrown if any issues reading the provided file path.
+&nbsp;     */
+&nbsp;    static String readFileFromDisk(File file) throws IOException {
+<b class="nc">&nbsp;        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {</b>
+<b class="nc">&nbsp;            StringBuilder buffer = new StringBuilder();</b>
+&nbsp;            String line;
+<b class="nc">&nbsp;            while ((line = reader.readLine()) != null) {</b>
+<b class="nc">&nbsp;                buffer.append(line).append(&quot;\n&quot;);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            return buffer.toString();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the value of the data column for this Uri. This is useful for
+&nbsp;     * MediaStore Uris, and other file-based ContentProviders.
+&nbsp;     *
+&nbsp;     * @param context The context.
+&nbsp;     * @param uri The Uri to query.
+&nbsp;     * @param selection (Optional) Filter used in the query.
+&nbsp;     * @param selectionArgs (Optional) Selection arguments used in the query.
+&nbsp;     * @return The value of the _data column, which is typically a file path.
+&nbsp;     */
+&nbsp;    private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
+<b class="nc">&nbsp;        String path = null;</b>
+<b class="nc">&nbsp;        Cursor cursor = null;</b>
+<b class="nc">&nbsp;        final String column = &quot;_data&quot;;</b>
+<b class="nc">&nbsp;        final String[] projection = { column };</b>
+&nbsp;
+&nbsp;        try {
+<b class="nc">&nbsp;            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);</b>
+<b class="nc">&nbsp;            if (cursor != null &amp;&amp; cursor.moveToFirst()) {</b>
+<b class="nc">&nbsp;                final int index = cursor.getColumnIndexOrThrow(column);</b>
+<b class="nc">&nbsp;                path = cursor.getString(index);</b>
+&nbsp;            }
+&nbsp;        } catch (IllegalArgumentException ex) {
+<b class="nc">&nbsp;            return getCopyFilePath(uri, context);</b>
+&nbsp;        } finally {
+&nbsp;            if (cursor != null) cursor.close();
+&nbsp;        }
+<b class="nc">&nbsp;        if (path == null) {</b>
+<b class="nc">&nbsp;            return getCopyFilePath(uri, context);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return path;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String getCopyFilePath(Uri uri, Context context) {
+<b class="nc">&nbsp;        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);</b>
+<b class="nc">&nbsp;        int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);</b>
+<b class="nc">&nbsp;        cursor.moveToFirst();</b>
+<b class="nc">&nbsp;        String name = (cursor.getString(nameIndex));</b>
+<b class="nc">&nbsp;        String fileName = sanitizeFilename(name);</b>
+<b class="nc">&nbsp;        File file = new File(context.getFilesDir(), fileName);</b>
+&nbsp;        try {
+<b class="nc">&nbsp;            InputStream inputStream = context.getContentResolver().openInputStream(uri);</b>
+<b class="nc">&nbsp;            FileOutputStream outputStream = new FileOutputStream(file);</b>
+<b class="nc">&nbsp;            int read = 0;</b>
+<b class="nc">&nbsp;            int maxBufferSize = 1024 * 1024;</b>
+<b class="nc">&nbsp;            int bufferSize = Math.min(inputStream.available(), maxBufferSize);</b>
+<b class="nc">&nbsp;            final byte[] buffers = new byte[bufferSize];</b>
+<b class="nc">&nbsp;            while ((read = inputStream.read(buffers)) != -1) {</b>
+<b class="nc">&nbsp;                outputStream.write(buffers, 0, read);</b>
+&nbsp;            }
+&nbsp;            inputStream.close();
+&nbsp;            outputStream.close();
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        } finally {
+&nbsp;            if (cursor != null) cursor.close();
+&nbsp;        }
+<b class="nc">&nbsp;        return file.getPath();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param uri The Uri to check.
+&nbsp;     * @return Whether the Uri authority is ExternalStorageProvider.
+&nbsp;     */
+&nbsp;    private static boolean isExternalStorageDocument(Uri uri) {
+<b class="nc">&nbsp;        return &quot;com.android.externalstorage.documents&quot;.equals(uri.getAuthority());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param uri The Uri to check.
+&nbsp;     * @return Whether the Uri authority is DownloadsProvider.
+&nbsp;     */
+&nbsp;    private static boolean isDownloadsDocument(Uri uri) {
+<b class="nc">&nbsp;        return &quot;com.android.providers.downloads.documents&quot;.equals(uri.getAuthority());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param uri The Uri to check.
+&nbsp;     * @return Whether the Uri authority is MediaProvider.
+&nbsp;     */
+&nbsp;    private static boolean isMediaDocument(Uri uri) {
+<b class="nc">&nbsp;        return &quot;com.android.providers.media.documents&quot;.equals(uri.getAuthority());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param uri The Uri to check.
+&nbsp;     * @return Whether the Uri authority is Google Photos.
+&nbsp;     */
+&nbsp;    private static boolean isGooglePhotosUri(Uri uri) {
+<b class="nc">&nbsp;        return &quot;com.google.android.apps.photos.content&quot;.equals(uri.getAuthority());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String getPathToNonPrimaryVolume(Context context, String tag) {
+<b class="nc">&nbsp;        File[] volumes = context.getExternalCacheDirs();</b>
+<b class="nc">&nbsp;        if (volumes != null) {</b>
+<b class="nc">&nbsp;            for (File volume : volumes) {</b>
+<b class="nc">&nbsp;                if (volume != null) {</b>
+<b class="nc">&nbsp;                    String path = volume.getAbsolutePath();</b>
+<b class="nc">&nbsp;                    if (path != null) {</b>
+<b class="nc">&nbsp;                        int index = path.indexOf(tag);</b>
+<b class="nc">&nbsp;                        if (index != -1) {</b>
+<b class="nc">&nbsp;                            return path.substring(0, index) + tag;</b>
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String sanitizeFilename(String displayName) {
+<b class="nc">&nbsp;        String[] badCharacters = new String[] { &quot;..&quot;, &quot;/&quot; };</b>
+<b class="nc">&nbsp;        String[] segments = displayName.split(&quot;/&quot;);</b>
+<b class="nc">&nbsp;        String fileName = segments[segments.length - 1];</b>
+<b class="nc">&nbsp;        for (String suspString : badCharacters) {</b>
+<b class="nc">&nbsp;            fileName = fileName.replace(suspString, &quot;_&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return fileName;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>

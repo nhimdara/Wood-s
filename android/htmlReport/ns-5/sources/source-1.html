@@ -1,0 +1,354 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HostMask</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.getcapacitor.util</a>
+</div>
+
+<h1>Coverage Summary for Class: HostMask (com.getcapacitor.util)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+  <tr>
+    <td class="name">HostMask$Any</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HostMask$Nothing</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HostMask$Parser</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HostMask$Simple</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">HostMask$Util</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.getcapacitor.util;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface HostMask {
+&nbsp;    boolean matches(String host);
+&nbsp;
+<b class="nc">&nbsp;    class Parser {</b>
+&nbsp;
+<b class="nc">&nbsp;        private static HostMask NOTHING = new Nothing();</b>
+&nbsp;
+&nbsp;        public static HostMask parse(String[] masks) {
+<b class="nc">&nbsp;            return masks == null ? NOTHING : HostMask.Any.parse(masks);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public static HostMask parse(String mask) {
+<b class="nc">&nbsp;            return mask == null ? NOTHING : HostMask.Simple.parse(mask);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    class Simple implements HostMask {
+&nbsp;
+&nbsp;        private final List&lt;String&gt; maskParts;
+&nbsp;
+<b class="nc">&nbsp;        private Simple(List&lt;String&gt; maskParts) {</b>
+<b class="nc">&nbsp;            if (maskParts == null) {</b>
+<b class="nc">&nbsp;                throw new IllegalArgumentException(&quot;Mask parts can not be null&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            this.maskParts = maskParts;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        static Simple parse(String mask) {
+<b class="nc">&nbsp;            List&lt;String&gt; parts = Util.splitAndReverse(mask);</b>
+<b class="nc">&nbsp;            return new Simple(parts);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public boolean matches(String host) {
+<b class="nc">&nbsp;            if (host == null) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            List&lt;String&gt; hostParts = Util.splitAndReverse(host);</b>
+<b class="nc">&nbsp;            int hostSize = hostParts.size();</b>
+<b class="nc">&nbsp;            int maskSize = maskParts.size();</b>
+<b class="nc">&nbsp;            if (maskSize &gt; 1 &amp;&amp; hostSize != maskSize) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            int minSize = Math.min(hostSize, maskSize);</b>
+&nbsp;
+<b class="nc">&nbsp;            for (int i = 0; i &lt; minSize; i++) {</b>
+<b class="nc">&nbsp;                String maskPart = maskParts.get(i);</b>
+<b class="nc">&nbsp;                String hostPart = hostParts.get(i);</b>
+<b class="nc">&nbsp;                if (!Util.matches(maskPart, hostPart)) {</b>
+<b class="nc">&nbsp;                    return false;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    class Any implements HostMask {
+&nbsp;
+&nbsp;        private final List&lt;? extends HostMask&gt; masks;
+&nbsp;
+<b class="nc">&nbsp;        Any(List&lt;? extends HostMask&gt; masks) {</b>
+<b class="nc">&nbsp;            this.masks = masks;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public boolean matches(String host) {
+<b class="nc">&nbsp;            for (HostMask mask : masks) {</b>
+<b class="nc">&nbsp;                if (mask.matches(host)) {</b>
+<b class="nc">&nbsp;                    return true;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        static Any parse(String... rawMasks) {
+<b class="nc">&nbsp;            List&lt;HostMask.Simple&gt; masks = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;            for (String raw : rawMasks) {</b>
+<b class="nc">&nbsp;                masks.add(HostMask.Simple.parse(raw));</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return new Any(masks);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    class Nothing implements HostMask {</b>
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public boolean matches(String host) {
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    class Util {</b>
+&nbsp;
+&nbsp;        static boolean matches(String mask, String string) {
+<b class="nc">&nbsp;            if (mask == null) {</b>
+<b class="nc">&nbsp;                return false;</b>
+<b class="nc">&nbsp;            } else if (&quot;*&quot;.equals(mask)) {</b>
+<b class="nc">&nbsp;                return true;</b>
+<b class="nc">&nbsp;            } else if (string == null) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                return mask.toUpperCase().equals(string.toUpperCase());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        static List&lt;String&gt; splitAndReverse(String string) {
+<b class="nc">&nbsp;            if (string == null) {</b>
+<b class="nc">&nbsp;                throw new IllegalArgumentException(&quot;Can not split null argument&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            List&lt;String&gt; parts = Arrays.asList(string.split(&quot;\\.&quot;));</b>
+<b class="nc">&nbsp;            Collections.reverse(parts);</b>
+<b class="nc">&nbsp;            return parts;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-28 15:00</div>
+</div>
+</body>
+</html>
