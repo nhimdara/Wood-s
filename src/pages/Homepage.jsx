@@ -11,25 +11,25 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 const category = [
   {
     id: 1,
-    title: "Fresh Milk",
+    title: "OTC",
     image: "/images/milk.png", // ✅ Now using your actual milk.png
     badge: "Best Seller",
   },
   {
     id: 2,
-    title: "Premium Tea",
+    title: "NUT",
     image: "/images/tea.png", // ✅ Now using your actual tea.png
     badge: "New",
   },
   {
     id: 3,
-    title: "Artisan Coffee",
+    title: "Consumer",
     image: "/images/coffee.png", // ✅ Now using your actual coffee.png
     badge: "Limited",
   },
   {
     id: 4,
-    title: "Traditional Noodle",
+    title: "Ethical",
     image: "/images/noodle.png", // ✅ Now using your actual noodle.png
     badge: "Authentic",
   },

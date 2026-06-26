@@ -2,7 +2,7 @@
 export const products = [
   {
     id: 1,
-    title: "Fresh Milk",
+    title: "OTC",
     image: "/images/milk.png",
     badge: "Best Seller",
     description:
@@ -109,7 +109,7 @@ export const products = [
   },
   {
     id: 2,
-    title: "Premium Tea",
+    title: "NUT",
     image: "/images/tea.png",
     badge: "New",
     description:
@@ -208,7 +208,7 @@ export const products = [
   },
   {
     id: 3,
-    title: "Artisan Coffee",
+    title: "Consumer",
     image: "/images/coffee.png",
     badge: "Limited",
     description:
@@ -306,7 +306,7 @@ export const products = [
   },
   {
     id: 4,
-    title: "Traditional Noodle",
+    title: "Ethical",
     image: "/images/noodle.png",
     badge: "Authentic",
     description:

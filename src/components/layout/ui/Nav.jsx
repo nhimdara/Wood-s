@@ -9,16 +9,22 @@ const NAV_ITEMS = [
     label: "Category",
     children: [
       {
-        label: "Milk",
+        label: "OTC",
         href: "/product/1",
         children: [
-          { label: "Organic Fresh Milk", href: "/product/1/milk-1" },
-          { label: "Sugar-Free Milk", href: "/product/1/milk-2" },
-          { label: "Yogurt Drink", href: "/product/1/milk-3" },
+          { label: "PROCOLD PAIN RELIEVER", href: "/product/1/milk-1" },
+          { label: "Komix", href: "/product/1/milk-2" },
+          { label: "MIXAGRIP Extra", href: "/product/1/milk-3" },
+          { label: "PROCOLD FLU", href: "/product/1/milk-4" },
+          { label: "PROMAG", href: "/product/1/milk-5" },
+          { label: "WOODS' COUGH SYRUP ANTITUSSIVE", href: "/product/1/milk-6" },
+          { label: "WOODS' COUGH SYRUP EXPECTORANT", href: "/product/1/milk-7" },
+          { label: "WOODS' LOZENGES 6 Flavours", href: "/product/1/milk-8" },
+          { label: "WOODS CHILDREN COUGH SYRUP", href: "/product/1/milk-9" },
         ],
       },
       {
-        label: "Tea",
+        label: "NUT",
         href: "/product/2",
         children: [
           { label: "Green Tea", href: "/product/2/tea-1" },
@@ -27,7 +33,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "Coffee",
+        label: "Consumer",
         href: "/product/3",
         children: [
           { label: "Espresso Roast", href: "/product/3/coffee-1" },
@@ -36,7 +42,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "Noodle",
+        label: "Ethical",
         href: "/product/4",
         children: [
           { label: "Rice Noodle", href: "/product/4/noodle-1" },
@@ -122,8 +128,8 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                     nestedOpen === item.label
                       ? "rgba(61,43,31,0.08)"
                       : isActive(item.href)
-                        ? "rgba(139,94,60,0.1)"
-                        : "transparent",
+                      ? "rgba(139,94,60,0.1)"
+                      : "transparent",
                   transition: "background 0.15s",
                 }}
                 onMouseEnter={() => openNested(item.label)}
