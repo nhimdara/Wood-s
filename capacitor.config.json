@@ -1,5 +1,8 @@
 {
   "appId": "com.woods.cambodia",
   "appName": "Woods Cambodia",
-  "webDir": "dist"
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
 }
