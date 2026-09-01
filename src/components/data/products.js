@@ -8,7 +8,7 @@ export const POSITIONING_FRAMEWORK_STEPS = [
     subtitle: "Target Patient / Indication",
     descKh: "សម្រាប់អ្នកជំងឺណា? បញ្ជាក់ក្រុមអ្នកជំងឺ និងជំងឺគោលដៅឱ្យបានច្បាស់លាស់",
     icon: "",
-    color: "#0284C7"
+    color: "#0D6E38"
   },
   {
     step: 2,
@@ -17,7 +17,7 @@ export const POSITIONING_FRAMEWORK_STEPS = [
     subtitle: "Product Identity & Composition",
     descKh: "សារធាតុសកម្ម ទម្រង់ កម្រិត និងបច្ចេកវិទ្យាផលិតផល",
     icon: "",
-    color: "#D97706"
+    color: "#16A34A"
   },
   {
     step: 3,
@@ -35,7 +35,7 @@ export const POSITIONING_FRAMEWORK_STEPS = [
     subtitle: "Dose / Preparation / Use",
     descKh: "កម្រិតប្រើប្រាស់ របៀបលាយ និងការរក្សាទុកត្រឹមត្រូវ",
     icon: "",
-    color: "#EA580C"
+    color: "#68A62A"
   },
   {
     step: 5,
@@ -44,9 +44,199 @@ export const POSITIONING_FRAMEWORK_STEPS = [
     subtitle: "Product Detailing",
     descKh: "ការណែនាំផលិតផលខ្លីៗ ក្បោះក្បាយ និងចំគោលដៅសម្រាប់វេជ្ជបណ្ឌិត និងអ្នកជំងឺ",
     icon: "",
-    color: "#7C3AED"
+    color: "#006400"
   }
 ];
+
+export const PRODUCT_THEMES = {
+  // Category 1: ENDO METABOLIC
+  efesa: {
+    title: "Efesa",
+    primary: "#E11D48", // Berry Pink-Red from Efesa box logo
+    dark: "#9F1239",
+    bg: "#F8FAF6",
+    light: "#FFE4E6",
+    fontFamily: "'Nunito', 'Outfit', 'Poppins', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "-0.5px",
+    badge: "linear-gradient(135deg, #E11D48, #9F1239)",
+    glow: "rgba(225, 29, 72, 0.15)",
+    border: "rgba(225, 29, 72, 0.2)",
+  },
+  hemapo: {
+    title: "Hemapo",
+    primary: "#DC2626", // Red from Hemapo packaging
+    dark: "#991B1B",
+    bg: "#F8FAF6",
+    light: "#FEE2E2",
+    fontFamily: "'Montserrat', 'Inter', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0px",
+    badge: "linear-gradient(135deg, #DC2626, #991B1B)",
+    glow: "rgba(220, 38, 38, 0.15)",
+    border: "rgba(220, 38, 38, 0.2)",
+  },
+  nocid: {
+    title: "NOCID",
+    primary: "#16A34A", // Fresh Leaf Green from Nocid box
+    dark: "#15803D",
+    bg: "#F8FAF6",
+    light: "#DCFCE7",
+    fontFamily: "'Montserrat', 'Inter', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "1px",
+    badge: "linear-gradient(135deg, #16A34A, #15803D)",
+    glow: "rgba(22, 163, 74, 0.15)",
+    border: "rgba(22, 163, 74, 0.2)",
+  },
+  kalxid: {
+    title: "KALXID",
+    primary: "#0D9488", // Dark Teal / Emerald from Kalxid box & pills
+    dark: "#115E59",
+    bg: "#F8FAF6",
+    light: "#CCFBF1",
+    fontFamily: "'Montserrat', 'Inter', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "1px",
+    badge: "linear-gradient(135deg, #0D9488, #115E59)",
+    glow: "rgba(13, 148, 136, 0.15)",
+    border: "rgba(13, 148, 136, 0.2)",
+  },
+  kalmeco: {
+    title: "KALMECO",
+    primary: "#EA580C", // Bright Orange from Kalmeco box
+    dark: "#9A3412",
+    bg: "#F8FAF6",
+    light: "#FFEDD5",
+    fontFamily: "'Montserrat', 'Inter', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "1px",
+    badge: "linear-gradient(135deg, #EA580C, #9A3412)",
+    glow: "rgba(234, 88, 12, 0.15)",
+    border: "rgba(234, 88, 12, 0.2)",
+  },
+  "nevox-xr": {
+    title: "NEVOX XR",
+    primary: "#0D6E38", // Dark Green from Nevox XR box
+    dark: "#006400",
+    bg: "#F8FAF6",
+    light: "#DCFCE7",
+    fontFamily: "'Montserrat', 'Inter', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "1px",
+    badge: "linear-gradient(135deg, #0D6E38, #006400)",
+    glow: "rgba(13, 110, 56, 0.15)",
+    border: "rgba(13, 110, 56, 0.2)",
+  },
+
+  // Category 2: Mednut
+  nephrisol: {
+    title: "NEPHRISOL",
+    primary: "#7C3AED", // Purple / Violet from Nephrisol box
+    dark: "#5B21B6",
+    bg: "#F8FAF6",
+    light: "#EDE9FE",
+    fontFamily: "'Outfit', 'Montserrat', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #7C3AED, #5B21B6)",
+    glow: "rgba(124, 58, 237, 0.15)",
+    border: "rgba(124, 58, 237, 0.2)",
+  },
+  "nephrisol-d": {
+    title: "NEPHRISOL-D",
+    primary: "#6D28D9", // Deep Royal Violet from Nephrisol-D box
+    dark: "#4C1D95",
+    bg: "#F8FAF6",
+    light: "#F3E8FF",
+    fontFamily: "'Outfit', 'Montserrat', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #6D28D9, #4C1D95)",
+    glow: "rgba(109, 40, 217, 0.15)",
+    border: "rgba(109, 40, 217, 0.2)",
+  },
+  pulmosol: {
+    title: "PULMOSOL",
+    primary: "#1E40AF", // Deep Cerulean / Navy Blue from Pulmosol box
+    dark: "#1E3A8A",
+    bg: "#F8FAF6",
+    light: "#DBEAFE",
+    fontFamily: "'Outfit', 'Montserrat', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #1E40AF, #1E3A8A)",
+    glow: "rgba(30, 64, 175, 0.15)",
+    border: "rgba(30, 64, 175, 0.2)",
+  },
+  nutrican: {
+    title: "NUTRICAN",
+    primary: "#16A34A", // Green from Nutrican box base and logo
+    dark: "#15803D",
+    bg: "#F8FAF6",
+    light: "#F0FDF4",
+    fontFamily: "'Outfit', 'Montserrat', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #16A34A, #15803D)",
+    glow: "rgba(22, 163, 74, 0.15)",
+    border: "rgba(22, 163, 74, 0.2)",
+  },
+  hepatosol: {
+    title: "HEPATOSOL",
+    primary: "#EA580C", // Bright Orange / Red from Hepatosol box
+    dark: "#9A3412",
+    bg: "#F8FAF6",
+    light: "#FFEDD5",
+    fontFamily: "'Outfit', 'Montserrat', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #EA580C, #9A3412)",
+    glow: "rgba(234, 88, 12, 0.15)",
+    border: "rgba(234, 88, 12, 0.2)",
+  },
+
+  // Category 3: Children Product
+  prospan: {
+    title: "PROSPAN",
+    primary: "#16A34A", // Ivy Green from Prospan box
+    dark: "#14532D",
+    bg: "#F8FAF6",
+    light: "#DCFCE7",
+    fontFamily: "'Montserrat', 'Poppins', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "0.8px",
+    badge: "linear-gradient(135deg, #16A34A, #14532D)",
+    glow: "rgba(22, 163, 74, 0.15)",
+    border: "rgba(22, 163, 74, 0.2)",
+  },
+  "rillus-jr": {
+    title: "Rillus Jr.",
+    primary: "#EA580C", // Bright Orange from Rillus Jr box
+    dark: "#9A3412",
+    bg: "#F8FAF6",
+    light: "#FFEDD5",
+    fontFamily: "'Poppins', 'Nunito', 'Outfit', sans-serif",
+    fontWeight: 900,
+    letterSpacing: "-0.3px",
+    badge: "linear-gradient(135deg, #EA580C, #9A3412)",
+    glow: "rgba(234, 88, 12, 0.15)",
+    border: "rgba(234, 88, 12, 0.2)",
+  },
+  "kalmaxime-ds": {
+    title: "Kalmaxime DS",
+    primary: "#1D4ED8", // Royal Cobalt Blue from Kalmaxime DS box
+    dark: "#1E40AF",
+    bg: "#F8FAF6",
+    light: "#DBEAFE",
+    fontFamily: "'Outfit', 'Inter', sans-serif",
+    fontWeight: 800,
+    letterSpacing: "0px",
+    badge: "linear-gradient(135deg, #1D4ED8, #1E40AF)",
+    glow: "rgba(29, 78, 216, 0.15)",
+    border: "rgba(29, 78, 216, 0.2)",
+  },
+};
 
 export const products = [
   {
@@ -385,7 +575,7 @@ export const products = [
   },
   {
     id: 2,
-    title: "Mednut",
+    title: "MEDNUT",
     subtitle: "Precision Medical Nutrition for Specific Disease Conditions",
     image: "/images/Mednut.png",
     badge: "Clinical Nutrition",
@@ -718,7 +908,7 @@ export const products = [
   },
   {
     id: 3,
-    title: "Children Product",
+    title: "CHILDREN PRODUCT",
     subtitle: "Gut Health • Cough Relief • Pediatric Antibiotics",
     image: "/images/Children-Product.png",
     badge: "Pediatric Care",

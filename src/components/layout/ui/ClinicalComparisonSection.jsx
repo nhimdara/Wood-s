@@ -13,9 +13,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
       style={{
         background: "#FFFFFF",
         borderRadius: "clamp(16px, 3vw, 24px)",
-        border: "1px solid rgba(139,94,60,0.18)",
+        border: "1px solid rgba(13,110,56,0.18)",
         padding: "clamp(20px, 4vw, 32px)",
-        boxShadow: "0 20px 40px rgba(92,61,46,0.08)",
+        boxShadow: "0 20px 40px rgba(13,110,56,0.08)",
       }}
     >
       <div style={{ marginBottom: 20, textAlign: "center" }}>
@@ -24,9 +24,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: "1.5px",
-            color: "#8B5E3C",
+            color: "#0D6E38",
             textTransform: "uppercase",
-            background: "rgba(139,94,60,0.1)",
+            background: "rgba(13,110,56,0.1)",
             padding: "4px 14px",
             borderRadius: 20,
             display: "inline-block",
@@ -39,7 +39,7 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: "clamp(22px, 4vw, 30px)",
-            color: "#3D2B1F",
+            color: "#1A241A",
             fontWeight: 800,
             margin: "4px 0",
           }}
@@ -65,10 +65,10 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             borderRadius: 30,
             border:
               activeTab === "efesaVsHemapo"
-                ? "2px solid #8B5E3C"
-                : "1px solid rgba(139,94,60,0.2)",
-            background: activeTab === "efesaVsHemapo" ? "#8B5E3C" : "#FAF6F0",
-            color: activeTab === "efesaVsHemapo" ? "#FFFFFF" : "#3D2B1F",
+                ? "2px solid #DC2626"
+                : "1px solid rgba(220,38,38,0.2)",
+            background: activeTab === "efesaVsHemapo" ? "#DC2626" : "#FEF2F2",
+            color: activeTab === "efesaVsHemapo" ? "#FFFFFF" : "#991B1B",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -84,10 +84,10 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             borderRadius: 30,
             border:
               activeTab === "kalxidKalmeco"
-                ? "2px solid #8B5E3C"
-                : "1px solid rgba(139,94,60,0.2)",
-            background: activeTab === "kalxidKalmeco" ? "#8B5E3C" : "#FAF6F0",
-            color: activeTab === "kalxidKalmeco" ? "#FFFFFF" : "#3D2B1F",
+                ? "2px solid #0D9488"
+                : "1px solid rgba(13,148,136,0.2)",
+            background: activeTab === "kalxidKalmeco" ? "#0D9488" : "#F0FDFA",
+            color: activeTab === "kalxidKalmeco" ? "#FFFFFF" : "#115E59",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -103,10 +103,10 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             borderRadius: 30,
             border:
               activeTab === "nocidDiet"
-                ? "2px solid #8B5E3C"
-                : "1px solid rgba(139,94,60,0.2)",
-            background: activeTab === "nocidDiet" ? "#8B5E3C" : "#FAF6F0",
-            color: activeTab === "nocidDiet" ? "#FFFFFF" : "#3D2B1F",
+                ? "2px solid #16A34A"
+                : "1px solid rgba(22,163,74,0.2)",
+            background: activeTab === "nocidDiet" ? "#16A34A" : "#F0FDF4",
+            color: activeTab === "nocidDiet" ? "#FFFFFF" : "#15803D",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -123,13 +123,13 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           <div
             style={{
               padding: "14px 18px",
-              background: "rgba(139,94,60,0.06)",
+              background: "#FEF2F2",
               borderRadius: 14,
               marginBottom: 20,
               fontSize: 14,
-              color: "#3D2B1F",
+              color: "#1A241A",
               fontWeight: 500,
-              borderLeft: "4px solid #8B5E3C",
+              borderLeft: "4px solid #DC2626",
             }}
           >
             {efesaVsHemapo.summaryKh}
@@ -143,13 +143,14 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               marginBottom: 20,
             }}
           >
-            {/* EFESA Card */}
+            {/* EFESA Card (Light Red) */}
             <div
               style={{
-                background: "linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%)",
+                background: "linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #BBF7D0",
+                border: "1px solid #FECDD3",
+                boxShadow: "0 4px 14px rgba(225, 29, 72, 0.06)",
               }}
             >
               <div
@@ -160,15 +161,15 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                   marginBottom: 12,
                 }}
               >
-                <h4 style={{ margin: 0, fontSize: 20, color: "#166534", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 20, color: "#E11D48", fontWeight: 800 }}>
                   EFESA
                 </h4>
                 <span
                   style={{
                     fontSize: 11,
-                    background: "#DCFCE7",
-                    color: "#166534",
-                    padding: "3px 10px",
+                    background: "#FFE4E6",
+                    color: "#BE123C",
+                    padding: "4px 12px",
                     borderRadius: 20,
                     fontWeight: 700,
                   }}
@@ -185,13 +186,14 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               </ul>
             </div>
 
-            {/* HEMAPO Card */}
+            {/* HEMAPO Card (Red) */}
             <div
               style={{
-                background: "linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%)",
+                background: "linear-gradient(180deg, #FEF2F2 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #BFDBFE",
+                border: "1px solid #FCA5A5",
+                boxShadow: "0 4px 14px rgba(220, 38, 38, 0.08)",
               }}
             >
               <div
@@ -202,15 +204,15 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                   marginBottom: 12,
                 }}
               >
-                <h4 style={{ margin: 0, fontSize: 20, color: "#1E40AF", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 20, color: "#DC2626", fontWeight: 800 }}>
                   HEMAPO
                 </h4>
                 <span
                   style={{
                     fontSize: 11,
-                    background: "#DBEAFE",
-                    color: "#1E40AF",
-                    padding: "3px 10px",
+                    background: "#FEE2E2",
+                    color: "#991B1B",
+                    padding: "4px 12px",
                     borderRadius: 20,
                     fontWeight: 700,
                   }}
@@ -230,17 +232,17 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
 
           <div
             style={{
-              background: "#FAF6F0",
+              background: "#F8FAF6",
               padding: "16px",
               borderRadius: 14,
-              border: "1px solid rgba(139,94,60,0.12)",
+              border: "1px solid rgba(13,110,56,0.12)",
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#3D2B1F", marginBottom: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", marginBottom: 8 }}>
               ចំណុចសំខាន់ត្រូវចងចាំ:
             </div>
             {efesaVsHemapo.takeaways.map((t, idx) => (
-              <div key={idx} style={{ fontSize: 13, color: "#7A5C4A", marginBottom: 4 }}>
+              <div key={idx} style={{ fontSize: 13, color: "#4A5A4A", marginBottom: 4 }}>
                 • {t}
               </div>
             ))}
@@ -254,13 +256,13 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           <div
             style={{
               padding: "14px 18px",
-              background: "rgba(139,94,60,0.06)",
+              background: "#F0FDFA",
               borderRadius: 14,
               marginBottom: 20,
               fontSize: 13,
-              color: "#3D2B1F",
+              color: "#1A241A",
               lineHeight: 1.6,
-              borderLeft: "4px solid #8B5E3C",
+              borderLeft: "4px solid #0D9488",
             }}
           >
             {kalxidKalmecoSynergy.whyCombineKh}
@@ -274,20 +276,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               marginBottom: 20,
             }}
           >
-            {/* KALXID */}
+            {/* KALXID (Dark Teal / Emerald) */}
             <div
               style={{
-                background: "#FAF5FF",
+                background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #E9D5FF",
+                border: "1px solid #99F6E4",
+                boxShadow: "0 4px 14px rgba(13, 148, 136, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h4 style={{ margin: 0, fontSize: 18, color: "#6B21A8", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 18, color: "#0F766E", fontWeight: 800 }}>
                   KALXID (100% R-ALA 480mg)
                 </h4>
-                <span style={{ fontSize: 11, background: "#F3E8FF", color: "#6B21A8", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>
+                <span style={{ fontSize: 11, background: "#CCFBF1", color: "#115E59", padding: "4px 10px", borderRadius: 12, fontWeight: 700 }}>
                   Antioxidant
                 </span>
               </div>
@@ -299,20 +302,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               </ul>
             </div>
 
-            {/* KALMECO */}
+            {/* KALMECO (Bright Orange) */}
             <div
               style={{
-                background: "#FFFBEB",
+                background: "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FDE68A",
+                border: "1px solid #FED7AA",
+                boxShadow: "0 4px 14px rgba(234, 88, 12, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h4 style={{ margin: 0, fontSize: 18, color: "#92400E", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 18, color: "#C2410C", fontWeight: 800 }}>
                   KALMECO (Active B12 500mcg)
                 </h4>
-                <span style={{ fontSize: 11, background: "#FEF3C7", color: "#92400E", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>
+                <span style={{ fontSize: 11, background: "#FFEDD5", color: "#9A3412", padding: "4px 10px", borderRadius: 12, fontWeight: 700 }}>
                   Nerve Repair
                 </span>
               </div>
@@ -330,11 +334,11 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             style={{
               background: "#FFFFFF",
               borderRadius: 16,
-              border: "1px solid rgba(139,94,60,0.15)",
+              border: "1px solid rgba(13,110,56,0.15)",
               padding: "16px 20px",
             }}
           >
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#3D2B1F", marginBottom: 8 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#1A241A", marginBottom: 8 }}>
               {kalxidKalmecoSynergy.rAlaVsRacemic.title}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
@@ -342,15 +346,16 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 <div
                   key={idx}
                   style={{
-                    background: idx === 0 ? "rgba(16,185,129,0.08)" : "rgba(239,68,68,0.06)",
+                    background: idx === 0 ? "rgba(13,148,136,0.08)" : "rgba(220,38,38,0.06)",
                     padding: "12px",
                     borderRadius: 12,
                     fontSize: 12,
                     lineHeight: 1.5,
-                    color: "#3D2B1F",
+                    color: "#1A241A",
+                    border: idx === 0 ? "1px solid rgba(13,148,136,0.2)" : "1px solid rgba(220,38,38,0.15)",
                   }}
                 >
-                  <strong style={{ color: idx === 0 ? "#065F46" : "#991B1B" }}>{p.label}:</strong> {p.text}
+                  <strong style={{ color: idx === 0 ? "#0F766E" : "#991B1B" }}>{p.label}:</strong> {p.text}
                 </div>
               ))}
             </div>
@@ -389,10 +394,11 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
 
             <div
               style={{
-                background: "#F0FDF4",
+                background: "linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
                 border: "1px solid #BBF7D0",
+                boxShadow: "0 4px 14px rgba(22, 163, 74, 0.08)",
               }}
             >
               <h4 style={{ margin: "0 0 10px", fontSize: 16, color: "#166534", fontWeight: 700 }}>
@@ -408,17 +414,17 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
 
           <div
             style={{
-              background: "#FAF6F0",
+              background: "#F8FAF6",
               padding: "16px",
               borderRadius: 14,
-              border: "1px solid rgba(139,94,60,0.12)",
+              border: "1px solid rgba(13,110,56,0.12)",
             }}
           >
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#3D2B1F", marginBottom: 8 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", marginBottom: 8 }}>
               ចំណុចសំខាន់ត្រូវចងចាំ:
             </div>
             {nocidLowProtein.takeaways.map((t, idx) => (
-              <div key={idx} style={{ fontSize: 13, color: "#7A5C4A", marginBottom: 4 }}>
+              <div key={idx} style={{ fontSize: 13, color: "#4A5A4A", marginBottom: 4 }}>
                 • {t}
               </div>
             ))}

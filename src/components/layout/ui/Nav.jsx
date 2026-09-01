@@ -1,8 +1,7 @@
-// components/layout/ui/Nav.jsx - Healthcare Nav with Integrated Search
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo/logo.png";
-import { products } from "../../data/products";
+import kalbeLogo from "../../assets/logo/kalbe-logo.png";
+import { products, PRODUCT_THEMES } from "../../data/products";
 import { FaSearch } from "react-icons/fa";
 
 const NAV_ITEMS = [
@@ -75,17 +74,17 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
   };
 
   const glassBase = {
-    background: "#FAF6F0",
+    background: "#FFFFFF",
     backdropFilter: "blur(20px)",
-    border: "1px solid #8B5E3C",
+    border: "1px solid rgba(13,110,56,0.18)",
     borderRadius: 16,
     padding: 8,
-    boxShadow: "0 20px 40px -12px rgba(61,43,31,0.3)",
+    boxShadow: "0 20px 40px -12px rgba(13,110,56,0.15)",
   };
 
   const isActive = (href) => {
     if (href === "/") return location.pathname === "/";
-    return location.pathname.startsWith(href);
+    return location.pathname === href || location.pathname.startsWith(href + "/");
   };
 
   return (
@@ -118,34 +117,40 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                   cursor: "pointer",
                   background:
                     nestedOpen === item.label
-                      ? "rgba(61,43,31,0.08)"
-                      : isActive(item.href)
-                      ? "rgba(139,94,60,0.1)"
+                      ? "rgba(13,110,56,0.08)"
                       : "transparent",
-                  transition: "background 0.15s",
+                  color:
+                    nestedOpen === item.label || isActive(item.href)
+                      ? "#0D6E38"
+                      : "#1A241A",
+                  fontWeight:
+                    nestedOpen === item.label || isActive(item.href)
+                      ? 700
+                      : 500,
+                  fontSize: 13.5,
+                  transition: "all 0.15s ease",
                 }}
                 onMouseEnter={() => openNested(item.label)}
                 onMouseLeave={closeNested}
               >
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: isActive(item.href) ? 600 : 500,
-                    color: isActive(item.href) ? "#8B5E3C" : "#3D2B1F",
-                  }}
-                >
-                  {item.label}
-                </span>
+                <span>{item.label}</span>
                 <svg
-                  width="12"
-                  height="12"
+                  width="10"
+                  height="10"
                   viewBox="0 0 12 12"
                   fill="none"
-                  style={{ opacity: 0.6, flexShrink: 0 }}
+                  style={{
+                    transform:
+                      nestedOpen === item.label
+                        ? "translateX(2px)"
+                        : "none",
+                    opacity: 0.7,
+                    transition: "transform 0.15s",
+                  }}
                 >
                   <path
                     d="M4 2l4 4-4 4"
-                    stroke="#3D2B1F"
+                    stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -170,38 +175,81 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                   }}
                   onMouseLeave={closeNested}
                 >
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.label}
-                      to={child.href}
-                      style={{
-                        display: "block",
-                        padding: "10px 14px",
-                        borderRadius: 12,
-                        textDecoration: "none",
-                        fontSize: 14,
-                        fontWeight: isActive(child.href) ? 600 : 500,
-                        color: isActive(child.href) ? "#8B5E3C" : "#3D2B1F",
-                        background: isActive(child.href)
-                          ? "rgba(139,94,60,0.1)"
-                          : "transparent",
-                        transition: "background 0.15s",
-                      }}
-                      onMouseEnter={(e) => {
-                        if (!isActive(child.href)) {
-                          e.currentTarget.style.background =
-                            "rgba(61,43,31,0.08)";
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (!isActive(child.href)) {
-                          e.currentTarget.style.background = "transparent";
-                        }
-                      }}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
+                  {item.children.map((child) => {
+                    const childId = child.href.split("/").pop();
+                    const childTheme = PRODUCT_THEMES[childId] || {
+                      primary: "#0D6E38",
+                      light: "rgba(13,110,56,0.1)",
+                      fontFamily: "'Montserrat', sans-serif",
+                    };
+                    const isChildActive = isActive(child.href);
+
+                    return (
+                      <Link
+                        key={child.label}
+                        to={child.href}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          padding: "10px 14px",
+                          borderRadius: 10,
+                          textDecoration: "none",
+                          fontSize: 14,
+                          fontFamily: childTheme.fontFamily || "'Montserrat', sans-serif",
+                          fontWeight: 800,
+                          letterSpacing: childTheme.letterSpacing || "0.5px",
+                          color: childTheme.primary,
+                          background: isChildActive
+                            ? childTheme.light
+                            : "transparent",
+                          borderLeft: isChildActive
+                            ? `3px solid ${childTheme.primary}`
+                            : "3px solid transparent",
+                          transition: "all 0.15s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = childTheme.light;
+                          e.currentTarget.style.borderLeftColor = childTheme.primary;
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isChildActive) {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.borderLeftColor = "transparent";
+                          }
+                        }}
+                      >
+                        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <span
+                            style={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: "50%",
+                              background: childTheme.primary,
+                              display: "inline-block",
+                              flexShrink: 0,
+                            }}
+                          />
+                          {child.label}
+                        </span>
+                        {isChildActive && (
+                          <span
+                            style={{
+                              fontSize: 10,
+                              fontWeight: 700,
+                              color: childTheme.primary,
+                              textTransform: "uppercase",
+                              background: "rgba(255,255,255,0.8)",
+                              padding: "2px 6px",
+                              borderRadius: 6,
+                            }}
+                          >
+                            Active
+                          </span>
+                        )}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </>
@@ -215,15 +263,15 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                 textDecoration: "none",
                 fontSize: 14,
                 fontWeight: isActive(item.href) ? 600 : 500,
-                color: isActive(item.href) ? "#8B5E3C" : "#3D2B1F",
+                color: isActive(item.href) ? "#0D6E38" : "#1A241A",
                 background: isActive(item.href)
-                  ? "rgba(139,94,60,0.1)"
+                  ? "rgba(13,110,56,0.1)"
                   : "transparent",
                 transition: "background 0.15s",
               }}
               onMouseEnter={(e) => {
                 if (!isActive(item.href)) {
-                  e.currentTarget.style.background = "rgba(61,43,31,0.08)";
+                  e.currentTarget.style.background = "rgba(13,110,56,0.08)";
                 }
               }}
               onMouseLeave={(e) => {
@@ -298,14 +346,22 @@ export default function Nav() {
     if (item.children) {
       return item.children.some((c) => {
         if (c.children) {
-          return c.children.some((child) =>
-            location.pathname.startsWith(child.href),
+          return c.children.some(
+            (child) =>
+              location.pathname === child.href ||
+              location.pathname.startsWith(child.href + "/"),
           );
         }
-        return location.pathname.startsWith(c.href);
+        return (
+          location.pathname === c.href ||
+          location.pathname.startsWith(c.href + "/")
+        );
       });
     }
-    return location.pathname.startsWith(item.href);
+    return (
+      location.pathname === item.href ||
+      location.pathname.startsWith(item.href + "/")
+    );
   };
 
   const getActiveClass = (item) => {
@@ -354,62 +410,62 @@ export default function Nav() {
         }
 
         .nav-glow {
-          position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-          background: linear-gradient(90deg, transparent, #8B5E3C, #3D2B1F, #8B5E3C, transparent);
+          position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px;
+          background: linear-gradient(90deg, transparent, #0D6E38, #78B833, #0D6E38, transparent);
           animation: glowPulse 3s ease-in-out infinite;
         }
         .nav-link-btn {
           font-size: 13.5px; font-weight: 500;
-          color: rgba(61,43,31,0.8);
+          color: #1A241A;
           padding: 6px 14px; border-radius: 40px;
           background: transparent; border: none;
           cursor: pointer; transition: color 0.2s, background 0.2s;
           display: flex; align-items: center; gap: 5px;
           white-space: nowrap; text-decoration: none;
         }
-        .nav-link-btn:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
-        .nav-link-btn.active { color: #8B5E3C; background: rgba(139,94,60,0.1); font-weight: 600; }
+        .nav-link-btn:hover { color: #0D6E38; background: rgba(13,110,56,0.06); }
+        .nav-link-btn.active { color: #0D6E38; background: rgba(13,110,56,0.1); font-weight: 700; }
 
         .nav-search-input {
-          border: 1px solid rgba(139,94,60,0.25);
+          border: 1px solid rgba(13,110,56,0.22);
           outline: none;
           background: #FFFFFF;
           padding: 5px 12px 5px 30px;
           border-radius: 30px;
           font-size: 12.5px;
-          color: #3D2B1F;
+          color: #1A241A;
           width: 160px;
           transition: all 0.3s ease;
         }
         .nav-search-input:focus {
           width: 200px;
-          border-color: #8B5E3C;
-          box-shadow: 0 0 0 3px rgba(139,94,60,0.12);
+          border-color: #0D6E38;
+          box-shadow: 0 0 0 3px rgba(13,110,56,0.12);
         }
 
         .hamburger {
           display: none; background: none; border: none;
-          color: #3D2B1F; cursor: pointer;
+          color: #1A241A; cursor: pointer;
           padding: 6px; border-radius: 8px; transition: color 0.2s;
         }
-        .hamburger:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
+        .hamburger:hover { color: #0D6E38; background: rgba(13,110,56,0.06); }
         .mob-link {
           display: flex; align-items: center; justify-content: space-between;
           padding: 11px 10px; font-size: 15px; font-weight: 500;
-          color: #3D2B1F; border-radius: 10px;
+          color: #1A241A; border-radius: 10px;
           text-decoration: none; cursor: pointer;
           background: none; border: none; width: 100%;
           transition: color 0.15s, background 0.15s;
         }
-        .mob-link:hover { color: #3D2B1F; background: rgba(61,43,31,0.05); }
-        .mob-link.active { color: #8B5E3C; font-weight: 600; background: rgba(139,94,60,0.07); }
+        .mob-link:hover { color: #0D6E38; background: rgba(13,110,56,0.05); }
+        .mob-link.active { color: #0D6E38; font-weight: 700; background: rgba(13,110,56,0.09); }
         .mob-sub a {
           display: block; padding: 9px 10px 9px 26px; font-size: 14px;
-          color: rgba(61,43,31,0.7); border-radius: 8px;
+          color: #4A5A4A; border-radius: 8px;
           text-decoration: none; transition: color 0.15s, background 0.15s;
         }
-        .mob-sub a:hover { color: #3D2B1F; background: rgba(61,43,31,0.08); }
-        .mob-sub a.active { color: #8B5E3C; background: rgba(139,94,60,0.07); font-weight: 500; }
+        .mob-sub a:hover { color: #0D6E38; background: rgba(13,110,56,0.08); }
+        .mob-sub a.active { color: #0D6E38; background: rgba(13,110,56,0.09); font-weight: 600; }
         .mob-sub-sub a { padding-left: 42px !important; }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -434,9 +490,10 @@ export default function Nav() {
           left: 0,
           right: 0,
           zIndex: 1000,
-          background: isScrolled ? "#FAF6F0" : "rgba(250,246,240,0.95)",
+          background: isScrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.92)",
           backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
-          borderBottom: "1px solid rgba(139,94,60,0.18)",
+          borderBottom: "1px solid rgba(13,110,56,0.12)",
+          boxShadow: isScrolled ? "0 4px 20px rgba(0,0,0,0.05)" : "none",
           transition: "all 0.3s ease",
         }}
       >
@@ -460,37 +517,21 @@ export default function Nav() {
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
-              gap: 8,
             }}
           >
             <img
-              src={logo}
-              alt="WOOD'S Logo"
+              src={kalbeLogo}
+              alt="KALBE Healthcare"
               style={{
-                width: 34,
-                height: 34,
-                borderRadius: 8,
+                height: "clamp(30px, 5vw, 36px)",
+                width: "auto",
                 objectFit: "contain",
-                filter: "drop-shadow(0 2px 6px rgba(61,43,31,0.15))",
-                flexShrink: 0,
+                filter: "drop-shadow(0 2px 5px rgba(0,0,0,0.06))",
                 transition: "transform 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             />
-            <span
-              style={{
-                fontFamily: "Georgia, 'Times New Roman', Times, serif",
-                fontSize: "19px",
-                fontWeight: 800,
-                letterSpacing: "0.3px",
-                background: "linear-gradient(135deg,#3D2B1F,#8B5E3C)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              WOOD'S
-            </span>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -564,7 +605,7 @@ export default function Nav() {
                 style={{
                   position: "absolute",
                   left: 12,
-                  color: "#8B5E3C",
+                  color: "#0D6E38",
                   fontSize: 13,
                   pointerEvents: "none",
                 }}
@@ -591,7 +632,7 @@ export default function Nav() {
                     right: 10,
                     background: "none",
                     border: "none",
-                    color: "#8B7355",
+                    color: "#4A5A4A",
                     cursor: "pointer",
                     fontSize: 12,
                   }}
@@ -611,8 +652,8 @@ export default function Nav() {
                   width: 320,
                   background: "#FFFFFF",
                   borderRadius: 16,
-                  border: "1px solid rgba(139,94,60,0.2)",
-                  boxShadow: "0 18px 36px rgba(61,43,31,0.18)",
+                  border: "1px solid rgba(13,110,56,0.2)",
+                  boxShadow: "0 18px 36px rgba(13,110,56,0.18)",
                   padding: 8,
                   zIndex: 500,
                   maxHeight: 340,
@@ -632,10 +673,10 @@ export default function Nav() {
                         padding: "8px 10px",
                         borderRadius: 10,
                         textDecoration: "none",
-                        color: "#3D2B1F",
+                        color: "#1A241A",
                         transition: "background 0.15s",
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(139,94,60,0.08)")}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.08)")}
                       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                     >
                       <img
@@ -645,23 +686,23 @@ export default function Nav() {
                           width: 34,
                           height: 34,
                           objectFit: "contain",
-                          background: "#FAF6F0",
+                          background: "#F8FAF6",
                           borderRadius: 6,
                           padding: 2,
                         }}
                       />
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2B1F" }}>
+                        <div style={{ fontWeight: 700, fontSize: 13, color: "#1A241A" }}>
                           {prod.title}
                         </div>
-                        <div style={{ fontSize: 11, color: "#8B5E3C", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        <div style={{ fontSize: 11, color: "#0D6E38", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {prod.portfolioTitle} • {prod.genericName || prod.categoryTag}
                         </div>
                       </div>
                     </Link>
                   ))
                 ) : (
-                  <div style={{ padding: "14px", textAlign: "center", color: "#8B7355", fontSize: 12 }}>
+                  <div style={{ padding: "14px", textAlign: "center", color: "#4A5A4A", fontSize: 12 }}>
                     No products found for "{navSearchQuery}"
                   </div>
                 )}
@@ -699,11 +740,11 @@ export default function Nav() {
         {mobileOpen && (
           <div
             style={{
-              borderTop: "1px solid rgba(139,94,60,0.2)",
+              borderTop: "1px solid rgba(13,110,56,0.2)",
               padding: "12px 16px 20px",
               animation: "slideDown 0.22s ease",
               overflow: "hidden",
-              background: "#FAF6F0",
+              background: "#F8FAF6",
               maxHeight: "calc(100vh - 70px)",
               overflowY: "auto",
             }}
@@ -716,7 +757,7 @@ export default function Nav() {
                   left: 14,
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "#8B5E3C",
+                  color: "#0D6E38",
                   fontSize: 13,
                 }}
               />
@@ -729,10 +770,10 @@ export default function Nav() {
                   width: "100%",
                   padding: "10px 14px 10px 36px",
                   borderRadius: 24,
-                  border: "1px solid rgba(139,94,60,0.25)",
+                  border: "1px solid rgba(13,110,56,0.25)",
                   background: "#FFFFFF",
                   fontSize: 13,
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   outline: "none",
                 }}
               />
@@ -745,7 +786,7 @@ export default function Nav() {
                   background: "#FFFFFF",
                   borderRadius: 14,
                   padding: 8,
-                  border: "1px solid rgba(139,94,60,0.2)",
+                  border: "1px solid rgba(13,110,56,0.2)",
                   marginBottom: 14,
                   maxHeight: 220,
                   overflowY: "auto",
@@ -763,8 +804,8 @@ export default function Nav() {
                         gap: 10,
                         padding: "8px",
                         textDecoration: "none",
-                        color: "#3D2B1F",
-                        borderBottom: "1px solid rgba(139,94,60,0.06)",
+                        color: "#1A241A",
+                        borderBottom: "1px solid rgba(13,110,56,0.06)",
                       }}
                     >
                       <img
@@ -774,12 +815,12 @@ export default function Nav() {
                       />
                       <div>
                         <div style={{ fontWeight: 700, fontSize: 13 }}>{prod.title}</div>
-                        <div style={{ fontSize: 11, color: "#8B5E3C" }}>{prod.portfolioTitle}</div>
+                        <div style={{ fontSize: 11, color: "#0D6E38" }}>{prod.portfolioTitle}</div>
                       </div>
                     </Link>
                   ))
                 ) : (
-                  <div style={{ padding: "10px", textAlign: "center", fontSize: 12, color: "#8B7355" }}>
+                  <div style={{ padding: "10px", textAlign: "center", fontSize: 12, color: "#4A5A4A" }}>
                     No products found
                   </div>
                 )}
@@ -862,21 +903,70 @@ export default function Nav() {
                               </svg>
                             </button>
                             {mobileL3 === child.label && (
-                              <div className="mob-sub mob-sub-sub">
-                                {child.children.map((sub) => (
-                                  <Link
-                                    key={sub.label}
-                                    to={sub.href}
-                                    className={
-                                      location.pathname === sub.href
-                                        ? "active"
-                                        : ""
-                                    }
-                                  >
-                                    {sub.label}
-                                  </Link>
-                                ))}
-                              </div>
+                                <div className="mob-sub mob-sub-sub">
+                                  {child.children.map((sub) => {
+                                    const subId = sub.href.split("/").pop();
+                                    const subTheme = PRODUCT_THEMES[subId] || {
+                                      primary: "#0D6E38",
+                                      light: "rgba(13,110,56,0.1)",
+                                      fontFamily: "'Montserrat', sans-serif",
+                                    };
+                                    const isSubActive =
+                                      location.pathname === sub.href ||
+                                      location.pathname.startsWith(sub.href + "/");
+
+                                    return (
+                                      <Link
+                                        key={sub.label}
+                                        to={sub.href}
+                                        onClick={() => setMobileOpen(false)}
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          justifyContent: "space-between",
+                                          padding: "9px 16px 9px 36px",
+                                          textDecoration: "none",
+                                          fontSize: 13.5,
+                                          fontFamily: subTheme.fontFamily || "'Montserrat', sans-serif",
+                                          fontWeight: 800,
+                                          color: subTheme.primary,
+                                          background: isSubActive ? subTheme.light : "transparent",
+                                          borderLeft: isSubActive ? `3px solid ${subTheme.primary}` : "3px solid transparent",
+                                          borderRadius: 8,
+                                        }}
+                                      >
+                                        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                          <span
+                                            style={{
+                                              width: 7,
+                                              height: 7,
+                                              borderRadius: "50%",
+                                              background: subTheme.primary,
+                                              display: "inline-block",
+                                              flexShrink: 0,
+                                            }}
+                                          />
+                                          {sub.label}
+                                        </span>
+                                        {isSubActive && (
+                                          <span
+                                            style={{
+                                              fontSize: 9.5,
+                                              fontWeight: 700,
+                                              color: subTheme.primary,
+                                              textTransform: "uppercase",
+                                              background: "rgba(255,255,255,0.9)",
+                                              padding: "2px 5px",
+                                              borderRadius: 4,
+                                            }}
+                                          >
+                                            Active
+                                          </span>
+                                        )}
+                                      </Link>
+                                    );
+                                  })}
+                                </div>
                             )}
                           </div>
                         ) : (

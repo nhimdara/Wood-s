@@ -1,4 +1,17 @@
-/* index.css - Replace with this simplified version */
+/* index.css - Kalbe Official Green & Slate Design Tokens */
+:root {
+  --kalbe-green: #0D6E38;
+  --kalbe-green-dark: #006400;
+  --kalbe-green-light: #68A62A;
+  --kalbe-green-lime: #78B833;
+  --kalbe-bg: #F8FAF6;
+  --kalbe-bg-alt: #F0FDF4;
+  --kalbe-surface: #FFFFFF;
+  --kalbe-text-main: #1A241A;
+  --kalbe-text-muted: #4B5E4B;
+  --kalbe-border: rgba(13, 110, 56, 0.12);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,76 +24,31 @@ html {
 
 body {
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-  background: #faf6f0;
+  background: var(--kalbe-bg);
+  color: var(--kalbe-text-main);
   overflow-x: hidden;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #faf6f0;
+  background: #F0FDF4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8b5e3c;
-  border-radius: 4px;
+  background: #0D6E38;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6b4226;
+  background: #006400;
 }
 
 ::selection {
-  background: #8b5e3c;
-  color: #faf6f0;
-}
-@font-face {
-  font-family: 'DM Sans';
-  src: url('./assets/fonts/DMSans.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('./assets/fonts/PlayfairDisplay.woff2') format('woff2');
-}
-/* index.css - Complete offline version */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
-  background: #faf6f0;
-  overflow-x: hidden;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #faf6f0;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #8b5e3c;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #6b4226;
-}
-
-::selection {
-  background: #8b5e3c;
-  color: #faf6f0;
+  background: #0D6E38;
+  color: #FFFFFF;
 }

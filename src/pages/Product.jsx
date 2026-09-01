@@ -7,7 +7,7 @@ import MednutPreparationGuide from "../components/layout/ui/MednutPreparationGui
 import ClinicalComparisonSection from "../components/layout/ui/ClinicalComparisonSection";
 import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCalculator";
 import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
-import { products } from "../components/data/products";
+import { products, PRODUCT_THEMES } from "../components/data/products";
 import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
 import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 
@@ -30,6 +30,17 @@ const Product = () => {
     const isMednut = id === "2" || parentProduct.title === "Mednut";
     const isPediatric = id === "3" || parentProduct.title === "Children Product";
     const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
+
+    // Dynamic Packaging Color Theme
+    const theme = PRODUCT_THEMES[subProduct.id] || {
+      primary: "#0D6E38",
+      dark: "#006400",
+      bg: "#F8FAF6",
+      light: "#F0FDF4",
+      badge: "linear-gradient(135deg, #1A241A, #0D6E38)",
+      glow: "rgba(13, 110, 56, 0.15)",
+      border: "rgba(13, 110, 56, 0.2)",
+    };
 
     const tabs = [
       {
@@ -54,11 +65,17 @@ const Product = () => {
       },
     ];
 
+    const categoryFont = isEndo
+      ? "'Montserrat', 'Inter', 'Segoe UI', sans-serif"
+      : isMednut
+      ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
+      : "'Poppins', 'Montserrat', 'Inter', sans-serif";
+
     return (
       <div
         style={{
           fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-          background: "#FAF6F0",
+          background: "#F8FAF6",
           minHeight: "100vh",
           overflowX: "hidden",
         }}
@@ -76,18 +93,18 @@ const Product = () => {
             flex-wrap: nowrap;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            border-bottom: 2px solid rgba(139,94,60,0.15);
+            border-bottom: 2px solid ${theme.border};
             margin-bottom: 30px;
             padding-bottom: 0;
             scrollbar-width: thin;
-            scrollbar-color: rgba(139,94,60,0.2) transparent;
+            scrollbar-color: ${theme.border} transparent;
           }
 
           .product-tabs-container::-webkit-scrollbar {
             height: 4px;
           }
           .product-tabs-container::-webkit-scrollbar-thumb {
-            background: rgba(139,94,60,0.2);
+            background: ${theme.border};
             border-radius: 4px;
           }
 
@@ -96,7 +113,7 @@ const Product = () => {
             padding: 10px 18px;
             font-size: 14px;
             font-weight: 600;
-            color: #7A5C4A;
+            color: #4A5A4A;
             background: none;
             border: none;
             cursor: pointer;
@@ -108,15 +125,16 @@ const Product = () => {
           }
 
           .product-tab-btn:hover {
-            color: #8B5E3C;
-            background: rgba(139,94,60,0.05);
+            color: ${theme.primary};
+            background: ${theme.light};
           }
 
           .product-tab-btn.active {
-            color: #8B5E3C !important;
-            border-bottom: 3px solid #8B5E3C !important;
+            color: ${theme.primary} !important;
+            border-bottom: 3px solid ${theme.primary} !important;
             font-weight: 700 !important;
-            background: rgba(139,94,60,0.08);
+            background: #FFFFFF;
+            box-shadow: 0 -2px 8px ${theme.glow};
           }
 
           @media (max-width: 768px) {
@@ -129,12 +147,17 @@ const Product = () => {
 
         <Nav />
 
-        {/* Breadcrumbs */}
+        {/* Breadcrumbs & Back to Category */}
         <div
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "clamp(80px, 12vw, 95px) 5% 0",
+            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 10,
           }}
         >
           <div
@@ -143,22 +166,41 @@ const Product = () => {
               alignItems: "center",
               gap: 8,
               fontSize: "clamp(12px, 2.5vw, 13px)",
-              color: "#8B7355",
+              color: "#4A5A4A",
               flexWrap: "wrap",
             }}
           >
-            <Link to="/" style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
+            <Link to="/" style={{ color: theme.primary, textDecoration: "none", fontWeight: 600 }}>
               Home
             </Link>
             <span>›</span>
-            <Link to={`/product/${id}`} style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
+            <Link to={`/product/${id}`} style={{ color: theme.primary, textDecoration: "none", fontWeight: 600 }}>
               {parentProduct.title}
             </Link>
             <span>›</span>
-            <span style={{ color: "#3D2B1F", fontWeight: 700 }}>
+            <span style={{ color: "#1A241A", fontWeight: 700, fontFamily: categoryFont }}>
               {subProduct.title}
             </span>
           </div>
+
+          <Link
+            to={`/product/${id}`}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 12.5,
+              fontWeight: 700,
+              color: theme.primary,
+              background: theme.light,
+              padding: "5px 14px",
+              borderRadius: 20,
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+            }}
+          >
+            ← Back to {parentProduct.title}
+          </Link>
         </div>
 
         {/* Hero Product Section */}
@@ -180,8 +222,8 @@ const Product = () => {
                 position: "relative",
                 background: "#FFFFFF",
                 borderRadius: "clamp(18px, 3.5vw, 28px)",
-                border: "1px solid rgba(139,94,60,0.15)",
-                boxShadow: "0 25px 50px rgba(92,61,46,0.12)",
+                border: `1px solid ${theme.border}`,
+                boxShadow: `0 25px 50px ${theme.glow}`,
                 padding: "clamp(18px, 4vw, 36px)",
                 display: "flex",
                 alignItems: "center",
@@ -211,13 +253,13 @@ const Product = () => {
                     position: "absolute",
                     top: 14,
                     right: 14,
-                    background: "linear-gradient(135deg, #3D2B1F, #8B5E3C)",
-                    color: "#FAF6F0",
-                    padding: "5px 12px",
+                    background: theme.badge,
+                    color: "#FFFFFF",
+                    padding: "5px 14px",
                     borderRadius: 20,
                     fontSize: 11,
                     fontWeight: 700,
-                    boxShadow: "0 4px 12px rgba(61,43,31,0.25)",
+                    boxShadow: `0 4px 12px ${theme.glow}`,
                   }}
                 >
                   {subProduct.badge}
@@ -235,8 +277,8 @@ const Product = () => {
                   fontSize: 12,
                   fontWeight: 700,
                   letterSpacing: "1.5px",
-                  color: "#8B5E3C",
-                  background: "rgba(139,94,60,0.1)",
+                  color: theme.primary,
+                  background: theme.light,
                   padding: "5px 14px",
                   borderRadius: 30,
                   marginBottom: 12,
@@ -250,51 +292,48 @@ const Product = () => {
             <h1
               className="fade-up"
               style={{
-                fontFamily: "Georgia, 'Times New Roman', Times, serif",
-                fontSize: "clamp(30px, 5vw, 46px)",
-                fontWeight: 800,
-                color: "#3D2B1F",
+                fontFamily: theme.fontFamily || categoryFont,
+                fontSize: "clamp(32px, 5.5vw, 52px)",
+                fontWeight: theme.fontWeight || 900,
+                letterSpacing: theme.letterSpacing || "0px",
+                color: theme.primary,
                 lineHeight: 1.15,
                 marginBottom: 8,
               }}
             >
-              {subProduct.title}
+              {theme.title || subProduct.title}
             </h1>
 
             {subProduct.genericName && (
               <p
                 style={{
                   fontSize: "clamp(14px, 2.5vw, 16px)",
-                  color: "#8B5E3C",
+                  color: theme.primary,
                   fontWeight: 600,
-                  marginBottom: 12,
+                  marginBottom: 16,
                 }}
               >
                 {subProduct.genericName}
               </p>
             )}
 
-            <p style={{ fontSize: 13, color: "#8B7355", marginBottom: 16 }}>
-              Origin: <strong>{subProduct.origin}</strong>
-            </p>
-
             {/* Key Selling Point Highlight Callout */}
             {subProduct.keySellingPoint && (
               <div
                 className="fade-up"
                 style={{
-                  background: "linear-gradient(135deg, rgba(139,94,60,0.1) 0%, rgba(139,94,60,0.03) 100%)",
+                  background: theme.light,
                   padding: "16px 18px",
                   borderRadius: 16,
-                  borderLeft: "4px solid #8B5E3C",
+                  borderLeft: `4px solid ${theme.primary}`,
                   marginBottom: 20,
                   fontSize: "clamp(13px, 2.5vw, 14px)",
                   lineHeight: 1.6,
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   fontWeight: 500,
                 }}
               >
-                <strong style={{ color: "#8B5E3C", display: "block", marginBottom: 4, fontSize: 13 }}>
+                <strong style={{ color: theme.primary, display: "block", marginBottom: 4, fontSize: 13 }}>
                   Key Selling Point:
                 </strong>
                 {subProduct.keySellingPoint}
@@ -312,16 +351,16 @@ const Product = () => {
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <FaLeaf style={{ color: "#8B5E3C", fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>High Quality</span>
+                <FaLeaf style={{ color: theme.primary, fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>High Quality</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <FaHeartbeat style={{ color: "#8B5E3C", fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>Clinically Proven</span>
+                <FaHeartbeat style={{ color: theme.primary, fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>Clinically Proven</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <FaStar style={{ color: "#8B5E3C", fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>Kalbe Standard</span>
+                <FaStar style={{ color: theme.primary, fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>Kalbe Standard</span>
               </div>
             </div>
 
@@ -331,13 +370,13 @@ const Product = () => {
                 to={`/product/${id}`}
                 style={{
                   background: "transparent",
-                  color: "#8B5E3C",
+                  color: theme.primary,
                   padding: "9px 20px",
                   borderRadius: 40,
                   textDecoration: "none",
                   fontWeight: 600,
                   fontSize: 13,
-                  border: "1.5px solid #8B5E3C",
+                  border: `1.5px solid ${theme.primary}`,
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 6,
@@ -353,9 +392,9 @@ const Product = () => {
         {/* Interactive Tabs Section */}
         <section
           style={{
-            background: "#FFF8F2",
+            background: "#FFFFFF",
             padding: "clamp(36px, 6vw, 56px) 5%",
-            borderTop: "1px solid rgba(139,94,60,0.1)",
+            borderTop: `1px solid ${theme.border}`,
           }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -387,7 +426,7 @@ const Product = () => {
                     background: "#FFFFFF",
                     borderRadius: 20,
                     padding: "clamp(20px, 4vw, 32px)",
-                    border: "1px solid rgba(139,94,60,0.12)",
+                    border: `1px solid ${theme.border}`,
                     boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
                   }}
                 >
@@ -395,7 +434,7 @@ const Product = () => {
                     style={{
                       fontFamily: "Georgia, serif",
                       fontSize: "clamp(20px, 3.5vw, 24px)",
-                      color: "#3D2B1F",
+                      color: "#1A241A",
                       fontWeight: 700,
                       marginBottom: 18,
                     }}
@@ -411,9 +450,9 @@ const Product = () => {
                           alignItems: "center",
                           gap: 12,
                           padding: "12px 16px",
-                          background: "#FAF6F0",
+                          background: theme.bg,
                           borderRadius: 14,
-                          border: "1px solid rgba(139,94,60,0.08)",
+                          border: `1px solid ${theme.border}`,
                         }}
                       >
                         <div
@@ -421,16 +460,16 @@ const Product = () => {
                             width: 26,
                             height: 26,
                             borderRadius: "50%",
-                            background: "rgba(139,94,60,0.12)",
+                            background: theme.light,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             flexShrink: 0,
                           }}
                         >
-                          <HiOutlineCheck style={{ color: "#8B5E3C", fontSize: 15 }} />
+                          <HiOutlineCheck style={{ color: theme.primary, fontSize: 15 }} />
                         </div>
-                        <span style={{ fontSize: 13.5, color: "#3D2B1F", fontWeight: 500 }}>
+                        <span style={{ fontSize: 13.5, color: "#1A241A", fontWeight: 500 }}>
                           {benefit}
                         </span>
                       </div>
@@ -448,13 +487,13 @@ const Product = () => {
                     background: "#FFFFFF",
                     borderRadius: 20,
                     padding: "clamp(18px, 3.5vw, 28px)",
-                    border: "1px solid rgba(139,94,60,0.12)",
+                    border: "1px solid rgba(13,110,56,0.12)",
                   }}
                 >
-                  <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "#3D2B1F", fontWeight: 700 }}>
+                  <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "#1A241A", fontWeight: 700 }}>
                     Active Ingredients & Formulation
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "#3D2B1F", lineHeight: 1.8 }}>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "#1A241A", lineHeight: 1.8 }}>
                     {details.ingredients.map((item, idx) => (
                       <li key={idx}><strong>{item}</strong></li>
                     ))}
@@ -466,16 +505,16 @@ const Product = () => {
                     background: "#FFFFFF",
                     borderRadius: 20,
                     padding: "clamp(18px, 3.5vw, 28px)",
-                    border: "1px solid rgba(139,94,60,0.12)",
+                    border: "1px solid rgba(13,110,56,0.12)",
                   }}
                 >
-                  <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "#3D2B1F", fontWeight: 700 }}>
+                  <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "#1A241A", fontWeight: 700 }}>
                     How to Use & Storage
                   </h4>
-                  <p style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.6, marginBottom: 14 }}>
+                  <p style={{ fontSize: 13.5, color: "#4A5A4A", lineHeight: 1.6, marginBottom: 14 }}>
                     <strong>កម្រិតប្រើប្រាស់:</strong> {details.howToUse}
                   </p>
-                  <p style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 13.5, color: "#4A5A4A", lineHeight: 1.6, margin: 0 }}>
                     <strong>ការរក្សាទុក:</strong> {details.storage}
                   </p>
                 </div>
@@ -513,14 +552,14 @@ const Product = () => {
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
             <div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#8B5E3C", textTransform: "uppercase" }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#0D6E38", textTransform: "uppercase" }}>
                 Related Portfolio
               </span>
               <h3
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(20px, 3.5vw, 26px)",
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   fontWeight: 800,
                   margin: 0,
                 }}
@@ -531,7 +570,7 @@ const Product = () => {
             <Link
               to={`/product/${id}`}
               style={{
-                color: "#8B5E3C",
+                color: "#0D6E38",
                 fontWeight: 700,
                 fontSize: 13,
                 textDecoration: "none",
@@ -572,19 +611,24 @@ const Product = () => {
       <div
         style={{
           fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-          background: "#FAF6F0",
+          background: "#F8FAF6",
           minHeight: "100vh",
           overflowX: "hidden",
         }}
       >
         <Nav />
 
-        {/* Breadcrumb */}
+        {/* Breadcrumb & Back to Home */}
         <div
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "clamp(80px, 12vw, 95px) 5% 0",
+            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 10,
           }}
         >
           <div
@@ -593,17 +637,36 @@ const Product = () => {
               alignItems: "center",
               gap: 8,
               fontSize: "clamp(12px, 2.5vw, 13px)",
-              color: "#8B7355",
+              color: "#4A5A4A",
             }}
           >
-            <Link to="/" style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
+            <Link to="/" style={{ color: "#0D6E38", textDecoration: "none", fontWeight: 600 }}>
               Home
             </Link>
             <span>›</span>
-            <span style={{ color: "#3D2B1F", fontWeight: 700 }}>
+            <span style={{ color: "#1A241A", fontWeight: 700 }}>
               {parentProduct.title}
             </span>
           </div>
+
+          <Link
+            to="/"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 12.5,
+              fontWeight: 700,
+              color: "#0D6E38",
+              background: "rgba(13,110,56,0.08)",
+              padding: "5px 14px",
+              borderRadius: 20,
+              textDecoration: "none",
+              transition: "all 0.2s ease",
+            }}
+          >
+            ← Back to Home
+          </Link>
         </div>
 
         {/* Hero Portfolio Banner */}
@@ -625,8 +688,8 @@ const Product = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "1.5px",
-                color: "#8B5E3C",
-                background: "rgba(139,94,60,0.1)",
+                color: "#0D6E38",
+                background: "rgba(13,110,56,0.1)",
                 padding: "4px 14px",
                 borderRadius: 20,
                 marginBottom: 12,
@@ -637,10 +700,15 @@ const Product = () => {
             </span>
             <h1
               style={{
-                fontFamily: "Georgia, 'Times New Roman', Times, serif",
-                fontSize: "clamp(32px, 5vw, 50px)",
-                fontWeight: 800,
-                color: "#3D2B1F",
+                fontFamily: isEndo
+                  ? "'Montserrat', 'Inter', 'Segoe UI', sans-serif"
+                  : isMednut
+                  ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
+                  : "'Poppins', 'Montserrat', 'Inter', sans-serif",
+                fontSize: "clamp(32px, 5vw, 52px)",
+                fontWeight: 900,
+                letterSpacing: "1px",
+                color: "#1A241A",
                 lineHeight: 1.15,
                 marginBottom: 12,
               }}
@@ -652,7 +720,7 @@ const Product = () => {
                 style={{
                   fontSize: 14.5,
                   fontWeight: 600,
-                  color: "#8B5E3C",
+                  color: "#0D6E38",
                   marginBottom: 14,
                 }}
               >
@@ -663,7 +731,7 @@ const Product = () => {
               style={{
                 fontSize: "clamp(14px, 2.5vw, 16px)",
                 lineHeight: 1.7,
-                color: "#7A5C4A",
+                color: "#4A5A4A",
                 marginBottom: 20,
               }}
             >
@@ -677,8 +745,8 @@ const Product = () => {
                 background: "#FFFFFF",
                 borderRadius: 24,
                 padding: "clamp(18px, 4vw, 32px)",
-                boxShadow: "0 20px 40px rgba(92,61,46,0.08)",
-                border: "1px solid rgba(139,94,60,0.12)",
+                boxShadow: "0 20px 40px rgba(13,110,56,0.08)",
+                border: "1px solid rgba(13,110,56,0.12)",
               }}
             >
               <img
@@ -708,9 +776,9 @@ const Product = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "1.5px",
-                color: "#8B5E3C",
+                color: "#0D6E38",
                 textTransform: "uppercase",
-                background: "rgba(139,94,60,0.1)",
+                background: "rgba(13,110,56,0.1)",
                 padding: "4px 14px",
                 borderRadius: 20,
                 display: "inline-block",
@@ -723,7 +791,7 @@ const Product = () => {
               style={{
                 fontFamily: "Georgia, serif",
                 fontSize: "clamp(24px, 4vw, 36px)",
-                color: "#3D2B1F",
+                color: "#1A241A",
                 fontWeight: 800,
                 margin: 0,
               }}
@@ -748,9 +816,9 @@ const Product = () => {
         {/* Clinical Module for Parent View */}
         <section
           style={{
-            background: "#FFF8F2",
+            background: "#F0FDF4",
             padding: "clamp(40px, 6vw, 60px) 5%",
-            borderTop: "1px solid rgba(139,94,60,0.1)",
+            borderTop: "1px solid rgba(13,110,56,0.1)",
           }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -760,9 +828,9 @@ const Product = () => {
                   fontSize: 12,
                   fontWeight: 700,
                   letterSpacing: "1.5px",
-                  color: "#8B5E3C",
+                  color: "#0D6E38",
                   textTransform: "uppercase",
-                  background: "rgba(139,94,60,0.1)",
+                  background: "rgba(13,110,56,0.1)",
                   padding: "4px 14px",
                   borderRadius: 20,
                   display: "inline-block",
@@ -775,7 +843,7 @@ const Product = () => {
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(22px, 4vw, 32px)",
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   fontWeight: 800,
                   margin: 0,
                 }}
@@ -800,7 +868,7 @@ const Product = () => {
   return (
     <div style={{ padding: 100, textAlign: "center", fontFamily: "sans-serif" }}>
       <h2>Product not found</h2>
-      <Link to="/" style={{ color: "#8B5E3C", fontWeight: 700 }}>
+      <Link to="/" style={{ color: "#0D6E38", fontWeight: 700 }}>
         Back to Home
       </Link>
     </div>

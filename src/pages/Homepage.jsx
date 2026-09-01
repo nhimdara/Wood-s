@@ -74,7 +74,7 @@ const Homepage = () => {
     <div
       style={{
         fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
-        background: "#FAF6F0",
+        background: "#F8FAF6",
         minHeight: "100vh",
         overflowX: "hidden",
       }}
@@ -92,8 +92,8 @@ const Homepage = () => {
           background: #FFFFFF;
           border-radius: clamp(20px, 3.5vw, 32px);
           padding: clamp(18px, 3.5vw, 32px);
-          box-shadow: 0 25px 50px rgba(92,61,46,0.1);
-          border: 1px solid rgba(139,94,60,0.15);
+          box-shadow: 0 25px 50px rgba(13,110,56,0.1);
+          border: 1px solid rgba(13,110,56,0.15);
           position: relative;
         }
 
@@ -129,7 +129,7 @@ const Homepage = () => {
           transition: all 0.2s ease;
         }
         .search-pill:hover {
-          background: #8B5E3C !important;
+          background: #0D6E38 !important;
           color: #FFFFFF !important;
           transform: translateY(-2px);
         }
@@ -207,9 +207,9 @@ const Homepage = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "1.5px",
-                color: "#8B5E3C",
+                color: "#0D6E38",
                 textTransform: "uppercase",
-                background: "rgba(139,94,60,0.1)",
+                background: "rgba(13,110,56,0.1)",
                 padding: "5px 16px",
                 borderRadius: 40,
               }}
@@ -220,10 +220,10 @@ const Homepage = () => {
                   width: 7,
                   height: 7,
                   borderRadius: "50%",
-                  background: "#8B5E3C",
+                  background: "#0D6E38",
                 }}
               />
-              WOOD'S • KALBE HEALTHCARE
+              Kalbe International
             </span>
           </div>
 
@@ -233,7 +233,7 @@ const Homepage = () => {
               fontSize: "clamp(32px, 5.5vw, 58px)",
               fontWeight: 800,
               lineHeight: 1.15,
-              color: "#3D2B1F",
+              color: "#1A241A",
               letterSpacing: "-0.02em",
               marginBottom: 16,
               textAlign: "center",
@@ -242,7 +242,7 @@ const Homepage = () => {
             Product Positioning &{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #8B5E3C 0%, #C49A6C 50%, #8B5E3C 100%)",
+                background: "linear-gradient(135deg, #0D6E38 0%, #68A62A 50%, #0D6E38 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -255,7 +255,7 @@ const Homepage = () => {
             style={{
               fontSize: "clamp(14px, 2.2vw, 16px)",
               lineHeight: 1.7,
-              color: "#7A5C4A",
+              color: "#4A5A4A",
               maxWidth: 560,
               margin: "0 auto 26px",
               textAlign: "center",
@@ -281,11 +281,11 @@ const Homepage = () => {
                 background: "#FFFFFF",
                 borderRadius: 50,
                 padding: "8px 18px",
-                border: "2px solid rgba(139,94,60,0.2)",
-                boxShadow: "0 10px 25px rgba(61,43,31,0.06)",
+                border: "2px solid rgba(13,110,56,0.2)",
+                boxShadow: "0 10px 25px rgba(13,110,56,0.06)",
               }}
             >
-              <FaSearch style={{ color: "#8B5E3C", fontSize: 17, marginRight: 12, flexShrink: 0 }} />
+              <FaSearch style={{ color: "#0D6E38", fontSize: 17, marginRight: 12, flexShrink: 0 }} />
               <input
                 type="text"
                 placeholder="ស្វែងរកផលិតផល (ឧ. Efesa, Nephrisol, Prospan, DPN, CKD...)"
@@ -296,7 +296,7 @@ const Homepage = () => {
                   outline: "none",
                   width: "100%",
                   fontSize: 13.5,
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   background: "transparent",
                   fontFamily: "inherit",
                 }}
@@ -307,7 +307,7 @@ const Homepage = () => {
                   style={{
                     background: "none",
                     border: "none",
-                    color: "#8B7355",
+                    color: "#4A5A4A",
                     cursor: "pointer",
                     fontWeight: 700,
                     fontSize: 14,
@@ -321,15 +321,15 @@ const Homepage = () => {
 
             {/* Quick Search Tag Pills */}
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "center", marginTop: 10 }}>
-              <span style={{ fontSize: 12, color: "#8B7355", alignSelf: "center" }}>ពេញនិយម:</span>
+              <span style={{ fontSize: 12, color: "#4A5A4A", alignSelf: "center" }}>ពេញនិយម:</span>
               {["EFESA", "NEPHRISOL", "PROSPAN", "KALXID", "NOCID"].map((tag) => (
                 <button
                   key={tag}
                   onClick={() => setSearchQuery(tag)}
                   className="search-pill"
                   style={{
-                    background: "rgba(139,94,60,0.08)",
-                    color: "#8B5E3C",
+                    background: "rgba(13,110,56,0.08)",
+                    color: "#0D6E38",
                     border: "none",
                     borderRadius: 20,
                     padding: "3px 10px",
@@ -353,7 +353,7 @@ const Homepage = () => {
                   right: 0,
                   background: "#FFFFFF",
                   borderRadius: 16,
-                  border: "1px solid rgba(139,94,60,0.2)",
+                  border: "1px solid rgba(13,110,56,0.2)",
                   boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
                   marginTop: 8,
                   maxHeight: 320,
@@ -374,26 +374,26 @@ const Homepage = () => {
                         padding: "10px 12px",
                         borderRadius: 10,
                         textDecoration: "none",
-                        color: "#3D2B1F",
+                        color: "#1A241A",
                         transition: "background 0.15s",
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(139,94,60,0.08)")}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.08)")}
                       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                     >
                       <img
                         src={item.image}
                         alt={item.title}
-                        style={{ width: 40, height: 40, objectFit: "contain", background: "#FAF6F0", borderRadius: 8, padding: 4 }}
+                        style={{ width: 40, height: 40, objectFit: "contain", background: "#F8FAF6", borderRadius: 8, padding: 4 }}
                       />
                       <div style={{ flex: 1 }}>
                         <div style={{ fontWeight: 700, fontSize: 14 }}>{item.title}</div>
-                        <div style={{ fontSize: 12, color: "#8B5E3C" }}>{item.portfolioTitle} • {item.genericName}</div>
+                        <div style={{ fontSize: 12, color: "#0D6E38" }}>{item.portfolioTitle} • {item.genericName}</div>
                       </div>
-                      <HiOutlineChevronRight style={{ color: "#8B5E3C" }} />
+                      <HiOutlineChevronRight style={{ color: "#0D6E38" }} />
                     </Link>
                   ))
                 ) : (
-                  <div style={{ padding: "16px", textAlign: "center", color: "#8B7355", fontSize: 13 }}>
+                  <div style={{ padding: "16px", textAlign: "center", color: "#4A5A4A", fontSize: 13 }}>
                     មិនមានផលិតផលត្រូវនឹងពាក្យស្វែងរក "{searchQuery}"
                   </div>
                 )}
@@ -406,8 +406,8 @@ const Homepage = () => {
             <a
               href="#portfolios"
               style={{
-                background: "linear-gradient(135deg, #3D2B1F 0%, #8B5E3C 100%)",
-                color: "#FAF6F0",
+                background: "linear-gradient(135deg, #1A241A 0%, #0D6E38 100%)",
+                color: "#F8FAF6",
                 padding: "11px 26px",
                 borderRadius: 40,
                 textDecoration: "none",
@@ -416,7 +416,7 @@ const Homepage = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                boxShadow: "0 8px 20px rgba(61,43,31,0.2)",
+                boxShadow: "0 8px 20px rgba(13,110,56,0.2)",
               }}
             >
               Explore Portfolios <HiOutlineChevronRight />
@@ -425,13 +425,13 @@ const Homepage = () => {
               to="/about"
               style={{
                 background: "transparent",
-                color: "#8B5E3C",
+                color: "#0D6E38",
                 padding: "10px 22px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 13.5,
-                border: "1.5px solid #8B5E3C",
+                border: "1.5px solid #0D6E38",
               }}
             >
               About Our Mission
@@ -448,8 +448,8 @@ const Homepage = () => {
                 style={{
                   fontSize: 12.5,
                   fontWeight: 700,
-                  color: "#8B5E3C",
-                  background: "rgba(139,94,60,0.12)",
+                  color: "#0D6E38",
+                  background: "rgba(13,110,56,0.12)",
                   padding: "5px 14px",
                   borderRadius: 20,
                   textTransform: "uppercase",
@@ -467,7 +467,7 @@ const Homepage = () => {
                       width: currentHeroSlide === i ? 24 : 8,
                       height: 8,
                       borderRadius: 4,
-                      background: currentHeroSlide === i ? "#8B5E3C" : "rgba(139,94,60,0.25)",
+                      background: currentHeroSlide === i ? "#0D6E38" : "rgba(13,110,56,0.25)",
                       cursor: "pointer",
                       transition: "all 0.3s ease",
                       display: "inline-block",
@@ -485,7 +485,7 @@ const Homepage = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "#FAF6F0",
+                background: "#F8FAF6",
                 borderRadius: 20,
                 padding: "16px 20px",
                 overflow: "hidden",
@@ -500,7 +500,7 @@ const Homepage = () => {
                   left: 12,
                   zIndex: 2,
                   background: "rgba(255,255,255,0.9)",
-                  border: "1px solid rgba(139,94,60,0.25)",
+                  border: "1px solid rgba(13,110,56,0.25)",
                   width: 38,
                   height: 38,
                   borderRadius: "50%",
@@ -508,7 +508,7 @@ const Homepage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                   transition: "transform 0.2s ease",
                 }}
@@ -541,7 +541,7 @@ const Homepage = () => {
                   right: 12,
                   zIndex: 2,
                   background: "rgba(255,255,255,0.9)",
-                  border: "1px solid rgba(139,94,60,0.25)",
+                  border: "1px solid rgba(13,110,56,0.25)",
                   width: 38,
                   height: 38,
                   borderRadius: "50%",
@@ -549,7 +549,7 @@ const Homepage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#3D2B1F",
+                  color: "#1A241A",
                   boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                   transition: "transform 0.2s ease",
                 }}
@@ -563,10 +563,10 @@ const Homepage = () => {
 
             {/* Slide Category Info */}
             <div style={{ marginTop: 14 }}>
-              <div style={{ fontSize: "clamp(18px, 2.5vw, 22px)", fontWeight: 800, color: "#3D2B1F" }}>
+              <div style={{ fontSize: "clamp(18px, 2.5vw, 22px)", fontWeight: 800, color: "#1A241A" }}>
                 {heroSlides[currentHeroSlide].title}
               </div>
-              <div style={{ fontSize: "clamp(12.5px, 1.8vw, 14px)", color: "#7A5C4A", marginTop: 3 }}>
+              <div style={{ fontSize: "clamp(12.5px, 1.8vw, 14px)", color: "#4A5A4A", marginTop: 3 }}>
                 {heroSlides[currentHeroSlide].desc}
               </div>
             </div>
@@ -576,7 +576,7 @@ const Homepage = () => {
               style={{
                 marginTop: 14,
                 padding: "6px",
-                background: "rgba(139,94,60,0.08)",
+                background: "rgba(13,110,56,0.08)",
                 borderRadius: 40,
                 display: "flex",
                 justifyContent: "center",
@@ -592,15 +592,15 @@ const Homepage = () => {
                     onClick={() => setCurrentHeroSlide(idx)}
                     style={{
                       border: "none",
-                      background: isCurrent ? "#8B5E3C" : "transparent",
-                      color: isCurrent ? "#FAF6F0" : "#3D2B1F",
+                      background: isCurrent ? "#0D6E38" : "transparent",
+                      color: isCurrent ? "#F8FAF6" : "#1A241A",
                       fontWeight: 700,
                       fontSize: 13,
                       padding: "8px 18px",
                       borderRadius: 30,
                       cursor: "pointer",
                       transition: "all 0.25s ease",
-                      boxShadow: isCurrent ? "0 4px 14px rgba(139,94,60,0.28)" : "none",
+                      boxShadow: isCurrent ? "0 4px 14px rgba(13,110,56,0.28)" : "none",
                     }}
                   >
                     {slide.title}
@@ -627,9 +627,9 @@ const Homepage = () => {
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "1.5px",
-              color: "#8B5E3C",
+              color: "#0D6E38",
               textTransform: "uppercase",
-              background: "rgba(139,94,60,0.1)",
+              background: "rgba(13,110,56,0.1)",
               padding: "4px 14px",
               borderRadius: 20,
               display: "inline-block",
@@ -642,7 +642,7 @@ const Homepage = () => {
             style={{
               fontFamily: "Georgia, serif",
               fontSize: "clamp(26px, 4.5vw, 38px)",
-              color: "#3D2B1F",
+              color: "#1A241A",
               fontWeight: 800,
               margin: 0,
             }}
@@ -664,9 +664,9 @@ const Homepage = () => {
                   background: isSelected ? "linear-gradient(145deg, #FFFFFF, #FFF9F5)" : "#FFFFFF",
                   borderRadius: 24,
                   padding: "clamp(20px, 3vw, 26px)",
-                  border: isSelected ? "2.5px solid #8B5E3C" : "1px solid rgba(139,94,60,0.14)",
+                  border: isSelected ? "2.5px solid #0D6E38" : "1px solid rgba(13,110,56,0.14)",
                   boxShadow: isSelected
-                    ? "0 18px 40px rgba(139,94,60,0.18)"
+                    ? "0 18px 40px rgba(13,110,56,0.18)"
                     : "0 6px 18px rgba(0,0,0,0.03)",
                   cursor: "pointer",
                   display: "flex",
@@ -680,8 +680,8 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(11px, 1.2vw, 12px)",
                       fontWeight: 700,
-                      color: isSelected ? "#8B5E3C" : "#8B7355",
-                      background: isSelected ? "rgba(139,94,60,0.12)" : "rgba(139,94,60,0.06)",
+                      color: isSelected ? "#0D6E38" : "#4A5A4A",
+                      background: isSelected ? "rgba(13,110,56,0.12)" : "rgba(13,110,56,0.06)",
                       padding: "4px 11px",
                       borderRadius: 20,
                       whiteSpace: "nowrap",
@@ -689,7 +689,7 @@ const Homepage = () => {
                   >
                     {p.badge}
                   </span>
-                  <span style={{ fontSize: "clamp(11.5px, 1.2vw, 12px)", color: "#8B7355", fontWeight: 700, whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: "clamp(11.5px, 1.2vw, 12px)", color: "#4A5A4A", fontWeight: 700, whiteSpace: "nowrap" }}>
                     {p.subProducts.length} ផលិតផល
                   </span>
                 </div>
@@ -700,7 +700,7 @@ const Homepage = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "#FAF6F0",
+                    background: "#F8FAF6",
                     borderRadius: 16,
                     padding: "12px 16px",
                   }}
@@ -723,14 +723,14 @@ const Homepage = () => {
                       fontFamily: "Georgia, serif",
                       fontSize: "clamp(18px, 2.3vw, 23px)",
                       fontWeight: 800,
-                      color: isSelected ? "#8B5E3C" : "#3D2B1F",
+                      color: isSelected ? "#0D6E38" : "#1A241A",
                       marginBottom: 6,
                       lineHeight: 1.25,
                     }}
                   >
                     {p.title}
                   </h3>
-                  <p style={{ fontSize: "clamp(12.5px, 1.4vw, 13px)", color: "#7A5C4A", lineHeight: 1.55, margin: 0 }}>
+                  <p style={{ fontSize: "clamp(12.5px, 1.4vw, 13px)", color: "#4A5A4A", lineHeight: 1.55, margin: 0 }}>
                     {p.subtitle || p.description.substring(0, 65) + "..."}
                   </p>
                 </div>
@@ -743,11 +743,11 @@ const Homepage = () => {
                     justifyContent: "space-between",
                     gap: 8,
                     paddingTop: 12,
-                    borderTop: "1px solid rgba(139,94,60,0.12)",
+                    borderTop: "1px solid rgba(13,110,56,0.12)",
                     flexWrap: "wrap",
                   }}
                 >
-                  <span style={{ fontSize: "clamp(12px, 1.4vw, 13px)", fontWeight: 700, color: "#8B5E3C", whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: "clamp(12px, 1.4vw, 13px)", fontWeight: 700, color: "#0D6E38", whiteSpace: "nowrap" }}>
                     {isSelected ? "កំពុងមើល" : "ជ្រើសរើសដើម្បីមើល"}
                   </span>
                   <Link
@@ -756,12 +756,12 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(12px, 1.4vw, 12.5px)",
                       fontWeight: 700,
-                      color: "#3D2B1F",
+                      color: "#1A241A",
                       textDecoration: "none",
                       whiteSpace: "nowrap",
                       padding: "4px 8px",
                       borderRadius: 8,
-                      background: "rgba(139,94,60,0.06)",
+                      background: "rgba(13,110,56,0.06)",
                       transition: "all 0.2s ease",
                     }}
                   >
@@ -777,17 +777,17 @@ const Homepage = () => {
         <div style={{ marginBottom: 30 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 20, flexWrap: "wrap", gap: 10 }}>
             <div>
-              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#3D2B1F", fontWeight: 800 }}>
+              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1A241A", fontWeight: 800 }}>
                 {currentPortfolio.title} Products
               </h3>
-              <p style={{ fontSize: 13, color: "#7A5C4A", margin: 0 }}>
+              <p style={{ fontSize: 13, color: "#4A5A4A", margin: 0 }}>
                 {currentPortfolio.description}
               </p>
             </div>
             <Link
               to={`/product/${currentPortfolio.id}`}
               style={{
-                color: "#8B5E3C",
+                color: "#0D6E38",
                 fontWeight: 700,
                 fontSize: 13,
                 textDecoration: "none",
