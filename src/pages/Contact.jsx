@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import { FaFacebook, FaInstagram, FaTelegramPlane } from "react-icons/fa";
-import { FaLocationDot, FaPhone, FaClock, FaEnvelope } from "react-icons/fa6";
+import { FaLocationDot, FaPhone, FaClock, FaEnvelope, FaHospital, FaStethoscope } from "react-icons/fa6";
 import { HiOutlineChevronRight, HiOutlineCheckCircle } from "react-icons/hi";
 
 const Contact = () => {
@@ -59,7 +59,7 @@ const Contact = () => {
   return (
     <div
       style={{
-        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+        fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
         background: "#FAF6F0",
         minHeight: "100vh",
         overflowX: "hidden",
@@ -67,36 +67,69 @@ const Contact = () => {
     >
       <style>{`
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
+          from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
         
-        .fade-up { animation: fadeUp 0.7s ease forwards; }
+        .fade-up { animation: fadeUp 0.6s ease forwards; }
         
         .contact-card {
-          transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+          transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
         .contact-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 16px 32px rgba(92,61,46,0.1) !important;
+          transform: translateY(-4px);
+          box-shadow: 0 16px 32px rgba(92,61,46,0.08) !important;
           border-color: #8B5E3C !important;
         }
         
         .input-field {
           width: 100%;
-          padding: 13px 16px;
+          padding: 12px 16px;
           border: 1px solid rgba(139,94,60,0.2);
           border-radius: 12px;
-          font-size: 14px;
+          font-size: 13.5px;
           background: #FFFFFF;
           transition: all 0.2s ease;
           font-family: inherit;
           color: #3D2B1F;
+          box-sizing: border-box;
         }
         .input-field:focus {
           outline: none;
           border-color: #8B5E3C;
           box-shadow: 0 0 0 3px rgba(139,94,60,0.12);
+        }
+
+        .channel-row {
+          display: flex;
+          align-items: center;
+          justifyContent: space-between;
+          padding: 12px 16px;
+          border-radius: 14px;
+          background: #FAF6F0;
+          border: 1px solid rgba(139,94,60,0.1);
+          text-decoration: none;
+          color: #3D2B1F;
+          transition: all 0.2s ease;
+        }
+        .channel-row:hover {
+          background: rgba(139,94,60,0.1);
+          transform: translateX(4px);
+          border-color: #8B5E3C;
+        }
+
+        .contact-grid-wrapper {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+          align-items: stretch;
+        }
+
+        @media (max-width: 960px) {
+          .contact-grid-wrapper {
+            grid-template-columns: 1fr;
+            gap: 24px;
+          }
         }
       `}</style>
 
@@ -105,12 +138,12 @@ const Contact = () => {
       {/* Hero Section */}
       <section
         style={{
-          minHeight: "40vh",
+          minHeight: "35vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(110px, 14vw, 130px) 5% 50px",
+          padding: "clamp(95px, 12vw, 120px) 5% 40px",
           background: "linear-gradient(135deg, #FFF8F2 0%, #FEF5EC 100%)",
           borderBottom: "1px solid rgba(139,94,60,0.1)",
         }}
@@ -122,12 +155,12 @@ const Contact = () => {
               display: "inline-block",
               fontSize: "12px",
               fontWeight: 700,
-              letterSpacing: "2.5px",
+              letterSpacing: "2px",
               color: "#8B5E3C",
-              marginBottom: 14,
+              marginBottom: 12,
               textTransform: "uppercase",
               background: "rgba(139,94,60,0.1)",
-              padding: "5px 16px",
+              padding: "4px 14px",
               borderRadius: 30,
             }}
           >
@@ -137,11 +170,11 @@ const Contact = () => {
             className="fade-up"
             style={{
               fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: "clamp(36px, 6vw, 56px)",
+              fontSize: "clamp(32px, 5.5vw, 52px)",
               fontWeight: 800,
               color: "#3D2B1F",
               lineHeight: 1.15,
-              marginBottom: 16,
+              marginBottom: 14,
             }}
           >
             Contact &{" "}
@@ -158,7 +191,7 @@ const Contact = () => {
           <p
             className="fade-up"
             style={{
-              fontSize: "clamp(15px, 2.8vw, 17px)",
+              fontSize: "clamp(14px, 2.5vw, 16px)",
               lineHeight: 1.7,
               color: "#7A5C4A",
               maxWidth: 620,
@@ -170,20 +203,20 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Contact Cards Grid */}
+      {/* Top 4 Contact Info Cards */}
       <section
         style={{
           maxWidth: 1200,
           margin: "0 auto",
-          padding: "50px 5% 40px",
+          padding: "40px 5% 30px",
         }}
       >
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: 20,
-            marginBottom: 50,
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+            gap: 16,
+            marginBottom: 40,
           }}
         >
           {contactInfo.map((info) => {
@@ -194,7 +227,7 @@ const Contact = () => {
                 className="contact-card"
                 style={{
                   textAlign: "center",
-                  padding: "28px 20px",
+                  padding: "24px 18px",
                   background: "#FFFFFF",
                   borderRadius: "20px",
                   border: "1px solid rgba(139,94,60,0.12)",
@@ -203,26 +236,26 @@ const Contact = () => {
               >
                 <div
                   style={{
-                    width: 48,
-                    height: 48,
+                    width: 44,
+                    height: 44,
                     borderRadius: "50%",
                     background: "rgba(139,94,60,0.1)",
                     color: "#8B5E3C",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    margin: "0 auto 16px",
-                    fontSize: 20,
+                    margin: "0 auto 12px",
+                    fontSize: 18,
                   }}
                 >
                   <Icon />
                 </div>
                 <h3
                   style={{
-                    fontSize: 17,
+                    fontSize: 16,
                     fontWeight: 700,
                     color: "#3D2B1F",
-                    marginBottom: 10,
+                    marginBottom: 8,
                   }}
                 >
                   {info.title}
@@ -238,7 +271,7 @@ const Contact = () => {
                         textDecoration: "none",
                         fontSize: 13,
                         fontWeight: 500,
-                        marginBottom: 4,
+                        marginBottom: 3,
                       }}
                     >
                       {detail}
@@ -249,7 +282,7 @@ const Contact = () => {
                       style={{
                         color: "#7A5C4A",
                         fontSize: 13,
-                        margin: "0 0 4px 0",
+                        margin: "0 0 3px 0",
                       }}
                     >
                       {detail}
@@ -261,16 +294,9 @@ const Contact = () => {
           })}
         </div>
 
-        {/* Form & Info Section */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))",
-            gap: "clamp(30px, 5vw, 50px)",
-            alignItems: "start",
-          }}
-        >
-          {/* Contact Form */}
+        {/* Unified 2-Column Symmetrical Form & Hub */}
+        <div className="contact-grid-wrapper">
+          {/* Left Column: Contact Form */}
           <div
             style={{
               background: "#FFFFFF",
@@ -278,241 +304,332 @@ const Contact = () => {
               padding: "clamp(24px, 4vw, 36px)",
               border: "1px solid rgba(139,94,60,0.15)",
               boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
             }}
           >
-            <h2
-              style={{
-                fontFamily: "Georgia, serif",
-                fontSize: "clamp(24px, 4vw, 30px)",
-                fontWeight: 800,
-                color: "#3D2B1F",
-                marginBottom: 6,
-              }}
-            >
-              Send an Inquiry
-            </h2>
-            <p style={{ fontSize: 13, color: "#7A5C4A", marginBottom: 24 }}>
-              បំពេញព័ត៌មានខាងក្រោមដើម្បីទាក់ទងមកកាន់ក្រុមការងាររបស់យើង
-            </p>
-
-            <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 6 }}>
-                  Full Name / ឈ្មោះ
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Dr. Sokha / លោក ឈុន"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="input-field"
-                />
-              </div>
-
-              <div
+            <div>
+              <h2
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: 12,
-                  marginBottom: 16,
+                  fontFamily: "Georgia, serif",
+                  fontSize: "clamp(22px, 3.5vw, 28px)",
+                  fontWeight: 800,
+                  color: "#3D2B1F",
+                  marginBottom: 6,
                 }}
               >
-                <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 6 }}>
-                    Email Address
+                Send an Inquiry
+              </h2>
+              <p style={{ fontSize: 13, color: "#7A5C4A", marginBottom: 20 }}>
+                បំពេញព័ត៌មានខាងក្រោមដើម្បីទាក់ទងមកកាន់ក្រុមការងាររបស់យើង
+              </p>
+
+              <form onSubmit={handleSubmit}>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 5 }}>
+                    Full Name / ឈ្មោះ
                   </label>
                   <input
-                    type="email"
-                    placeholder="name@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    type="text"
+                    placeholder="e.g. Dr. Sokha / លោក ឈុន"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
                     className="input-field"
                   />
                 </div>
-                <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 6 }}>
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+855 ..."
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="input-field"
-                  />
-                </div>
-              </div>
 
-              <div style={{ marginBottom: 16 }}>
-                <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 6 }}>
-                  Inquiry Category / ប្រធានបទ
-                </label>
-                <select
-                  value={formData.inquiryType}
-                  onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                  className="input-field"
-                >
-                  <option value="general">General Healthcare Inquiry</option>
-                  <option value="endo">ENDO METABOLIC (EFESA, HEMAPO, NOCID, KALXID, KALMECO, NEVOX XR)</option>
-                  <option value="mednut">MEDNUT Nutrition (Nephrisol, Nephrisol-D, Pulmosol, Nutrican, Hepatosol)</option>
-                  <option value="pediatric">Children Products (Prospan, Rillus Jr, Kalmaxime DS)</option>
-                  <option value="pharmacy">Pharmacy & Clinic Distribution</option>
-                </select>
-              </div>
-
-              <div style={{ marginBottom: 20 }}>
-                <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 6 }}>
-                  Message / សារ
-                </label>
-                <textarea
-                  placeholder="How can we assist you with our products or clinical guidance?"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                  rows={4}
-                  className="input-field"
-                  style={{ resize: "vertical" }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  width: "100%",
-                  padding: "13px 24px",
-                  background: "linear-gradient(135deg, #3D2B1F 0%, #8B5E3C 100%)",
-                  color: "#FAF6F0",
-                  border: "none",
-                  borderRadius: 12,
-                  fontSize: 14,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 8,
-                  boxShadow: "0 6px 16px rgba(61,43,31,0.25)",
-                }}
-              >
-                Send Message <HiOutlineChevronRight />
-              </button>
-
-              {submitted && (
                 <div
                   style={{
-                    marginTop: 16,
-                    padding: "12px",
-                    background: "#ECFDF5",
-                    color: "#065F46",
-                    borderRadius: 10,
-                    fontSize: 13,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+                    gap: 12,
+                    marginBottom: 14,
                   }}
                 >
-                  <HiOutlineCheckCircle style={{ fontSize: 18, color: "#059669" }} />
-                  Thank you! Your message has been received. Our medical team will respond shortly.
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 5 }}>
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="name@example.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      className="input-field"
+                    />
+                  </div>
+                  <div>
+                    <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 5 }}>
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="+855 ..."
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="input-field"
+                    />
+                  </div>
                 </div>
-              )}
-            </form>
+
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 5 }}>
+                    Inquiry Category / ប្រធានបទ
+                  </label>
+                  <select
+                    value={formData.inquiryType}
+                    onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
+                    className="input-field"
+                  >
+                    <option value="general">General Healthcare Inquiry</option>
+                    <option value="endo">ENDO METABOLIC (EFESA, HEMAPO, NOCID, KALXID, KALMECO, NEVOX XR)</option>
+                    <option value="mednut">MEDNUT Nutrition (Nephrisol, Nephrisol-D, Pulmosol, Nutrican, Hepatosol)</option>
+                    <option value="pediatric">Children Products (Prospan, Rillus Jr, Kalmaxime DS)</option>
+                    <option value="pharmacy">Pharmacy & Clinic Distribution</option>
+                  </select>
+                </div>
+
+                <div style={{ marginBottom: 18 }}>
+                  <label style={{ fontSize: 12, fontWeight: 700, color: "#3D2B1F", display: "block", marginBottom: 5 }}>
+                    Message / សារ
+                  </label>
+                  <textarea
+                    placeholder="How can we assist you with our products or clinical guidance?"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    rows={4}
+                    className="input-field"
+                    style={{ resize: "vertical" }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  style={{
+                    width: "100%",
+                    padding: "12px 24px",
+                    background: "linear-gradient(135deg, #3D2B1F 0%, #8B5E3C 100%)",
+                    color: "#FAF6F0",
+                    border: "none",
+                    borderRadius: 12,
+                    fontSize: 14,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    boxShadow: "0 6px 16px rgba(61,43,31,0.25)",
+                  }}
+                >
+                  Send Message <HiOutlineChevronRight />
+                </button>
+
+                {submitted && (
+                  <div
+                    style={{
+                      marginTop: 14,
+                      padding: "10px 14px",
+                      background: "#ECFDF5",
+                      color: "#065F46",
+                      borderRadius: 10,
+                      fontSize: 13,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                    }}
+                  >
+                    <HiOutlineCheckCircle style={{ fontSize: 18, color: "#059669" }} />
+                    Thank you! Your message has been received. Our medical team will respond shortly.
+                  </div>
+                )}
+              </form>
+            </div>
           </div>
 
-          {/* Social & Location Channels */}
-          <div>
+          {/* Right Column: Unified Healthcare Hub & Channels */}
+          <div
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 24,
+              padding: "clamp(24px, 4vw, 36px)",
+              border: "1px solid rgba(139,94,60,0.15)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 20,
+              justifyContent: "space-between",
+            }}
+          >
+            {/* For Doctors & Clinics Banner */}
             <div
               style={{
-                background: "#FFFFFF",
-                borderRadius: 24,
-                padding: "clamp(24px, 4vw, 36px)",
-                border: "1px solid rgba(139,94,60,0.15)",
-                marginBottom: 24,
+                background: "linear-gradient(135deg, #3D2B1F 0%, #5C3D2E 100%)",
+                borderRadius: 18,
+                padding: "20px 22px",
+                color: "#FAF6F0",
+                boxShadow: "0 8px 20px rgba(61,43,31,0.15)",
               }}
             >
-              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#3D2B1F", fontWeight: 700, marginBottom: 12 }}>
-                Connect on Social & Messaging
-              </h3>
-              <p style={{ fontSize: 13, color: "#7A5C4A", lineHeight: 1.6, marginBottom: 20 }}>
-                Follow our official communication channels for updates, clinical guidelines, and healthcare education:
-              </p>
-
-              <div style={{ display: "flex", gap: 12 }}>
-                <a
-                  href="https://web.facebook.com/woodscambodia"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                <div
                   style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: "rgba(250,246,240,0.15)",
                     display: "flex",
                     alignItems: "center",
-                    gap: 8,
-                    padding: "10px 16px",
-                    borderRadius: 12,
-                    background: "rgba(139,94,60,0.08)",
-                    color: "#8B5E3C",
-                    textDecoration: "none",
-                    fontSize: 13,
-                    fontWeight: 700,
+                    justifyContent: "center",
+                    color: "#FAF6F0",
+                    fontSize: 15,
                   }}
                 >
-                  <FaFacebook style={{ fontSize: 18 }} /> Facebook
-                </a>
+                  <FaStethoscope />
+                </div>
+                <h4 style={{ fontSize: 16, fontFamily: "Georgia, serif", fontWeight: 700, margin: 0, color: "#FAF6F0" }}>
+                  For Doctors & Pharmacists
+                </h4>
+              </div>
+              <p style={{ fontSize: 12.5, color: "rgba(250,246,240,0.88)", lineHeight: 1.6, margin: 0 }}>
+                Need medical samples, product booklets, or KDIGO guideline literature for your clinic or hospital? Contact our medical representatives directly via phone or Telegram.
+              </p>
+            </div>
+
+            {/* Official Messaging Channels */}
+            <div>
+              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "#3D2B1F", fontWeight: 700, marginBottom: 12 }}>
+                Official Social & Messaging
+              </h3>
+              <div style={{ display: "grid", gap: 10 }}>
                 <a
                   href="https://t.me/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "10px 16px",
-                    borderRadius: 12,
-                    background: "rgba(139,94,60,0.08)",
-                    color: "#8B5E3C",
-                    textDecoration: "none",
-                    fontSize: 13,
-                    fontWeight: 700,
-                  }}
+                  className="channel-row"
                 >
-                  <FaTelegramPlane style={{ fontSize: 18 }} /> Telegram
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 10,
+                        background: "#0088CC",
+                        color: "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 18,
+                      }}
+                    >
+                      <FaTelegramPlane />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Telegram Medical Support</div>
+                      <div style={{ fontSize: 11.5, color: "#8B7355" }}>Fast consultation & samples</div>
+                    </div>
+                  </div>
+                  <HiOutlineChevronRight style={{ color: "#8B5E3C" }} />
                 </a>
+
+                <a
+                  href="https://web.facebook.com/woodscambodia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="channel-row"
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 10,
+                        background: "#1877F2",
+                        color: "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 18,
+                      }}
+                    >
+                      <FaFacebook />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Facebook Official Page</div>
+                      <div style={{ fontSize: 11.5, color: "#8B7355" }}>@woodscambodia updates</div>
+                    </div>
+                  </div>
+                  <HiOutlineChevronRight style={{ color: "#8B5E3C" }} />
+                </a>
+
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    padding: "10px 16px",
-                    borderRadius: 12,
-                    background: "rgba(139,94,60,0.08)",
-                    color: "#8B5E3C",
-                    textDecoration: "none",
-                    fontSize: 13,
-                    fontWeight: 700,
-                  }}
+                  className="channel-row"
                 >
-                  <FaInstagram style={{ fontSize: 18 }} /> Instagram
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 10,
+                        background: "linear-gradient(45deg, #F58529, #DD2A7B, #8134AF)",
+                        color: "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 18,
+                      }}
+                    >
+                      <FaInstagram />
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Instagram Healthcare Feed</div>
+                      <div style={{ fontSize: 11.5, color: "#8B7355" }}>Product guides & wellness</div>
+                    </div>
+                  </div>
+                  <HiOutlineChevronRight style={{ color: "#8B5E3C" }} />
                 </a>
               </div>
             </div>
 
+            {/* Quick Hotline Bar */}
             <div
               style={{
-                background: "linear-gradient(135deg, #3D2B1F 0%, #5C3D2E 100%)",
-                borderRadius: 24,
-                padding: "28px",
-                color: "#FAF6F0",
+                background: "#FAF6F0",
+                borderRadius: 14,
+                padding: "14px 18px",
+                border: "1px solid rgba(139,94,60,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                gap: 10,
               }}
             >
-              <h4 style={{ fontSize: 18, fontFamily: "Georgia, serif", fontWeight: 700, marginBottom: 8, color: "#FAF6F0" }}>
-                For Doctors & Pharmacists
-              </h4>
-              <p style={{ fontSize: 13, color: "rgba(250,246,240,0.85)", lineHeight: 1.6, margin: 0 }}>
-                Need medical samples, product booklets, or KDIGO guideline literature for your clinic or hospital? Contact our medical representatives directly via phone or telegram.
-              </p>
+              <div>
+                <div style={{ fontSize: 11.5, color: "#8B7355", fontWeight: 600 }}>DIRECT MEDICAL HOTLINE</div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: "#8B5E3C" }}>+855 17 591 779</div>
+              </div>
+              <a
+                href="tel:+85517591779"
+                style={{
+                  background: "#8B5E3C",
+                  color: "#FFFFFF",
+                  padding: "6px 14px",
+                  borderRadius: 20,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                Call Now
+              </a>
             </div>
           </div>
         </div>
@@ -523,7 +640,7 @@ const Contact = () => {
         style={{
           background: "#3D2B1F",
           color: "#FAF6F0",
-          padding: "60px 5% 40px",
+          padding: "50px 5% 35px",
           borderTop: "3px solid #8B5E3C",
         }}
       >
@@ -532,25 +649,25 @@ const Contact = () => {
             maxWidth: 1200,
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: 36,
-            marginBottom: 40,
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: 30,
+            marginBottom: 35,
           }}
         >
           <div>
-            <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#FAF6F0", marginBottom: 12 }}>
+            <h3 style={{ fontFamily: "Georgia, serif", fontSize: 20, color: "#FAF6F0", marginBottom: 10 }}>
               WOOD'S CAMBODIA
             </h3>
-            <p style={{ fontSize: 13, color: "rgba(250,246,240,0.7)", lineHeight: 1.6 }}>
+            <p style={{ fontSize: 12.5, color: "rgba(250,246,240,0.7)", lineHeight: 1.6 }}>
               Distributed by Kalbe Cambodia • High quality pharmaceutical and clinical nutrition products.
             </p>
           </div>
 
           <div>
-            <h4 style={{ fontSize: 14, color: "#C49A6C", textTransform: "uppercase", marginBottom: 12 }}>
+            <h4 style={{ fontSize: 13.5, color: "#C49A6C", textTransform: "uppercase", marginBottom: 10 }}>
               Portfolios
             </h4>
-            <ul style={{ listStyle: "none", fontSize: 13, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
+            <ul style={{ listStyle: "none", fontSize: 12.5, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
               <li><Link to="/product/1" style={{ color: "inherit", textDecoration: "none" }}>ENDO METABOLIC</Link></li>
               <li><Link to="/product/2" style={{ color: "inherit", textDecoration: "none" }}>MEDNUT Nutrition</Link></li>
               <li><Link to="/product/3" style={{ color: "inherit", textDecoration: "none" }}>Children Healthcare</Link></li>
@@ -558,10 +675,10 @@ const Contact = () => {
           </div>
 
           <div>
-            <h4 style={{ fontSize: 14, color: "#C49A6C", textTransform: "uppercase", marginBottom: 12 }}>
+            <h4 style={{ fontSize: 13.5, color: "#C49A6C", textTransform: "uppercase", marginBottom: 10 }}>
               Navigation
             </h4>
-            <ul style={{ listStyle: "none", fontSize: 13, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
+            <ul style={{ listStyle: "none", fontSize: 12.5, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
               <li><Link to="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
               <li><Link to="/about" style={{ color: "inherit", textDecoration: "none" }}>About Us</Link></li>
               <li><Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>Contact</Link></li>
@@ -573,10 +690,10 @@ const Contact = () => {
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            paddingTop: 20,
+            paddingTop: 18,
             borderTop: "1px solid rgba(250,246,240,0.15)",
             textAlign: "center",
-            fontSize: 12,
+            fontSize: 11.5,
             color: "rgba(250,246,240,0.5)",
           }}
         >
