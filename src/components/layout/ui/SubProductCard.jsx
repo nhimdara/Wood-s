@@ -36,7 +36,11 @@ const SubProductCard = ({ product, parentId }) => {
             position: "relative",
             overflow: "hidden",
             height: "clamp(180px, 30vw, 220px)",
-            backgroundColor: "#F5EDE5",
+            backgroundColor: "#FAF6F0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "16px",
           }}
         >
           <img
@@ -45,11 +49,13 @@ const SubProductCard = ({ product, parentId }) => {
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
               transition: "transform 0.5s ease",
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.08)")
+              (e.currentTarget.style.transform = "scale(1.06)")
             }
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />

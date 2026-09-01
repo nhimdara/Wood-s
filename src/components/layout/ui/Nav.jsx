@@ -9,45 +9,35 @@ const NAV_ITEMS = [
     label: "Category",
     children: [
       {
-        label: "OTC",
+        label: "ENDO METABOLIC",
         href: "/product/1",
         children: [
-          { label: "PROCOLD PAIN RELIEVER", href: "/product/1/milk-1" },
-          { label: "Komix", href: "/product/1/milk-2" },
-          { label: "MIXAGRIP Extra", href: "/product/1/milk-3" },
-          { label: "PROCOLD FLU", href: "/product/1/milk-4" },
-          { label: "PROMAG", href: "/product/1/milk-5" },
-          { label: "WOODS' COUGH SYRUP ANTITUSSIVE", href: "/product/1/milk-6" },
-          { label: "WOODS' COUGH SYRUP EXPECTORANT", href: "/product/1/milk-7" },
-          { label: "WOODS' LOZENGES 6 Flavours", href: "/product/1/milk-8" },
-          { label: "WOODS CHILDREN COUGH SYRUP", href: "/product/1/milk-9" },
+          { label: "EFESA", href: "/product/1/efesa" },
+          { label: "HEMAPO", href: "/product/1/hemapo" },
+          { label: "NOCID", href: "/product/1/nocid" },
+          { label: "KALXID", href: "/product/1/kalxid" },
+          { label: "KALMECO", href: "/product/1/kalmeco" },
+          { label: "NEVOX XR", href: "/product/1/nevox-xr" },
         ],
       },
       {
-        label: "NUT",
+        label: "Mednut",
         href: "/product/2",
         children: [
-          { label: "Green Tea", href: "/product/2/tea-1" },
-          { label: "Black Tea", href: "/product/2/tea-2" },
-          { label: "Herbal Tea", href: "/product/2/tea-3" },
+          { label: "NEPHRISOL", href: "/product/2/nephrisol" },
+          { label: "NEPHRISOL-D", href: "/product/2/nephrisol-d" },
+          { label: "PULMOSOL", href: "/product/2/pulmosol" },
+          { label: "NUTRICAN", href: "/product/2/nutrican" },
+          { label: "HEPATOSOL", href: "/product/2/hepatosol" },
         ],
       },
       {
-        label: "Consumer",
+        label: "Children Product",
         href: "/product/3",
         children: [
-          { label: "Espresso Roast", href: "/product/3/coffee-1" },
-          { label: "Cold Brew Blend", href: "/product/3/coffee-2" },
-          { label: "Single Origin", href: "/product/3/coffee-3" },
-        ],
-      },
-      {
-        label: "Ethical",
-        href: "/product/4",
-        children: [
-          { label: "Rice Noodle", href: "/product/4/noodle-1" },
-          { label: "Egg Noodle", href: "/product/4/noodle-2" },
-          { label: "Glass Noodle", href: "/product/4/noodle-3" },
+          { label: "RILLUS JR", href: "/product/3/rillus-jr" },
+          { label: "PROSPAN", href: "/product/3/prospan" },
+          { label: "KALMAXIME DS", href: "/product/3/kalmaxime-ds" },
         ],
       },
     ],
@@ -128,8 +118,8 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                     nestedOpen === item.label
                       ? "rgba(61,43,31,0.08)"
                       : isActive(item.href)
-                      ? "rgba(139,94,60,0.1)"
-                      : "transparent",
+                        ? "rgba(139,94,60,0.1)"
+                        : "transparent",
                   transition: "background 0.15s",
                 }}
                 onMouseEnter={() => openNested(item.label)}

@@ -141,16 +141,31 @@ const Product = () => {
           }}
         >
           <div className="fade-up" style={{ textAlign: "center" }}>
-            <div style={{ position: "relative" }}>
+            <div
+              style={{
+                position: "relative",
+                background: "#FFFFFF",
+                borderRadius: "clamp(20px, 4vw, 28px)",
+                border: "1px solid rgba(139,94,60,0.12)",
+                boxShadow: "0 20px 50px rgba(92,61,46,0.12)",
+                padding: "clamp(20px, 4vw, 36px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                aspectRatio: "1/1",
+                overflow: "hidden",
+              }}
+            >
               <img
                 src={subProduct.image}
                 alt={subProduct.title}
                 style={{
                   width: "100%",
-                  borderRadius: "clamp(20px, 4vw, 28px)",
-                  objectFit: "cover",
-                  aspectRatio: "1/1",
-                  boxShadow: "0 30px 60px rgba(92,61,46,0.2)",
+                  height: "100%",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                  transition: "transform 0.4s ease",
                   position: "relative",
                   zIndex: 1,
                 }}
