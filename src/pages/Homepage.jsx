@@ -1,15 +1,49 @@
-// pages/Homepage.jsx - WOOD'S / Kalbe Healthcare Interactive Hub
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
 import { products } from "../components/data/products";
 import { FaSearch } from "react-icons/fa";
-import { HiOutlineChevronRight } from "react-icons/hi";
+import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 
 const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPortfolioId, setSelectedPortfolioId] = useState(1);
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
+
+  const heroSlides = [
+    {
+      id: 1,
+      title: "Endo Metabolic",
+      badge: "Specialized Therapy",
+      image: "/images/ENDO-METABOLIC.png",
+      desc: "CKD Anemia • CKD Nutrition • DPN • Diabetes Management",
+      portfolioId: 1,
+    },
+    {
+      id: 2,
+      title: "Mednut",
+      badge: "Clinical Nutrition",
+      image: "/images/Mednut.png",
+      desc: "Precision Medical Nutrition for Specific Disease Conditions",
+      portfolioId: 2,
+    },
+    {
+      id: 3,
+      title: "Children Health",
+      badge: "Pediatric Care",
+      image: "/images/Children-Product.png",
+      desc: "Gut Health • Cough Relief • Pediatric Antibiotics",
+      portfolioId: 3,
+    },
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   // Flatten all sub-products for search
   const allSubProducts = products.flatMap((portfolio) =>
@@ -386,36 +420,168 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Hero Showcase Visual */}
-        <div style={{ textAlign: "center", position: "relative" }}>
-          <div className="floating-hero-card">
-            <img
-              src="/images/ENDO-METABOLIC.png"
-              alt="Kalbe Product Portfolio"
-              style={{
-                width: "100%",
-                maxHeight: 300,
-                objectFit: "contain",
-              }}
-            />
+        {/* Hero Showcase Visual Slider by Category */}
+        <div style={{ textAlign: "center", position: "relative", width: "100%", maxWidth: 640, margin: "0 auto" }}>
+          <div className="floating-hero-card" style={{ padding: "clamp(16px, 3vw, 24px)", position: "relative" }}>
+            {/* Top Category Badge */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+              <span
+                style={{
+                  fontSize: 11.5,
+                  fontWeight: 700,
+                  color: "#8B5E3C",
+                  background: "rgba(139,94,60,0.1)",
+                  padding: "4px 12px",
+                  borderRadius: 20,
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                }}
+              >
+                {heroSlides[currentHeroSlide].badge}
+              </span>
+              <div style={{ display: "flex", gap: 6 }}>
+                {heroSlides.map((_, i) => (
+                  <span
+                    key={i}
+                    onClick={() => setCurrentHeroSlide(i)}
+                    style={{
+                      width: currentHeroSlide === i ? 20 : 7,
+                      height: 7,
+                      borderRadius: 4,
+                      background: currentHeroSlide === i ? "#8B5E3C" : "rgba(139,94,60,0.25)",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                      display: "inline-block",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Slide Image with Left/Right arrows */}
             <div
               style={{
-                marginTop: 14,
-                padding: "10px 14px",
-                background: "rgba(139,94,60,0.06)",
-                borderRadius: 14,
+                position: "relative",
+                height: "clamp(180px, 30vw, 260px)",
                 display: "flex",
-                justifyContent: "space-around",
-                fontSize: 11.5,
-                fontWeight: 700,
-                color: "#3D2B1F",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "#FAF6F0",
+                borderRadius: 18,
+                padding: 12,
+                overflow: "hidden",
               }}
             >
-              <span>Endo Metabolic</span>
-              <span>•</span>
-              <span>Mednut</span>
-              <span>•</span>
-              <span>Children Health</span>
+              <button
+                onClick={() =>
+                  setCurrentHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+                }
+                style={{
+                  position: "absolute",
+                  left: 10,
+                  zIndex: 2,
+                  background: "rgba(255,255,255,0.85)",
+                  border: "1px solid rgba(139,94,60,0.2)",
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#3D2B1F",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                }}
+                aria-label="Previous Slide"
+              >
+                <HiOutlineChevronLeft style={{ fontSize: 18 }} />
+              </button>
+
+              <img
+                key={heroSlides[currentHeroSlide].image}
+                src={heroSlides[currentHeroSlide].image}
+                alt={heroSlides[currentHeroSlide].title}
+                style={{
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                  objectFit: "contain",
+                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                  filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.06))",
+                }}
+              />
+
+              <button
+                onClick={() =>
+                  setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length)
+                }
+                style={{
+                  position: "absolute",
+                  right: 10,
+                  zIndex: 2,
+                  background: "rgba(255,255,255,0.85)",
+                  border: "1px solid rgba(139,94,60,0.2)",
+                  width: 32,
+                  height: 32,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  color: "#3D2B1F",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                }}
+                aria-label="Next Slide"
+              >
+                <HiOutlineChevronRight style={{ fontSize: 18 }} />
+              </button>
+            </div>
+
+            {/* Slide Category Info */}
+            <div style={{ marginTop: 10 }}>
+              <div style={{ fontSize: 16, fontWeight: 800, color: "#3D2B1F" }}>
+                {heroSlides[currentHeroSlide].title}
+              </div>
+              <div style={{ fontSize: 12, color: "#7A5C4A", marginTop: 2 }}>
+                {heroSlides[currentHeroSlide].desc}
+              </div>
+            </div>
+
+            {/* Interactive Category Selector Pills */}
+            <div
+              style={{
+                marginTop: 12,
+                padding: "5px",
+                background: "rgba(139,94,60,0.08)",
+                borderRadius: 40,
+                display: "flex",
+                justifyContent: "center",
+                gap: 6,
+                flexWrap: "wrap",
+              }}
+            >
+              {heroSlides.map((slide, idx) => {
+                const isCurrent = currentHeroSlide === idx;
+                return (
+                  <button
+                    key={slide.id}
+                    onClick={() => setCurrentHeroSlide(idx)}
+                    style={{
+                      border: "none",
+                      background: isCurrent ? "#8B5E3C" : "transparent",
+                      color: isCurrent ? "#FAF6F0" : "#3D2B1F",
+                      fontWeight: 700,
+                      fontSize: 12,
+                      padding: "6px 14px",
+                      borderRadius: 30,
+                      cursor: "pointer",
+                      transition: "all 0.25s ease",
+                      boxShadow: isCurrent ? "0 4px 12px rgba(139,94,60,0.25)" : "none",
+                    }}
+                  >
+                    {slide.title}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
