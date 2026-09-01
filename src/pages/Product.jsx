@@ -1,15 +1,24 @@
 // pages/Product.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
+import MednutPreparationGuide from "../components/layout/ui/MednutPreparationGuide";
+import ClinicalComparisonSection from "../components/layout/ui/ClinicalComparisonSection";
+import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCalculator";
+import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
 import { products } from "../components/data/products";
-import { HiOutlineChevronRight, HiOutlineCheck } from "react-icons/hi";
-import { FaLeaf, FaHeartbeat, FaSeedling, FaStar } from "react-icons/fa";
+import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
+import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 
 const Product = () => {
   const { id, subId } = useParams();
-  const [activeTab, setActiveTab] = useState("benefits");
+  const [activeTab, setActiveTab] = useState("framework");
+
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [id, subId]);
 
   const parentProduct = products.find((p) => String(p.id) === id);
   const subProduct =
@@ -18,77 +27,168 @@ const Product = () => {
   // Sub-product detail view
   if (subProduct && parentProduct) {
     const details = subProduct.details;
+    const isMednut = id === "2" || parentProduct.title === "Mednut";
+    const isPediatric = id === "3" || parentProduct.title === "Children Product";
+    const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
+
+    const tabs = [
+      {
+        id: "framework",
+        desktopLabel: "5-Step Positioning (WHO • WHAT • WHY • HOW • SAY)",
+        tabletLabel: "5-Step Positioning",
+        mobileLabel: "Positioning",
+      },
+      {
+        id: "benefits",
+        desktopLabel: "Benefits & Features",
+        tabletLabel: "Benefits & Features",
+        mobileLabel: "Benefits",
+      },
+      {
+        id: "ingredients",
+        desktopLabel: "Composition & Usage",
+        tabletLabel: "Composition & Usage",
+        mobileLabel: "Usage",
+      },
+      {
+        id: "tools",
+        desktopLabel: isMednut
+          ? "Mednut Preparation Guide"
+          : isPediatric
+          ? "Dosage Calculator"
+          : "Clinical Positioning & Comparison",
+        tabletLabel: isMednut
+          ? "Preparation Guide"
+          : isPediatric
+          ? "Dosage Calculator"
+          : "Clinical Comparison",
+        mobileLabel: isMednut
+          ? "Preparation"
+          : isPediatric
+          ? "Calculator"
+          : "Comparison",
+      },
+    ];
 
     return (
       <div
         style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
           background: "#FAF6F0",
           minHeight: "100vh",
+          overflowX: "hidden",
         }}
       >
         <style>{`
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-  
-  .fade-up { animation: fadeUp 0.6s ease forwards; }
-  .slide-in { animation: slideIn 0.5s ease forwards; }
-  
-  .benefit-item {
-    transition: all 0.3s ease;
-  }
-  .benefit-item:hover {
-    transform: translateX(8px);
-    background: rgba(139,94,60,0.1);
-  }
-  
-  .tab-button {
-    transition: all 0.3s ease;
-  }
-  .tab-button:hover {
-    color: #8B5E3C;
-  }
-  
-  @media (max-width: 768px) {
-    .product-grid {
-      grid-template-columns: 1fr !important;
-      gap: 30px !important;
-      text-align: center;
-    }
-    .tab-buttons {
-      justify-content: center !important;
-    }
-    .tab-button {
-      padding: 8px 16px !important;
-      font-size: 14px !important;
-    }
-  }
-  
-  @media (max-width: 640px) {
-    .tab-button {
-      padding: 6px 12px !important;
-      font-size: 12px !important;
-    }
-    .benefit-item {
-      padding: 10px 12px !important;
-    }
-  }
-`}</style>
+          @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .fade-up { animation: fadeUp 0.4s ease forwards; }
+
+          .product-tabs-container {
+            display: flex;
+            gap: 8px;
+            border-bottom: 2px solid rgba(139,94,60,0.12);
+            margin-bottom: 30px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 4px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(139,94,60,0.2) transparent;
+          }
+
+          .product-tabs-container::-webkit-scrollbar {
+            height: 4px;
+          }
+          .product-tabs-container::-webkit-scrollbar-thumb {
+            background: rgba(139,94,60,0.2);
+            border-radius: 4px;
+          }
+
+          .product-tab-btn {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #7A5C4A;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            border-radius: 8px 8px 0 0;
+          }
+
+          .product-tab-btn:hover {
+            color: #8B5E3C;
+            background: rgba(139,94,60,0.04);
+          }
+
+          .product-tab-btn.active {
+            color: #8B5E3C !important;
+            border-bottom: 3px solid #8B5E3C !important;
+            font-weight: 700 !important;
+            background: rgba(139,94,60,0.06);
+          }
+
+          /* Tablet responsiveness (max-width: 1024px) */
+          @media (max-width: 1024px) {
+            .tab-label-desktop {
+              display: none !important;
+            }
+            .tab-label-tablet {
+              display: inline !important;
+            }
+            .tab-label-mobile {
+              display: none !important;
+            }
+            .product-tab-btn {
+              padding: 9px 14px;
+              font-size: 13.5px;
+            }
+          }
+
+          /* Mobile responsiveness (max-width: 640px) */
+          @media (max-width: 640px) {
+            .tab-label-desktop {
+              display: none !important;
+            }
+            .tab-label-tablet {
+              display: none !important;
+            }
+            .tab-label-mobile {
+              display: inline !important;
+            }
+            .product-tab-btn {
+              padding: 8px 10px;
+              font-size: 12.5px;
+            }
+          }
+
+          /* Desktop view (> 1024px) */
+          @media (min-width: 1025px) {
+            .tab-label-desktop {
+              display: inline !important;
+            }
+            .tab-label-tablet {
+              display: none !important;
+            }
+            .tab-label-mobile {
+              display: none !important;
+            }
+          }
+        `}</style>
 
         <Nav />
 
+        {/* Breadcrumbs */}
         <div
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "clamp(80px, 15vw, 100px) 5% 0",
+            padding: "clamp(80px, 12vw, 95px) 5% 0",
           }}
         >
           <div
@@ -96,59 +196,47 @@ const Product = () => {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              fontSize: "clamp(11px, 2.5vw, 13px)",
+              fontSize: "clamp(12px, 2.5vw, 13px)",
               color: "#8B7355",
               flexWrap: "wrap",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                color: "#8B5E3C",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
+            <Link to="/" style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
               Home
             </Link>
             <span>›</span>
-            <Link
-              to={`/product/${id}`}
-              style={{
-                color: "#8B5E3C",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
+            <Link to={`/product/${id}`} style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
               {parentProduct.title}
             </Link>
             <span>›</span>
-            <span style={{ color: "#3D2B1F", fontWeight: 500 }}>
+            <span style={{ color: "#3D2B1F", fontWeight: 700 }}>
               {subProduct.title}
             </span>
           </div>
         </div>
 
+        {/* Hero Product Section */}
         <section
-          className="product-grid"
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "40px 5% 60px",
+            padding: "30px 5% 40px",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "clamp(30px, 5vw, 50px)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+            gap: "clamp(24px, 4vw, 48px)",
+            alignItems: "center",
           }}
         >
+          {/* Image Showcase Card */}
           <div className="fade-up" style={{ textAlign: "center" }}>
             <div
               style={{
                 position: "relative",
                 background: "#FFFFFF",
-                borderRadius: "clamp(20px, 4vw, 28px)",
-                border: "1px solid rgba(139,94,60,0.12)",
-                boxShadow: "0 20px 50px rgba(92,61,46,0.12)",
-                padding: "clamp(20px, 4vw, 36px)",
+                borderRadius: "clamp(18px, 3.5vw, 28px)",
+                border: "1px solid rgba(139,94,60,0.15)",
+                boxShadow: "0 25px 50px rgba(92,61,46,0.12)",
+                padding: "clamp(18px, 4vw, 36px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -166,465 +254,393 @@ const Product = () => {
                   maxHeight: "100%",
                   objectFit: "contain",
                   transition: "transform 0.4s ease",
-                  position: "relative",
-                  zIndex: 1,
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
               />
+
+              {subProduct.badge && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    right: 14,
+                    background: "linear-gradient(135deg, #3D2B1F, #8B5E3C)",
+                    color: "#FAF6F0",
+                    padding: "5px 12px",
+                    borderRadius: 20,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    boxShadow: "0 4px 12px rgba(61,43,31,0.25)",
+                  }}
+                >
+                  {subProduct.badge}
+                </div>
+              )}
             </div>
           </div>
 
+          {/* Product Header & Key Info */}
           <div>
             <div className="fade-up">
               <span
                 style={{
                   display: "inline-block",
-                  fontSize: "clamp(11px, 2.5vw, 12px)",
-                  fontWeight: 600,
-                  letterSpacing: "2px",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: "1.5px",
                   color: "#8B5E3C",
                   background: "rgba(139,94,60,0.1)",
                   padding: "5px 14px",
                   borderRadius: 30,
-                  marginBottom: 18,
+                  marginBottom: 12,
+                  textTransform: "uppercase",
                 }}
               >
-                {parentProduct.title}
+                {parentProduct.title} • {subProduct.categoryTag || "Pharmaceutical"}
               </span>
             </div>
 
             <h1
               className="fade-up"
               style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "clamp(32px, 6vw, 52px)",
+                fontFamily: "Georgia, 'Times New Roman', Times, serif",
+                fontSize: "clamp(30px, 5vw, 46px)",
                 fontWeight: 800,
                 color: "#3D2B1F",
-                lineHeight: 1.1,
-                marginBottom: 16,
-                animationDelay: "0.1s",
+                lineHeight: 1.15,
+                marginBottom: 8,
               }}
             >
               {subProduct.title}
             </h1>
 
-            <p
-              className="fade-up"
-              style={{
-                fontSize: "clamp(13px, 2.8vw, 14px)",
-                color: "#8B5E3C",
-                marginBottom: 20,
-                fontWeight: 500,
-                animationDelay: "0.15s",
-              }}
-            >
-              Origin: {subProduct.origin}
+            {subProduct.genericName && (
+              <p
+                style={{
+                  fontSize: "clamp(14px, 2.5vw, 16px)",
+                  color: "#8B5E3C",
+                  fontWeight: 600,
+                  marginBottom: 12,
+                }}
+              >
+                {subProduct.genericName}
+              </p>
+            )}
+
+            <p style={{ fontSize: 13, color: "#8B7355", marginBottom: 16 }}>
+              Origin: <strong>{subProduct.origin}</strong>
             </p>
 
-            <p
-              className="fade-up"
-              style={{
-                fontSize: "clamp(15px, 3vw, 17px)",
-                lineHeight: 1.7,
-                color: "#7A5C4A",
-                marginBottom: 30,
-                animationDelay: "0.2s",
-              }}
-            >
-              {details.description}
-            </p>
+            {/* Key Selling Point Highlight Callout */}
+            {subProduct.keySellingPoint && (
+              <div
+                className="fade-up"
+                style={{
+                  background: "linear-gradient(135deg, rgba(139,94,60,0.1) 0%, rgba(139,94,60,0.03) 100%)",
+                  padding: "16px 18px",
+                  borderRadius: 16,
+                  borderLeft: "4px solid #8B5E3C",
+                  marginBottom: 20,
+                  fontSize: "clamp(13px, 2.5vw, 14px)",
+                  lineHeight: 1.6,
+                  color: "#3D2B1F",
+                  fontWeight: 500,
+                }}
+              >
+                <strong style={{ color: "#8B5E3C", display: "block", marginBottom: 4, fontSize: 13 }}>
+                  Key Selling Point:
+                </strong>
+                {subProduct.keySellingPoint}
+              </div>
+            )}
 
+            {/* Quality Badges */}
             <div
               className="fade-up"
               style={{
                 display: "flex",
-                gap: "clamp(12px, 3vw, 20px)",
-                marginBottom: 30,
+                gap: "clamp(10px, 2.5vw, 18px)",
+                marginBottom: 22,
                 flexWrap: "wrap",
-                justifyContent: "flex-start",
-                animationDelay: "0.25s",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <FaLeaf
-                  style={{
-                    color: "#8B5E3C",
-                    fontSize: "clamp(16px, 3vw, 18px)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: "clamp(12px, 2.5vw, 13px)",
-                    color: "#7A5C4A",
-                  }}
-                >
-                  100% Natural
-                </span>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <FaLeaf style={{ color: "#8B5E3C", fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>High Quality</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <FaHeartbeat
-                  style={{
-                    color: "#8B5E3C",
-                    fontSize: "clamp(16px, 3vw, 18px)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: "clamp(12px, 2.5vw, 13px)",
-                    color: "#7A5C4A",
-                  }}
-                >
-                  Health Checked
-                </span>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <FaHeartbeat style={{ color: "#8B5E3C", fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>Clinically Proven</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <FaSeedling
-                  style={{
-                    color: "#8B5E3C",
-                    fontSize: "clamp(16px, 3vw, 18px)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: "clamp(12px, 2.5vw, 13px)",
-                    color: "#7A5C4A",
-                  }}
-                >
-                  Sustainably Sourced
-                </span>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <FaStar
-                  style={{
-                    color: "#8B5E3C",
-                    fontSize: "clamp(16px, 3vw, 18px)",
-                  }}
-                />
-                <span
-                  style={{
-                    fontSize: "clamp(12px, 2.5vw, 13px)",
-                    color: "#7A5C4A",
-                  }}
-                >
-                  Premium Quality
-                </span>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <FaStar style={{ color: "#8B5E3C", fontSize: 15 }} />
+                <span style={{ fontSize: 12.5, color: "#7A5C4A", fontWeight: 500 }}>Kalbe Standard</span>
               </div>
             </div>
 
-            <div
-              className="fade-up"
-              style={{
-                display: "flex",
-                gap: 14,
-                flexWrap: "wrap",
-                justifyContent: "flex-start",
-                animationDelay: "0.3s",
-              }}
-            >
+            {/* Quick action buttons */}
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link
                 to={`/product/${id}`}
                 style={{
                   background: "transparent",
                   color: "#8B5E3C",
-                  padding: "clamp(12px, 2.5vw, 15px) clamp(28px, 5vw, 38px)",
-                  borderRadius: 50,
+                  padding: "9px 20px",
+                  borderRadius: 40,
                   textDecoration: "none",
                   fontWeight: 600,
-                  fontSize: "clamp(13px, 2.8vw, 15px)",
-                  border: "2px solid #8B5E3C",
-                  transition: "all 0.3s ease",
-                  display: "inline-block",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(139,94,60,0.07)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.transform = "translateY(0)";
+                  fontSize: 13,
+                  border: "1.5px solid #8B5E3C",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  transition: "all 0.2s ease",
                 }}
               >
-                View All Products
+                <HiOutlineArrowLeft /> More in {parentProduct.title}
               </Link>
             </div>
           </div>
         </section>
 
+        {/* Interactive Tabs Section */}
         <section
           style={{
             background: "#FFF8F2",
-            padding: "clamp(40px, 8vw, 60px) 5%",
+            padding: "clamp(36px, 6vw, 56px) 5%",
+            borderTop: "1px solid rgba(139,94,60,0.1)",
           }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <div
-              style={{
-                display: "flex",
-                gap: "clamp(8px, 2vw, 10px)",
-                borderBottom: "2px solid rgba(139,94,60,0.1)",
-                marginBottom: 30,
-                flexWrap: "wrap",
-                justifyContent: "flex-start",
-              }}
-            >
-              {["benefits", "ingredients", "usage"].map((tab) => (
+            {/* Tab Navigation with tablet/mobile responsive labels */}
+            <div className="product-tabs-container">
+              {tabs.map((tab) => (
                 <button
-                  key={tab}
-                  className="tab-button"
-                  onClick={() => setActiveTab(tab)}
-                  style={{
-                    padding: "clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px)",
-                    fontSize: "clamp(14px, 2.8vw, 16px)",
-                    fontWeight: activeTab === tab ? 700 : 500,
-                    color: activeTab === tab ? "#8B5E3C" : "#7A5C4A",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    borderBottom:
-                      activeTab === tab
-                        ? "3px solid #8B5E3C"
-                        : "3px solid transparent",
-                    transition: "all 0.3s ease",
-                    fontFamily: "'DM Sans', sans-serif",
-                  }}
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`product-tab-btn ${activeTab === tab.id ? "active" : ""}`}
                 >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  <span className="tab-label-desktop">{tab.desktopLabel}</span>
+                  <span className="tab-label-tablet">{tab.tabletLabel}</span>
+                  <span className="tab-label-mobile">{tab.mobileLabel}</span>
                 </button>
               ))}
             </div>
 
-            <div className="slide-in">
-              {activeTab === "benefits" && (
-                <div>
+            {/* TAB CONTENT: 5-Step Positioning */}
+            {activeTab === "framework" && (
+              <div className="fade-up">
+                <PositioningFrameworkCard product={subProduct} />
+              </div>
+            )}
+
+            {/* TAB CONTENT: Benefits & Features */}
+            {activeTab === "benefits" && (
+              <div className="fade-up">
+                <div
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: 20,
+                    padding: "clamp(20px, 4vw, 32px)",
+                    border: "1px solid rgba(139,94,60,0.12)",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+                  }}
+                >
                   <h3
                     style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(24px, 4vw, 28px)",
-                      fontWeight: 700,
+                      fontFamily: "Georgia, serif",
+                      fontSize: "clamp(20px, 3.5vw, 24px)",
                       color: "#3D2B1F",
-                      marginBottom: 24,
+                      fontWeight: 700,
+                      marginBottom: 18,
                     }}
                   >
-                    Health{" "}
-                    <span style={{ color: "#8B5E3C", fontStyle: "italic" }}>
-                      Benefits
-                    </span>
+                    Clinical Benefits & Key Highlights
                   </h3>
                   <div style={{ display: "grid", gap: 12 }}>
                     {details.benefits.map((benefit, index) => (
                       <div
                         key={index}
-                        className="benefit-item"
                         style={{
                           display: "flex",
                           alignItems: "center",
                           gap: 12,
-                          padding:
-                            "clamp(10px, 2vw, 12px) clamp(12px, 3vw, 16px)",
-                          background: "#FFFFFF",
-                          borderRadius: 12,
-                          border: "1px solid rgba(139,94,60,0.1)",
+                          padding: "12px 16px",
+                          background: "#FAF6F0",
+                          borderRadius: 14,
+                          border: "1px solid rgba(139,94,60,0.08)",
                         }}
                       >
                         <div
                           style={{
-                            width: "clamp(24px, 5vw, 28px)",
-                            height: "clamp(24px, 5vw, 28px)",
+                            width: 26,
+                            height: 26,
                             borderRadius: "50%",
-                            background: "rgba(139,94,60,0.1)",
+                            background: "rgba(139,94,60,0.12)",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
+                            flexShrink: 0,
                           }}
                         >
-                          <HiOutlineCheck
-                            style={{
-                              color: "#8B5E3C",
-                              fontSize: "clamp(14px, 3vw, 16px)",
-                            }}
-                          />
+                          <HiOutlineCheck style={{ color: "#8B5E3C", fontSize: 15 }} />
                         </div>
-                        <span
-                          style={{
-                            fontSize: "clamp(13px, 2.8vw, 15px)",
-                            color: "#3D2B1F",
-                          }}
-                        >
+                        <span style={{ fontSize: 13.5, color: "#3D2B1F", fontWeight: 500 }}>
                           {benefit}
                         </span>
                       </div>
                     ))}
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {activeTab === "ingredients" && (
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(24px, 4vw, 28px)",
-                      fontWeight: 700,
-                      color: "#3D2B1F",
-                      marginBottom: 24,
-                    }}
-                  >
-                    Pure{" "}
-                    <span style={{ color: "#8B5E3C", fontStyle: "italic" }}>
-                      Ingredients
-                    </span>
-                  </h3>
-                  <div
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: "clamp(16px, 3vw, 20px)",
-                      padding: "clamp(20px, 4vw, 30px)",
-                      border: "1px solid rgba(139,94,60,0.1)",
-                    }}
-                  >
-                    <ul style={{ listStyle: "none", padding: 0 }}>
-                      {details.ingredients.map((ingredient, index) => (
-                        <li
-                          key={index}
-                          style={{
-                            padding: "clamp(10px, 2vw, 12px) 0",
-                            borderBottom:
-                              index < details.ingredients.length - 1
-                                ? "1px solid rgba(139,94,60,0.1)"
-                                : "none",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 10,
-                            fontSize: "clamp(13px, 2.8vw, 15px)",
-                            color: "#3D2B1F",
-                          }}
-                        >
-                          <span
-                            style={{
-                              color: "#8B5E3C",
-                              fontSize: "clamp(16px, 3vw, 18px)",
-                            }}
-                          >
-                            •
-                          </span>
-                          {ingredient}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            {/* TAB CONTENT: Composition & Usage */}
+            {activeTab === "ingredients" && (
+              <div className="fade-up" style={{ display: "grid", gap: 20 }}>
+                <div
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: 20,
+                    padding: "clamp(18px, 3.5vw, 28px)",
+                    border: "1px solid rgba(139,94,60,0.12)",
+                  }}
+                >
+                  <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "#3D2B1F", fontWeight: 700 }}>
+                    Active Ingredients & Formulation
+                  </h4>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "#3D2B1F", lineHeight: 1.8 }}>
+                    {details.ingredients.map((item, idx) => (
+                      <li key={idx}><strong>{item}</strong></li>
+                    ))}
+                  </ul>
                 </div>
-              )}
 
-              {activeTab === "usage" && (
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: "clamp(24px, 4vw, 28px)",
-                      fontWeight: 700,
-                      color: "#3D2B1F",
-                      marginBottom: 24,
-                    }}
-                  >
-                    How to{" "}
-                    <span style={{ color: "#8B5E3C", fontStyle: "italic" }}>
-                      Use
-                    </span>
-                  </h3>
-                  <div
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: "clamp(16px, 3vw, 20px)",
-                      padding: "clamp(20px, 4vw, 30px)",
-                      border: "1px solid rgba(139,94,60,0.1)",
-                    }}
-                  >
-                    <div style={{ marginBottom: 24 }}>
-                      <h4
-                        style={{
-                          fontSize: "clamp(16px, 3vw, 18px)",
-                          fontWeight: 700,
-                          color: "#3D2B1F",
-                          marginBottom: 12,
-                        }}
-                      >
-                        Preparation
-                      </h4>
-                      <p
-                        style={{
-                          fontSize: "clamp(13px, 2.8vw, 15px)",
-                          color: "#7A5C4A",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {details.howToUse}
-                      </p>
-                    </div>
-                    <div>
-                      <h4
-                        style={{
-                          fontSize: "clamp(16px, 3vw, 18px)",
-                          fontWeight: 700,
-                          color: "#3D2B1F",
-                          marginBottom: 12,
-                        }}
-                      >
-                        Storage
-                      </h4>
-                      <p
-                        style={{
-                          fontSize: "clamp(13px, 2.8vw, 15px)",
-                          color: "#7A5C4A",
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {details.storage}
-                      </p>
-                    </div>
-                  </div>
+                <div
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: 20,
+                    padding: "clamp(18px, 3.5vw, 28px)",
+                    border: "1px solid rgba(139,94,60,0.12)",
+                  }}
+                >
+                  <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "#3D2B1F", fontWeight: 700 }}>
+                    How to Use & Storage
+                  </h4>
+                  <p style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.6, marginBottom: 14 }}>
+                    <strong>កម្រិតប្រើប្រាស់:</strong> {details.howToUse}
+                  </p>
+                  <p style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.6, margin: 0 }}>
+                    <strong>ការរក្សាទុក:</strong> {details.storage}
+                  </p>
                 </div>
-              )}
+              </div>
+            )}
+
+            {/* TAB CONTENT: Interactive Tools */}
+            {activeTab === "tools" && (
+              <div className="fade-up">
+                {isMednut && <MednutPreparationGuide initialProduct={subProduct.id} />}
+                {isPediatric && <PediatricDosageCalculator initialProduct={subProduct.id} />}
+                {isEndo && (
+                  <ClinicalComparisonSection
+                    defaultTab={
+                      subProduct.id === "efesa" || subProduct.id === "hemapo"
+                        ? "efesaVsHemapo"
+                        : subProduct.id === "kalxid" || subProduct.id === "kalmeco"
+                        ? "dpnKalxidKalmeco"
+                        : "nocidLowProtein"
+                    }
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Other Products in this Portfolio */}
+        <section
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "clamp(40px, 6vw, 60px) 5%",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
+            <div>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "#8B5E3C", textTransform: "uppercase" }}>
+                Related Portfolio
+              </span>
+              <h3
+                style={{
+                  fontFamily: "Georgia, serif",
+                  fontSize: "clamp(20px, 3.5vw, 26px)",
+                  color: "#3D2B1F",
+                  fontWeight: 800,
+                  margin: 0,
+                }}
+              >
+                Other {parentProduct.title} Products
+              </h3>
             </div>
+            <Link
+              to={`/product/${id}`}
+              style={{
+                color: "#8B5E3C",
+                fontWeight: 700,
+                fontSize: 13,
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+              }}
+            >
+              See all {parentProduct.subProducts.length} <HiOutlineArrowRight />
+            </Link>
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
+              gap: 20,
+            }}
+          >
+            {parentProduct.subProducts
+              .filter((sp) => sp.id !== subProduct.id)
+              .map((sp) => (
+                <SubProductCard key={sp.id} product={sp} parentId={id} />
+              ))}
           </div>
         </section>
       </div>
     );
   }
 
-  // Parent product view
+  // Parent product view (Portfolio level)
   if (parentProduct) {
+    const isMednut = id === "2" || parentProduct.title === "Mednut";
+    const isPediatric = id === "3" || parentProduct.title === "Children Product";
+    const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
+
     return (
       <div
         style={{
-          fontFamily: "'DM Sans', sans-serif",
+          fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
           background: "#FAF6F0",
           minHeight: "100vh",
+          overflowX: "hidden",
         }}
       >
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
-          
-          @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          
-          .fade-up { animation: fadeUp 0.6s ease forwards; }
-          
-          @media (max-width: 768px) {
-            .subproducts-grid {
-              grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)) !important;
-              gap: 24px !important;
-            }
-          }
-        `}</style>
-
         <Nav />
 
+        {/* Breadcrumb */}
         <div
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "clamp(80px, 15vw, 100px) 5% 0",
+            padding: "clamp(80px, 12vw, 95px) 5% 0",
           }}
         >
           <div
@@ -632,143 +648,217 @@ const Product = () => {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              fontSize: "clamp(11px, 2.5vw, 13px)",
+              fontSize: "clamp(12px, 2.5vw, 13px)",
               color: "#8B7355",
-              flexWrap: "wrap",
             }}
           >
-            <Link
-              to="/"
-              style={{
-                color: "#8B5E3C",
-                textDecoration: "none",
-                fontWeight: 500,
-              }}
-            >
+            <Link to="/" style={{ color: "#8B5E3C", textDecoration: "none", fontWeight: 600 }}>
               Home
             </Link>
             <span>›</span>
-            <span style={{ color: "#3D2B1F", fontWeight: 500 }}>
+            <span style={{ color: "#3D2B1F", fontWeight: 700 }}>
               {parentProduct.title}
             </span>
           </div>
         </div>
 
+        {/* Hero Portfolio Banner */}
         <section
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "40px 5% 20px",
-            textAlign: "center",
+            padding: "30px 5% 40px",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
+            gap: "clamp(24px, 4vw, 40px)",
+            alignItems: "center",
           }}
         >
-          <h1
-            className="fade-up"
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: "clamp(36px, 7vw, 68px)",
-              fontWeight: 800,
-              color: "#3D2B1F",
-              marginBottom: 16,
-            }}
-          >
-            {parentProduct.title}
-          </h1>
-          <p
-            className="fade-up"
-            style={{
-              fontSize: "clamp(16px, 3.5vw, 18px)",
-              color: "#7A5C4A",
-              maxWidth: 700,
-              margin: "0 auto",
-              animationDelay: "0.1s",
-            }}
-          >
-            {parentProduct.description}
-          </p>
+          <div>
+            <span
+              style={{
+                display: "inline-block",
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "1.5px",
+                color: "#8B5E3C",
+                background: "rgba(139,94,60,0.1)",
+                padding: "4px 14px",
+                borderRadius: 20,
+                marginBottom: 12,
+                textTransform: "uppercase",
+              }}
+            >
+              Specialized Portfolio
+            </span>
+            <h1
+              style={{
+                fontFamily: "Georgia, 'Times New Roman', Times, serif",
+                fontSize: "clamp(32px, 5vw, 50px)",
+                fontWeight: 800,
+                color: "#3D2B1F",
+                lineHeight: 1.15,
+                marginBottom: 12,
+              }}
+            >
+              {parentProduct.title}
+            </h1>
+            {parentProduct.subtitle && (
+              <div
+                style={{
+                  fontSize: 14.5,
+                  fontWeight: 600,
+                  color: "#8B5E3C",
+                  marginBottom: 14,
+                }}
+              >
+                {parentProduct.subtitle}
+              </div>
+            )}
+            <p
+              style={{
+                fontSize: "clamp(14px, 2.5vw, 16px)",
+                lineHeight: 1.7,
+                color: "#7A5C4A",
+                marginBottom: 20,
+              }}
+            >
+              {parentProduct.description}
+            </p>
+          </div>
+
+          <div style={{ textAlign: "center" }}>
+            <div
+              style={{
+                background: "#FFFFFF",
+                borderRadius: 24,
+                padding: "clamp(18px, 4vw, 32px)",
+                boxShadow: "0 20px 40px rgba(92,61,46,0.08)",
+                border: "1px solid rgba(139,94,60,0.12)",
+              }}
+            >
+              <img
+                src={parentProduct.image}
+                alt={parentProduct.title}
+                style={{
+                  width: "100%",
+                  maxHeight: 280,
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          </div>
         </section>
 
+        {/* Portfolio Products Grid */}
         <section
-          style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 5% 80px" }}
+          style={{
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "10px 5% 60px",
+          }}
         >
+          <div style={{ marginBottom: 28 }}>
+            <span
+              style={{
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: "1.5px",
+                color: "#8B5E3C",
+                textTransform: "uppercase",
+                background: "rgba(139,94,60,0.1)",
+                padding: "4px 14px",
+                borderRadius: 20,
+                display: "inline-block",
+                marginBottom: 8,
+              }}
+            >
+              Clinical Solutions
+            </span>
+            <h2
+              style={{
+                fontFamily: "Georgia, serif",
+                fontSize: "clamp(24px, 4vw, 36px)",
+                color: "#3D2B1F",
+                fontWeight: 800,
+                margin: 0,
+              }}
+            >
+              All {parentProduct.title} Products ({parentProduct.subProducts.length})
+            </h2>
+          </div>
+
           <div
-            className="subproducts-grid"
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
-              gap: "clamp(24px, 4vw, 32px)",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
+              gap: 20,
             }}
           >
-            {parentProduct.subProducts.map((subProduct, index) => (
-              <div
-                key={subProduct.id}
-                className="fade-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <SubProductCard product={subProduct} parentId={id} />
-              </div>
+            {parentProduct.subProducts.map((sp) => (
+              <SubProductCard key={sp.id} product={sp} parentId={id} />
             ))}
+          </div>
+        </section>
+
+        {/* Clinical Module for Parent View */}
+        <section
+          style={{
+            background: "#FFF8F2",
+            padding: "clamp(40px, 6vw, 60px) 5%",
+            borderTop: "1px solid rgba(139,94,60,0.1)",
+          }}
+        >
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 30 }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: "1.5px",
+                  color: "#8B5E3C",
+                  textTransform: "uppercase",
+                  background: "rgba(139,94,60,0.1)",
+                  padding: "4px 14px",
+                  borderRadius: 20,
+                  display: "inline-block",
+                  marginBottom: 8,
+                }}
+              >
+                Specialized Detailing Guide
+              </span>
+              <h2
+                style={{
+                  fontFamily: "Georgia, serif",
+                  fontSize: "clamp(22px, 4vw, 32px)",
+                  color: "#3D2B1F",
+                  fontWeight: 800,
+                  margin: 0,
+                }}
+              >
+                {isMednut
+                  ? "Mednut Clinical Preparation Matrix"
+                  : isPediatric
+                  ? "Pediatric Dosage Protocol"
+                  : "Clinical Comparison & Therapeutic Matrix"}
+              </h2>
+            </div>
+
+            {isMednut && <MednutPreparationGuide initialProduct="nephrisol" />}
+            {isPediatric && <PediatricDosageCalculator initialProduct="kalmaxime-ds" />}
+            {isEndo && <ClinicalComparisonSection defaultTab="efesaVsHemapo" />}
           </div>
         </section>
       </div>
     );
   }
 
-  // Not found
   return (
-    <div
-      style={{
-        fontFamily: "'DM Sans', sans-serif",
-        background: "#FAF6F0",
-        minHeight: "100vh",
-      }}
-    >
-      <Nav />
-      <div
-        style={{
-          paddingTop: 120,
-          textAlign: "center",
-          maxWidth: 600,
-          margin: "0 auto",
-          padding: "clamp(100px, 20vw, 120px) 24px 60px",
-        }}
-      >
-        <h1
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(36px, 7vw, 48px)",
-            color: "#3D2B1F",
-            marginBottom: 16,
-          }}
-        >
-          Product Not Found
-        </h1>
-        <p
-          style={{
-            color: "#7A5C4A",
-            fontSize: "clamp(15px, 3vw, 17px)",
-            marginBottom: 32,
-          }}
-        >
-          Sorry, we couldn't find that product.
-        </p>
-        <Link
-          to="/"
-          style={{
-            background: "#8B5E3C",
-            color: "#FAF6F0",
-            padding: "clamp(12px, 2.5vw, 14px) clamp(28px, 5vw, 36px)",
-            borderRadius: 50,
-            textDecoration: "none",
-            fontWeight: 600,
-            fontSize: "clamp(13px, 2.8vw, 15px)",
-            display: "inline-block",
-          }}
-        >
-          ← Back to Home
-        </Link>
-      </div>
+    <div style={{ padding: 100, textAlign: "center", fontFamily: "sans-serif" }}>
+      <h2>Product not found</h2>
+      <Link to="/" style={{ color: "#8B5E3C", fontWeight: 700 }}>
+        Back to Home
+      </Link>
     </div>
   );
 };

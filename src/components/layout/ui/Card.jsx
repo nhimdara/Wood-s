@@ -40,17 +40,22 @@ const Card = ({ image, title, id }) => {
             position: "relative",
             overflow: "hidden",
             height: "clamp(200px, 35vw, 280px)",
-            backgroundColor: "#F5EDE5",
+            backgroundColor: "#FAF6F0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
           }}
         >
-          {/* Simplified image tag - removed HTTP check since all are local now */}
           <img
             src={image}
             alt={title}
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
               transition: "transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             }}
             onError={(e) => {

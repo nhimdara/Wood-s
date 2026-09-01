@@ -1,7 +1,9 @@
-// components/layout/ui/Nav.jsx - Offline version (no external fonts)
+// components/layout/ui/Nav.jsx - Healthcare Nav with Integrated Search
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo/logo.png";
+import { products } from "../../data/products";
+import { FaSearch } from "react-icons/fa";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -118,8 +120,8 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                     nestedOpen === item.label
                       ? "rgba(61,43,31,0.08)"
                       : isActive(item.href)
-                        ? "rgba(139,94,60,0.1)"
-                        : "transparent",
+                      ? "rgba(139,94,60,0.1)"
+                      : "transparent",
                   transition: "background 0.15s",
                 }}
                 onMouseEnter={() => openNested(item.label)}
@@ -246,8 +248,14 @@ export default function Nav() {
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const [mobileL3, setMobileL3] = useState(null);
 
+  // Nav Search state
+  const [navSearchQuery, setNavSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+
   const location = useLocation();
+  const navigate = useNavigate();
   const navRef = useRef(null);
+  const searchRef = useRef(null);
   const closeTimer = useRef(null);
 
   useEffect(() => {
@@ -255,11 +263,17 @@ export default function Nav() {
     setMobileExpanded(null);
     setMobileL3(null);
     setOpen(null);
+    setSearchOpen(false);
+    setNavSearchQuery("");
   }, [location.pathname]);
 
   useOutsideClick(navRef, () => {
     setOpen(null);
     setMobileOpen(false);
+  });
+
+  useOutsideClick(searchRef, () => {
+    setSearchOpen(false);
   });
 
   useEffect(() => {
@@ -298,6 +312,27 @@ export default function Nav() {
     return isActive(item) ? " active" : "";
   };
 
+  // Flattened products for search
+  const allSubProducts = products.flatMap((portfolio) =>
+    portfolio.subProducts.map((sp) => ({
+      ...sp,
+      portfolioId: portfolio.id,
+      portfolioTitle: portfolio.title,
+    }))
+  );
+
+  const matchingProducts = navSearchQuery.trim()
+    ? allSubProducts.filter((p) => {
+        const q = navSearchQuery.toLowerCase();
+        return (
+          p.title.toLowerCase().includes(q) ||
+          (p.genericName && p.genericName.toLowerCase().includes(q)) ||
+          (p.categoryTag && p.categoryTag.toLowerCase().includes(q)) ||
+          p.portfolioTitle.toLowerCase().includes(q)
+        );
+      })
+    : [];
+
   return (
     <>
       <style>{`
@@ -334,21 +369,24 @@ export default function Nav() {
         }
         .nav-link-btn:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
         .nav-link-btn.active { color: #8B5E3C; background: rgba(139,94,60,0.1); font-weight: 600; }
-        .btn-login {
-          font-size: 14px; font-weight: 500;
-          color: #3D2B1F; padding: 8px 20px; border-radius: 40px;
-          border: 1px solid #8B5E3C; background: transparent;
-          cursor: pointer; transition: all 0.2s;
+
+        .nav-search-input {
+          border: 1px solid rgba(139,94,60,0.25);
+          outline: none;
+          background: #FFFFFF;
+          padding: 7px 14px 7px 34px;
+          border-radius: 30px;
+          font-size: 13px;
+          color: #3D2B1F;
+          width: 190px;
+          transition: all 0.3s ease;
         }
-        .btn-login:hover { border-color: #3D2B1F; color: #3D2B1F; background: rgba(61,43,31,0.06); }
-        .btn-cta {
-          font-size: 14px; font-weight: 600;
-          color: #FAF6F0; padding: 8px 22px; border-radius: 40px; border: none;
-          background: linear-gradient(135deg, #3D2B1F, #8B5E3C);
-          cursor: pointer; transition: all 0.2s;
-          box-shadow: 0 2px 8px rgba(61,43,31,0.3);
+        .nav-search-input:focus {
+          width: 250px;
+          border-color: #8B5E3C;
+          box-shadow: 0 0 0 3px rgba(139,94,60,0.12);
         }
-        .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(61,43,31,0.45); }
+
         .hamburger {
           display: none; background: none; border: none;
           color: #3D2B1F; cursor: pointer;
@@ -376,11 +414,12 @@ export default function Nav() {
 
         @media (min-width: 769px) and (max-width: 1024px) {
           .nav-link-btn { padding: 8px 12px; font-size: 13px; }
-          .btn-login, .btn-cta { padding: 8px 16px; font-size: 13px; }
+          .nav-search-input { width: 140px; }
+          .nav-search-input:focus { width: 190px; }
         }
         
         @media (max-width: 768px) {
-          .desktop-nav, .desktop-actions { display: none !important; }
+          .desktop-nav, .desktop-search { display: none !important; }
           .hamburger { display: flex !important; }
           .nav-glow { display: none; }
         }
@@ -459,6 +498,7 @@ export default function Nav() {
             </span>
           </Link>
 
+          {/* Desktop Nav Links */}
           <div
             className="desktop-nav"
             style={{
@@ -518,18 +558,123 @@ export default function Nav() {
             )}
           </div>
 
+          {/* Search Bar in place of Login & Get Started */}
           <div
-            className="desktop-actions"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "clamp(8px, 2vw, 14px)",
-            }}
+            ref={searchRef}
+            className="desktop-search"
+            style={{ position: "relative" }}
           >
-            <button className="btn-login">Log in</button>
-            <button className="btn-cta">Get Started</button>
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <FaSearch
+                style={{
+                  position: "absolute",
+                  left: 12,
+                  color: "#8B5E3C",
+                  fontSize: 13,
+                  pointerEvents: "none",
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={navSearchQuery}
+                onChange={(e) => {
+                  setNavSearchQuery(e.target.value);
+                  setSearchOpen(true);
+                }}
+                onFocus={() => setSearchOpen(true)}
+                className="nav-search-input"
+              />
+              {navSearchQuery && (
+                <button
+                  onClick={() => {
+                    setNavSearchQuery("");
+                    setSearchOpen(false);
+                  }}
+                  style={{
+                    position: "absolute",
+                    right: 10,
+                    background: "none",
+                    border: "none",
+                    color: "#8B7355",
+                    cursor: "pointer",
+                    fontSize: 12,
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Dropdown Results for Desktop Search */}
+            {searchOpen && navSearchQuery.trim() && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 8px)",
+                  right: 0,
+                  width: 320,
+                  background: "#FFFFFF",
+                  borderRadius: 16,
+                  border: "1px solid rgba(139,94,60,0.2)",
+                  boxShadow: "0 18px 36px rgba(61,43,31,0.18)",
+                  padding: 8,
+                  zIndex: 500,
+                  maxHeight: 340,
+                  overflowY: "auto",
+                }}
+              >
+                {matchingProducts.length > 0 ? (
+                  matchingProducts.map((prod) => (
+                    <Link
+                      key={prod.id}
+                      to={`/product/${prod.portfolioId}/${prod.id}`}
+                      onClick={() => setSearchOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "8px 10px",
+                        borderRadius: 10,
+                        textDecoration: "none",
+                        color: "#3D2B1F",
+                        transition: "background 0.15s",
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(139,94,60,0.08)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                    >
+                      <img
+                        src={prod.image}
+                        alt={prod.title}
+                        style={{
+                          width: 34,
+                          height: 34,
+                          objectFit: "contain",
+                          background: "#FAF6F0",
+                          borderRadius: 6,
+                          padding: 2,
+                        }}
+                      />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2B1F" }}>
+                          {prod.title}
+                        </div>
+                        <div style={{ fontSize: 11, color: "#8B5E3C", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {prod.portfolioTitle} • {prod.genericName || prod.categoryTag}
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div style={{ padding: "14px", textAlign: "center", color: "#8B7355", fontSize: 12 }}>
+                    No products found for "{navSearchQuery}"
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
+          {/* Mobile Hamburger */}
           <button
             className="hamburger"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -555,11 +700,12 @@ export default function Nav() {
           </button>
         </div>
 
+        {/* Mobile Navigation Panel with Search */}
         {mobileOpen && (
           <div
             style={{
               borderTop: "1px solid rgba(139,94,60,0.2)",
-              padding: "8px 16px 16px",
+              padding: "12px 16px 20px",
               animation: "slideDown 0.22s ease",
               overflow: "hidden",
               background: "#FAF6F0",
@@ -567,6 +713,85 @@ export default function Nav() {
               overflowY: "auto",
             }}
           >
+            {/* Mobile Search Box */}
+            <div style={{ position: "relative", marginBottom: 14 }}>
+              <FaSearch
+                style={{
+                  position: "absolute",
+                  left: 14,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#8B5E3C",
+                  fontSize: 13,
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search products (Efesa, Prospan, Nephrisol...)"
+                value={navSearchQuery}
+                onChange={(e) => setNavSearchQuery(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "10px 14px 10px 36px",
+                  borderRadius: 24,
+                  border: "1px solid rgba(139,94,60,0.25)",
+                  background: "#FFFFFF",
+                  fontSize: 13,
+                  color: "#3D2B1F",
+                  outline: "none",
+                }}
+              />
+            </div>
+
+            {/* Mobile Search Results */}
+            {navSearchQuery.trim() && (
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: 14,
+                  padding: 8,
+                  border: "1px solid rgba(139,94,60,0.2)",
+                  marginBottom: 14,
+                  maxHeight: 220,
+                  overflowY: "auto",
+                }}
+              >
+                {matchingProducts.length > 0 ? (
+                  matchingProducts.map((prod) => (
+                    <Link
+                      key={prod.id}
+                      to={`/product/${prod.portfolioId}/${prod.id}`}
+                      onClick={() => setMobileOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "8px",
+                        textDecoration: "none",
+                        color: "#3D2B1F",
+                        borderBottom: "1px solid rgba(139,94,60,0.06)",
+                      }}
+                    >
+                      <img
+                        src={prod.image}
+                        alt={prod.title}
+                        style={{ width: 30, height: 30, objectFit: "contain" }}
+                      />
+                      <div>
+                        <div style={{ fontWeight: 700, fontSize: 13 }}>{prod.title}</div>
+                        <div style={{ fontSize: 11, color: "#8B5E3C" }}>{prod.portfolioTitle}</div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div style={{ padding: "10px", textAlign: "center", fontSize: 12, color: "#8B7355" }}>
+                    No products found
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Mobile Nav Links */}
             {NAV_ITEMS.map((item) =>
               item.children ? (
                 <div key={item.label}>
@@ -684,22 +909,6 @@ export default function Nav() {
                 </Link>
               ),
             )}
-            <div
-              style={{
-                display: "flex",
-                gap: 10,
-                marginTop: 12,
-                padding: "0 2px",
-                flexDirection: window.innerWidth < 400 ? "column" : "row",
-              }}
-            >
-              <button className="btn-login" style={{ flex: 1 }}>
-                Log in
-              </button>
-              <button className="btn-cta" style={{ flex: 1 }}>
-                Get Started
-              </button>
-            </div>
           </div>
         )}
       </nav>
