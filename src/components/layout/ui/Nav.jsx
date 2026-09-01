@@ -413,9 +413,10 @@ export default function Nav() {
         .mob-sub-sub a { padding-left: 42px !important; }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-          .nav-link-btn { padding: 8px 12px; font-size: 13px; }
-          .nav-search-input { width: 140px; }
-          .nav-search-input:focus { width: 190px; }
+          .nav-link-btn { padding: 6px 10px; font-size: 13px; }
+          .nav-search-input { width: 130px; font-size: 12px; padding: 6px 10px 6px 30px; }
+          .nav-search-input:focus { width: 175px; }
+          .desktop-nav { gap: 2px !important; }
         }
         
         @media (max-width: 768px) {

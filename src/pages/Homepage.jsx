@@ -134,42 +134,61 @@ const Homepage = () => {
           transform: translateY(-2px);
         }
 
-        /* Tablet Responsive Rules (768px - 1024px) */
+        /* Responsive Layout Rules */
         @media (max-width: 1024px) {
           .hero-section {
             grid-template-columns: 1fr;
-            padding: 85px 5% 40px;
-            gap: 32px;
+            padding: 90px 5% 36px;
+            gap: 28px;
           }
           .floating-hero-card {
-            max-width: 540px;
+            max-width: 520px;
             margin: 0 auto;
           }
+        }
+
+        /* Tablet Screens (641px - 920px) */
+        @media (max-width: 920px) {
+          .portfolio-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .portfolio-tab-btn {
+            padding: 20px 18px;
+          }
+          .subproducts-grid {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+            gap: 16px;
+          }
+        }
+
+        /* Large Tablet / Small Desktop (921px - 1100px) */
+        @media (min-width: 921px) and (max-width: 1100px) {
           .portfolio-grid {
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
           }
           .portfolio-tab-btn {
-            padding: 18px 14px;
-          }
-          .subproducts-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            padding: 18px 12px;
           }
         }
 
-        /* Mobile Rules (< 768px) */
-        @media (max-width: 767px) {
+        /* Mobile Rules (< 640px) */
+        @media (max-width: 640px) {
           .hero-section {
-            padding: 80px 5% 30px;
+            padding: 80px 4% 28px;
+            gap: 24px;
           }
           .portfolio-grid {
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 14px;
+          }
+          .portfolio-tab-btn {
+            padding: 16px 14px;
           }
           .subproducts-grid {
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 14px;
           }
         }
       `}</style>
@@ -650,27 +669,28 @@ const Homepage = () => {
                   transition: "all 0.25s ease",
                 }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                   <span
                     style={{
-                      fontSize: 11.5,
+                      fontSize: "clamp(11px, 1.2vw, 12px)",
                       fontWeight: 700,
                       color: isSelected ? "#8B5E3C" : "#8B7355",
                       background: isSelected ? "rgba(139,94,60,0.12)" : "rgba(139,94,60,0.06)",
                       padding: "4px 11px",
                       borderRadius: 20,
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {p.badge}
                   </span>
-                  <span style={{ fontSize: 12, color: "#8B7355", fontWeight: 700 }}>
+                  <span style={{ fontSize: "clamp(11.5px, 1.2vw, 12px)", color: "#8B7355", fontWeight: 700, whiteSpace: "nowrap" }}>
                     {p.subProducts.length} ផលិតផល
                   </span>
                 </div>
 
                 <div
                   style={{
-                    height: "clamp(160px, 20vw, 200px)",
+                    height: "clamp(150px, 22vw, 200px)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -695,15 +715,16 @@ const Homepage = () => {
                   <h3
                     style={{
                       fontFamily: "Georgia, serif",
-                      fontSize: "clamp(19px, 2.5vw, 23px)",
+                      fontSize: "clamp(18px, 2.3vw, 23px)",
                       fontWeight: 800,
                       color: isSelected ? "#8B5E3C" : "#3D2B1F",
                       marginBottom: 6,
+                      lineHeight: 1.25,
                     }}
                   >
                     {p.title}
                   </h3>
-                  <p style={{ fontSize: 13, color: "#7A5C4A", lineHeight: 1.55, margin: 0 }}>
+                  <p style={{ fontSize: "clamp(12.5px, 1.4vw, 13px)", color: "#7A5C4A", lineHeight: 1.55, margin: 0 }}>
                     {p.subtitle || p.description.substring(0, 65) + "..."}
                   </p>
                 </div>
@@ -714,21 +735,28 @@ const Homepage = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
+                    gap: 8,
                     paddingTop: 12,
                     borderTop: "1px solid rgba(139,94,60,0.12)",
+                    flexWrap: "wrap",
                   }}
                 >
-                  <span style={{ fontSize: 13, fontWeight: 700, color: "#8B5E3C" }}>
+                  <span style={{ fontSize: "clamp(12px, 1.4vw, 13px)", fontWeight: 700, color: "#8B5E3C", whiteSpace: "nowrap" }}>
                     {isSelected ? "កំពុងមើល" : "ជ្រើសរើសដើម្បីមើល"}
                   </span>
                   <Link
                     to={`/product/${p.id}`}
                     onClick={(e) => e.stopPropagation()}
                     style={{
-                      fontSize: 12.5,
+                      fontSize: "clamp(12px, 1.4vw, 12.5px)",
                       fontWeight: 700,
                       color: "#3D2B1F",
                       textDecoration: "none",
+                      whiteSpace: "nowrap",
+                      padding: "4px 8px",
+                      borderRadius: 8,
+                      background: "rgba(139,94,60,0.06)",
+                      transition: "all 0.2s ease",
                     }}
                   >
                     បើកទំព័រពេញ →
