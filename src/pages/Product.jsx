@@ -73,21 +73,35 @@ const Product = () => {
           .product-tabs-container {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
-            border-bottom: 2px solid rgba(139,94,60,0.12);
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 2px solid rgba(139,94,60,0.15);
             margin-bottom: 30px;
-            padding-bottom: 4px;
+            padding-bottom: 0;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(139,94,60,0.2) transparent;
+          }
+
+          .product-tabs-container::-webkit-scrollbar {
+            height: 4px;
+          }
+          .product-tabs-container::-webkit-scrollbar-thumb {
+            background: rgba(139,94,60,0.2);
+            border-radius: 4px;
           }
 
           .product-tab-btn {
+            flex-shrink: 0;
             padding: 10px 18px;
             font-size: 14px;
             font-weight: 600;
-            color: "#7A5C4A";
+            color: #7A5C4A;
             background: none;
             border: none;
             cursor: pointer;
             border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
             transition: all 0.2s ease;
             white-space: nowrap;
             border-radius: 8px 8px 0 0;
@@ -95,33 +109,18 @@ const Product = () => {
 
           .product-tab-btn:hover {
             color: #8B5E3C;
-            background: rgba(139,94,60,0.04);
+            background: rgba(139,94,60,0.05);
           }
 
           .product-tab-btn.active {
             color: #8B5E3C !important;
             border-bottom: 3px solid #8B5E3C !important;
             font-weight: 700 !important;
-            background: rgba(139,94,60,0.06);
+            background: rgba(139,94,60,0.08);
           }
 
           @media (max-width: 768px) {
-            .product-tabs-container {
-              display: flex;
-              overflow-x: auto;
-              -webkit-overflow-scrolling: touch;
-              flex-wrap: nowrap;
-              scrollbar-width: thin;
-            }
-            .product-tabs-container::-webkit-scrollbar {
-              height: 3px;
-            }
-            .product-tabs-container::-webkit-scrollbar-thumb {
-              background: rgba(139,94,60,0.2);
-              border-radius: 4px;
-            }
             .product-tab-btn {
-              flex-shrink: 0;
               padding: 9px 14px;
               font-size: 13px;
             }
