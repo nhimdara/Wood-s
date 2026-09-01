@@ -471,51 +471,57 @@ const Homepage = () => {
                 className="portfolio-tab-btn"
                 style={{
                   background: isSelected ? "linear-gradient(145deg, #FFFFFF, #FFF9F5)" : "#FFFFFF",
-                  borderRadius: 20,
-                  padding: "20px",
-                  border: isSelected ? "2px solid #8B5E3C" : "1px solid rgba(139,94,60,0.12)",
+                  borderRadius: 24,
+                  padding: "clamp(20px, 3vw, 26px)",
+                  border: isSelected ? "2.5px solid #8B5E3C" : "1px solid rgba(139,94,60,0.14)",
                   boxShadow: isSelected
-                    ? "0 16px 36px rgba(139,94,60,0.16)"
-                    : "0 6px 16px rgba(0,0,0,0.03)",
+                    ? "0 18px 40px rgba(139,94,60,0.18)"
+                    : "0 6px 18px rgba(0,0,0,0.03)",
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 10,
+                  gap: 14,
+                  transition: "all 0.25s ease",
                 }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span
                     style={{
-                      fontSize: 11,
+                      fontSize: 11.5,
                       fontWeight: 700,
                       color: isSelected ? "#8B5E3C" : "#8B7355",
-                      background: isSelected ? "rgba(139,94,60,0.12)" : "rgba(139,94,60,0.05)",
-                      padding: "3px 9px",
+                      background: isSelected ? "rgba(139,94,60,0.12)" : "rgba(139,94,60,0.06)",
+                      padding: "4px 11px",
                       borderRadius: 20,
                     }}
                   >
                     {p.badge}
                   </span>
-                  <span style={{ fontSize: 11.5, color: "#8B7355", fontWeight: 600 }}>
+                  <span style={{ fontSize: 12, color: "#8B7355", fontWeight: 700 }}>
                     {p.subProducts.length} ផលិតផល
                   </span>
                 </div>
 
                 <div
                   style={{
-                    height: 120,
+                    height: "clamp(160px, 20vw, 200px)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     background: "#FAF6F0",
-                    borderRadius: 14,
-                    padding: 10,
+                    borderRadius: 16,
+                    padding: "12px 16px",
                   }}
                 >
                   <img
                     src={p.image}
                     alt={p.title}
-                    style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+                    style={{
+                      maxHeight: "100%",
+                      maxWidth: "100%",
+                      objectFit: "contain",
+                      filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.06))",
+                    }}
                   />
                 </div>
 
@@ -523,15 +529,15 @@ const Homepage = () => {
                   <h3
                     style={{
                       fontFamily: "Georgia, serif",
-                      fontSize: 18,
-                      fontWeight: 700,
+                      fontSize: "clamp(19px, 2.5vw, 23px)",
+                      fontWeight: 800,
                       color: isSelected ? "#8B5E3C" : "#3D2B1F",
-                      marginBottom: 4,
+                      marginBottom: 6,
                     }}
                   >
                     {p.title}
                   </h3>
-                  <p style={{ fontSize: 12, color: "#7A5C4A", lineHeight: 1.45, margin: 0 }}>
+                  <p style={{ fontSize: 13, color: "#7A5C4A", lineHeight: 1.55, margin: 0 }}>
                     {p.subtitle || p.description.substring(0, 65) + "..."}
                   </p>
                 </div>
@@ -542,19 +548,19 @@ const Homepage = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    paddingTop: 8,
-                    borderTop: "1px solid rgba(139,94,60,0.1)",
+                    paddingTop: 12,
+                    borderTop: "1px solid rgba(139,94,60,0.12)",
                   }}
                 >
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: "#8B5E3C" }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#8B5E3C" }}>
                     {isSelected ? "កំពុងមើល" : "ជ្រើសរើសដើម្បីមើល"}
                   </span>
                   <Link
                     to={`/product/${p.id}`}
                     onClick={(e) => e.stopPropagation()}
                     style={{
-                      fontSize: 12,
-                      fontWeight: 600,
+                      fontSize: 12.5,
+                      fontWeight: 700,
                       color: "#3D2B1F",
                       textDecoration: "none",
                     }}
@@ -599,72 +605,6 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer
-        style={{
-          background: "#3D2B1F",
-          color: "#FAF6F0",
-          padding: "50px 5% 35px",
-          borderTop: "3px solid #8B5E3C",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: 30,
-            marginBottom: 35,
-          }}
-        >
-          <div>
-            <h3 style={{ fontFamily: "Georgia, serif", fontSize: 20, color: "#FAF6F0", marginBottom: 10 }}>
-              WOOD'S CAMBODIA
-            </h3>
-            <p style={{ fontSize: 12.5, color: "rgba(250,246,240,0.7)", lineHeight: 1.6 }}>
-              Distributed by Kalbe Cambodia • High quality pharmaceutical and clinical nutrition products.
-            </p>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: 13.5, color: "#C49A6C", textTransform: "uppercase", marginBottom: 10 }}>
-              Portfolios
-            </h4>
-            <ul style={{ listStyle: "none", fontSize: 12.5, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
-              <li><Link to="/product/1" style={{ color: "inherit", textDecoration: "none" }}>ENDO METABOLIC</Link></li>
-              <li><Link to="/product/2" style={{ color: "inherit", textDecoration: "none" }}>MEDNUT Nutrition</Link></li>
-              <li><Link to="/product/3" style={{ color: "inherit", textDecoration: "none" }}>Children Healthcare</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: 13.5, color: "#C49A6C", textTransform: "uppercase", marginBottom: 10 }}>
-              Navigation
-            </h4>
-            <ul style={{ listStyle: "none", fontSize: 12.5, color: "rgba(250,246,240,0.8)", lineHeight: 2 }}>
-              <li><Link to="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link></li>
-              <li><Link to="/about" style={{ color: "inherit", textDecoration: "none" }}>About Us</Link></li>
-              <li><Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>Contact</Link></li>
-            </ul>
-          </div>
-        </div>
-
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            paddingTop: 18,
-            borderTop: "1px solid rgba(250,246,240,0.15)",
-            textAlign: "center",
-            fontSize: 11.5,
-            color: "rgba(250,246,240,0.5)",
-          }}
-        >
-          © 2026 WOOD'S Cambodia / Kalbe. All rights reserved.
-        </div>
-      </footer>
     </div>
   );
 };

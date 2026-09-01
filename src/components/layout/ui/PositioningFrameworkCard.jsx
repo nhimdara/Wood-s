@@ -21,23 +21,69 @@ export default function PositioningFrameworkCard({ product }) {
         background: "#FFFFFF",
         borderRadius: "clamp(16px, 3vw, 24px)",
         border: "1px solid rgba(139,94,60,0.18)",
-        padding: "clamp(20px, 4vw, 32px)",
+        padding: "clamp(16px, 3.5vw, 28px)",
         boxShadow: "0 20px 40px rgba(92,61,46,0.08)",
       }}
     >
-      <div style={{ marginBottom: 20, textAlign: "center" }}>
+      <style>{`
+        .step-nav-container {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 8px;
+          margin-bottom: 20px;
+        }
+
+        .step-btn {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 4px;
+          padding: 12px 8px;
+          border-radius: 14px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          min-height: 64px;
+          text-align: center;
+        }
+
+        @media (max-width: 768px) {
+          .step-nav-container {
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+            gap: 8px;
+            scrollbar-width: thin;
+          }
+          .step-nav-container::-webkit-scrollbar {
+            height: 3px;
+          }
+          .step-nav-container::-webkit-scrollbar-thumb {
+            background: rgba(139,94,60,0.2);
+            border-radius: 4px;
+          }
+          .step-btn {
+            min-width: 110px;
+            flex: 1 0 auto;
+            padding: 10px 8px;
+          }
+        }
+      `}</style>
+
+      <div style={{ marginBottom: 18, textAlign: "center" }}>
         <span
           style={{
-            fontSize: 12,
+            fontSize: 11.5,
             fontWeight: 700,
             letterSpacing: "1.5px",
             color: "#8B5E3C",
             textTransform: "uppercase",
             background: "rgba(139,94,60,0.1)",
-            padding: "4px 14px",
+            padding: "3px 12px",
             borderRadius: 20,
             display: "inline-block",
-            marginBottom: 8,
+            marginBottom: 6,
           }}
         >
           Standardized Detailing System
@@ -45,51 +91,38 @@ export default function PositioningFrameworkCard({ product }) {
         <h3
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(22px, 4vw, 30px)",
+            fontSize: "clamp(20px, 3.5vw, 26px)",
             color: "#3D2B1F",
             fontWeight: 800,
-            margin: "4px 0",
+            margin: "2px 0",
           }}
         >
           Product Positioning Framework
         </h3>
-        <p style={{ fontSize: 13, color: "#7A5C4A", margin: "4px 0 0" }}>
+        <p style={{ fontSize: 12.5, color: "#7A5C4A", margin: "4px 0 0" }}>
           ក្របខណ្ឌបង្ហាញផលិតផល 5 ជំហាន (WHO, WHAT, WHY, HOW, SAY) សម្រាប់ {product.title}
         </p>
       </div>
 
       {/* Interactive Step Navigator */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 95px), 1fr))",
-          gap: 8,
-          marginBottom: 20,
-        }}
-      >
+      <div className="step-nav-container">
         {steps.map((s) => {
           const isActive = activeStep === s.id;
           return (
             <button
               key={s.id}
               onClick={() => setActiveStep(s.id)}
+              className="step-btn"
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: 4,
-                padding: "14px 10px",
-                borderRadius: 14,
                 border: isActive ? `2px solid ${s.color}` : "1px solid rgba(139,94,60,0.15)",
                 background: isActive ? `${s.color}15` : "#FAF6F0",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
+                boxShadow: isActive ? `0 4px 12px ${s.color}25` : "none",
               }}
             >
-              <span style={{ fontSize: 14, fontWeight: 700, color: isActive ? s.color : "#3D2B1F" }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: isActive ? s.color : "#3D2B1F" }}>
                 {s.label}
               </span>
-              <span style={{ fontSize: 11, color: "#8B7355" }}>
+              <span style={{ fontSize: 11, color: isActive ? s.color : "#8B7355", fontWeight: 500, lineHeight: 1.2 }}>
                 {s.title}
               </span>
             </button>
@@ -205,30 +238,34 @@ export default function PositioningFrameworkCard({ product }) {
                     key={idx}
                     style={{
                       background: "#FFFFFF",
-                      padding: "12px 16px",
-                      borderRadius: 12,
+                      padding: "14px 16px",
+                      borderRadius: 14,
+                      border: "1px solid rgba(5,150,105,0.15)",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.02)",
                       display: "flex",
-                      alignItems: "flex-start",
-                      gap: 12,
-                      boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
+                      flexDirection: "column",
+                      gap: 8,
                     }}
                   >
-                    <span
-                      style={{
-                        background: "rgba(5,150,105,0.1)",
-                        color: "#059669",
-                        fontWeight: 700,
-                        fontSize: 12,
-                        padding: "4px 8px",
-                        borderRadius: 6,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {item.feature}
-                    </span>
-                    <span style={{ fontSize: 14, color: "#3D2B1F", lineHeight: 1.5, alignSelf: "center" }}>
-                      → {item.benefit}
-                    </span>
+                    <div>
+                      <span
+                        style={{
+                          background: "rgba(5,150,105,0.12)",
+                          color: "#059669",
+                          fontWeight: 700,
+                          fontSize: 12.5,
+                          padding: "4px 10px",
+                          borderRadius: 8,
+                          display: "inline-block",
+                        }}
+                      >
+                        {item.feature}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 13.5, color: "#3D2B1F", lineHeight: 1.55, display: "flex", alignItems: "flex-start", gap: 8 }}>
+                      <span style={{ color: "#059669", fontWeight: 800, fontSize: 16, lineHeight: 1.2 }}>↳</span>
+                      <span style={{ flex: 1 }}>{item.benefit}</span>
+                    </div>
                   </div>
                 ))}
             </div>

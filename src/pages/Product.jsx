@@ -34,39 +34,23 @@ const Product = () => {
     const tabs = [
       {
         id: "framework",
-        desktopLabel: "5-Step Positioning (WHO • WHAT • WHY • HOW • SAY)",
-        tabletLabel: "5-Step Positioning",
-        mobileLabel: "Positioning",
+        label: "5-Step Positioning",
       },
       {
         id: "benefits",
-        desktopLabel: "Benefits & Features",
-        tabletLabel: "Benefits & Features",
-        mobileLabel: "Benefits",
+        label: "Benefits & Features",
       },
       {
         id: "ingredients",
-        desktopLabel: "Composition & Usage",
-        tabletLabel: "Composition & Usage",
-        mobileLabel: "Usage",
+        label: "Composition & Usage",
       },
       {
         id: "tools",
-        desktopLabel: isMednut
-          ? "Mednut Preparation Guide"
-          : isPediatric
-          ? "Dosage Calculator"
-          : "Clinical Positioning & Comparison",
-        tabletLabel: isMednut
+        label: isMednut
           ? "Preparation Guide"
           : isPediatric
           ? "Dosage Calculator"
           : "Clinical Comparison",
-        mobileLabel: isMednut
-          ? "Preparation"
-          : isPediatric
-          ? "Calculator"
-          : "Comparison",
       },
     ];
 
@@ -89,29 +73,17 @@ const Product = () => {
           .product-tabs-container {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
             border-bottom: 2px solid rgba(139,94,60,0.12);
             margin-bottom: 30px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
             padding-bottom: 4px;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(139,94,60,0.2) transparent;
-          }
-
-          .product-tabs-container::-webkit-scrollbar {
-            height: 4px;
-          }
-          .product-tabs-container::-webkit-scrollbar-thumb {
-            background: rgba(139,94,60,0.2);
-            border-radius: 4px;
           }
 
           .product-tab-btn {
-            flex-shrink: 0;
-            padding: 10px 16px;
+            padding: 10px 18px;
             font-size: 14px;
-            font-weight: 500;
-            color: #7A5C4A;
+            font-weight: 600;
+            color: "#7A5C4A";
             background: none;
             border: none;
             cursor: pointer;
@@ -133,50 +105,25 @@ const Product = () => {
             background: rgba(139,94,60,0.06);
           }
 
-          /* Tablet responsiveness (max-width: 1024px) */
-          @media (max-width: 1024px) {
-            .tab-label-desktop {
-              display: none !important;
+          @media (max-width: 768px) {
+            .product-tabs-container {
+              display: flex;
+              overflow-x: auto;
+              -webkit-overflow-scrolling: touch;
+              flex-wrap: nowrap;
+              scrollbar-width: thin;
             }
-            .tab-label-tablet {
-              display: inline !important;
+            .product-tabs-container::-webkit-scrollbar {
+              height: 3px;
             }
-            .tab-label-mobile {
-              display: none !important;
+            .product-tabs-container::-webkit-scrollbar-thumb {
+              background: rgba(139,94,60,0.2);
+              border-radius: 4px;
             }
             .product-tab-btn {
+              flex-shrink: 0;
               padding: 9px 14px;
-              font-size: 13.5px;
-            }
-          }
-
-          /* Mobile responsiveness (max-width: 640px) */
-          @media (max-width: 640px) {
-            .tab-label-desktop {
-              display: none !important;
-            }
-            .tab-label-tablet {
-              display: none !important;
-            }
-            .tab-label-mobile {
-              display: inline !important;
-            }
-            .product-tab-btn {
-              padding: 8px 10px;
-              font-size: 12.5px;
-            }
-          }
-
-          /* Desktop view (> 1024px) */
-          @media (min-width: 1025px) {
-            .tab-label-desktop {
-              display: inline !important;
-            }
-            .tab-label-tablet {
-              display: none !important;
-            }
-            .tab-label-mobile {
-              display: none !important;
+              font-size: 13px;
             }
           }
         `}</style>
@@ -421,9 +368,7 @@ const Product = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`product-tab-btn ${activeTab === tab.id ? "active" : ""}`}
                 >
-                  <span className="tab-label-desktop">{tab.desktopLabel}</span>
-                  <span className="tab-label-tablet">{tab.tabletLabel}</span>
-                  <span className="tab-label-mobile">{tab.mobileLabel}</span>
+                  {tab.label}
                 </button>
               ))}
             </div>
