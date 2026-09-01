@@ -359,12 +359,12 @@ export default function Nav() {
           animation: glowPulse 3s ease-in-out infinite;
         }
         .nav-link-btn {
-          font-size: 14px; font-weight: 500;
+          font-size: 13.5px; font-weight: 500;
           color: rgba(61,43,31,0.8);
-          padding: 8px 18px; border-radius: 40px;
+          padding: 6px 14px; border-radius: 40px;
           background: transparent; border: none;
           cursor: pointer; transition: color 0.2s, background 0.2s;
-          display: flex; align-items: center; gap: 6px;
+          display: flex; align-items: center; gap: 5px;
           white-space: nowrap; text-decoration: none;
         }
         .nav-link-btn:hover { color: #3D2B1F; background: rgba(61,43,31,0.06); }
@@ -374,15 +374,15 @@ export default function Nav() {
           border: 1px solid rgba(139,94,60,0.25);
           outline: none;
           background: #FFFFFF;
-          padding: 7px 14px 7px 34px;
+          padding: 5px 12px 5px 30px;
           border-radius: 30px;
-          font-size: 13px;
+          font-size: 12.5px;
           color: #3D2B1F;
-          width: 190px;
+          width: 160px;
           transition: all 0.3s ease;
         }
         .nav-search-input:focus {
-          width: 250px;
+          width: 200px;
           border-color: #8B5E3C;
           box-shadow: 0 0 0 3px rgba(139,94,60,0.12);
         }
@@ -413,9 +413,9 @@ export default function Nav() {
         .mob-sub-sub a { padding-left: 42px !important; }
 
         @media (min-width: 769px) and (max-width: 1024px) {
-          .nav-link-btn { padding: 6px 10px; font-size: 13px; }
-          .nav-search-input { width: 130px; font-size: 12px; padding: 6px 10px 6px 30px; }
-          .nav-search-input:focus { width: 175px; }
+          .nav-link-btn { padding: 5px 10px; font-size: 12.5px; }
+          .nav-search-input { width: 120px; font-size: 12px; padding: 5px 8px 5px 28px; }
+          .nav-search-input:focus { width: 160px; }
           .desktop-nav { gap: 2px !important; }
         }
         
@@ -436,7 +436,7 @@ export default function Nav() {
           zIndex: 1000,
           background: isScrolled ? "#FAF6F0" : "rgba(250,246,240,0.95)",
           backdropFilter: isScrolled ? "blur(20px)" : "blur(10px)",
-          borderBottom: "1px solid rgba(139,94,60,0.2)",
+          borderBottom: "1px solid rgba(139,94,60,0.18)",
           transition: "all 0.3s ease",
         }}
       >
@@ -446,10 +446,8 @@ export default function Nav() {
           style={{
             maxWidth: 1200,
             margin: "0 auto",
-            padding: "0 clamp(16px, 5vw, 32px)",
-            height: isScrolled
-              ? "clamp(50px, 8vh, 60px)"
-              : "clamp(60px, 9vh, 70px)",
+            padding: "0 clamp(14px, 4vw, 28px)",
+            height: isScrolled ? "50px" : "58px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -462,34 +460,30 @@ export default function Nav() {
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
-              gap: "clamp(6px, 2vw, 10px)",
+              gap: 8,
             }}
           >
-            <div
+            <img
+              src={logo}
+              alt="WOOD'S Logo"
               style={{
-                width: "clamp(30px, 5vw, 34px)",
-                height: "clamp(30px, 5vw, 34px)",
-                borderRadius: 10,
-                overflow: "hidden",
-                background: "linear-gradient(135deg,#3D2B1F,#8B5E3C)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 4px 12px rgba(61,43,31,0.3)",
+                width: 34,
+                height: 34,
+                borderRadius: 8,
+                objectFit: "contain",
+                filter: "drop-shadow(0 2px 6px rgba(61,43,31,0.15))",
                 flexShrink: 0,
+                transition: "transform 0.2s ease",
               }}
-            >
-              <img
-                src={logo}
-                alt="Logo"
-                style={{ width: "100%", height: "auto", objectFit: "contain" }}
-              />
-            </div>
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            />
             <span
               style={{
                 fontFamily: "Georgia, 'Times New Roman', Times, serif",
-                fontSize: "clamp(18px, 4vw, 21px)",
-                fontWeight: 500,
+                fontSize: "19px",
+                fontWeight: 800,
+                letterSpacing: "0.3px",
                 background: "linear-gradient(135deg,#3D2B1F,#8B5E3C)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",

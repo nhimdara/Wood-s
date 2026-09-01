@@ -142,7 +142,7 @@ const Homepage = () => {
             gap: 28px;
           }
           .floating-hero-card {
-            max-width: 520px;
+            max-width: 660px;
             margin: 0 auto;
           }
         }
@@ -440,17 +440,17 @@ const Homepage = () => {
         </div>
 
         {/* Hero Showcase Visual Slider by Category */}
-        <div style={{ textAlign: "center", position: "relative", width: "100%", maxWidth: 640, margin: "0 auto" }}>
-          <div className="floating-hero-card" style={{ padding: "clamp(16px, 3vw, 24px)", position: "relative" }}>
+        <div style={{ textAlign: "center", position: "relative", width: "100%", maxWidth: 720, margin: "0 auto" }}>
+          <div className="floating-hero-card" style={{ padding: "clamp(20px, 3.5vw, 30px)", position: "relative" }}>
             {/* Top Category Badge */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
               <span
                 style={{
-                  fontSize: 11.5,
+                  fontSize: 12.5,
                   fontWeight: 700,
                   color: "#8B5E3C",
-                  background: "rgba(139,94,60,0.1)",
-                  padding: "4px 12px",
+                  background: "rgba(139,94,60,0.12)",
+                  padding: "5px 14px",
                   borderRadius: 20,
                   textTransform: "uppercase",
                   letterSpacing: "1px",
@@ -464,8 +464,8 @@ const Homepage = () => {
                     key={i}
                     onClick={() => setCurrentHeroSlide(i)}
                     style={{
-                      width: currentHeroSlide === i ? 20 : 7,
-                      height: 7,
+                      width: currentHeroSlide === i ? 24 : 8,
+                      height: 8,
                       borderRadius: 4,
                       background: currentHeroSlide === i ? "#8B5E3C" : "rgba(139,94,60,0.25)",
                       cursor: "pointer",
@@ -481,13 +481,13 @@ const Homepage = () => {
             <div
               style={{
                 position: "relative",
-                height: "clamp(180px, 30vw, 260px)",
+                height: "clamp(240px, 36vw, 320px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 background: "#FAF6F0",
-                borderRadius: 18,
-                padding: 12,
+                borderRadius: 20,
+                padding: "16px 20px",
                 overflow: "hidden",
               }}
             >
@@ -497,23 +497,26 @@ const Homepage = () => {
                 }
                 style={{
                   position: "absolute",
-                  left: 10,
+                  left: 12,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.85)",
-                  border: "1px solid rgba(139,94,60,0.2)",
-                  width: 32,
-                  height: 32,
+                  background: "rgba(255,255,255,0.9)",
+                  border: "1px solid rgba(139,94,60,0.25)",
+                  width: 38,
+                  height: 38,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
                   color: "#3D2B1F",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  transition: "transform 0.2s ease",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 aria-label="Previous Slide"
               >
-                <HiOutlineChevronLeft style={{ fontSize: 18 }} />
+                <HiOutlineChevronLeft style={{ fontSize: 20 }} />
               </button>
 
               <img
@@ -525,7 +528,7 @@ const Homepage = () => {
                   maxWidth: "100%",
                   objectFit: "contain",
                   transition: "opacity 0.4s ease, transform 0.4s ease",
-                  filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.06))",
+                  filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.08))",
                 }}
               />
 
@@ -535,32 +538,35 @@ const Homepage = () => {
                 }
                 style={{
                   position: "absolute",
-                  right: 10,
+                  right: 12,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.85)",
-                  border: "1px solid rgba(139,94,60,0.2)",
-                  width: 32,
-                  height: 32,
+                  background: "rgba(255,255,255,0.9)",
+                  border: "1px solid rgba(139,94,60,0.25)",
+                  width: 38,
+                  height: 38,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
                   color: "#3D2B1F",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                  transition: "transform 0.2s ease",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.08)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 aria-label="Next Slide"
               >
-                <HiOutlineChevronRight style={{ fontSize: 18 }} />
+                <HiOutlineChevronRight style={{ fontSize: 20 }} />
               </button>
             </div>
 
             {/* Slide Category Info */}
-            <div style={{ marginTop: 10 }}>
-              <div style={{ fontSize: 16, fontWeight: 800, color: "#3D2B1F" }}>
+            <div style={{ marginTop: 14 }}>
+              <div style={{ fontSize: "clamp(18px, 2.5vw, 22px)", fontWeight: 800, color: "#3D2B1F" }}>
                 {heroSlides[currentHeroSlide].title}
               </div>
-              <div style={{ fontSize: 12, color: "#7A5C4A", marginTop: 2 }}>
+              <div style={{ fontSize: "clamp(12.5px, 1.8vw, 14px)", color: "#7A5C4A", marginTop: 3 }}>
                 {heroSlides[currentHeroSlide].desc}
               </div>
             </div>
@@ -568,13 +574,13 @@ const Homepage = () => {
             {/* Interactive Category Selector Pills */}
             <div
               style={{
-                marginTop: 12,
-                padding: "5px",
+                marginTop: 14,
+                padding: "6px",
                 background: "rgba(139,94,60,0.08)",
                 borderRadius: 40,
                 display: "flex",
                 justifyContent: "center",
-                gap: 6,
+                gap: 8,
                 flexWrap: "wrap",
               }}
             >
@@ -589,12 +595,12 @@ const Homepage = () => {
                       background: isCurrent ? "#8B5E3C" : "transparent",
                       color: isCurrent ? "#FAF6F0" : "#3D2B1F",
                       fontWeight: 700,
-                      fontSize: 12,
-                      padding: "6px 14px",
+                      fontSize: 13,
+                      padding: "8px 18px",
                       borderRadius: 30,
                       cursor: "pointer",
                       transition: "all 0.25s ease",
-                      boxShadow: isCurrent ? "0 4px 12px rgba(139,94,60,0.25)" : "none",
+                      boxShadow: isCurrent ? "0 4px 14px rgba(139,94,60,0.28)" : "none",
                     }}
                   >
                     {slide.title}
