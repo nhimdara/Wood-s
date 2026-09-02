@@ -521,7 +521,7 @@ export default function Nav() {
           >
             <img
               src={kalbeLogo}
-              alt="KALBE Healthcare"
+              alt="Kalbe Product"
               style={{
                 height: "clamp(30px, 5vw, 36px)",
                 width: "auto",
