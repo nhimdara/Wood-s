@@ -147,7 +147,7 @@ const Product = () => {
 
         <Nav />
 
-        {/* Breadcrumbs & Back to Category */}
+        {/* Breadcrumbs */}
         <div
           style={{
             maxWidth: 1200,
@@ -155,7 +155,6 @@ const Product = () => {
             padding: "clamp(75px, 11vw, 90px) 5% 0",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
             flexWrap: "wrap",
             gap: 10,
           }}
@@ -182,25 +181,6 @@ const Product = () => {
               {subProduct.title}
             </span>
           </div>
-
-          <Link
-            to={`/product/${id}`}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 12.5,
-              fontWeight: 700,
-              color: theme.primary,
-              background: theme.light,
-              padding: "5px 14px",
-              borderRadius: 20,
-              textDecoration: "none",
-              transition: "all 0.2s ease",
-            }}
-          >
-            ← Back to {parentProduct.title}
-          </Link>
         </div>
 
         {/* Hero Product Section */}
@@ -618,7 +598,7 @@ const Product = () => {
       >
         <Nav />
 
-        {/* Breadcrumb & Back to Home */}
+        {/* Breadcrumb */}
         <div
           style={{
             maxWidth: 1200,
@@ -626,7 +606,6 @@ const Product = () => {
             padding: "clamp(75px, 11vw, 90px) 5% 0",
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
             flexWrap: "wrap",
             gap: 10,
           }}
@@ -648,25 +627,6 @@ const Product = () => {
               {parentProduct.title}
             </span>
           </div>
-
-          <Link
-            to="/"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 12.5,
-              fontWeight: 700,
-              color: "#0D6E38",
-              background: "rgba(13,110,56,0.08)",
-              padding: "5px 14px",
-              borderRadius: 20,
-              textDecoration: "none",
-              transition: "all 0.2s ease",
-            }}
-          >
-            ← Back to Home
-          </Link>
         </div>
 
         {/* Hero Portfolio Banner */}

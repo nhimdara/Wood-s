@@ -523,13 +523,12 @@ export default function Nav() {
               src={kalbeLogo}
               alt="Kalbe Product"
               style={{
-                height: "clamp(30px, 5vw, 36px)",
+                height: "clamp(32px, 5vw, 40px)",
                 width: "auto",
                 objectFit: "contain",
-                filter: "drop-shadow(0 2px 5px rgba(0,0,0,0.06))",
                 transition: "transform 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             />
           </Link>
