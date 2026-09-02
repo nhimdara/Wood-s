@@ -66,14 +66,16 @@ export default function PositioningFrameworkCard({ product }) {
             -webkit-overflow-scrolling: touch;
             padding-bottom: 8px;
             gap: 8px;
-            scrollbar-width: thin;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
           }
           .step-nav-container::-webkit-scrollbar {
-            height: 3px;
+            display: none;
+            width: 0;
+            height: 0;
           }
-          .step-nav-container::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.15);
-            border-radius: 4px;
+          .step-nav-container::-webkit-scrollbar-button {
+            display: none;
           }
           .step-btn {
             min-width: 110px;

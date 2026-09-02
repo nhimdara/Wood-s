@@ -96,16 +96,17 @@ const Product = () => {
             border-bottom: 2px solid ${theme.border};
             margin-bottom: 30px;
             padding-bottom: 0;
-            scrollbar-width: thin;
-            scrollbar-color: ${theme.border} transparent;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
           }
 
           .product-tabs-container::-webkit-scrollbar {
-            height: 4px;
+            display: none;
+            width: 0;
+            height: 0;
           }
-          .product-tabs-container::-webkit-scrollbar-thumb {
-            background: ${theme.border};
-            border-radius: 4px;
+          .product-tabs-container::-webkit-scrollbar-button {
+            display: none;
           }
 
           .product-tab-btn {
