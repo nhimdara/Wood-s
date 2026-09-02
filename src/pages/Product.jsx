@@ -28,7 +28,7 @@ const Product = () => {
   if (subProduct && parentProduct) {
     const details = subProduct.details;
     const isMednut = id === "2" || parentProduct.title === "Mednut";
-    const isPediatric = id === "3" || parentProduct.title === "Children Product";
+    const isPediatric = id === "3" || parentProduct.title?.toLowerCase().includes("children");
     const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
 
     // Dynamic Packaging Color Theme
@@ -581,7 +581,7 @@ const Product = () => {
   // Parent product view (Portfolio level)
   if (parentProduct) {
     const isMednut = id === "2" || parentProduct.title === "Mednut";
-    const isPediatric = id === "3" || parentProduct.title === "Children Product";
+    const isPediatric = id === "3" || parentProduct.title?.toLowerCase().includes("children");
     const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
 
     return (

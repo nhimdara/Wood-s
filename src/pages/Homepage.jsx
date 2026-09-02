@@ -30,7 +30,7 @@ const Homepage = () => {
     },
     {
       id: 3,
-      title: "Children Health",
+      title: "Children Product",
       badge: "Pediatric Care",
       image: "/images/Children-Product.png",
       desc: "Gut Health • Cough Relief • Pediatric Antibiotics",
@@ -261,7 +261,7 @@ const Homepage = () => {
               textAlign: "center",
             }}
           >
-            ស្វែងយល់ពីផលប័ត្រផលិតផលឱសថ និងអាហារូបត្ថម្ភវេជ្ជសាស្ត្រកម្រិតខ្ពស់៖ <strong>ENDO METABOLIC</strong>, <strong>MEDNUT</strong>, និង <strong>CHILDREN HEALTH</strong> ជាមួយក្របខណ្ឌបង្ហាញច្បាស់លាស់ ៥ ជំហាន។
+            ស្វែងយល់ពីផលប័ត្រផលិតផលឱសថ និងអាហារូបត្ថម្ភវេជ្ជសាស្ត្រកម្រិតខ្ពស់៖ <strong>ENDO METABOLIC</strong>, <strong>MEDNUT</strong>, និង <strong>CHILDREN PRODUCT</strong> ជាមួយក្របខណ្ឌបង្ហាញច្បាស់លាស់ ៥ ជំហាន។
           </p>
 
           {/* Interactive Live Search Bar */}
