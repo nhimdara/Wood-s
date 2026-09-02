@@ -60,16 +60,16 @@ const Product = () => {
         label: isMednut
           ? "Preparation Guide"
           : isPediatric
-          ? "Dosage Calculator"
-          : "Clinical Comparison",
+            ? "Dosage Calculator"
+            : "Clinical Comparison",
       },
     ];
 
     const categoryFont = isEndo
       ? "'Montserrat', 'Inter', 'Segoe UI', sans-serif"
       : isMednut
-      ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
-      : "'Poppins', 'Montserrat', 'Inter', sans-serif";
+        ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
+        : "'Poppins', 'Montserrat', 'Inter', sans-serif";
 
     return (
       <div
@@ -313,9 +313,6 @@ const Product = () => {
                   fontWeight: 500,
                 }}
               >
-                <strong style={{ color: theme.primary, display: "block", marginBottom: 4, fontSize: 13 }}>
-                  Key Selling Point:
-                </strong>
                 {subProduct.keySellingPoint}
               </div>
             )}
@@ -512,8 +509,8 @@ const Product = () => {
                       subProduct.id === "efesa" || subProduct.id === "hemapo"
                         ? "efesaVsHemapo"
                         : subProduct.id === "kalxid" || subProduct.id === "kalmeco"
-                        ? "dpnKalxidKalmeco"
-                        : "nocidLowProtein"
+                          ? "dpnKalxidKalmeco"
+                          : "nocidLowProtein"
                     }
                   />
                 )}
@@ -663,8 +660,8 @@ const Product = () => {
                 fontFamily: isEndo
                   ? "'Montserrat', 'Inter', 'Segoe UI', sans-serif"
                   : isMednut
-                  ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
-                  : "'Poppins', 'Montserrat', 'Inter', sans-serif",
+                    ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
+                    : "'Poppins', 'Montserrat', 'Inter', sans-serif",
                 fontSize: "clamp(32px, 5vw, 52px)",
                 fontWeight: 900,
                 letterSpacing: "1px",
@@ -811,8 +808,8 @@ const Product = () => {
                 {isMednut
                   ? "Mednut Clinical Preparation Matrix"
                   : isPediatric
-                  ? "Pediatric Dosage Protocol"
-                  : "Clinical Comparison & Therapeutic Matrix"}
+                    ? "Pediatric Dosage Protocol"
+                    : "Clinical Comparison & Therapeutic Matrix"}
               </h2>
             </div>
 
