@@ -11,6 +11,9 @@ const STATIC_ASSETS = [
   '/images/ENDO-METABOLIC.png',
   '/images/Mednut.png',
   '/images/Children-Product.png',
+  '/images/CELEBROVASCULAR.png',
+  '/images/Hospital-Line.png',
+  '/images/Oncology.png',
   '/images/efesa.png',
   '/images/hemapo.png',
   '/images/nocid.png',
@@ -24,7 +27,26 @@ const STATIC_ASSETS = [
   '/images/hepatosol.png',
   '/images/rillus_jr.png',
   '/images/prospan.png',
-  '/images/kalmaxime_ds.png'
+  '/images/kalmaxime_ds.png',
+  '/images/brainact_inj.png',
+  '/images/brainact_cap.png',
+  '/images/brainact_500.png',
+  '/images/brainact_odis.png',
+  '/images/car_q.png',
+  '/images/daneuron.png',
+  '/images/myores.png',
+  '/images/rillus_tab.png',
+  '/images/hepafit.png',
+  '/images/bioplacenton.png',
+  '/images/kalmaxime_200.png',
+  '/images/broadced.png',
+  '/images/merofen.png',
+  '/images/claventin.png',
+  '/images/paxus.png',
+  '/images/leucogen.png',
+  '/images/carcan.png',
+  '/images/brexel.png',
+  '/images/rexta.png'
 ];
 
 // Install Event - Pre-cache critical assets
