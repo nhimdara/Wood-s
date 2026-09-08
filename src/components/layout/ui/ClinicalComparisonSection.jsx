@@ -115,6 +115,25 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
         >
           NOCID + Low-Protein Diet
         </button>
+        <button
+          onClick={() => setActiveTab("brainactSKU")}
+          style={{
+            padding: "10px 18px",
+            borderRadius: 30,
+            border:
+              activeTab === "brainactSKU"
+                ? "2px solid #0284C7"
+                : "1px solid rgba(2,132,199,0.2)",
+            background: activeTab === "brainactSKU" ? "#0284C7" : "#F0F9FF",
+            color: activeTab === "brainactSKU" ? "#FFFFFF" : "#0369A1",
+            fontWeight: 700,
+            fontSize: 13,
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+        >
+          BRAINACT 4 SKUs Matrix
+        </button>
       </div>
 
       {/* EFESA VS HEMAPO CONTENT */}
@@ -428,6 +447,111 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 • {t}
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* BRAINACT 4 SKUs MATRIX */}
+      {activeTab === "brainactSKU" && (
+        <div>
+          <div
+            style={{
+              padding: "14px 18px",
+              background: "#F0F9FF",
+              borderRadius: 14,
+              marginBottom: 20,
+              fontSize: 14,
+              color: "#0369A1",
+              fontWeight: 600,
+              borderLeft: "4px solid #0284C7",
+            }}
+          >
+            Differentiate between our 4 SKU of Brainact (Acute Stroke / TBI / Post Stroke / MCI)
+          </div>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+              gap: 16,
+              marginBottom: 20,
+            }}
+          >
+            <div
+              style={{
+                background: "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
+                borderRadius: 18,
+                padding: "20px",
+                border: "1px solid #FED7AA",
+                boxShadow: "0 4px 14px rgba(234, 88, 12, 0.08)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <h4 style={{ margin: 0, fontSize: 17, color: "#EA580C", fontWeight: 800 }}>Brainact 1G Inj</h4>
+                <span style={{ fontSize: 11, background: "#FFEDD5", color: "#C2410C", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>1000 mg/8 mL</span>
+              </div>
+              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Acute Stroke & TBI</p>
+              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                ចាក់ម្តង ១ ក្រាម ១ ថ្ងៃ ២ ដង រយៈពេល ៧ ទៅ ១០ ថ្ងៃ តាមសរសៃវ៉ែន ឬព្យួរសេរ៉ូម។
+              </p>
+            </div>
+
+            <div
+              style={{
+                background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
+                borderRadius: 18,
+                padding: "20px",
+                border: "1px solid #99F6E4",
+                boxShadow: "0 4px 14px rgba(13, 148, 136, 0.08)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <h4 style={{ margin: 0, fontSize: 17, color: "#0D9488", fontWeight: 800 }}>Brainact 1G Cap</h4>
+                <span style={{ fontSize: 11, background: "#CCFBF1", color: "#0F766E", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>1000 mg Caplet</span>
+              </div>
+              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Acute Stroke & TBI (Awake)</p>
+              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                ក្រោយអ្នកជំងឺភ្ញាក់ដឹងខ្លួន បន្តជាមួយថ្នាំគ្រាប់ ២ ក្រាម ក្នុង ១ ថ្ងៃ រហូតដល់ ៦ សប្តាហ៍។
+              </p>
+            </div>
+
+            <div
+              style={{
+                background: "linear-gradient(180deg, #FEF3C7 0%, #FFFFFF 100%)",
+                borderRadius: 18,
+                padding: "20px",
+                border: "1px solid #FDE68A",
+                boxShadow: "0 4px 14px rgba(217, 119, 6, 0.08)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <h4 style={{ margin: 0, fontSize: 17, color: "#D97706", fontWeight: 800 }}>Brainact 500 Tab</h4>
+                <span style={{ fontSize: 11, background: "#FEF3C7", color: "#B45309", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>500 mg Tablet</span>
+              </div>
+              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Post Stroke Cognitive Impairment</p>
+              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                ១ ក្រាម ក្នុង ១ ថ្ងៃ យ៉ាងហោចណាស់ ៦ ខែឡើងទៅ។
+              </p>
+            </div>
+
+            <div
+              style={{
+                background: "linear-gradient(180deg, #F3E8FF 0%, #FFFFFF 100%)",
+                borderRadius: 18,
+                padding: "20px",
+                border: "1px solid #E9D5FF",
+                boxShadow: "0 4px 14px rgba(124, 58, 237, 0.08)",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <h4 style={{ margin: 0, fontSize: 17, color: "#7C3AED", fontWeight: 800 }}>Brainact O-Dis</h4>
+                <span style={{ fontSize: 11, background: "#EDE9FE", color: "#6D28D9", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>500 mg ODT</span>
+              </div>
+              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>MCI & Dysphagia / Multi-med</p>
+              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+                ថ្នាំបៀមរលាយក្នុងមាត់ រសជាតិផ្លែឈើចម្រុះ ១ ក្រាម/ថ្ងៃ សម្រាប់ការធ្លាក់ចុះសមត្ថភាពខួរក្បាលលើមនុស្សចាស់។
+              </p>
+            </div>
           </div>
         </div>
       )}

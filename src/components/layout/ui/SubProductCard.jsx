@@ -60,6 +60,15 @@ const SubProductCard = ({ product, parentId }) => {
               objectFit: "contain",
               transition: "transform 0.4s ease",
             }}
+            onError={(e) => {
+              e.target.style.display = "none";
+              const parent = e.target.parentElement;
+              parent.style.background = `linear-gradient(135deg, ${theme.light || "#F8FAF6"} 0%, #FFFFFF 100%)`;
+              parent.style.display = "flex";
+              parent.style.alignItems = "center";
+              parent.style.justifyContent = "center";
+              parent.innerHTML = `<div style="text-align:center;padding:16px;"><div style="color:${theme.primary || "#0D6E38"};font-size:20px;font-weight:900;font-family:${theme.fontFamily || 'inherit'}">${product.title}</div><div style="font-size:11.5px;color:#4A5A4A;margin-top:4px;">${product.genericName || ''}</div></div>`;
+            }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.06)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />

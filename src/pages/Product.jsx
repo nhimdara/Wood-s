@@ -27,9 +27,12 @@ const Product = () => {
   // Sub-product detail view
   if (subProduct && parentProduct) {
     const details = subProduct.details;
-    const isMednut = id === "2" || parentProduct.title === "Mednut";
+    const isMednut = id === "2" || parentProduct.title?.toLowerCase().includes("mednut");
     const isPediatric = id === "3" || parentProduct.title?.toLowerCase().includes("children");
-    const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
+    const isEndo = id === "1" || parentProduct.title?.toLowerCase().includes("endo");
+    const isCelebro = id === "4" || parentProduct.title?.toLowerCase().includes("celebrovascular");
+    const isHospital = id === "5" || parentProduct.title?.toLowerCase().includes("hospital");
+    const isOnco = id === "6" || parentProduct.title?.toLowerCase().includes("oncology");
 
     // Dynamic Packaging Color Theme
     const theme = PRODUCT_THEMES[subProduct.id] || {
@@ -41,6 +44,8 @@ const Product = () => {
       glow: "rgba(13, 110, 56, 0.15)",
       border: "rgba(13, 110, 56, 0.2)",
     };
+
+    const hasToolsTab = isMednut || isPediatric || isEndo || isCelebro;
 
     const tabs = [
       {
@@ -55,19 +60,25 @@ const Product = () => {
         id: "ingredients",
         label: "Composition & Usage",
       },
-      {
-        id: "tools",
-        label: isMednut
-          ? "Preparation Guide"
-          : isPediatric
-            ? "Dosage Calculator"
-            : "Clinical Comparison",
-      },
+      ...(hasToolsTab
+        ? [
+            {
+              id: "tools",
+              label: isMednut
+                ? "Preparation Guide"
+                : isPediatric
+                  ? "Dosage Calculator"
+                  : isCelebro
+                    ? "4 SKUs Matrix"
+                    : "Clinical Comparison",
+            },
+          ]
+        : []),
     ];
 
-    const categoryFont = isEndo
+    const categoryFont = isEndo || isCelebro || isHospital
       ? "'Montserrat', 'Inter', 'Segoe UI', sans-serif"
-      : isMednut
+      : isMednut || isOnco
         ? "'Outfit', 'Montserrat', 'Inter', sans-serif"
         : "'Poppins', 'Montserrat', 'Inter', sans-serif";
 
@@ -223,6 +234,15 @@ const Product = () => {
                   maxHeight: "100%",
                   objectFit: "contain",
                   transition: "transform 0.4s ease",
+                }}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                  const parent = e.target.parentElement;
+                  parent.style.background = `linear-gradient(135deg, ${theme.light} 0%, #FFFFFF 100%)`;
+                  parent.style.display = "flex";
+                  parent.style.alignItems = "center";
+                  parent.style.justifyContent = "center";
+                  parent.innerHTML = `<div style="text-align:center;padding:24px;"><div style="color:${theme.primary};font-size:28px;font-weight:900;font-family:${theme.fontFamily || 'inherit'}">${subProduct.title}</div><div style="font-size:14px;color:#4A5A4A;margin-top:8px;font-weight:600;">${subProduct.genericName || ''}</div></div>`;
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
@@ -500,7 +520,7 @@ const Product = () => {
             )}
 
             {/* TAB CONTENT: Interactive Tools */}
-            {activeTab === "tools" && (
+            {activeTab === "tools" && hasToolsTab && (
               <div className="fade-up">
                 {isMednut && <MednutPreparationGuide initialProduct={subProduct.id} />}
                 {isPediatric && <PediatricDosageCalculator initialProduct={subProduct.id} />}
@@ -515,6 +535,7 @@ const Product = () => {
                     }
                   />
                 )}
+                {isCelebro && <ClinicalComparisonSection defaultTab="brainactSKU" />}
               </div>
             )}
           </div>
@@ -581,9 +602,9 @@ const Product = () => {
 
   // Parent product view (Portfolio level)
   if (parentProduct) {
-    const isMednut = id === "2" || parentProduct.title === "Mednut";
+    const isMednut = id === "2" || parentProduct.title?.toLowerCase().includes("mednut");
     const isPediatric = id === "3" || parentProduct.title?.toLowerCase().includes("children");
-    const isEndo = id === "1" || parentProduct.title === "ENDO METABOLIC";
+    const isEndo = id === "1" || parentProduct.title?.toLowerCase().includes("endo");
 
     return (
       <div

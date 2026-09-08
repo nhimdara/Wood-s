@@ -22,7 +22,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "Mednut",
+        label: "MEDNUT",
         href: "/product/2",
         children: [
           { label: "NEPHRISOL", href: "/product/2/nephrisol" },
@@ -33,12 +33,49 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "Children Product",
+        label: "CHILDREN PRODUCT",
         href: "/product/3",
         children: [
           { label: "RILLUS JR", href: "/product/3/rillus-jr" },
           { label: "PROSPAN", href: "/product/3/prospan" },
           { label: "KALMAXIME DS", href: "/product/3/kalmaxime-ds" },
+        ],
+      },
+      {
+        label: "CELEBROVASCULAR",
+        href: "/product/4",
+        children: [
+          { label: "BRAINACT 1000 mg Inj", href: "/product/4/brainact-inj" },
+          { label: "BRAINACT 1000 mg Cap", href: "/product/4/brainact-cap" },
+          { label: "BRAINACT 500 mg Tab", href: "/product/4/brainact-500" },
+          { label: "BRAINACT O-Dis", href: "/product/4/brainact-odis" },
+          { label: "CAR-Q 100", href: "/product/4/car-q-100" },
+          { label: "DANEURON", href: "/product/4/daneuron" },
+          { label: "MYORES", href: "/product/4/myores" },
+        ],
+      },
+      {
+        label: "HOSPITAL LINE",
+        href: "/product/5",
+        children: [
+          { label: "RILLUS TAB", href: "/product/5/rillus-tab" },
+          { label: "HEPAFIT", href: "/product/5/hepafit" },
+          { label: "BIOPLACENTON", href: "/product/5/bioplacenton" },
+          { label: "KALMAXIME 200", href: "/product/5/kalmaxime-caplet" },
+          { label: "BROADCED", href: "/product/5/broadced" },
+          { label: "MEROFEN", href: "/product/5/merofen" },
+          { label: "CLAVENTIN", href: "/product/5/claventin" },
+        ],
+      },
+      {
+        label: "ONCOLOGY",
+        href: "/product/6",
+        children: [
+          { label: "PAXUS", href: "/product/6/paxus" },
+          { label: "LEUCOGEN", href: "/product/6/leucogen" },
+          { label: "CARCAN", href: "/product/6/carcan" },
+          { label: "BREXEL", href: "/product/6/brexel" },
+          { label: "REXTA", href: "/product/6/rexta" },
         ],
       },
     ],
@@ -415,7 +452,8 @@ export default function Nav() {
           animation: glowPulse 3s ease-in-out infinite;
         }
         .nav-link-btn {
-          font-size: 13.5px; font-weight: 500;
+          font-size: 13.5px; font-weight: 700;
+          font-family: inherit;
           color: #1A241A;
           padding: 6px 14px; border-radius: 40px;
           background: transparent; border: none;
@@ -424,7 +462,7 @@ export default function Nav() {
           white-space: nowrap; text-decoration: none;
         }
         .nav-link-btn:hover { color: #0D6E38; background: rgba(13,110,56,0.06); }
-        .nav-link-btn.active { color: #0D6E38; background: rgba(13,110,56,0.1); font-weight: 700; }
+        .nav-link-btn.active { color: #0D6E38; background: rgba(13,110,56,0.1); font-weight: 800; }
 
         .nav-search-input {
           border: 1px solid rgba(13,110,56,0.22);
@@ -451,21 +489,22 @@ export default function Nav() {
         .hamburger:hover { color: #0D6E38; background: rgba(13,110,56,0.06); }
         .mob-link {
           display: flex; align-items: center; justify-content: space-between;
-          padding: 11px 10px; font-size: 15px; font-weight: 500;
+          padding: 11px 12px; font-size: 15px; font-weight: 700;
+          font-family: inherit;
           color: #1A241A; border-radius: 10px;
           text-decoration: none; cursor: pointer;
           background: none; border: none; width: 100%;
           transition: color 0.15s, background 0.15s;
         }
         .mob-link:hover { color: #0D6E38; background: rgba(13,110,56,0.05); }
-        .mob-link.active { color: #0D6E38; font-weight: 700; background: rgba(13,110,56,0.09); }
+        .mob-link.active { color: #0D6E38; font-weight: 800; background: rgba(13,110,56,0.09); }
         .mob-sub a {
           display: block; padding: 9px 10px 9px 26px; font-size: 14px;
-          color: #4A5A4A; border-radius: 8px;
+          color: #4A5A4A; border-radius: 8px; font-weight: 600;
           text-decoration: none; transition: color 0.15s, background 0.15s;
         }
         .mob-sub a:hover { color: #0D6E38; background: rgba(13,110,56,0.08); }
-        .mob-sub a.active { color: #0D6E38; background: rgba(13,110,56,0.09); font-weight: 600; }
+        .mob-sub a.active { color: #0D6E38; background: rgba(13,110,56,0.09); font-weight: 700; }
         .mob-sub-sub a { padding-left: 42px !important; }
 
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -870,7 +909,7 @@ export default function Nav() {
                           <div key={child.label}>
                             <button
                               className="mob-link"
-                              style={{ fontSize: 14, paddingLeft: 26 }}
+                              style={{ fontSize: 14, paddingLeft: 26, fontWeight: 700 }}
                               onClick={() =>
                                 setMobileL3(
                                   mobileL3 === child.label ? null : child.label,
