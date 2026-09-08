@@ -63,6 +63,9 @@ export default function PositioningFrameworkCard({ product }) {
           .step-nav-container {
             display: flex;
             overflow-x: auto;
+            overflow-y: hidden;
+            touch-action: pan-x;
+            overscroll-behavior-y: none;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 8px;
             gap: 8px;

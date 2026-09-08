@@ -103,9 +103,13 @@ const Product = () => {
             gap: 8px;
             flex-wrap: nowrap;
             overflow-x: auto;
+            overflow-y: hidden;
+            touch-action: pan-x;
+            overscroll-behavior-y: none;
             -webkit-overflow-scrolling: touch;
             border-bottom: 2px solid ${theme.border};
             margin-bottom: 30px;
+            padding-top: 4px;
             padding-bottom: 0;
             scrollbar-width: none;
             -ms-overflow-style: none;
