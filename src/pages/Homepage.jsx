@@ -160,7 +160,8 @@ const Homepage = () => {
     <div
       style={{
         fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
-        background: "#F8FAF6",
+        background: "var(--kalbe-bg)",
+        color: "var(--kalbe-text-main)",
         minHeight: "100vh",
         overflowX: "hidden",
       }}
@@ -353,9 +354,9 @@ const Homepage = () => {
               style={{
                 fontSize: 11.5,
                 fontWeight: 700,
-                color: "#4A5A4A",
-                background: "rgba(255,255,255,0.8)",
-                border: "1px solid rgba(13,110,56,0.12)",
+                color: "var(--kalbe-text-muted)",
+                background: "var(--kalbe-surface-elevated)",
+                border: "1px solid var(--kalbe-border)",
                 padding: "5px 12px",
                 borderRadius: 20,
               }}
@@ -370,7 +371,7 @@ const Homepage = () => {
               fontSize: "clamp(34px, 5.2vw, 56px)",
               fontWeight: 900,
               lineHeight: 1.15,
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               letterSpacing: "-0.03em",
               marginBottom: 16,
             }}
@@ -394,7 +395,7 @@ const Homepage = () => {
             style={{
               fontSize: "clamp(14px, 1.8vw, 15.5px)",
               lineHeight: 1.7,
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               maxWidth: 540,
               marginBottom: 24,
             }}
@@ -411,11 +412,11 @@ const Homepage = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 borderRadius: 50,
                 padding: "9px 18px",
-                border: "2px solid rgba(13,110,56,0.2)",
-                boxShadow: "0 12px 30px rgba(13,110,56,0.08)",
+                border: "2px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
                 transition: "border-color 0.2s ease, box-shadow 0.2s ease",
               }}
             >
@@ -430,7 +431,7 @@ const Homepage = () => {
                   outline: "none",
                   width: "100%",
                   fontSize: 13.5,
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   background: "transparent",
                   fontFamily: "inherit",
                 }}
@@ -462,7 +463,7 @@ const Homepage = () => {
 
             {/* Quick tags */}
             <div className="hero-quick-tags" style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 11.5, color: "#4A5A4A", fontWeight: 600 }}>ពេញនិយម:</span>
+              <span style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", fontWeight: 600 }}>ពេញនិយម:</span>
               {["EFESA", "BRAINACT", "HEPAFIT", "MEROFEN", "PAXUS", "CAR-Q 100", "PROSPAN", "NEPHRISOL"].map(
                 (tag) => (
                   <button
@@ -472,7 +473,7 @@ const Homepage = () => {
                     style={{
                       background: "rgba(13,110,56,0.07)",
                       color: "#0D6E38",
-                      border: "1px solid rgba(13,110,56,0.12)",
+                      border: "1px solid var(--kalbe-border)",
                       borderRadius: 20,
                       padding: "3px 11px",
                       fontSize: 11,
@@ -494,10 +495,10 @@ const Homepage = () => {
                   top: "calc(100% + 6px)",
                   left: 0,
                   right: 0,
-                  background: "#FFFFFF",
+                  background: "var(--kalbe-surface-elevated)",
                   borderRadius: 18,
-                  border: "1px solid rgba(13,110,56,0.15)",
-                  boxShadow: "0 24px 48px rgba(0,0,0,0.14)",
+                  border: "1px solid var(--kalbe-border)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                   maxHeight: 340,
                   overflowY: "auto",
                   zIndex: 500,
@@ -510,7 +511,7 @@ const Homepage = () => {
                       style={{
                         fontSize: 11,
                         fontWeight: 700,
-                        color: "#4A5A4A",
+                        color: "var(--kalbe-text-muted)",
                         textTransform: "uppercase",
                         letterSpacing: "1px",
                         padding: "8px 12px 4px",
@@ -529,10 +530,10 @@ const Homepage = () => {
                           padding: "10px 12px",
                           borderRadius: 12,
                           textDecoration: "none",
-                          color: "#1A241A",
+                          color: "var(--kalbe-text-main)",
                           transition: "background 0.15s",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.07)")}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.1)")}
                         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                       >
                         <img
@@ -542,7 +543,7 @@ const Homepage = () => {
                             width: 42,
                             height: 42,
                             objectFit: "contain",
-                            background: "#F8FAF6",
+                            background: "var(--kalbe-bg-alt)",
                             borderRadius: 10,
                             padding: 4,
                             flexShrink: 0,
@@ -558,13 +559,13 @@ const Homepage = () => {
                       </Link>
                     ))}
                     {filteredProducts.length > 8 && (
-                      <div style={{ padding: "8px 12px", fontSize: 12, color: "#4A5A4A", textAlign: "center" }}>
+                      <div style={{ padding: "8px 12px", fontSize: 12, color: "var(--kalbe-text-muted)", textAlign: "center" }}>
                         + ផលិតផល {filteredProducts.length - 8} ទៀត...
                       </div>
                     )}
                   </>
                 ) : (
-                  <div style={{ padding: "20px", textAlign: "center", color: "#4A5A4A", fontSize: 13 }}>
+                  <div style={{ padding: "20px", textAlign: "center", color: "var(--kalbe-text-muted)", fontSize: 13 }}>
                     មិនមានផលិតផលត្រូវនឹងពាក្យស្វែងរក "{searchQuery}"
                   </div>
                 )}
@@ -596,15 +597,15 @@ const Homepage = () => {
             <Link
               to="/about"
               style={{
-                background: "#FFFFFF",
-                color: "#0D6E38",
+                background: "var(--kalbe-surface)",
+                color: "var(--kalbe-text-main)",
                 padding: "11px 24px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
-                border: "1.5px solid rgba(13,110,56,0.3)",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
+                border: "1.5px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
                 transition: "all 0.2s ease",
               }}
             >
@@ -624,13 +625,13 @@ const Homepage = () => {
             className="floating-hero-card"
             style={{
               position: "relative",
-              background: "rgba(255, 255, 255, 0.92)",
+              background: "var(--kalbe-surface)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               borderRadius: "clamp(22px, 3.5vw, 32px)",
               padding: "clamp(18px, 3vw, 28px)",
-              boxShadow: `0 30px 70px -15px ${heroSlides[currentHeroSlide].glowColor}, 0 0 0 1px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.04)`,
-              border: `1px solid rgba(13,110,56,0.12)`,
+              boxShadow: `0 30px 70px -15px ${heroSlides[currentHeroSlide].glowColor}, 0 0 0 1px var(--kalbe-border-subtle), var(--kalbe-card-shadow)`,
+              border: `1px solid var(--kalbe-border)`,
               transition: "box-shadow 0.5s ease",
             }}
           >
@@ -660,10 +661,10 @@ const Homepage = () => {
                     fontSize: 11,
                     fontWeight: 700,
                     color: heroSlides[currentHeroSlide].accentColor,
-                    background: "rgba(255,255,255,0.9)",
+                    background: "var(--kalbe-surface-elevated)",
                     padding: "4px 10px",
                     borderRadius: 14,
-                    border: "1px solid rgba(0,0,0,0.06)",
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
                   {heroSlides[currentHeroSlide].skuCount} Products
@@ -672,7 +673,7 @@ const Homepage = () => {
 
               {/* Progress Indicator */}
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#6B7280", marginRight: 4 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--kalbe-text-muted)", marginRight: 4 }}>
                   0{currentHeroSlide + 1} / 0{heroSlides.length}
                 </span>
                 {heroSlides.map((_, i) => (
@@ -721,9 +722,9 @@ const Homepage = () => {
                   position: "absolute",
                   left: 12,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.92)",
+                  background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(0,0,0,0.08)",
+                  border: "1px solid var(--kalbe-border)",
                   width: 38,
                   height: 38,
                   borderRadius: "50%",
@@ -731,8 +732,8 @@ const Homepage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#1A241A",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.08)",
+                  color: "var(--kalbe-text-main)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
                 <HiOutlineChevronLeft style={{ fontSize: 18 }} />
@@ -776,9 +777,9 @@ const Homepage = () => {
                   position: "absolute",
                   right: 12,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.92)",
+                  background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(0,0,0,0.08)",
+                  border: "1px solid var(--kalbe-border)",
                   width: 38,
                   height: 38,
                   borderRadius: "50%",
@@ -786,8 +787,8 @@ const Homepage = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#1A241A",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.08)",
+                  color: "var(--kalbe-text-main)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
                 <HiOutlineChevronRight style={{ fontSize: 18 }} />
@@ -807,7 +808,7 @@ const Homepage = () => {
                     fontFamily: "'Montserrat', 'Inter', sans-serif",
                     fontSize: "clamp(20px, 2.6vw, 25px)",
                     fontWeight: 900,
-                    color: "#1A241A",
+                    color: "var(--kalbe-text-main)",
                     letterSpacing: "0.5px",
                     display: "flex",
                     alignItems: "center",
@@ -822,7 +823,7 @@ const Homepage = () => {
               <div
                 style={{
                   fontSize: "clamp(12.5px, 1.7vw, 13.5px)",
-                  color: "#4A5A4A",
+                  color: "var(--kalbe-text-muted)",
                   fontWeight: 500,
                   marginTop: 6,
                   lineHeight: 1.5,
@@ -847,9 +848,10 @@ const Homepage = () => {
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "1.5px",
-              color: "#0D6E38",
+              color: "var(--kalbe-green)",
               textTransform: "uppercase",
-              background: "rgba(13,110,56,0.1)",
+              background: "rgba(16, 185, 129, 0.15)",
+              border: "1px solid rgba(16, 185, 129, 0.25)",
               padding: "5px 16px",
               borderRadius: 20,
               display: "inline-block",
@@ -862,7 +864,7 @@ const Homepage = () => {
             style={{
               fontFamily: "Georgia, serif",
               fontSize: "clamp(26px, 4.5vw, 40px)",
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               fontWeight: 800,
               margin: 0,
             }}
@@ -884,13 +886,13 @@ const Homepage = () => {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setSelectedPortfolioId(p.id)}
                 style={{
-                  background: "#FFFFFF",
+                  background: "var(--kalbe-surface)",
                   borderRadius: 22,
                   padding: "clamp(18px, 2.4vw, 24px)",
-                  border: isSelected ? "2px solid #0D6E38" : "2px solid rgba(13,110,56,0.12)",
+                  border: isSelected ? "2px solid var(--kalbe-green)" : "2px solid var(--kalbe-border)",
                   boxShadow: isSelected
-                    ? "0 20px 44px rgba(13,110,56,0.16)"
-                    : "0 6px 18px rgba(0,0,0,0.04)",
+                    ? "0 20px 44px var(--kalbe-glow)"
+                    : "var(--kalbe-card-shadow)",
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
@@ -903,10 +905,13 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(10.5px, 1.1vw, 11.5px)",
                       fontWeight: 700,
-                      color: isSelected ? "#FFFFFF" : "#1A241A",
+                      color: isSelected ? "#FFFFFF" : "var(--kalbe-green)",
                       background: isSelected
                         ? "linear-gradient(135deg, #0D6E38, #16A34A)"
-                        : "rgba(13,110,56,0.08)",
+                        : "rgba(16, 185, 129, 0.15)",
+                      border: isSelected
+                        ? "1px solid #16A34A"
+                        : "1px solid rgba(16, 185, 129, 0.3)",
                       padding: "4px 10px",
                       borderRadius: 20,
                       whiteSpace: "nowrap",
@@ -920,10 +925,11 @@ const Homepage = () => {
                   <span
                     style={{
                       fontSize: "clamp(10.5px, 1.1vw, 11.5px)",
-                      color: "#4A5A4A",
+                      color: "var(--kalbe-text-muted)",
                       fontWeight: 700,
                       whiteSpace: "nowrap",
-                      background: "rgba(0,0,0,0.04)",
+                      background: "var(--kalbe-surface-elevated)",
+                      border: "1px solid var(--kalbe-border)",
                       padding: "4px 9px",
                       borderRadius: 20,
                       flexShrink: 0,
@@ -939,7 +945,7 @@ const Homepage = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-bg-alt)",
                     borderRadius: 14,
                     padding: "8px 12px",
                   }}
@@ -968,7 +974,7 @@ const Homepage = () => {
                       fontSize: "clamp(17px, 2.2vw, 21px)",
                       fontWeight: 900,
                       letterSpacing: "0.4px",
-                      color: isSelected ? "#0D6E38" : "#1A241A",
+                      color: isSelected ? "var(--kalbe-green)" : "var(--kalbe-text-main)",
                       marginBottom: 6,
                       lineHeight: 1.25,
                     }}
@@ -978,7 +984,7 @@ const Homepage = () => {
                   <p
                     style={{
                       fontSize: "clamp(12.5px, 1.4vw, 13px)",
-                      color: "#4A5A4A",
+                      color: "var(--kalbe-text-muted)",
                       lineHeight: 1.55,
                       margin: 0,
                     }}
@@ -995,7 +1001,7 @@ const Homepage = () => {
                     justifyContent: "space-between",
                     gap: 8,
                     paddingTop: 12,
-                    borderTop: "1px solid rgba(13,110,56,0.12)",
+                    borderTop: "1px solid var(--kalbe-border)",
                     minHeight: 44,
                   }}
                 >
@@ -1003,7 +1009,7 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(11.5px, 1.3vw, 12.5px)",
                       fontWeight: 700,
-                      color: isSelected ? "#0D6E38" : "#4A5A4A",
+                      color: isSelected ? "var(--kalbe-green)" : "var(--kalbe-text-muted)",
                       whiteSpace: "nowrap",
                       display: "inline-flex",
                       alignItems: "center",
@@ -1015,8 +1021,8 @@ const Homepage = () => {
                         width: 7,
                         height: 7,
                         borderRadius: "50%",
-                        background: isSelected ? "#0D6E38" : "transparent",
-                        border: isSelected ? "none" : "1.5px solid #9CA3AF",
+                        background: isSelected ? "var(--kalbe-green)" : "transparent",
+                        border: isSelected ? "none" : "1.5px solid var(--kalbe-text-muted)",
                         display: "inline-block",
                         flexShrink: 0,
                       }}
@@ -1029,21 +1035,22 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(11.5px, 1.3vw, 12.5px)",
                       fontWeight: 700,
-                      color: "#1A241A",
+                      color: "var(--kalbe-text-main)",
                       textDecoration: "none",
                       whiteSpace: "nowrap",
                       padding: "5px 12px",
                       borderRadius: 10,
-                      background: "rgba(13,110,56,0.07)",
+                      background: "var(--kalbe-surface-elevated)",
+                      border: "1px solid var(--kalbe-border)",
                       transition: "all 0.2s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#0D6E38";
+                      e.currentTarget.style.background = "var(--kalbe-green)";
                       e.currentTarget.style.color = "#fff";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(13,110,56,0.07)";
-                      e.currentTarget.style.color = "#1A241A";
+                      e.currentTarget.style.background = "var(--kalbe-surface-elevated)";
+                      e.currentTarget.style.color = "var(--kalbe-text-main)";
                     }}
                   >
                     បើកទំព័រពេញ →
@@ -1071,20 +1078,20 @@ const Homepage = () => {
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(19px, 2.6vw, 24px)",
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   fontWeight: 800,
                 }}
               >
                 {currentPortfolio.title} Products
               </h3>
-              <p style={{ fontSize: 13, color: "#4A5A4A", margin: "4px 0 0", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13, color: "var(--kalbe-text-muted)", margin: "4px 0 0", lineHeight: 1.5 }}>
                 {currentPortfolio.description}
               </p>
             </div>
             <Link
               to={`/product/${currentPortfolio.id}`}
               style={{
-                color: "#0D6E38",
+                color: "var(--kalbe-green)",
                 fontWeight: 700,
                 fontSize: 13,
                 textDecoration: "none",
@@ -1094,17 +1101,18 @@ const Homepage = () => {
                 gap: 4,
                 padding: "8px 16px",
                 borderRadius: 30,
-                border: "1.5px solid rgba(13,110,56,0.3)",
+                background: "var(--kalbe-surface-elevated)",
+                border: "1.5px solid var(--kalbe-border)",
                 transition: "all 0.2s ease",
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#0D6E38";
+                e.currentTarget.style.background = "var(--kalbe-green)";
                 e.currentTarget.style.color = "#fff";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#0D6E38";
+                e.currentTarget.style.background = "var(--kalbe-surface-elevated)";
+                e.currentTarget.style.color = "var(--kalbe-green)";
               }}
             >
               View Full Portfolio →

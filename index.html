@@ -6,13 +6,38 @@
     <link rel="icon" type="image/png" href="/Kalbe-logo-web.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalbe Product</title>
-    <!-- Google Fonts for crisp English and Khmer typography -->
+    <!-- Google Fonts (Non-blocking with instant offline fallback) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Kantumruy+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&family=Nunito:wght@700;800;900;1000&family=Outfit:wght@600;700;800;900&family=Poppins:wght@600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Kantumruy+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&family=Nunito:wght@700;800;900;1000&family=Outfit:wght@600;700;800;900&family=Poppins:wght@600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Kantumruy+Pro:wght@400;500;600;700&family=Montserrat:wght@600;700;800;900&family=Nunito:wght@700;800;900;1000&family=Outfit:wght@600;700;800;900&family=Poppins:wght@600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
+      />
+    </noscript>
+    <!-- Theme color meta and pre-hydration theme init -->
+    <meta name="theme-color" content="#F8FAF6" id="app-theme-color" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('kalbe-theme');
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved === 'dark' || ((!saved || saved === 'system') && systemDark);
+          if (isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.classList.add('dark');
+            var meta = document.getElementById('app-theme-color');
+            if (meta) meta.setAttribute('content', '#0B130E');
+          }
+        } catch(e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -33,7 +33,8 @@ const About = () => {
     <div
       style={{
         fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-        background: "#F8FAF6",
+        background: "var(--kalbe-bg)",
+        color: "var(--kalbe-text-main)",
         minHeight: "100vh",
         overflowX: "hidden",
       }}
@@ -46,15 +47,15 @@ const About = () => {
         .fade-up { animation: fadeUp 0.6s ease forwards; }
 
         .about-card {
-          background: #FFFFFF;
+          background: var(--kalbe-surface);
           border-radius: 20px;
-          border: 1px solid rgba(13,110,56,0.12);
-          box-shadow: 0 8px 24px rgba(13,110,56,0.05);
+          border: 1px solid var(--kalbe-border);
+          box-shadow: var(--kalbe-card-shadow);
           transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .about-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 16px 36px rgba(13,110,56,0.09);
+          box-shadow: 0 16px 36px var(--kalbe-glow);
         }
 
         .section-tag {
@@ -62,7 +63,7 @@ const About = () => {
           font-size: 12px;
           font-weight: 700;
           letter-spacing: 2px;
-          color: "#0D6E38";
+          color: #0D6E38;
           text-transform: uppercase;
           background: rgba(13,110,56,0.09);
           padding: 5px 16px;
@@ -73,7 +74,7 @@ const About = () => {
         .unabridged-text p {
           margin-bottom: 16px;
           line-height: 1.8;
-          color: #4A3B32;
+          color: var(--kalbe-text-main);
           font-size: 15px;
         }
       `}</style>
@@ -88,19 +89,19 @@ const About = () => {
           justifyContent: "center",
           textAlign: "center",
           padding: "clamp(100px, 13vw, 125px) 5% 40px",
-          background: "linear-gradient(135deg, #F0FDF4 0%, #EBF5E5 100%)",
-          borderBottom: "1px solid rgba(13,110,56,0.1)",
+          background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
+          borderBottom: "1px solid var(--kalbe-border)",
         }}
       >
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div className="fade-up" style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
             <div
               style={{
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 padding: "10px 24px",
                 borderRadius: 40,
-                border: "1px solid rgba(13,110,56,0.15)",
-                boxShadow: "0 4px 16px rgba(13,110,56,0.06)",
+                border: "1px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
                 display: "inline-flex",
                 alignItems: "center",
               }}
@@ -137,7 +138,7 @@ const About = () => {
               fontFamily: "Georgia, 'Times New Roman', serif",
               fontSize: "clamp(34px, 5.5vw, 54px)",
               fontWeight: 800,
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               lineHeight: 1.15,
               marginBottom: 16,
             }}
@@ -159,7 +160,7 @@ const About = () => {
             style={{
               fontSize: "clamp(15px, 2.7vw, 17px)",
               lineHeight: 1.7,
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               maxWidth: 780,
               margin: "0 auto",
             }}
@@ -188,12 +189,12 @@ const About = () => {
                 <div style={{ fontSize: 12, fontWeight: 800, color: "#2E7D32", letterSpacing: 2, textTransform: "uppercase" }}>
                   Our Mission
                 </div>
-                <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1A241A", margin: 0 }}>
+                <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "var(--kalbe-text-main)", margin: 0 }}>
                   Mission
                 </h3>
               </div>
             </div>
-            <p style={{ fontSize: 17, lineHeight: 1.7, color: "#1A241A", fontWeight: 600, margin: 0 }}>
+            <p style={{ fontSize: 17, lineHeight: 1.7, color: "var(--kalbe-text-main)", fontWeight: 600, margin: 0 }}>
               To improve Health for a Better Life.
             </p>
           </div>
@@ -208,12 +209,12 @@ const About = () => {
                 <div style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase" }}>
                   Our Vision
                 </div>
-                <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "#1A241A", margin: 0 }}>
+                <h3 style={{ fontFamily: "Georgia, serif", fontSize: 22, color: "var(--kalbe-text-main)", margin: 0 }}>
                   Vision
                 </h3>
               </div>
             </div>
-            <p style={{ fontSize: 15.5, lineHeight: 1.7, color: "#4A3B32", margin: 0 }}>
+            <p style={{ fontSize: 15.5, lineHeight: 1.7, color: "var(--kalbe-text-main)", margin: 0 }}>
               To be dominant in the health care business in Indonesia and exist in the global market with strong brands, enabled by excellent management, science and technology.
             </p>
           </div>
@@ -226,7 +227,7 @@ const About = () => {
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             Overview
           </span>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "#1A241A", marginTop: 0, marginBottom: 20 }}>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 20 }}>
             Kalbe At A Glance
           </h2>
 
@@ -258,11 +259,11 @@ const About = () => {
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             Achievements & Reach
           </span>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "#1A241A", marginTop: 0, marginBottom: 20 }}>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 20 }}>
             Business Performance
           </h2>
 
-          <div style={{ display: "grid", gap: 16, fontSize: 15, color: "#4A3B32", lineHeight: 1.8 }}>
+          <div style={{ display: "grid", gap: 16, fontSize: 15, color: "var(--kalbe-text-main)", lineHeight: 1.8 }}>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
               <HiOutlineGlobeAlt style={{ color: "#0D6E38", fontSize: 22, flexShrink: 0, marginTop: 4 }} />
               <div>KALBE is a global company that exist in more than 20 countries all over the world and reach almost 1 billion people.</div>
@@ -297,7 +298,7 @@ const About = () => {
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             People & Culture
           </span>
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "#1A241A", marginTop: 0, marginBottom: 18 }}>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 18 }}>
             Human Resources
           </h2>
 
@@ -313,21 +314,21 @@ const About = () => {
           {/* Panca Sradha Box */}
           <div
             style={{
-              background: "#F0FDF4",
+              background: "var(--kalbe-bg-alt)",
               borderRadius: 16,
               padding: "24px 28px",
               margin: "24px 0",
-              border: "1px solid rgba(13,110,56,0.15)",
+              border: "1px solid var(--kalbe-border)",
             }}
           >
             <h3 style={{ fontSize: 17, fontWeight: 800, color: "#0D6E38", marginTop: 0, marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>
               Embedding The Kalbe Panca Sradha Spirit
             </h3>
-            <p style={{ fontSize: 14.5, color: "#4A3B32", marginBottom: 14 }}>
+            <p style={{ fontSize: 14.5, color: "var(--kalbe-text-muted)", marginBottom: 14 }}>
               In 2010, Kalbe Group formally defined its corporate values, Kalbe Panca Sradha, reflecting the following five principles:
             </p>
 
-            <ul style={{ paddingLeft: 22, margin: 0, display: "grid", gap: 8, fontSize: 14.5, color: "#1A241A", fontWeight: 600 }}>
+            <ul style={{ paddingLeft: 22, margin: 0, display: "grid", gap: 8, fontSize: 14.5, color: "var(--kalbe-text-main)", fontWeight: 600 }}>
               <li>Trust is the glue of life</li>
               <li>Mindfulness is the foundation of our action</li>
               <li>Innovation is the key to our success</li>
@@ -335,7 +336,7 @@ const About = () => {
               <li>Interconnectedness is a universal of life</li>
             </ul>
 
-            <p style={{ fontSize: 14, color: "#4A5A4A", marginTop: 14, marginBottom: 0 }}>
+            <p style={{ fontSize: 14, color: "var(--kalbe-text-muted)", marginTop: 14, marginBottom: 0 }}>
               Kalbe Panca Sradha values form the foundation of mentality to unify Kalbe Group’s more than 17,000 employees, who work in 24 distinct business entities in Indonesia and overseas.
             </p>
           </div>
@@ -343,16 +344,17 @@ const About = () => {
           {/* 2019 Priority */}
           <div
             style={{
-              background: "#F8FAF6",
+              background: "var(--kalbe-bg-alt)",
               borderRadius: 16,
               padding: "20px 24px",
               borderLeft: "4px solid #0D6E38",
+              border: "1px solid var(--kalbe-border)",
             }}
           >
-            <h4 style={{ fontSize: 15, fontWeight: 800, color: "#1A241A", marginTop: 0, marginBottom: 8, textTransform: "uppercase" }}>
+            <h4 style={{ fontSize: 15, fontWeight: 800, color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 8, textTransform: "uppercase" }}>
               Priority: "Leader Creates Leaders"
             </h4>
-            <p style={{ margin: 0, fontSize: 14.5, color: "#4A3B32", lineHeight: 1.7 }}>
+            <p style={{ margin: 0, fontSize: 14.5, color: "var(--kalbe-text-muted)", lineHeight: 1.7 }}>
               We are committed to place top priority on people development based on the “Leader creates Leaders” principle to nurture Kalbe’s future business leaders. Ability to build crossfunctional and cross-business synergies remains a crucial element of leadership to be developed through individual development plan, coaching, counseling and mentoring with the involvement of management in the process.
             </p>
           </div>
@@ -369,7 +371,7 @@ const About = () => {
             </span>
           </div>
 
-          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "#1A241A", marginTop: 0, marginBottom: 24 }}>
+          <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(26px, 4vw, 36px)", color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 24 }}>
             CEO Message
           </h2>
 
@@ -379,10 +381,10 @@ const About = () => {
               style={{
                 display: "inline-block",
                 padding: "8px",
-                background: "linear-gradient(135deg, #F0FDF4 0%, #F8FAF6 100%)",
+                background: "var(--kalbe-bg-alt)",
                 borderRadius: 24,
-                border: "1px solid rgba(13,110,56,0.15)",
-                boxShadow: "0 12px 28px rgba(13,110,56,0.08)",
+                border: "1px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
               }}
             >
               <img
@@ -399,7 +401,7 @@ const About = () => {
               />
             </div>
             <div style={{ marginTop: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#1A241A" }}>Vidjongtius</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "var(--kalbe-text-main)" }}>Vidjongtius</div>
               <div style={{ fontSize: 13.5, color: "#0D6E38", fontWeight: 700, marginTop: 2 }}>
                 President Director / CEO, PT Kalbe Farma Tbk
               </div>

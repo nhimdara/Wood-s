@@ -27,14 +27,13 @@ export default function PositioningFrameworkCard({ product }) {
     { id: "say", label: "5. SAY", title: "Product Detailing" },
   ];
 
-  return (
-    <div
+  return (    <div
       style={{
-        background: "#FFFFFF",
+        background: "var(--kalbe-surface)",
         borderRadius: "clamp(16px, 3vw, 24px)",
-        border: `1px solid ${theme.border}`,
+        border: `1px solid var(--kalbe-border)`,
         padding: "clamp(16px, 3.5vw, 28px)",
-        boxShadow: `0 20px 40px ${theme.glow}`,
+        boxShadow: `var(--kalbe-card-shadow)`,
       }}
     >
       <style>{`
@@ -49,7 +48,7 @@ export default function PositioningFrameworkCard({ product }) {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
+          justifyContent: center;
           gap: 4px;
           padding: 12px 8px;
           border-radius: 14px;
@@ -96,7 +95,7 @@ export default function PositioningFrameworkCard({ product }) {
             letterSpacing: "1.5px",
             color: theme.primary,
             textTransform: "uppercase",
-            background: theme.light,
+            background: "rgba(13, 110, 56, 0.15)",
             padding: "4px 14px",
             borderRadius: 20,
             display: "inline-block",
@@ -109,14 +108,14 @@ export default function PositioningFrameworkCard({ product }) {
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: "clamp(20px, 3.5vw, 26px)",
-            color: "#1A241A",
+            color: "var(--kalbe-text-main)",
             fontWeight: 800,
             margin: "2px 0",
           }}
         >
           Product Positioning Framework
         </h3>
-        <p style={{ fontSize: 12.5, color: "#4A5A4A", margin: "4px 0 0" }}>
+        <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", margin: "4px 0 0" }}>
           ក្របខណ្ឌបង្ហាញផលិតផល 5 ជំហាន (WHO, WHAT, WHY, HOW, SAY) សម្រាប់ <strong style={{ color: theme.primary }}>{product.title}</strong>
         </p>
       </div>
@@ -131,15 +130,15 @@ export default function PositioningFrameworkCard({ product }) {
               onClick={() => setActiveStep(s.id)}
               className="step-btn"
               style={{
-                border: isActive ? `2px solid ${theme.primary}` : "1px solid rgba(0,0,0,0.08)",
-                background: isActive ? theme.light : "#FFFFFF",
+                border: isActive ? `2px solid ${theme.primary}` : "1px solid var(--kalbe-border)",
+                background: isActive ? "rgba(13, 110, 56, 0.15)" : "var(--kalbe-surface)",
                 boxShadow: isActive ? `0 4px 12px ${theme.glow}` : "none",
               }}
             >
-              <span style={{ fontSize: 13, fontWeight: 700, color: isActive ? theme.primary : "#1A241A" }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: isActive ? theme.primary : "var(--kalbe-text-main)" }}>
                 {s.label}
               </span>
-              <span style={{ fontSize: 11, color: isActive ? theme.primary : "#4A5A4A", fontWeight: 500, lineHeight: 1.2 }}>
+              <span style={{ fontSize: 11, color: isActive ? theme.primary : "var(--kalbe-text-muted)", fontWeight: 500, lineHeight: 1.2 }}>
                 {s.title}
               </span>
             </button>
@@ -150,10 +149,10 @@ export default function PositioningFrameworkCard({ product }) {
       {/* Step Content Box */}
       <div
         style={{
-          background: theme.bg,
+          background: "var(--kalbe-bg-alt)",
           borderRadius: 18,
           padding: "clamp(16px, 3vw, 24px)",
-          border: `1px solid ${theme.border}`,
+          border: "1px solid var(--kalbe-border)",
           minHeight: 180,
         }}
       >
@@ -164,7 +163,7 @@ export default function PositioningFrameworkCard({ product }) {
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
                 1. WHO — សម្រាប់អ្នកជំងឺណា? (Target Patient / Indication)
               </h4>
-              <span style={{ fontSize: 12, color: "#4A5A4A" }}>
+              <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
                 បញ្ជាក់យ៉ាងច្បាស់លាស់នូវក្រុមអ្នកជំងឺដែលត្រូវប្រើប្រាស់
               </span>
             </div>
@@ -174,16 +173,17 @@ export default function PositioningFrameworkCard({ product }) {
                   <div
                     key={idx}
                     style={{
-                      background: "#FFFFFF",
+                      background: "var(--kalbe-surface)",
                       padding: "12px 16px",
                       borderRadius: 12,
+                      border: "1px solid var(--kalbe-border)",
                       display: "flex",
                       alignItems: "center",
                       gap: 10,
                       fontSize: 14,
-                      color: "#1A241A",
+                      color: "var(--kalbe-text-main)",
                       fontWeight: 500,
-                      boxShadow: "0 2px 6px rgba(0,0,0,0.03)",
+                      boxShadow: "var(--kalbe-card-shadow)",
                     }}
                   >
                     <span style={{ color: theme.primary, fontWeight: 700 }}>•</span>
@@ -191,7 +191,7 @@ export default function PositioningFrameworkCard({ product }) {
                   </div>
                 ))
               ) : (
-                <div style={{ fontSize: 14, color: "#1A241A" }}>{fw.who}</div>
+                <div style={{ fontSize: 14, color: "var(--kalbe-text-main)" }}>{fw.who}</div>
               )}
             </div>
           </div>
@@ -204,7 +204,7 @@ export default function PositioningFrameworkCard({ product }) {
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
                 2. WHAT — អត្តសញ្ញាណ & សមាសធាតុ (Identity + Composition)
               </h4>
-              <span style={{ fontSize: 12, color: "#4A5A4A" }}>
+              <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
                 ព័ត៌មានលម្អិតអំពីសារធាតុសកម្ម កម្រិត ទម្រង់ និងបច្ចេកវិទ្យា
               </span>
             </div>
@@ -219,13 +219,13 @@ export default function PositioningFrameworkCard({ product }) {
                 <div
                   key={idx}
                   style={{
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-surface)",
                     padding: "14px 16px",
                     borderRadius: 14,
-                    border: `1px solid ${theme.border}`,
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
-                  <div style={{ fontSize: 11, color: "#4A5A4A", textTransform: "uppercase", fontWeight: 600 }}>
+                  <div style={{ fontSize: 11, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600 }}>
                     {key.replace(/([A-Z])/g, " $1")}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: theme.primary, marginTop: 4 }}>
@@ -244,7 +244,7 @@ export default function PositioningFrameworkCard({ product }) {
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
                 3. WHY — ហេតុអ្វីជ្រើសរើស? (Feature → Benefit)
               </h4>
-              <span style={{ fontSize: 12, color: "#4A5A4A" }}>
+              <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
                 លក្ខណៈពិសេសនីមួយៗផ្តល់អត្ថប្រយោជន៍ព្យាបាលជាក់ស្តែង
               </span>
             </div>
@@ -254,16 +254,16 @@ export default function PositioningFrameworkCard({ product }) {
                   <div
                     key={idx}
                     style={{
-                      background: "#FFFFFF",
+                      background: "var(--kalbe-surface)",
                       padding: "14px 16px",
                       borderRadius: 14,
-                      border: `1px solid ${theme.border}`,
+                      border: "1px solid var(--kalbe-border)",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                       <span
                         style={{
-                          background: theme.light,
+                          background: "rgba(13, 110, 56, 0.15)",
                           color: theme.primary,
                           fontSize: 10.5,
                           fontWeight: 700,
@@ -274,14 +274,14 @@ export default function PositioningFrameworkCard({ product }) {
                       >
                         Feature
                       </span>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: "#1A241A" }}>
+                      <span style={{ fontSize: 14, fontWeight: 700, color: "var(--kalbe-text-main)" }}>
                         {item.feature}
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 8, paddingLeft: 4 }}>
                       <span style={{ color: theme.primary, fontSize: 13, marginTop: 1 }}>↳</span>
-                      <span style={{ fontSize: 13.5, color: "#4A5A4A", lineHeight: 1.5 }}>
-                        <strong style={{ color: theme.dark }}>Benefit:</strong> {item.benefit}
+                      <span style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.5 }}>
+                        <strong style={{ color: "var(--kalbe-text-main)" }}>Benefit:</strong> {item.benefit}
                       </span>
                     </div>
                   </div>
@@ -297,7 +297,7 @@ export default function PositioningFrameworkCard({ product }) {
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
                 4. HOW — របៀបប្រើប្រាស់ & កម្រិត (Dose, Preparation & Use)
               </h4>
-              <span style={{ fontSize: 12, color: "#4A5A4A" }}>
+              <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
                 កម្រិតប្រើប្រាស់ ការតាមដាន និងការរក្សាទុកត្រឹមត្រូវ
               </span>
             </div>
@@ -306,10 +306,10 @@ export default function PositioningFrameworkCard({ product }) {
                 <div
                   key={idx}
                   style={{
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-surface)",
                     padding: "12px 16px",
                     borderRadius: 12,
-                    border: `1px solid ${theme.border}`,
+                    border: "1px solid var(--kalbe-border)",
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 12,
@@ -317,7 +317,7 @@ export default function PositioningFrameworkCard({ product }) {
                 >
                   <span
                     style={{
-                      background: theme.light,
+                      background: "rgba(13, 110, 56, 0.15)",
                       color: theme.primary,
                       fontSize: 11,
                       fontWeight: 700,
@@ -331,7 +331,7 @@ export default function PositioningFrameworkCard({ product }) {
                   >
                     {key}
                   </span>
-                  <span style={{ fontSize: 13.5, color: "#1A241A", lineHeight: 1.6 }}>
+                  <span style={{ fontSize: 13.5, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
                     {val}
                   </span>
                 </div>
@@ -347,17 +347,19 @@ export default function PositioningFrameworkCard({ product }) {
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
                 5. SAY — សារសំខាន់សម្រាប់វេជ្ជបណ្ឌិត (Product Detailing / Elevator Pitch)
               </h4>
-              <span style={{ fontSize: 12, color: "#4A5A4A" }}>
+              <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
                 សារសង្ខេបគន្លឹះដើម្បី Detailing ទៅកាន់ Healthcare Professionals
               </span>
             </div>
             <div
               style={{
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 borderRadius: 14,
                 padding: "18px 20px",
                 borderLeft: `4px solid ${theme.primary}`,
-                boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+                border: "1px solid var(--kalbe-border)",
+                borderLeftWidth: 4,
+                boxShadow: "var(--kalbe-card-shadow)",
               }}
             >
               <p
@@ -365,7 +367,7 @@ export default function PositioningFrameworkCard({ product }) {
                   margin: 0,
                   fontSize: 14.5,
                   lineHeight: 1.8,
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   fontStyle: "italic",
                 }}
               >

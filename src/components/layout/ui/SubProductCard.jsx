@@ -26,18 +26,18 @@ const SubProductCard = ({ product, parentId }) => {
     >
       <div
         style={{
-          background: "#FFFFFF",
+          background: "var(--kalbe-surface)",
           borderRadius: 20,
           overflow: "hidden",
           border: isHovered
             ? `1px solid ${theme.primary}40`
-            : "1px solid rgba(13,110,56,0.12)",
+            : "1px solid var(--kalbe-border)",
           transform: isHovered
             ? "translateY(-6px) translateZ(0)"
             : "translateY(0) translateZ(0)",
           boxShadow: isHovered
             ? `0 18px 36px ${theme.primary}20`
-            : "0 4px 16px rgba(0,0,0,0.03)",
+            : "var(--kalbe-card-shadow)",
           transition: "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease",
           cursor: "pointer",
           height: "100%",
@@ -51,7 +51,7 @@ const SubProductCard = ({ product, parentId }) => {
             position: "relative",
             overflow: "hidden",
             height: "clamp(180px, 30vw, 220px)",
-            backgroundColor: "#F8FAF6",
+            backgroundColor: "var(--kalbe-bg-alt)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -130,13 +130,14 @@ const SubProductCard = ({ product, parentId }) => {
                 position: "absolute",
                 top: 12,
                 right: 12,
-                background: "rgba(255,255,255,0.92)",
+                background: "var(--kalbe-surface-elevated)",
                 backdropFilter: "blur(6px)",
-                color: "#1A241A",
+                color: "var(--kalbe-text-main)",
                 padding: "4px 8px",
                 borderRadius: 8,
                 fontSize: 12,
                 fontWeight: 700,
+                border: "1px solid var(--kalbe-border)",
                 boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
               }}
             >
@@ -169,7 +170,7 @@ const SubProductCard = ({ product, parentId }) => {
             <p
               style={{
                 fontSize: "clamp(11.5px, 2.5vw, 13px)",
-                color: "#4A5A4A",
+                color: "var(--kalbe-text-muted)",
                 fontWeight: 600,
                 marginBottom: 10,
                 lineHeight: 1.4,
@@ -181,7 +182,7 @@ const SubProductCard = ({ product, parentId }) => {
           <p
             style={{
               fontSize: "clamp(12px, 2.8vw, 14px)",
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               lineHeight: 1.5,
               marginBottom: 16,
               display: "-webkit-box",
