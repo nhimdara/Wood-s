@@ -14,10 +14,12 @@ import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 const Product = () => {
   const { id, subId } = useParams();
   const [activeTab, setActiveTab] = useState("framework");
+  const [imgError, setImgError] = useState(false);
 
   // Scroll to top when route changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setImgError(false);
   }, [id, subId]);
 
   const parentProduct = products.find((p) => String(p.id) === id);
@@ -228,29 +230,62 @@ const Product = () => {
                 overflow: "hidden",
               }}
             >
-              <img
-                src={subProduct.image}
-                alt={subProduct.title}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  objectFit: "contain",
-                  transition: "transform 0.4s ease",
-                }}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                  const parent = e.target.parentElement;
-                  parent.style.background = `linear-gradient(135deg, ${theme.light} 0%, #FFFFFF 100%)`;
-                  parent.style.display = "flex";
-                  parent.style.alignItems = "center";
-                  parent.style.justifyContent = "center";
-                  parent.innerHTML = `<div style="text-align:center;padding:24px;"><div style="color:${theme.primary};font-size:28px;font-weight:900;font-family:${theme.fontFamily || 'inherit'}">${subProduct.title}</div><div style="font-size:14px;color:#4A5A4A;margin-top:8px;font-weight:600;">${subProduct.genericName || ''}</div></div>`;
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-              />
+              {imgError ? (
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    padding: 24,
+                    background: `linear-gradient(135deg, ${theme.light} 0%, #FFFFFF 100%)`,
+                    borderRadius: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      color: theme.primary,
+                      fontSize: 28,
+                      fontWeight: 900,
+                      fontFamily: theme.fontFamily || "inherit",
+                    }}
+                  >
+                    {subProduct.title}
+                  </div>
+                  {subProduct.genericName && (
+                    <div
+                      style={{
+                        fontSize: 14,
+                        color: "#4A5A4A",
+                        marginTop: 8,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {subProduct.genericName}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <img
+                  src={subProduct.image}
+                  alt={subProduct.title}
+                  decoding="async"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                    transition: "transform 0.4s ease",
+                  }}
+                  onError={() => setImgError(true)}
+                  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                />
+              )}
 
               {subProduct.badge && (
                 <div
@@ -735,6 +770,8 @@ const Product = () => {
               <img
                 src={parentProduct.image}
                 alt={parentProduct.title}
+                loading="lazy"
+                decoding="async"
                 style={{
                   width: "100%",
                   maxHeight: 280,

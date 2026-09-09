@@ -1,10 +1,13 @@
 // components/layout/ui/SubProductCard.jsx
-import React from "react";
+import React, { useState, memo } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { PRODUCT_THEMES } from "../../data/products";
 
 const SubProductCard = ({ product, parentId }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
   const productUrl = `/product/${parentId}/${product.id}`;
   const theme = PRODUCT_THEMES[product.id] || {
     title: product.title,
@@ -15,28 +18,32 @@ const SubProductCard = ({ product, parentId }) => {
   };
 
   return (
-    <Link to={productUrl} style={{ textDecoration: "none", display: "block" }}>
+    <Link
+      to={productUrl}
+      style={{ textDecoration: "none", display: "block" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div
         style={{
           background: "#FFFFFF",
           borderRadius: 20,
           overflow: "hidden",
-          border: "1px solid rgba(13,110,56,0.12)",
-          transition: "all 0.4s cubic-bezier(0.2, 0, 0, 1)",
+          border: isHovered
+            ? `1px solid ${theme.primary}40`
+            : "1px solid rgba(13,110,56,0.12)",
+          transform: isHovered
+            ? "translateY(-6px) translateZ(0)"
+            : "translateY(0) translateZ(0)",
+          boxShadow: isHovered
+            ? `0 18px 36px ${theme.primary}20`
+            : "0 4px 16px rgba(0,0,0,0.03)",
+          transition: "transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease",
           cursor: "pointer",
           height: "100%",
           display: "flex",
           flexDirection: "column",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = "translateY(-8px)";
-          e.currentTarget.style.boxShadow = `0 20px 40px ${theme.primary}25`;
-          e.currentTarget.style.borderColor = `${theme.primary}40`;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.04)";
-          e.currentTarget.style.borderColor = "rgba(13,110,56,0.12)";
+          willChange: "transform, box-shadow",
         }}
       >
         <div
@@ -51,27 +58,54 @@ const SubProductCard = ({ product, parentId }) => {
             padding: "16px",
           }}
         >
-          <img
-            src={product.image}
-            alt={product.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              transition: "transform 0.4s ease",
-            }}
-            onError={(e) => {
-              e.target.style.display = "none";
-              const parent = e.target.parentElement;
-              parent.style.background = `linear-gradient(135deg, ${theme.light || "#F8FAF6"} 0%, #FFFFFF 100%)`;
-              parent.style.display = "flex";
-              parent.style.alignItems = "center";
-              parent.style.justifyContent = "center";
-              parent.innerHTML = `<div style="text-align:center;padding:16px;"><div style="color:${theme.primary || "#0D6E38"};font-size:20px;font-weight:900;font-family:${theme.fontFamily || 'inherit'}">${product.title}</div><div style="font-size:11.5px;color:#4A5A4A;margin-top:4px;">${product.genericName || ''}</div></div>`;
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.06)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          />
+          {imgError ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: "16px",
+                background: `linear-gradient(135deg, ${theme.light || "#F8FAF6"} 0%, #FFFFFF 100%)`,
+                borderRadius: 12,
+              }}
+            >
+              <div
+                style={{
+                  color: theme.primary || "#0D6E38",
+                  fontSize: 20,
+                  fontWeight: 900,
+                  fontFamily: theme.fontFamily || "inherit",
+                }}
+              >
+                {product.title}
+              </div>
+              {product.genericName && (
+                <div style={{ fontSize: 11.5, color: "#4A5A4A", marginTop: 4 }}>
+                  {product.genericName}
+                </div>
+              )}
+            </div>
+          ) : (
+            <img
+              src={product.image}
+              alt={product.title}
+              loading="lazy"
+              decoding="async"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                transform: isHovered ? "scale(1.05)" : "scale(1)",
+                transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
+              onError={() => setImgError(true)}
+            />
+          )}
+
           {product.badge && (
             <div
               style={{
@@ -84,6 +118,7 @@ const SubProductCard = ({ product, parentId }) => {
                 fontWeight: 700,
                 padding: "3px 10px",
                 borderRadius: 20,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
               }}
             >
               {product.badge}
@@ -95,19 +130,28 @@ const SubProductCard = ({ product, parentId }) => {
                 position: "absolute",
                 top: 12,
                 right: 12,
-                background: "rgba(255,255,255,0.9)",
+                background: "rgba(255,255,255,0.92)",
+                backdropFilter: "blur(6px)",
                 color: "#1A241A",
                 padding: "4px 8px",
                 borderRadius: 8,
                 fontSize: 12,
                 fontWeight: 700,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
               }}
             >
               {product.price}
             </div>
           )}
         </div>
-        <div style={{ padding: "clamp(16px, 4vw, 20px)", flex: 1, display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            padding: "clamp(16px, 4vw, 20px)",
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <h3
             style={{
               fontFamily: theme.fontFamily,
@@ -147,7 +191,9 @@ const SubProductCard = ({ product, parentId }) => {
               flex: 1,
             }}
           >
-            {product.details.description.substring(0, 100)}...
+            {product.details?.description
+              ? product.details.description.substring(0, 100) + "..."
+              : ""}
           </p>
           <div
             style={{
@@ -157,6 +203,8 @@ const SubProductCard = ({ product, parentId }) => {
               color: theme.primary,
               fontSize: "clamp(12px, 2.8vw, 14px)",
               fontWeight: 700,
+              transform: isHovered ? "translateX(3px)" : "translateX(0)",
+              transition: "transform 0.2s ease",
             }}
           >
             View Details <HiOutlineChevronRight />
@@ -167,4 +215,4 @@ const SubProductCard = ({ product, parentId }) => {
   );
 };
 
-export default SubProductCard;
+export default memo(SubProductCard);

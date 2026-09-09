@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
@@ -13,86 +13,89 @@ const Homepage = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const searchRef = useRef(null);
 
-  const heroSlides = [
-    {
-      id: 1,
-      title: "ENDO METABOLIC",
-      badge: "Specialized Therapy",
-      image: "/images/ENDO-METABOLIC.png",
-      desc: "CKD Anemia • CKD Nutrition • DPN • Diabetes Management",
-      portfolioId: 1,
-      skuCount: 6,
-      accentColor: "#DC2626",
-      glowColor: "rgba(220, 38, 38, 0.18)",
-      lightBg: "linear-gradient(145deg, #FFF1F2 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #DC2626 0%, #991B1B 100%)",
-    },
-    {
-      id: 2,
-      title: "MEDNUT",
-      badge: "Clinical Nutrition",
-      image: "/images/Mednut.png",
-      desc: "Precision Medical Nutrition for Specific Disease Conditions",
-      portfolioId: 2,
-      skuCount: 5,
-      accentColor: "#16A34A",
-      glowColor: "rgba(22, 163, 74, 0.18)",
-      lightBg: "linear-gradient(145deg, #F0FDF4 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #16A34A 0%, #15803D 100%)",
-    },
-    {
-      id: 3,
-      title: "CHILDREN PRODUCT",
-      badge: "Pediatric Care",
-      image: "/images/Children-Product.png",
-      desc: "Gut Health • Cough Relief • Pediatric Antibiotics",
-      portfolioId: 3,
-      skuCount: 3,
-      accentColor: "#D97706",
-      glowColor: "rgba(217, 119, 6, 0.18)",
-      lightBg: "linear-gradient(145deg, #FEF3C7 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
-    },
-    {
-      id: 4,
-      title: "CELEBROVASCULAR",
-      badge: "Neuro & Vascular Care",
-      image: "/images/CELEBROVASCULAR.png",
-      desc: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy Booster",
-      portfolioId: 4,
-      skuCount: 7,
-      accentColor: "#0284C7",
-      glowColor: "rgba(2, 132, 199, 0.18)",
-      lightBg: "linear-gradient(145deg, #F0F9FF 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
-    },
-    {
-      id: 5,
-      title: "HOSPITAL LINE",
-      badge: "Hospital & Clinical Care",
-      image: "/images/Hospital-Line.png",
-      desc: "Gut Microbiota • Hepato-Protection • Antibiotics • Skin Care",
-      portfolioId: 5,
-      skuCount: 7,
-      accentColor: "#4338CA",
-      glowColor: "rgba(67, 56, 202, 0.18)",
-      lightBg: "linear-gradient(145deg, #EEF2FF 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #4338CA 0%, #3730A3 100%)",
-    },
-    {
-      id: 6,
-      title: "ONCOLOGY",
-      badge: "Cancer Care",
-      image: "/images/Oncology.png",
-      desc: "Chemotherapy • Supportive Care • Protocol-Based Treatment",
-      portfolioId: 6,
-      skuCount: 5,
-      accentColor: "#701A75",
-      glowColor: "rgba(112, 26, 117, 0.18)",
-      lightBg: "linear-gradient(145deg, #FDF4FF 0%, #FFFFFF 100%)",
-      badgeGradient: "linear-gradient(135deg, #701A75 0%, #581C87 100%)",
-    },
-  ];
+  const heroSlides = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "ENDO METABOLIC",
+        badge: "Specialized Therapy",
+        image: "/images/ENDO-METABOLIC.png",
+        desc: "CKD Anemia • CKD Nutrition • DPN • Diabetes Management",
+        portfolioId: 1,
+        skuCount: 6,
+        accentColor: "#DC2626",
+        glowColor: "rgba(220, 38, 38, 0.18)",
+        lightBg: "linear-gradient(145deg, #FFF1F2 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #DC2626 0%, #991B1B 100%)",
+      },
+      {
+        id: 2,
+        title: "MEDNUT",
+        badge: "Clinical Nutrition",
+        image: "/images/Mednut.png",
+        desc: "Precision Medical Nutrition for Specific Disease Conditions",
+        portfolioId: 2,
+        skuCount: 5,
+        accentColor: "#16A34A",
+        glowColor: "rgba(22, 163, 74, 0.18)",
+        lightBg: "linear-gradient(145deg, #F0FDF4 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #16A34A 0%, #15803D 100%)",
+      },
+      {
+        id: 3,
+        title: "CHILDREN PRODUCT",
+        badge: "Pediatric Care",
+        image: "/images/Children-Product.png",
+        desc: "Gut Health • Cough Relief • Pediatric Antibiotics",
+        portfolioId: 3,
+        skuCount: 3,
+        accentColor: "#D97706",
+        glowColor: "rgba(217, 119, 6, 0.18)",
+        lightBg: "linear-gradient(145deg, #FEF3C7 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #D97706 0%, #B45309 100%)",
+      },
+      {
+        id: 4,
+        title: "CELEBROVASCULAR",
+        badge: "Neuro & Vascular Care",
+        image: "/images/CELEBROVASCULAR.png",
+        desc: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy Booster",
+        portfolioId: 4,
+        skuCount: 7,
+        accentColor: "#0284C7",
+        glowColor: "rgba(2, 132, 199, 0.18)",
+        lightBg: "linear-gradient(145deg, #F0F9FF 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #0284C7 0%, #0369A1 100%)",
+      },
+      {
+        id: 5,
+        title: "HOSPITAL LINE",
+        badge: "Hospital & Clinical Care",
+        image: "/images/Hospital-Line.png",
+        desc: "Gut Microbiota • Hepato-Protection • Antibiotics • Skin Care",
+        portfolioId: 5,
+        skuCount: 7,
+        accentColor: "#4338CA",
+        glowColor: "rgba(67, 56, 202, 0.18)",
+        lightBg: "linear-gradient(145deg, #EEF2FF 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #4338CA 0%, #3730A3 100%)",
+      },
+      {
+        id: 6,
+        title: "ONCOLOGY",
+        badge: "Cancer Care",
+        image: "/images/Oncology.png",
+        desc: "Chemotherapy • Supportive Care • Protocol-Based Treatment",
+        portfolioId: 6,
+        skuCount: 5,
+        accentColor: "#701A75",
+        glowColor: "rgba(112, 26, 117, 0.18)",
+        lightBg: "linear-gradient(145deg, #FDF4FF 0%, #FFFFFF 100%)",
+        badgeGradient: "linear-gradient(135deg, #701A75 0%, #581C87 100%)",
+      },
+    ],
+    []
+  );
 
   const goToSlide = useCallback(
     (index) => {
@@ -121,31 +124,37 @@ const Homepage = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Flatten all sub-products for search
-  const allSubProducts = products.flatMap((portfolio) =>
-    portfolio.subProducts.map((sp) => ({
-      ...sp,
-      portfolioId: portfolio.id,
-      portfolioTitle: portfolio.title,
-    }))
+  // Flatten all sub-products for search - Memoized
+  const allSubProducts = useMemo(
+    () =>
+      products.flatMap((portfolio) =>
+        portfolio.subProducts.map((sp) => ({
+          ...sp,
+          portfolioId: portfolio.id,
+          portfolioTitle: portfolio.title,
+        }))
+      ),
+    []
   );
 
-  const filteredProducts = searchQuery.trim()
-    ? allSubProducts.filter((p) => {
-        const q = searchQuery.toLowerCase();
-        return (
-          p.title.toLowerCase().includes(q) ||
-          (p.genericName && p.genericName.toLowerCase().includes(q)) ||
-          (p.categoryTag && p.categoryTag.toLowerCase().includes(q)) ||
-          (p.details?.description &&
-            p.details.description.toLowerCase().includes(q)) ||
-          p.portfolioTitle.toLowerCase().includes(q)
-        );
-      })
-    : [];
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const q = searchQuery.toLowerCase();
+    return allSubProducts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        (p.genericName && p.genericName.toLowerCase().includes(q)) ||
+        (p.categoryTag && p.categoryTag.toLowerCase().includes(q)) ||
+        (p.details?.description &&
+          p.details.description.toLowerCase().includes(q)) ||
+        p.portfolioTitle.toLowerCase().includes(q)
+    );
+  }, [searchQuery, allSubProducts]);
 
-  const currentPortfolio =
-    products.find((p) => p.id === selectedPortfolioId) || products[0];
+  const currentPortfolio = useMemo(
+    () => products.find((p) => p.id === selectedPortfolioId) || products[0],
+    [selectedPortfolioId]
+  );
 
   return (
     <div
@@ -745,6 +754,7 @@ const Homepage = () => {
                   src={heroSlides[currentHeroSlide].image}
                   alt={heroSlides[currentHeroSlide].title}
                   className="hero-slide-img"
+                  decoding="async"
                   style={{
                     maxHeight: "100%",
                     maxWidth: "100%",
@@ -937,6 +947,8 @@ const Homepage = () => {
                   <img
                     src={p.image}
                     alt={p.title}
+                    loading="lazy"
+                    decoding="async"
                     style={{
                       maxHeight: "100%",
                       maxWidth: "100%",
@@ -1054,7 +1066,7 @@ const Homepage = () => {
               gap: 12,
             }}
           >
-            <div>
+            <div style={{ flex: 1, minWidth: "240px" }}>
               <h3
                 style={{
                   fontFamily: "Georgia, serif",
@@ -1065,7 +1077,7 @@ const Homepage = () => {
               >
                 {currentPortfolio.title} Products
               </h3>
-              <p style={{ fontSize: 13, color: "#4A5A4A", margin: "4px 0 0" }}>
+              <p style={{ fontSize: 13, color: "#4A5A4A", margin: "4px 0 0", lineHeight: 1.5 }}>
                 {currentPortfolio.description}
               </p>
             </div>
@@ -1084,6 +1096,15 @@ const Homepage = () => {
                 borderRadius: 30,
                 border: "1.5px solid rgba(13,110,56,0.3)",
                 transition: "all 0.2s ease",
+                flexShrink: 0,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#0D6E38";
+                e.currentTarget.style.color = "#fff";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#0D6E38";
               }}
             >
               View Full Portfolio →
