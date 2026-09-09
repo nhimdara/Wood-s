@@ -26,7 +26,11 @@
     <script>
       (function() {
         try {
-          var saved = localStorage.getItem('kalbe-theme');
+          var saved = localStorage.getItem('kalbe-theme-mode');
+          if (!saved) {
+            localStorage.removeItem('kalbe-theme');
+            saved = 'system';
+          }
           var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var isDark = saved === 'dark' || ((!saved || saved === 'system') && systemDark);
           if (isDark) {

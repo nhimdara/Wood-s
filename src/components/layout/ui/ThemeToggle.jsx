@@ -90,7 +90,7 @@ export default function ThemeToggle({ isMobile = false }) {
                 }}
               >
                 {mode === "system"
-                  ? `Auto តាមទូរស័ព្ទ (${systemTheme === "dark" ? "ងងឹត" : "ពន្លឺ"})`
+                  ? `Auto តាមទូរស័ព្ទ (លំនាំដើម • Default)`
                   : mode === "dark"
                     ? "ងងឹត (Dark Mode)"
                     : "ពន្លឺ (Light Mode)"}

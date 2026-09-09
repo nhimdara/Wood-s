@@ -12,7 +12,7 @@ const ThemeContext = createContext({
   resetToDevice: () => {},
 });
 
-const STORAGE_KEY = "kalbe-theme";
+const STORAGE_KEY = "kalbe-theme-mode";
 
 const getSystemTheme = () => {
   if (typeof window !== "undefined" && window.matchMedia) {
@@ -22,15 +22,18 @@ const getSystemTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  // Mode can be: "system" (follow device), "dark", or "light"
+  // Mode can be: "system" (follow device - default), "dark", or "light"
   const [mode, setModeState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved === "system" || saved === "dark" || saved === "light") {
         return saved;
       }
+      // Migrate legacy storage key and default strictly to "system" (auto catch device)
+      localStorage.removeItem("kalbe-theme");
+      localStorage.setItem(STORAGE_KEY, "system");
     } catch (e) {}
-    return "system"; // Default is automatic device detection
+    return "system"; // Strictly default to automatic device detection
   });
 
   // Track the actual device OS theme in real-time

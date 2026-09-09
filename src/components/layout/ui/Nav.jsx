@@ -4,6 +4,7 @@ import kalbeLogo from "../../assets/logo/kalbe-logo.png";
 import { products, PRODUCT_THEMES } from "../../data/products";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "../../../context/ThemeContext";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -95,10 +96,32 @@ function useOutsideClick(ref, handler) {
   }, [ref, handler]);
 }
 
+const getVibrantBrandColor = (colorHex, dark) => {
+  if (!dark) return colorHex || "#0D6E38";
+  const upper = colorHex?.toUpperCase();
+  const colorMap = {
+    "#E11D48": "#FB7185", // Efesa - Berry Pink/Red
+    "#DC2626": "#F87171", // Hemapo - Red
+    "#16A34A": "#4ADE80", // Nocid - Fresh Green
+    "#0D9488": "#2DD4BF", // Kalxid - Teal
+    "#EA580C": "#FB923C", // Kalmeco - Orange
+    "#0D6E38": "#34D399", // Nevox XR - Green
+    "#059669": "#34D399",
+    "#7C3AED": "#C084FC", // Nephrisol - Purple
+    "#2563EB": "#60A5FA", // Nephrisol-D - Blue
+    "#0284C7": "#38BDF8", // Brainact - Sky Blue
+    "#4338CA": "#818CF8", // Hospital - Indigo
+    "#701A75": "#E879F9", // Oncology - Pink/Magenta
+    "#D97706": "#FBBF24", // Children - Amber
+  };
+  return colorMap[upper] || colorHex || "#34D399";
+};
+
 function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
   const [nestedOpen, setNestedOpen] = useState(null);
   const nestedTimer = useRef(null);
   const location = useLocation();
+  const { isDark } = useTheme();
 
   const clearNested = () => {
     if (nestedTimer.current) clearTimeout(nestedTimer.current);
@@ -155,11 +178,15 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                   cursor: "pointer",
                   background:
                     nestedOpen === item.label
-                      ? "rgba(13,110,56,0.08)"
+                      ? isDark
+                        ? "rgba(16, 185, 129, 0.15)"
+                        : "rgba(13,110,56,0.08)"
                       : "transparent",
                   color:
                     nestedOpen === item.label || isActive(item.href)
-                      ? "#0D6E38"
+                      ? isDark
+                        ? "#10B981"
+                        : "#0D6E38"
                       : "var(--kalbe-text-main)",
                   fontWeight:
                     nestedOpen === item.label || isActive(item.href)
@@ -221,6 +248,10 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                       fontFamily: "'Montserrat', sans-serif",
                     };
                     const isChildActive = isActive(child.href);
+                    const brandColor = getVibrantBrandColor(childTheme.primary, isDark);
+                    const activeBg = isDark
+                      ? (childTheme.glow || "rgba(16, 185, 129, 0.15)")
+                      : (childTheme.light || "rgba(13,110,56,0.1)");
 
                     return (
                       <Link
@@ -237,18 +268,18 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                           fontFamily: childTheme.fontFamily || "'Montserrat', sans-serif",
                           fontWeight: 800,
                           letterSpacing: childTheme.letterSpacing || "0.5px",
-                          color: childTheme.primary,
+                          color: brandColor,
                           background: isChildActive
-                            ? childTheme.light
+                            ? activeBg
                             : "transparent",
                           borderLeft: isChildActive
-                            ? `3px solid ${childTheme.primary}`
+                            ? `3px solid ${brandColor}`
                             : "3px solid transparent",
                           transition: "all 0.15s ease",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = childTheme.light;
-                          e.currentTarget.style.borderLeftColor = childTheme.primary;
+                          e.currentTarget.style.background = activeBg;
+                          e.currentTarget.style.borderLeftColor = brandColor;
                         }}
                         onMouseLeave={(e) => {
                           if (!isChildActive) {
@@ -263,7 +294,7 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                               width: 8,
                               height: 8,
                               borderRadius: "50%",
-                              background: childTheme.primary,
+                              background: brandColor,
                               display: "inline-block",
                               flexShrink: 0,
                             }}
@@ -275,11 +306,12 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
                             style={{
                               fontSize: 10,
                               fontWeight: 700,
-                              color: childTheme.primary,
+                              color: brandColor,
                               textTransform: "uppercase",
-                              background: "rgba(255,255,255,0.8)",
+                              background: isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(255,255,255,0.8)",
                               padding: "2px 6px",
                               borderRadius: 6,
+                              border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "none",
                             }}
                           >
                             Active
@@ -328,6 +360,7 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
 }
 
 export default function Nav() {
+  const { isDark } = useTheme();
   const [open, setOpen] = useState(null);
   const [isScrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -546,7 +579,7 @@ export default function Nav() {
             maxWidth: 1200,
             margin: "0 auto",
             padding: "0 clamp(14px, 4vw, 28px)",
-            height: isScrolled ? "50px" : "58px",
+            height: isScrolled ? "54px" : "64px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -565,12 +598,13 @@ export default function Nav() {
               src={kalbeLogo}
               alt="Kalbe Product"
               style={{
-                height: "clamp(32px, 5vw, 40px)",
+                height: isScrolled ? "32px" : "38px",
                 width: "auto",
                 objectFit: "contain",
-                transition: "transform 0.2s ease",
+                filter: isDark ? "brightness(1.15) contrast(1.05)" : "none",
+                transition: "all 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             />
           </Link>

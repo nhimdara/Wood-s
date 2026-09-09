@@ -152,7 +152,7 @@ const Contact = () => {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(95px, 12vw, 120px) 5% 40px",
+          padding: "clamp(90px, 11vw, 130px) 5% 48px",
           background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
           borderBottom: "1px solid var(--kalbe-border)",
         }}
@@ -215,7 +215,7 @@ const Contact = () => {
       {/* Top 4 Contact Info Cards */}
       <section
         style={{
-          maxWidth: 1200,
+          maxWidth: 1320,
           margin: "0 auto",
           padding: "40px 5% 30px",
         }}

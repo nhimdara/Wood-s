@@ -1,9 +1,11 @@
 // components/layout/ui/ClinicalComparisonSection.jsx
 import React, { useState } from "react";
 import { CLINICAL_COMPARISONS } from "../../data/products";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
+  const { isDark } = useTheme();
 
   const { efesaVsHemapo, kalxidKalmecoSynergy, nocidLowProtein } =
     CLINICAL_COMPARISONS;
@@ -27,6 +29,7 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             color: "#10B981",
             textTransform: "uppercase",
             background: "rgba(16, 185, 129, 0.15)",
+            border: "1px solid rgba(16, 185, 129, 0.25)",
             padding: "4px 14px",
             borderRadius: 20,
             display: "inline-block",
@@ -66,9 +69,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             border:
               activeTab === "efesaVsHemapo"
                 ? "2px solid #DC2626"
-                : "1px solid rgba(220,38,38,0.2)",
-            background: activeTab === "efesaVsHemapo" ? "#DC2626" : "#FEF2F2",
-            color: activeTab === "efesaVsHemapo" ? "#FFFFFF" : "#991B1B",
+                : isDark
+                  ? "1px solid rgba(220, 38, 38, 0.3)"
+                  : "1px solid rgba(220,38,38,0.2)",
+            background:
+              activeTab === "efesaVsHemapo"
+                ? "#DC2626"
+                : isDark
+                  ? "rgba(220, 38, 38, 0.12)"
+                  : "#FEF2F2",
+            color:
+              activeTab === "efesaVsHemapo"
+                ? "#FFFFFF"
+                : isDark
+                  ? "#FCA5A5"
+                  : "#991B1B",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -85,9 +100,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             border:
               activeTab === "kalxidKalmeco"
                 ? "2px solid #0D9488"
-                : "1px solid rgba(13,148,136,0.2)",
-            background: activeTab === "kalxidKalmeco" ? "#0D9488" : "#F0FDFA",
-            color: activeTab === "kalxidKalmeco" ? "#FFFFFF" : "#115E59",
+                : isDark
+                  ? "1px solid rgba(13, 148, 136, 0.3)"
+                  : "1px solid rgba(13,148,136,0.2)",
+            background:
+              activeTab === "kalxidKalmeco"
+                ? "#0D9488"
+                : isDark
+                  ? "rgba(13, 148, 136, 0.12)"
+                  : "#F0FDFA",
+            color:
+              activeTab === "kalxidKalmeco"
+                ? "#FFFFFF"
+                : isDark
+                  ? "#5EEAD4"
+                  : "#115E59",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -104,9 +131,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             border:
               activeTab === "nocidDiet"
                 ? "2px solid #16A34A"
-                : "1px solid rgba(22,163,74,0.2)",
-            background: activeTab === "nocidDiet" ? "#16A34A" : "#F0FDF4",
-            color: activeTab === "nocidDiet" ? "#FFFFFF" : "#15803D",
+                : isDark
+                  ? "1px solid rgba(22, 163, 74, 0.3)"
+                  : "1px solid rgba(22,163,74,0.2)",
+            background:
+              activeTab === "nocidDiet"
+                ? "#16A34A"
+                : isDark
+                  ? "rgba(22, 163, 74, 0.12)"
+                  : "#F0FDF4",
+            color:
+              activeTab === "nocidDiet"
+                ? "#FFFFFF"
+                : isDark
+                  ? "#86EFAC"
+                  : "#15803D",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -123,9 +162,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             border:
               activeTab === "brainactSKU"
                 ? "2px solid #0284C7"
-                : "1px solid rgba(2,132,199,0.2)",
-            background: activeTab === "brainactSKU" ? "#0284C7" : "#F0F9FF",
-            color: activeTab === "brainactSKU" ? "#FFFFFF" : "#0369A1",
+                : isDark
+                  ? "1px solid rgba(2, 132, 199, 0.3)"
+                  : "1px solid rgba(2,132,199,0.2)",
+            background:
+              activeTab === "brainactSKU"
+                ? "#0284C7"
+                : isDark
+                  ? "rgba(2, 132, 199, 0.12)"
+                  : "#F0F9FF",
+            color:
+              activeTab === "brainactSKU"
+                ? "#FFFFFF"
+                : isDark
+                  ? "#7DD3FC"
+                  : "#0369A1",
             fontWeight: 700,
             fontSize: 13,
             cursor: "pointer",
@@ -142,12 +193,13 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           <div
             style={{
               padding: "14px 18px",
-              background: "#FEF2F2",
+              background: isDark ? "rgba(220, 38, 38, 0.12)" : "#FEF2F2",
               borderRadius: 14,
               marginBottom: 20,
               fontSize: 14,
-              color: "#1A241A",
+              color: isDark ? "var(--kalbe-text-main)" : "#1A241A",
               fontWeight: 500,
+              border: isDark ? "1px solid rgba(220, 38, 38, 0.25)" : "none",
               borderLeft: "4px solid #DC2626",
             }}
           >
@@ -162,14 +214,16 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               marginBottom: 20,
             }}
           >
-            {/* EFESA Card (Light Red) */}
+            {/* EFESA Card */}
             <div
               style={{
-                background: "linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(225, 29, 72, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FECDD3",
-                boxShadow: "0 4px 14px rgba(225, 29, 72, 0.06)",
+                border: isDark ? "1px solid rgba(225, 29, 72, 0.3)" : "1px solid #FECDD3",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(225, 29, 72, 0.06)",
               }}
             >
               <div
@@ -180,23 +234,24 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                   marginBottom: 12,
                 }}
               >
-                <h4 style={{ margin: 0, fontSize: 20, color: "#E11D48", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 20, color: isDark ? "#FB7185" : "#E11D48", fontWeight: 800 }}>
                   EFESA
                 </h4>
                 <span
                   style={{
                     fontSize: 11,
-                    background: "#FFE4E6",
-                    color: "#BE123C",
+                    background: isDark ? "rgba(225, 29, 72, 0.2)" : "#FFE4E6",
+                    color: isDark ? "#FDA4AF" : "#BE123C",
                     padding: "4px 12px",
                     borderRadius: 20,
                     fontWeight: 700,
+                    border: isDark ? "1px solid rgba(225, 29, 72, 0.3)" : "none",
                   }}
                 >
                   Long-acting ESA
                 </span>
               </div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#374151", lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
                 <li><strong>សារធាតុ:</strong> Efepoetin alfa (0.3mg/0.3mL)</li>
                 <li><strong>បច្ចេកវិទ្យា:</strong> Hybrid Fc (HyFc®) Technology</li>
                 <li><strong>កាលវិភាគចាក់:</strong> ចាក់ក្រោមស្បែក (SC) រៀងរាល់ 2–4 សប្ដាហ៍</li>
@@ -205,14 +260,16 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               </ul>
             </div>
 
-            {/* HEMAPO Card (Red) */}
+            {/* HEMAPO Card */}
             <div
               style={{
-                background: "linear-gradient(180deg, #FEF2F2 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(220, 38, 38, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #FEF2F2 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FCA5A5",
-                boxShadow: "0 4px 14px rgba(220, 38, 38, 0.08)",
+                border: isDark ? "1px solid rgba(220, 38, 38, 0.3)" : "1px solid #FCA5A5",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(220, 38, 38, 0.08)",
               }}
             >
               <div
@@ -223,23 +280,24 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                   marginBottom: 12,
                 }}
               >
-                <h4 style={{ margin: 0, fontSize: 20, color: "#DC2626", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 20, color: isDark ? "#F87171" : "#DC2626", fontWeight: 800 }}>
                   HEMAPO
                 </h4>
                 <span
                   style={{
                     fontSize: 11,
-                    background: "#FEE2E2",
-                    color: "#991B1B",
+                    background: isDark ? "rgba(220, 38, 38, 0.2)" : "#FEE2E2",
+                    color: isDark ? "#FCA5A5" : "#991B1B",
                     padding: "4px 12px",
                     borderRadius: 20,
                     fontWeight: 700,
+                    border: isDark ? "1px solid rgba(220, 38, 38, 0.3)" : "none",
                   }}
                 >
                   Short-acting ESA
                 </span>
               </div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#374151", lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
                 <li><strong>សារធាតុ:</strong> Epoetin alfa (3000 IU/0.5mL)</li>
                 <li><strong>ទម្រង់:</strong> Recombinant Human Erythropoietin</li>
                 <li><strong>កាលវិភាគចាក់:</strong> ចាក់ SC ឬ IV 2-3 ដងក្នុងមួយសប្ដាហ៍</li>
@@ -275,12 +333,13 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           <div
             style={{
               padding: "14px 18px",
-              background: "#F0FDFA",
+              background: isDark ? "rgba(13, 148, 136, 0.12)" : "#F0FDFA",
               borderRadius: 14,
               marginBottom: 20,
               fontSize: 13,
-              color: "#1A241A",
+              color: isDark ? "var(--kalbe-text-main)" : "#1A241A",
               lineHeight: 1.6,
+              border: isDark ? "1px solid rgba(13, 148, 136, 0.25)" : "none",
               borderLeft: "4px solid #0D9488",
             }}
           >
@@ -295,25 +354,37 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               marginBottom: 20,
             }}
           >
-            {/* KALXID (Dark Teal / Emerald) */}
+            {/* KALXID */}
             <div
               style={{
-                background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(13, 148, 136, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #99F6E4",
-                boxShadow: "0 4px 14px rgba(13, 148, 136, 0.08)",
+                border: isDark ? "1px solid rgba(13, 148, 136, 0.3)" : "1px solid #99F6E4",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(13, 148, 136, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h4 style={{ margin: 0, fontSize: 18, color: "#0F766E", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 18, color: isDark ? "#2DD4BF" : "#0F766E", fontWeight: 800 }}>
                   KALXID (100% R-ALA 480mg)
                 </h4>
-                <span style={{ fontSize: 11, background: "#CCFBF1", color: "#115E59", padding: "4px 10px", borderRadius: 12, fontWeight: 700 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(13, 148, 136, 0.2)" : "#CCFBF1",
+                    color: isDark ? "#5EEAD4" : "#115E59",
+                    padding: "4px 10px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(13, 148, 136, 0.3)" : "none",
+                  }}
+                >
                   Antioxidant
                 </span>
               </div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#374151", lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
                 <li>ផ្តោតលើការកាត់បន្ថយ <strong>Oxidative Stress</strong></li>
                 <li>ការពារសរសៃប្រសាទពី <strong>Oxidative Damage</strong></li>
                 <li>កាត់បន្ថយអាការៈឈឺ ចុក រមួល ក្តៅ ឬស្ពឹកដៃជើង</li>
@@ -321,25 +392,37 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               </ul>
             </div>
 
-            {/* KALMECO (Bright Orange) */}
+            {/* KALMECO */}
             <div
               style={{
-                background: "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(234, 88, 12, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FED7AA",
-                boxShadow: "0 4px 14px rgba(234, 88, 12, 0.08)",
+                border: isDark ? "1px solid rgba(234, 88, 12, 0.3)" : "1px solid #FED7AA",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(234, 88, 12, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-                <h4 style={{ margin: 0, fontSize: 18, color: "#C2410C", fontWeight: 800 }}>
+                <h4 style={{ margin: 0, fontSize: 18, color: isDark ? "#FB923C" : "#C2410C", fontWeight: 800 }}>
                   KALMECO (Active B12 500mcg)
                 </h4>
-                <span style={{ fontSize: 11, background: "#FFEDD5", color: "#9A3412", padding: "4px 10px", borderRadius: 12, fontWeight: 700 }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(234, 88, 12, 0.2)" : "#FFEDD5",
+                    color: isDark ? "#FDBA74" : "#9A3412",
+                    padding: "4px 10px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(234, 88, 12, 0.3)" : "none",
+                  }}
+                >
                   Nerve Repair
                 </span>
               </div>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#374151", lineHeight: 1.7 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
                 <li>ជាទម្រង់សកម្ម <strong>Mecobalamin</strong> រាងកាយប្រើបានភ្លាមៗ</li>
                 <li>ជួយជួសជុល និងស្តារ <strong>មុខងារសរសៃប្រសាទ</strong></li>
                 <li>ជំរុញការបង្កើត និងការពារ <strong>ស្រទាប់ Myelin</strong></li>
@@ -371,10 +454,15 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                     fontSize: 12,
                     lineHeight: 1.5,
                     color: "var(--kalbe-text-main)",
-                    border: idx === 0 ? "1px solid rgba(13,148,136,0.3)" : "1px solid rgba(220,38,38,0.25)",
+                    border: idx === 0
+                      ? isDark ? "1px solid rgba(13,148,136,0.4)" : "1px solid rgba(13,148,136,0.3)"
+                      : isDark ? "1px solid rgba(239,68,68,0.35)" : "1px solid rgba(220,38,38,0.25)",
                   }}
                 >
-                  <strong style={{ color: idx === 0 ? "#0D9488" : "#EF4444" }}>{p.label}:</strong> {p.text}
+                  <strong style={{ color: idx === 0 ? (isDark ? "#2DD4BF" : "#0D9488") : (isDark ? "#F87171" : "#EF4444") }}>
+                    {p.label}:
+                  </strong>{" "}
+                  {p.text}
                 </div>
               ))}
             </div>
@@ -395,16 +483,18 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           >
             <div
               style={{
-                background: "#FEF2F2",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(220, 38, 38, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "#FEF2F2",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FECACA",
+                border: isDark ? "1px solid rgba(220, 38, 38, 0.3)" : "1px solid #FECACA",
               }}
             >
-              <h4 style={{ margin: "0 0 10px", fontSize: 16, color: "#991B1B", fontWeight: 700 }}>
+              <h4 style={{ margin: "0 0 10px", fontSize: 16, color: isDark ? "#F87171" : "#991B1B", fontWeight: 700 }}>
                 Low-Protein Diet តែឯង
               </h4>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#4B5563", lineHeight: 1.6 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
                 <li>កំណត់ការទទួលទានប្រូតេអ៊ីន</li>
                 <li>អាចប្រឈមនឹងការខ្វះ <strong>Essential Amino Acids (EAA)</strong></li>
                 <li>ហានិភ័យកង្វះអាហារូបត្ថម្ភ (Malnutrition in CKD)</li>
@@ -413,17 +503,19 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
 
             <div
               style={{
-                background: "linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(22, 163, 74, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #BBF7D0",
-                boxShadow: "0 4px 14px rgba(22, 163, 74, 0.08)",
+                border: isDark ? "1px solid rgba(22, 163, 74, 0.3)" : "1px solid #BBF7D0",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(22, 163, 74, 0.08)",
               }}
             >
-              <h4 style={{ margin: "0 0 10px", fontSize: 16, color: "#166534", fontWeight: 700 }}>
+              <h4 style={{ margin: "0 0 10px", fontSize: 16, color: isDark ? "#4ADE80" : "#166534", fontWeight: 700 }}>
                 Low-Protein Diet + NOCID (KDIGO Guideline)
               </h4>
-              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#4B5563", lineHeight: 1.6 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
                 <li>កំណត់ប្រូតេអ៊ីន + បន្ថែម Keto Acids & EAA</li>
                 <li>បំពេញតម្រូវការ EAA គ្រប់គ្រាន់ដោយមិនបង្កើត <strong>Nitrogen Waste</strong></li>
                 <li>កាត់បន្ថយបន្ទុកការងារតម្រងនោម និងពន្យារពេលការលាងឈាម</li>
@@ -457,12 +549,13 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
           <div
             style={{
               padding: "14px 18px",
-              background: "#F0F9FF",
+              background: isDark ? "rgba(2, 132, 199, 0.12)" : "#F0F9FF",
               borderRadius: 14,
               marginBottom: 20,
               fontSize: 14,
-              color: "#0369A1",
+              color: isDark ? "var(--kalbe-text-main)" : "#0369A1",
               fontWeight: 600,
+              border: isDark ? "1px solid rgba(2, 132, 199, 0.25)" : "none",
               borderLeft: "4px solid #0284C7",
             }}
           >
@@ -477,78 +570,146 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               marginBottom: 20,
             }}
           >
+            {/* Brainact 1G Inj */}
             <div
               style={{
-                background: "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(234, 88, 12, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #FFF7ED 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FED7AA",
-                boxShadow: "0 4px 14px rgba(234, 88, 12, 0.08)",
+                border: isDark ? "1px solid rgba(234, 88, 12, 0.3)" : "1px solid #FED7AA",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(234, 88, 12, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <h4 style={{ margin: 0, fontSize: 17, color: "#EA580C", fontWeight: 800 }}>Brainact 1G Inj</h4>
-                <span style={{ fontSize: 11, background: "#FFEDD5", color: "#C2410C", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>1000 mg/8 mL</span>
+                <h4 style={{ margin: 0, fontSize: 17, color: isDark ? "#FB923C" : "#EA580C", fontWeight: 800 }}>Brainact 1G Inj</h4>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(234, 88, 12, 0.2)" : "#FFEDD5",
+                    color: isDark ? "#FDBA74" : "#C2410C",
+                    padding: "3px 8px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(234, 88, 12, 0.3)" : "none",
+                  }}
+                >
+                  1000 mg/8 mL
+                </span>
               </div>
-              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Acute Stroke & TBI</p>
-              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 13, color: isDark ? "var(--kalbe-text-main)" : "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>
+                Acute Stroke & TBI
+              </p>
+              <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
                 ចាក់ម្តង ១ ក្រាម ១ ថ្ងៃ ២ ដង រយៈពេល ៧ ទៅ ១០ ថ្ងៃ តាមសរសៃវ៉ែន ឬព្យួរសេរ៉ូម។
               </p>
             </div>
 
+            {/* Brainact 1G Cap */}
             <div
               style={{
-                background: "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(13, 148, 136, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #99F6E4",
-                boxShadow: "0 4px 14px rgba(13, 148, 136, 0.08)",
+                border: isDark ? "1px solid rgba(13, 148, 136, 0.3)" : "1px solid #99F6E4",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(13, 148, 136, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <h4 style={{ margin: 0, fontSize: 17, color: "#0D9488", fontWeight: 800 }}>Brainact 1G Cap</h4>
-                <span style={{ fontSize: 11, background: "#CCFBF1", color: "#0F766E", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>1000 mg Caplet</span>
+                <h4 style={{ margin: 0, fontSize: 17, color: isDark ? "#2DD4BF" : "#0D9488", fontWeight: 800 }}>Brainact 1G Cap</h4>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(13, 148, 136, 0.2)" : "#CCFBF1",
+                    color: isDark ? "#5EEAD4" : "#0F766E",
+                    padding: "3px 8px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(13, 148, 136, 0.3)" : "none",
+                  }}
+                >
+                  1000 mg Caplet
+                </span>
               </div>
-              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Acute Stroke & TBI (Awake)</p>
-              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 13, color: isDark ? "var(--kalbe-text-main)" : "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>
+                Acute Stroke & TBI (Awake)
+              </p>
+              <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
                 ក្រោយអ្នកជំងឺភ្ញាក់ដឹងខ្លួន បន្តជាមួយថ្នាំគ្រាប់ ២ ក្រាម ក្នុង ១ ថ្ងៃ រហូតដល់ ៦ សប្តាហ៍។
               </p>
             </div>
 
+            {/* Brainact 500 Tab */}
             <div
               style={{
-                background: "linear-gradient(180deg, #FEF3C7 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(217, 119, 6, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #FEF3C7 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #FDE68A",
-                boxShadow: "0 4px 14px rgba(217, 119, 6, 0.08)",
+                border: isDark ? "1px solid rgba(217, 119, 6, 0.3)" : "1px solid #FDE68A",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(217, 119, 6, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <h4 style={{ margin: 0, fontSize: 17, color: "#D97706", fontWeight: 800 }}>Brainact 500 Tab</h4>
-                <span style={{ fontSize: 11, background: "#FEF3C7", color: "#B45309", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>500 mg Tablet</span>
+                <h4 style={{ margin: 0, fontSize: 17, color: isDark ? "#FBBF24" : "#D97706", fontWeight: 800 }}>Brainact 500 Tab</h4>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(217, 119, 6, 0.2)" : "#FEF3C7",
+                    color: isDark ? "#FCD34D" : "#B45309",
+                    padding: "3px 8px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(217, 119, 6, 0.3)" : "none",
+                  }}
+                >
+                  500 mg Tablet
+                </span>
               </div>
-              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>Post Stroke Cognitive Impairment</p>
-              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 13, color: isDark ? "var(--kalbe-text-main)" : "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>
+                Post Stroke Cognitive Impairment
+              </p>
+              <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
                 ១ ក្រាម ក្នុង ១ ថ្ងៃ យ៉ាងហោចណាស់ ៦ ខែឡើងទៅ។
               </p>
             </div>
 
+            {/* Brainact O-Dis */}
             <div
               style={{
-                background: "linear-gradient(180deg, #F3E8FF 0%, #FFFFFF 100%)",
+                background: isDark
+                  ? "linear-gradient(180deg, rgba(124, 58, 237, 0.1) 0%, var(--kalbe-surface-elevated) 100%)"
+                  : "linear-gradient(180deg, #F3E8FF 0%, #FFFFFF 100%)",
                 borderRadius: 18,
                 padding: "20px",
-                border: "1px solid #E9D5FF",
-                boxShadow: "0 4px 14px rgba(124, 58, 237, 0.08)",
+                border: isDark ? "1px solid rgba(124, 58, 237, 0.3)" : "1px solid #E9D5FF",
+                boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 4px 14px rgba(124, 58, 237, 0.08)",
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <h4 style={{ margin: 0, fontSize: 17, color: "#7C3AED", fontWeight: 800 }}>Brainact O-Dis</h4>
-                <span style={{ fontSize: 11, background: "#EDE9FE", color: "#6D28D9", padding: "3px 8px", borderRadius: 12, fontWeight: 700 }}>500 mg ODT</span>
+                <h4 style={{ margin: 0, fontSize: 17, color: isDark ? "#A78BFA" : "#7C3AED", fontWeight: 800 }}>Brainact O-Dis</h4>
+                <span
+                  style={{
+                    fontSize: 11,
+                    background: isDark ? "rgba(124, 58, 237, 0.2)" : "#EDE9FE",
+                    color: isDark ? "#C4B5FD" : "#6D28D9",
+                    padding: "3px 8px",
+                    borderRadius: 12,
+                    fontWeight: 700,
+                    border: isDark ? "1px solid rgba(124, 58, 237, 0.3)" : "none",
+                  }}
+                >
+                  500 mg ODT
+                </span>
               </div>
-              <p style={{ fontSize: 13, color: "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>MCI & Dysphagia / Multi-med</p>
-              <p style={{ fontSize: 12.5, color: "#475569", lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 13, color: isDark ? "var(--kalbe-text-main)" : "#1E293B", fontWeight: 600, margin: "0 0 8px" }}>
+                MCI & Dysphagia / Multi-med
+              </p>
+              <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
                 ថ្នាំបៀមរលាយក្នុងមាត់ រសជាតិផ្លែឈើចម្រុះ ១ ក្រាម/ថ្ងៃ សម្រាប់ការធ្លាក់ចុះសមត្ថភាពខួរក្បាលលើមនុស្សចាស់។
               </p>
             </div>

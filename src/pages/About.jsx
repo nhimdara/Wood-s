@@ -1,7 +1,7 @@
-// pages/About.jsx - Complete Unabridged Kalbe Information in Modern Template
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
+import { useTheme } from "../context/ThemeContext";
 import kalbeLogo from "../components/assets/logo/kalbe-logo.png";
 import {
   HiOutlineShieldCheck,
@@ -25,6 +25,8 @@ import {
 } from "react-icons/fa";
 
 const About = () => {
+  const { isDark } = useTheme();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -88,7 +90,7 @@ const About = () => {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(100px, 13vw, 125px) 5% 40px",
+          padding: "clamp(90px, 11vw, 130px) 5% 48px",
           background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
           borderBottom: "1px solid var(--kalbe-border)",
         }}
@@ -171,7 +173,7 @@ const About = () => {
       </section>
 
       {/* 1. MISSION & VISION SECTION */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
+      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
         <div
           style={{
             display: "grid",
@@ -222,7 +224,7 @@ const About = () => {
       </section>
 
       {/* 2. OVERVIEW / KALBE AT A GLANCE (UNABRIDGED) */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
+      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
         <div className="about-card unabridged-text" style={{ padding: "clamp(28px, 5vw, 48px)" }}>
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             Overview
@@ -254,7 +256,7 @@ const About = () => {
       </section>
 
       {/* 3. BUSINESS PERFORMANCE (UNABRIDGED) */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
+      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
         <div className="about-card" style={{ padding: "clamp(28px, 5vw, 48px)" }}>
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             Achievements & Reach
@@ -293,7 +295,7 @@ const About = () => {
       </section>
 
       {/* 4. HUMAN RESOURCES & KALBE PANCA SRADHA (UNABRIDGED) */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
+      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
         <div className="about-card unabridged-text" style={{ padding: "clamp(28px, 5vw, 48px)" }}>
           <span style={{ fontSize: 12, fontWeight: 800, color: "#0D6E38", letterSpacing: 2, textTransform: "uppercase", display: "inline-block", marginBottom: 8 }}>
             People & Culture
@@ -362,7 +364,7 @@ const About = () => {
       </section>
 
       {/* 5. CEO MESSAGE (UNABRIDGED - ALL 14 PARAGRAPHS WITH PHOTO) */}
-      <section style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
+      <section style={{ maxWidth: 1320, margin: "0 auto", padding: "clamp(40px, 6vw, 60px) 5% 0" }}>
         <div className="about-card unabridged-text" style={{ padding: "clamp(28px, 5vw, 48px)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
             <FaQuoteLeft style={{ color: "#0D6E38", fontSize: 24 }} />
@@ -475,15 +477,19 @@ const About = () => {
       {/* 6. CAMBODIA REPRESENTATIVE OFFICE & CONTACT BANNER */}
       <section
         style={{
-          maxWidth: 1200,
+          maxWidth: 1320,
           margin: "0 auto",
           padding: "clamp(40px, 6vw, 60px) 5% clamp(60px, 8vw, 90px)",
         }}
       >
         <div
           style={{
-            background: "linear-gradient(135deg, #1A241A 0%, #006400 100%)",
+            background: isDark
+              ? "linear-gradient(135deg, #16241B 0%, #1C3023 100%)"
+              : "linear-gradient(135deg, #1A241A 0%, #006400 100%)",
             borderRadius: "clamp(20px, 4vw, 32px)",
+            border: isDark ? "1px solid rgba(16, 185, 129, 0.25)" : "none",
+            boxShadow: isDark ? "var(--kalbe-card-shadow)" : "0 10px 30px rgba(0,0,0,0.15)",
             padding: "clamp(32px, 6vw, 56px) clamp(24px, 5vw, 48px)",
             color: "#FFFFFF",
             display: "grid",
@@ -499,7 +505,7 @@ const About = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: 2,
-                color: "#C6F6D5",
+                color: isDark ? "#34D399" : "#C6F6D5",
                 textTransform: "uppercase",
                 marginBottom: 10,
               }}
@@ -513,22 +519,23 @@ const About = () => {
                 fontWeight: 800,
                 lineHeight: 1.25,
                 marginBottom: 16,
+                color: isDark ? "#F2F7F3" : "#FFFFFF",
               }}
             >
               Kalbe International Pte., Ltd.
             </h2>
-            <div style={{ display: "grid", gap: 12, fontSize: 14.5, color: "#E6F4EA" }}>
+            <div style={{ display: "grid", gap: 12, fontSize: 14.5, color: isDark ? "#9BB0A0" : "#E6F4EA" }}>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                <HiOutlineLocationMarker style={{ fontSize: 20, color: "#C6F6D5", flexShrink: 0, marginTop: 3 }} />
-                <span><strong>Address:</strong> Morgan Tower, 14th floor, Room 8B-13, Sopheakmongkul street, Village 14, Sangkat Tonle Bassac, Khan Chamkar Mon, Phnom Penh.</span>
+                <HiOutlineLocationMarker style={{ fontSize: 20, color: isDark ? "#34D399" : "#C6F6D5", flexShrink: 0, marginTop: 3 }} />
+                <span><strong style={{ color: isDark ? "#F2F7F3" : "#FFFFFF" }}>Address:</strong> Morgan Tower, 14th floor, Room 8B-13, Sopheakmongkul street, Village 14, Sangkat Tonle Bassac, Khan Chamkar Mon, Phnom Penh.</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <HiOutlinePhone style={{ fontSize: 18, color: "#C6F6D5", flexShrink: 0 }} />
-                <span><strong>Tel:</strong> +855 93 923 291, +855 23 221 531</span>
+                <HiOutlinePhone style={{ fontSize: 18, color: isDark ? "#34D399" : "#C6F6D5", flexShrink: 0 }} />
+                <span><strong style={{ color: isDark ? "#F2F7F3" : "#FFFFFF" }}>Tel:</strong> +855 93 923 291, +855 23 221 531</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <HiOutlineMail style={{ fontSize: 18, color: "#C6F6D5", flexShrink: 0 }} />
-                <span><strong>Email:</strong> kalbe.cambodia@gmail.com, info@kalbe.com.kh</span>
+                <HiOutlineMail style={{ fontSize: 18, color: isDark ? "#34D399" : "#C6F6D5", flexShrink: 0 }} />
+                <span><strong style={{ color: isDark ? "#F2F7F3" : "#FFFFFF" }}>Email:</strong> kalbe.cambodia@gmail.com, info@kalbe.com.kh</span>
               </div>
             </div>
           </div>
@@ -538,14 +545,14 @@ const About = () => {
               to="/contact"
               style={{
                 display: "inline-block",
-                background: "#FFFFFF",
-                color: "#1A241A",
+                background: isDark ? "#10B981" : "#FFFFFF",
+                color: isDark ? "#0B130E" : "#1A241A",
                 padding: "14px 36px",
                 borderRadius: 40,
                 fontWeight: 800,
                 fontSize: 14.5,
                 textDecoration: "none",
-                boxShadow: "0 10px 24px rgba(0,0,0,0.2)",
+                boxShadow: isDark ? "0 4px 16px rgba(16, 185, 129, 0.35)" : "0 10px 24px rgba(0,0,0,0.2)",
                 transition: "all 0.2s ease",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}

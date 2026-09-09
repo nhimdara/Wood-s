@@ -1,9 +1,11 @@
 // components/layout/ui/PositioningFrameworkCard.jsx
 import React, { useState } from "react";
 import { PRODUCT_THEMES } from "../../data/products";
+import { useTheme } from "../../../context/ThemeContext";
 
 export default function PositioningFrameworkCard({ product }) {
   const [activeStep, setActiveStep] = useState("who");
+  const { isDark } = useTheme();
 
   if (!product || !product.framework) return null;
   const fw = product.framework;
@@ -27,7 +29,8 @@ export default function PositioningFrameworkCard({ product }) {
     { id: "say", label: "5. SAY", title: "Product Detailing" },
   ];
 
-  return (    <div
+  return (
+    <div
       style={{
         background: "var(--kalbe-surface)",
         borderRadius: "clamp(16px, 3vw, 24px)",
@@ -95,7 +98,7 @@ export default function PositioningFrameworkCard({ product }) {
             letterSpacing: "1.5px",
             color: theme.primary,
             textTransform: "uppercase",
-            background: "rgba(13, 110, 56, 0.15)",
+            background: isDark ? "rgba(255, 255, 255, 0.08)" : (theme.glow || "rgba(13, 110, 56, 0.15)"),
             padding: "4px 14px",
             borderRadius: 20,
             display: "inline-block",
@@ -131,7 +134,13 @@ export default function PositioningFrameworkCard({ product }) {
               className="step-btn"
               style={{
                 border: isActive ? `2px solid ${theme.primary}` : "1px solid var(--kalbe-border)",
-                background: isActive ? "rgba(13, 110, 56, 0.15)" : "var(--kalbe-surface)",
+                background: isActive
+                  ? isDark
+                    ? "rgba(255, 255, 255, 0.08)"
+                    : (theme.light || "rgba(13, 110, 56, 0.12)")
+                  : isDark
+                    ? "rgba(255, 255, 255, 0.03)"
+                    : "var(--kalbe-bg-alt)",
                 boxShadow: isActive ? `0 4px 12px ${theme.glow}` : "none",
               }}
             >
@@ -149,10 +158,9 @@ export default function PositioningFrameworkCard({ product }) {
       {/* Step Content Box */}
       <div
         style={{
-          background: "var(--kalbe-bg-alt)",
+          background: "transparent",
           borderRadius: 18,
-          padding: "clamp(16px, 3vw, 24px)",
-          border: "1px solid var(--kalbe-border)",
+          padding: "8px 0 0",
           minHeight: 180,
         }}
       >
@@ -173,7 +181,7 @@ export default function PositioningFrameworkCard({ product }) {
                   <div
                     key={idx}
                     style={{
-                      background: "var(--kalbe-surface)",
+                      background: isDark ? "var(--kalbe-surface-elevated)" : "var(--kalbe-surface)",
                       padding: "12px 16px",
                       borderRadius: 12,
                       border: "1px solid var(--kalbe-border)",
@@ -219,7 +227,7 @@ export default function PositioningFrameworkCard({ product }) {
                 <div
                   key={idx}
                   style={{
-                    background: "var(--kalbe-surface)",
+                    background: isDark ? "var(--kalbe-surface-elevated)" : "var(--kalbe-surface)",
                     padding: "14px 16px",
                     borderRadius: 14,
                     border: "1px solid var(--kalbe-border)",
@@ -254,7 +262,7 @@ export default function PositioningFrameworkCard({ product }) {
                   <div
                     key={idx}
                     style={{
-                      background: "var(--kalbe-surface)",
+                      background: isDark ? "var(--kalbe-surface-elevated)" : "var(--kalbe-surface)",
                       padding: "14px 16px",
                       borderRadius: 14,
                       border: "1px solid var(--kalbe-border)",
@@ -263,7 +271,7 @@ export default function PositioningFrameworkCard({ product }) {
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                       <span
                         style={{
-                          background: "rgba(13, 110, 56, 0.15)",
+                          background: isDark ? "rgba(255, 255, 255, 0.08)" : (theme.glow || "rgba(13, 110, 56, 0.15)"),
                           color: theme.primary,
                           fontSize: 10.5,
                           fontWeight: 700,
@@ -306,7 +314,7 @@ export default function PositioningFrameworkCard({ product }) {
                 <div
                   key={idx}
                   style={{
-                    background: "var(--kalbe-surface)",
+                    background: isDark ? "var(--kalbe-surface-elevated)" : "var(--kalbe-surface)",
                     padding: "12px 16px",
                     borderRadius: 12,
                     border: "1px solid var(--kalbe-border)",
@@ -317,7 +325,7 @@ export default function PositioningFrameworkCard({ product }) {
                 >
                   <span
                     style={{
-                      background: "rgba(13, 110, 56, 0.15)",
+                      background: isDark ? "rgba(255, 255, 255, 0.08)" : (theme.glow || "rgba(13, 110, 56, 0.15)"),
                       color: theme.primary,
                       fontSize: 11,
                       fontWeight: 700,
@@ -353,7 +361,7 @@ export default function PositioningFrameworkCard({ product }) {
             </div>
             <div
               style={{
-                background: "var(--kalbe-surface)",
+                background: isDark ? "var(--kalbe-surface-elevated)" : "var(--kalbe-surface)",
                 borderRadius: 14,
                 padding: "18px 20px",
                 borderLeft: `4px solid ${theme.primary}`,

@@ -112,7 +112,7 @@ const Product = () => {
             touch-action: pan-x;
             overscroll-behavior-y: none;
             -webkit-overflow-scrolling: touch;
-            border-bottom: 2px solid ${theme.border};
+
             margin-bottom: 30px;
             padding-top: 4px;
             padding-bottom: 0;
@@ -147,15 +147,15 @@ const Product = () => {
 
           .product-tab-btn:hover {
             color: ${theme.primary};
-            background: ${theme.light};
+            background: ${isDark ? "rgba(255, 255, 255, 0.06)" : theme.light};
           }
 
           .product-tab-btn.active {
             color: ${theme.primary} !important;
             border-bottom: 3px solid ${theme.primary} !important;
             font-weight: 700 !important;
-            background: var(--kalbe-surface);
-            box-shadow: 0 -2px 8px ${theme.glow};
+            background: var(--kalbe-surface) !important;
+            box-shadow: 0 -2px 8px ${isDark ? "rgba(0, 0, 0, 0.3)" : theme.glow};
           }
 
           @media (max-width: 768px) {
@@ -171,9 +171,9 @@ const Product = () => {
         {/* Breadcrumbs */}
         <div
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            padding: "clamp(90px, 11vw, 120px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",
@@ -207,7 +207,7 @@ const Product = () => {
         {/* Hero Product Section */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "30px 5% 40px",
             display: "grid",
@@ -435,12 +435,11 @@ const Product = () => {
         {/* Interactive Tabs Section */}
         <section
           style={{
-            background: "var(--kalbe-surface)",
+            background: "var(--kalbe-bg)",
             padding: "clamp(36px, 6vw, 56px) 5%",
-            borderTop: `1px solid ${theme.border}`,
           }}
         >
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             {/* Tab Navigation with tablet/mobile responsive labels */}
             <div className="product-tabs-container">
               {tabs.map((tab) => (
@@ -589,7 +588,7 @@ const Product = () => {
         {/* Other Products in this Portfolio */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "clamp(40px, 6vw, 60px) 5%",
           }}
@@ -666,7 +665,7 @@ const Product = () => {
         {/* Breadcrumb */}
         <div
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "clamp(75px, 11vw, 90px) 5% 0",
             display: "flex",
@@ -697,7 +696,7 @@ const Product = () => {
         {/* Hero Portfolio Banner */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "30px 5% 40px",
             display: "grid",
@@ -793,7 +792,7 @@ const Product = () => {
         {/* Portfolio Products Grid */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "10px 5% 60px",
           }}
@@ -845,12 +844,11 @@ const Product = () => {
         {/* Clinical Module for Parent View */}
         <section
           style={{
-            background: "var(--kalbe-bg-alt)",
+            background: "var(--kalbe-bg)",
             padding: "clamp(40px, 6vw, 60px) 5%",
-            borderTop: "1px solid var(--kalbe-border)",
           }}
         >
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 30 }}>
               <span
                 style={{
