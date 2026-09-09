@@ -1,12 +1,11 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { App as CapApp } from "@capacitor/app";
 
-// Lazy-loaded route pages for optimal bundle splitting and fast initial page load
-const Homepage = lazy(() => import("./pages/Homepage"));
-const Product = lazy(() => import("./pages/Product"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
+import Homepage from "./pages/Homepage";
+import Product from "./pages/Product";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const PageLoader = () => (
   <div
@@ -76,17 +75,16 @@ const App = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/product/:id/:subId" element={<Product />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/category/:category" element={<Product />} />
-        <Route path="/category/:category/:subcategory" element={<Product />} />
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/product/:id" element={<Product />} />
+      <Route path="/product/:id/:subId" element={<Product />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/category/:category" element={<Product />} />
+      <Route path="/category/:category/:subcategory" element={<Product />} />
+      <Route path="*" element={<Homepage />} />
+    </Routes>
   );
 };
 
