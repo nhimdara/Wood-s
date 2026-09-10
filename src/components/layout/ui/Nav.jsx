@@ -787,34 +787,36 @@ export default function Nav() {
 
           {/* Mobile Actions (Search + Theme Toggle + Hamburger) */}
           <div className="mobile-actions" style={{ display: "none", alignItems: "center", gap: 8 }}>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileSearchOpen(!mobileSearchOpen);
-                if (mobileOpen) setMobileOpen(false);
-              }}
-              aria-label="Search"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 36,
-                height: 36,
-                borderRadius: "50%",
-                border: isDark
-                  ? "1px solid rgba(16, 185, 129, 0.3)"
-                  : "1px solid rgba(13, 110, 56, 0.2)",
-                background: isDark
-                  ? "rgba(16, 185, 129, 0.12)"
-                  : "rgba(13, 110, 56, 0.07)",
-                color: isDark ? "#34D399" : "#0D6E38",
-                cursor: "pointer",
-                outline: "none",
-                transition: "all 0.2s ease",
-              }}
-            >
-              <FaSearch style={{ fontSize: 14 }} />
-            </button>
+            {location.pathname !== "/" && (
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileSearchOpen(!mobileSearchOpen);
+                  if (mobileOpen) setMobileOpen(false);
+                }}
+                aria-label="Search"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 36,
+                  height: 36,
+                  borderRadius: "50%",
+                  border: isDark
+                    ? "1px solid rgba(16, 185, 129, 0.3)"
+                    : "1px solid rgba(13, 110, 56, 0.2)",
+                  background: isDark
+                    ? "rgba(16, 185, 129, 0.12)"
+                    : "rgba(13, 110, 56, 0.07)",
+                  color: isDark ? "#34D399" : "#0D6E38",
+                  cursor: "pointer",
+                  outline: "none",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <FaSearch style={{ fontSize: 14 }} />
+              </button>
+            )}
             <ThemeToggle />
             <button
               className="hamburger"

@@ -263,8 +263,8 @@ const Homepage = () => {
         @media (max-width: 1024px) {
           .hero-section {
             grid-template-columns: 1fr;
-            padding: calc(88px + env(safe-area-inset-top, 32px) + 24px) 5% 40px;
-            gap: 36px;
+            padding: calc(64px + env(safe-area-inset-top, 12px) + 16px) 5% 32px;
+            gap: 28px;
             text-align: center;
           }
           .hero-content {
@@ -322,7 +322,12 @@ const Homepage = () => {
         }
 
         @media (max-width: 768px) {
-          .hero-section { padding: calc(88px + env(safe-area-inset-top, 32px) + 24px) 4% 32px; gap: 26px; }
+          .hero-section {
+            padding: calc(60px + env(safe-area-inset-top, 12px) + 12px) 4% calc(24px + env(safe-area-inset-bottom, 12px));
+            gap: 18px;
+            min-height: auto;
+          }
+          .hero-visual { display: none !important; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
         }
@@ -654,18 +659,18 @@ const Homepage = () => {
               transition: "box-shadow 0.5s ease",
             }}
           >
-            {/* Header: Badge + Counter + Dots */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
+            {/* Header: Category Badge + SKU Count + Progress Dots */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span
                   key={`badge-${currentHeroSlide}`}
                   className="hero-slide-img"
                   style={{
-                    fontSize: 11.5,
+                    fontSize: 11,
                     fontWeight: 800,
                     color: "#FFFFFF",
                     background: heroSlides[currentHeroSlide].badgeGradient,
-                    padding: "5px 14px",
+                    padding: "4px 12px",
                     borderRadius: 20,
                     textTransform: "uppercase",
                     letterSpacing: "0.8px",
@@ -677,12 +682,12 @@ const Homepage = () => {
                 </span>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 10.5,
                     fontWeight: 700,
                     color: heroSlides[currentHeroSlide].accentColor,
                     background: "var(--kalbe-surface-elevated)",
-                    padding: "4px 10px",
-                    borderRadius: 14,
+                    padding: "3px 9px",
+                    borderRadius: 12,
                     border: "1px solid var(--kalbe-border)",
                   }}
                 >
@@ -691,8 +696,8 @@ const Homepage = () => {
               </div>
 
               {/* Progress Indicator */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--kalbe-text-muted)", marginRight: 4 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-muted)", marginRight: 2 }}>
                   0{currentHeroSlide + 1} / 0{heroSlides.length}
                 </span>
                 {heroSlides.map((_, i) => (
@@ -703,13 +708,13 @@ const Homepage = () => {
                     role="button"
                     aria-label={`Go to slide ${i + 1}`}
                     style={{
-                      width: currentHeroSlide === i ? 24 : 7,
-                      height: 7,
-                      borderRadius: 4,
+                      width: currentHeroSlide === i ? 20 : 6,
+                      height: 6,
+                      borderRadius: 3,
                       background:
                         currentHeroSlide === i
                           ? heroSlides[currentHeroSlide].accentColor
-                          : "rgba(0,0,0,0.12)",
+                          : "rgba(0,0,0,0.15)",
                       cursor: "pointer",
                       display: "inline-block",
                       transition: "all 0.3s cubic-bezier(0.2, 0, 0, 1)",
@@ -723,12 +728,12 @@ const Homepage = () => {
             <div
               style={{
                 position: "relative",
-                height: "clamp(230px, 32vw, 300px)",
+                height: "clamp(180px, 28vw, 260px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 background: "transparent",
-                padding: "16px 48px",
+                padding: "10px 40px",
                 overflow: "hidden",
               }}
             >
@@ -739,13 +744,13 @@ const Homepage = () => {
                 aria-label="Previous Slide"
                 style={{
                   position: "absolute",
-                  left: 12,
+                  left: 8,
                   zIndex: 2,
                   background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
                   border: "1px solid var(--kalbe-border)",
-                  width: 38,
-                  height: 38,
+                  width: 34,
+                  height: 34,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
@@ -755,7 +760,7 @@ const Homepage = () => {
                   boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
-                <HiOutlineChevronLeft style={{ fontSize: 18 }} />
+                <HiOutlineChevronLeft style={{ fontSize: 16 }} />
               </button>
 
               <Link
@@ -779,7 +784,7 @@ const Homepage = () => {
                     maxHeight: "100%",
                     maxWidth: "100%",
                     objectFit: "contain",
-                    filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.12))",
+                    filter: "drop-shadow(0 8px 18px rgba(0,0,0,0.1))",
                     transition: "transform 0.4s cubic-bezier(0.2, 0, 0, 1)",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
@@ -794,13 +799,13 @@ const Homepage = () => {
                 aria-label="Next Slide"
                 style={{
                   position: "absolute",
-                  right: 12,
+                  right: 8,
                   zIndex: 2,
                   background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
                   border: "1px solid var(--kalbe-border)",
-                  width: 38,
-                  height: 38,
+                  width: 34,
+                  height: 34,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
@@ -810,12 +815,12 @@ const Homepage = () => {
                   boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
-                <HiOutlineChevronRight style={{ fontSize: 18 }} />
+                <HiOutlineChevronRight style={{ fontSize: 16 }} />
               </button>
             </div>
 
             {/* Slide Info & Quick Link */}
-            <div style={{ marginTop: 18, textAlign: "center" }}>
+            <div style={{ marginTop: 14, textAlign: "center" }}>
               <Link
                 to={`/product/${heroSlides[currentHeroSlide].portfolioId}`}
                 style={{ textDecoration: "none", color: "inherit", display: "inline-block" }}
@@ -825,27 +830,27 @@ const Homepage = () => {
                   className="hero-slide-img"
                   style={{
                     fontFamily: "'Montserrat', 'Inter', sans-serif",
-                    fontSize: "clamp(20px, 2.6vw, 25px)",
+                    fontSize: "clamp(18px, 2.4vw, 22px)",
                     fontWeight: 900,
                     color: "var(--kalbe-text-main)",
                     letterSpacing: "0.5px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: 8,
+                    gap: 6,
                   }}
                 >
                   {heroSlides[currentHeroSlide].title}
-                  <HiOutlineChevronRight style={{ fontSize: 18, color: heroSlides[currentHeroSlide].accentColor }} />
+                  <HiOutlineChevronRight style={{ fontSize: 16, color: heroSlides[currentHeroSlide].accentColor }} />
                 </div>
               </Link>
               <div
                 style={{
-                  fontSize: "clamp(12.5px, 1.7vw, 13.5px)",
+                  fontSize: "clamp(12px, 1.5vw, 13px)",
                   color: "var(--kalbe-text-muted)",
                   fontWeight: 500,
-                  marginTop: 6,
-                  lineHeight: 1.5,
+                  marginTop: 4,
+                  lineHeight: 1.4,
                 }}
               >
                 {heroSlides[currentHeroSlide].desc}

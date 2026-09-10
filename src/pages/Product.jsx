@@ -9,7 +9,7 @@ import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCa
 import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
 import { products, PRODUCT_THEMES } from "../components/data/products";
 import { useTheme } from "../context/ThemeContext";
-import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
+import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight, HiOutlineHome } from "react-icons/hi";
 import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 
 const Product = () => {
@@ -411,8 +411,8 @@ const Product = () => {
               </div>
             </div>
 
-            {/* Quick action buttons */}
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {/* Quick action buttons: Distinct Back & Home buttons */}
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
               <Link
                 to={`/product/${id}`}
                 style={{
@@ -430,7 +430,26 @@ const Product = () => {
                   transition: "all 0.2s ease",
                 }}
               >
-                <HiOutlineArrowLeft /> More in {parentProduct.title}
+                <HiOutlineArrowLeft /> Back to {parentProduct.title}
+              </Link>
+              <Link
+                to="/"
+                style={{
+                  background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 110, 56, 0.08)",
+                  color: isDark ? "var(--kalbe-text-main)" : "#0D6E38",
+                  padding: "9px 20px",
+                  borderRadius: 40,
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  fontSize: 13,
+                  border: isDark ? "1px solid var(--kalbe-border)" : "1.5px solid rgba(13, 110, 56, 0.2)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <HiOutlineHome /> Home
               </Link>
             </div>
           </div>
@@ -615,7 +634,7 @@ const Product = () => {
               </h3>
             </div>
             <Link
-              to={`/product/${id}`}
+              to="/"
               style={{
                 color: "var(--kalbe-green)",
                 fontWeight: 700,
@@ -623,10 +642,14 @@ const Product = () => {
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 4,
+                gap: 6,
+                padding: "6px 14px",
+                borderRadius: 20,
+                background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 110, 56, 0.08)",
+                border: "1px solid var(--kalbe-border)",
               }}
             >
-              See all {parentProduct.subProducts.length} <HiOutlineArrowRight />
+              <HiOutlineHome /> Back to Home
             </Link>
           </div>
 

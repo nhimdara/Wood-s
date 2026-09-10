@@ -71,6 +71,7 @@ body {
   text-rendering: optimizeLegibility;
   overscroll-behavior-y: contain;
   transition: background-color 0.25s ease, color 0.25s ease;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
 }
 
 /* Fast tap response on mobile / Capacitor */
