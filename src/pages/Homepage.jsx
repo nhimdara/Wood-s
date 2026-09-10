@@ -272,6 +272,7 @@ const Homepage = () => {
             flex-direction: column;
             align-items: center;
             text-align: center;
+            width: 100%;
           }
           .hero-badge-row {
             justify-content: center !important;
@@ -283,18 +284,32 @@ const Homepage = () => {
           .hero-search-wrapper {
             margin-left: auto !important;
             margin-right: auto !important;
+            width: 100% !important;
+            max-width: 640px !important;
           }
           .hero-quick-tags {
             justify-content: center !important;
           }
           .hero-cta-btns {
+            width: 100% !important;
+            max-width: 640px !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
             justify-content: center !important;
+          }
+          .hero-cta-btns a {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
           }
           .hero-trust-strip {
             justify-content: center !important;
           }
           .hero-bg-blob { display: none; }
-          .floating-hero-card { max-width: 620px; margin: 0 auto; }
+          .hero-visual { width: 100% !important; max-width: 640px !important; margin: 0 auto; }
+          .floating-hero-card { width: 100% !important; max-width: 640px !important; margin: 0 auto; }
         }
 
         @media (max-width: 920px) {
@@ -310,19 +325,6 @@ const Homepage = () => {
           .hero-section { padding: 84px 4% 32px; gap: 26px; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
-          .hero-cta-btns {
-            width: 100% !important;
-            max-width: 100% !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-          }
-          .hero-cta-btns a {
-            width: 100% !important;
-            display: flex !important;
-            justify-content: center !important;
-            text-align: center !important;
-            box-sizing: border-box !important;
-          }
         }
       `}</style>
 
@@ -587,7 +589,7 @@ const Homepage = () => {
           </div>
 
           {/* CTAs */}
-          <div className="hero-cta-btns" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
+          <div className="hero-cta-btns" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20, width: "100%", maxWidth: 640 }}>
             <a
               href="#portfolios"
               style={{
@@ -987,10 +989,9 @@ const Homepage = () => {
                 <div>
                   <h3
                     style={{
-                      fontFamily: "'Montserrat', 'Inter', sans-serif",
-                      fontSize: "clamp(17px, 2.2vw, 21px)",
-                      fontWeight: 900,
-                      letterSpacing: "0.4px",
+                      fontFamily: "Georgia, serif",
+                      fontSize: "clamp(18px, 2.3vw, 23px)",
+                      fontWeight: 800,
                       color: isSelected ? "var(--kalbe-green)" : "var(--kalbe-text-main)",
                       marginBottom: 6,
                       lineHeight: 1.25,
