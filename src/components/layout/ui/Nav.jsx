@@ -364,6 +364,7 @@ export default function Nav() {
   const [open, setOpen] = useState(null);
   const [isScrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(null);
   const [mobileL3, setMobileL3] = useState(null);
 
@@ -379,6 +380,7 @@ export default function Nav() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setMobileSearchOpen(false);
     setMobileExpanded(null);
     setMobileL3(null);
     setOpen(null);
@@ -389,6 +391,7 @@ export default function Nav() {
   useOutsideClick(navRef, () => {
     setOpen(null);
     setMobileOpen(false);
+    setMobileSearchOpen(false);
   });
 
   useOutsideClick(searchRef, () => {
@@ -502,15 +505,16 @@ export default function Nav() {
           border: 1px solid var(--kalbe-border);
           outline: none;
           background: var(--kalbe-input-bg);
-          padding: 5px 12px 5px 30px;
+          padding: 6px 12px 6px 32px;
           border-radius: 30px;
-          font-size: 12.5px;
+          font-size: 11.5px;
+          font-family: inherit;
           color: var(--kalbe-text-main);
-          width: 160px;
+          width: 240px;
           transition: all 0.3s ease;
         }
         .nav-search-input:focus {
-          width: 200px;
+          width: 270px;
           border-color: #0D6E38;
           box-shadow: 0 0 0 3px rgba(13,110,56,0.12);
         }
@@ -543,8 +547,8 @@ export default function Nav() {
 
         @media (min-width: 769px) and (max-width: 1024px) {
           .nav-link-btn { padding: 5px 10px; font-size: 12.5px; }
-          .nav-search-input { width: 120px; font-size: 12px; padding: 5px 8px 5px 28px; }
-          .nav-search-input:focus { width: 160px; }
+          .nav-search-input { width: 170px; font-size: 11px; padding: 5px 8px 5px 28px; }
+          .nav-search-input:focus { width: 210px; }
           .desktop-nav { gap: 2px !important; }
         }
         
@@ -690,7 +694,7 @@ export default function Nav() {
                 />
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder="Search products (Efesa, Prospan, Nephrisol...)"
                   value={navSearchQuery}
                   onChange={(e) => {
                     setNavSearchQuery(e.target.value);
@@ -792,12 +796,43 @@ export default function Nav() {
             <ThemeToggle />
           </div>
 
-          {/* Mobile Actions (Theme Toggle + Hamburger) */}
+          {/* Mobile Actions (Search + Theme Toggle + Hamburger) */}
           <div className="mobile-actions" style={{ display: "none", alignItems: "center", gap: 8 }}>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileSearchOpen(!mobileSearchOpen);
+                if (mobileOpen) setMobileOpen(false);
+              }}
+              aria-label="Search"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                border: isDark
+                  ? "1px solid rgba(16, 185, 129, 0.3)"
+                  : "1px solid rgba(13, 110, 56, 0.2)",
+                background: isDark
+                  ? "rgba(16, 185, 129, 0.12)"
+                  : "rgba(13, 110, 56, 0.07)",
+                color: isDark ? "#34D399" : "#0D6E38",
+                cursor: "pointer",
+                outline: "none",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <FaSearch style={{ fontSize: 14 }} />
+            </button>
             <ThemeToggle />
             <button
               className="hamburger"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={() => {
+                setMobileOpen(!mobileOpen);
+                if (mobileSearchOpen) setMobileSearchOpen(false);
+              }}
               aria-label="Menu"
             >
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -821,6 +856,131 @@ export default function Nav() {
           </div>
         </div>
 
+        {/* Mobile Dedicated Top Search Bar */}
+        {mobileSearchOpen && (
+          <div
+            style={{
+              borderTop: "1px solid var(--kalbe-border)",
+              padding: "10px 16px 14px",
+              background: "var(--kalbe-surface)",
+              animation: "slideDown 0.2s ease",
+            }}
+          >
+            <div style={{ position: "relative" }}>
+              <FaSearch
+                style={{
+                  position: "absolute",
+                  left: 14,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  color: "#0D6E38",
+                  fontSize: 13,
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search products (Efesa, Prospan, Nephrisol...)"
+                value={navSearchQuery}
+                onChange={(e) => setNavSearchQuery(e.target.value)}
+                autoFocus
+                style={{
+                  width: "100%",
+                  padding: "9px 36px 9px 36px",
+                  borderRadius: 24,
+                  border: "1px solid #0D6E38",
+                  background: "var(--kalbe-input-bg)",
+                  fontSize: 12.5,
+                  fontFamily: "inherit",
+                  color: "var(--kalbe-text-main)",
+                  outline: "none",
+                }}
+              />
+              {navSearchQuery && (
+                <button
+                  onClick={() => setNavSearchQuery("")}
+                  style={{
+                    position: "absolute",
+                    right: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "none",
+                    border: "none",
+                    color: "var(--kalbe-text-muted)",
+                    fontSize: 12,
+                    cursor: "pointer",
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Mobile Search Results */}
+            {navSearchQuery.trim() && (
+              <div
+                style={{
+                  marginTop: 10,
+                  background: "var(--kalbe-surface-elevated)",
+                  borderRadius: 14,
+                  padding: 8,
+                  border: "1px solid var(--kalbe-border)",
+                  maxHeight: 280,
+                  overflowY: "auto",
+                  boxShadow: "var(--kalbe-card-shadow)",
+                }}
+              >
+                {matchingProducts.length > 0 ? (
+                  matchingProducts.map((prod) => (
+                    <Link
+                      key={prod.id}
+                      to={`/product/${prod.portfolioId}/${prod.id}`}
+                      onClick={() => {
+                        setNavSearchQuery("");
+                        setMobileSearchOpen(false);
+                      }}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "8px 10px",
+                        borderRadius: 8,
+                        textDecoration: "none",
+                        color: "var(--kalbe-text-main)",
+                        borderBottom: "1px solid var(--kalbe-border-subtle)",
+                      }}
+                    >
+                      <img
+                        src={prod.image}
+                        alt={prod.title}
+                        style={{
+                          width: 32,
+                          height: 32,
+                          objectFit: "contain",
+                          background: "var(--kalbe-bg-alt)",
+                          borderRadius: 6,
+                          padding: 2,
+                        }}
+                      />
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontWeight: 700, fontSize: 13, color: "var(--kalbe-text-main)" }}>
+                          {prod.title}
+                        </div>
+                        <div style={{ fontSize: 11, color: "#0D6E38" }}>
+                          {prod.portfolioTitle} • {prod.genericName || prod.categoryTag}
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div style={{ padding: "12px", textAlign: "center", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
+                    No products found for "{navSearchQuery}"
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Mobile Navigation Panel with Search */}
         {mobileOpen && (
           <div
@@ -834,9 +994,6 @@ export default function Nav() {
               overflowY: "auto",
             }}
           >
-            {/* Mobile Dedicated Theme Toggle Row */}
-            <ThemeToggle isMobile />
-
             {/* Mobile Search Box */}
             <div style={{ position: "relative", marginBottom: 14 }}>
               <FaSearch
@@ -856,11 +1013,12 @@ export default function Nav() {
                 onChange={(e) => setNavSearchQuery(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "10px 14px 10px 36px",
+                  padding: "9px 14px 9px 36px",
                   borderRadius: 24,
                   border: "1px solid var(--kalbe-border)",
                   background: "var(--kalbe-input-bg)",
-                  fontSize: 13,
+                  fontSize: 12,
+                  fontFamily: "inherit",
                   color: "var(--kalbe-text-main)",
                   outline: "none",
                 }}
