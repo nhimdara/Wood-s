@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import { useTheme } from "../context/ThemeContext";
-import kalbeLogo from "../components/assets/logo/kalbe-logo.png";
+import KalbeLogo from "../components/layout/ui/KalbeLogo";
 import {
   HiOutlineShieldCheck,
   HiOutlineHeart,
@@ -108,11 +108,7 @@ const About = () => {
                 alignItems: "center",
               }}
             >
-              <img
-                src={kalbeLogo}
-                alt="KALBE Innovation for a Better Life"
-                style={{ height: "clamp(26px, 3.5vw, 32px)", width: "auto", objectFit: "contain" }}
-              />
+              <KalbeLogo isDark={isDark} height={32} />
             </div>
           </div>
 

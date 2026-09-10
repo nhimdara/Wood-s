@@ -174,3 +174,69 @@ html.dark ::-webkit-scrollbar-thumb {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Global Responsive Container & Grid System
+   ========================================================================== */
+.container-responsive {
+  width: 100%;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(12px, 3.5vw, 32px);
+  padding-right: clamp(12px, 3.5vw, 32px);
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+/* Flex & Grid Responsive Utilities */
+.grid-responsive-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: clamp(14px, 2.5vw, 24px);
+}
+
+@media (max-width: 480px) {
+  .grid-responsive-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .mobile-text-center {
+    text-align: center !important;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-padding-sm {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-hide {
+    display: none !important;
+  }
+}
+

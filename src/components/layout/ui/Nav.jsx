@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import kalbeLogo from "../../assets/logo/kalbe-logo.png";
+import KalbeLogo from "./KalbeLogo";
 import { products, PRODUCT_THEMES } from "../../data/products";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
@@ -598,19 +598,7 @@ export default function Nav() {
               alignItems: "center",
             }}
           >
-            <img
-              src={kalbeLogo}
-              alt="Kalbe Product"
-              style={{
-                height: isScrolled ? "32px" : "38px",
-                width: "auto",
-                objectFit: "contain",
-                filter: isDark ? "brightness(1.15) contrast(1.05)" : "none",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            />
+            <KalbeLogo isDark={isDark} isScrolled={isScrolled} />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -981,7 +969,7 @@ export default function Nav() {
           </div>
         )}
 
-        {/* Mobile Navigation Panel with Search */}
+        {/* Mobile Navigation Panel */}
         {mobileOpen && (
           <div
             style={{
@@ -994,85 +982,6 @@ export default function Nav() {
               overflowY: "auto",
             }}
           >
-            {/* Mobile Search Box */}
-            <div style={{ position: "relative", marginBottom: 14 }}>
-              <FaSearch
-                style={{
-                  position: "absolute",
-                  left: 14,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "#0D6E38",
-                  fontSize: 13,
-                }}
-              />
-              <input
-                type="text"
-                placeholder="Search products (Efesa, Prospan, Nephrisol...)"
-                value={navSearchQuery}
-                onChange={(e) => setNavSearchQuery(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: "9px 14px 9px 36px",
-                  borderRadius: 24,
-                  border: "1px solid var(--kalbe-border)",
-                  background: "var(--kalbe-input-bg)",
-                  fontSize: 12,
-                  fontFamily: "inherit",
-                  color: "var(--kalbe-text-main)",
-                  outline: "none",
-                }}
-              />
-            </div>
-
-            {/* Mobile Search Results */}
-            {navSearchQuery.trim() && (
-              <div
-                style={{
-                  background: "var(--kalbe-surface-elevated)",
-                  borderRadius: 14,
-                  padding: 8,
-                  border: "1px solid var(--kalbe-border)",
-                  marginBottom: 14,
-                  maxHeight: 220,
-                  overflowY: "auto",
-                }}
-              >
-                {matchingProducts.length > 0 ? (
-                  matchingProducts.map((prod) => (
-                    <Link
-                      key={prod.id}
-                      to={`/product/${prod.portfolioId}/${prod.id}`}
-                      onClick={() => setMobileOpen(false)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        padding: "8px",
-                        textDecoration: "none",
-                        color: "var(--kalbe-text-main)",
-                        borderBottom: "1px solid var(--kalbe-border-subtle)",
-                      }}
-                    >
-                      <img
-                        src={prod.image}
-                        alt={prod.title}
-                        style={{ width: 30, height: 30, objectFit: "contain", background: "var(--kalbe-bg-alt)", borderRadius: 6, padding: 2 }}
-                      />
-                      <div>
-                        <div style={{ fontWeight: 700, fontSize: 13, color: "var(--kalbe-text-main)" }}>{prod.title}</div>
-                        <div style={{ fontSize: 11, color: "#0D6E38" }}>{prod.portfolioTitle}</div>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <div style={{ padding: "10px", textAlign: "center", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                    No products found
-                  </div>
-                )}
-              </div>
-            )}
-
             {/* Mobile Nav Links */}
             {NAV_ITEMS.map((item) =>
               item.children ? (
