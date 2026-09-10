@@ -263,7 +263,7 @@ const Homepage = () => {
         @media (max-width: 1024px) {
           .hero-section {
             grid-template-columns: 1fr;
-            padding: 96px 5% 40px;
+            padding: calc(88px + env(safe-area-inset-top, 32px) + 24px) 5% 40px;
             gap: 36px;
             text-align: center;
           }
@@ -322,7 +322,7 @@ const Homepage = () => {
         }
 
         @media (max-width: 768px) {
-          .hero-section { padding: calc(68px + env(safe-area-inset-top, 28px) + 20px) 4% 32px; gap: 26px; }
+          .hero-section { padding: calc(88px + env(safe-area-inset-top, 32px) + 24px) 4% 32px; gap: 26px; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
         }

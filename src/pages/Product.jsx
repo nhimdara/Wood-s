@@ -163,6 +163,9 @@ const Product = () => {
               padding: 9px 14px;
               font-size: 13px;
             }
+            .product-breadcrumbs-container {
+              padding-top: clamp(125px, 15vw, 150px) !important;
+            }
           }
         `}</style>
 
@@ -170,10 +173,11 @@ const Product = () => {
 
         {/* Breadcrumbs */}
         <div
+          className="product-breadcrumbs-container"
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "calc(68px + env(safe-area-inset-top, 28px) + 24px) 5% 0",
+            padding: "clamp(125px, 12vw, 150px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",

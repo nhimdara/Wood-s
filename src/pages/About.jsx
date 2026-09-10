@@ -90,17 +90,17 @@ const About = () => {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(75px, 8vw, 95px) 5% 32px",
+          padding: "calc(88px + env(safe-area-inset-top, 32px) + 24px) 5% 36px",
           background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
           borderBottom: "1px solid var(--kalbe-border)",
         }}
       >
         <div style={{ maxWidth: 780, margin: "0 auto" }}>
-          <div className="fade-up" style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+          <div className="fade-up" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, marginBottom: 14 }}>
             <div
               style={{
                 background: "var(--kalbe-surface)",
-                padding: "6px 16px",
+                padding: "8px 20px",
                 borderRadius: 40,
                 border: "1px solid var(--kalbe-border)",
                 boxShadow: "var(--kalbe-card-shadow)",
@@ -108,27 +108,27 @@ const About = () => {
                 alignItems: "center",
               }}
             >
-              <KalbeLogo isDark={isDark} height={24} />
+              <KalbeLogo isDark={isDark} height={28} />
             </div>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: "11px",
+                fontWeight: 800,
+                letterSpacing: "1.5px",
+                color: "#0D6E38",
+                textTransform: "uppercase",
+                background: "rgba(13,110,56,0.1)",
+                border: "1px solid rgba(13,110,56,0.2)",
+                padding: "5px 16px",
+                borderRadius: 30,
+              }}
+            >
+              About Us • PT Kalbe Farma Tbk
+            </span>
           </div>
-
-          <span
-            className="fade-up"
-            style={{
-              display: "inline-block",
-              fontSize: "10.5px",
-              fontWeight: 800,
-              letterSpacing: "1.5px",
-              color: "#0D6E38",
-              marginBottom: 10,
-              textTransform: "uppercase",
-              background: "rgba(13,110,56,0.1)",
-              padding: "3px 14px",
-              borderRadius: 30,
-            }}
-          >
-            About Us • PT Kalbe Farma Tbk
-          </span>
 
           <h1
             className="fade-up"
