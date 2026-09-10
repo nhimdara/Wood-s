@@ -58,7 +58,7 @@ const SubProductCard = ({ product, parentId }) => {
             padding: "16px",
           }}
         >
-          {imgError ? (
+          {!product.image || imgError ? (
             <div
               style={{
                 width: "100%",

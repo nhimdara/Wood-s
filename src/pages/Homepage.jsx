@@ -306,10 +306,23 @@ const Homepage = () => {
           .portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .hero-section { padding: 84px 4% 32px; gap: 26px; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
+          .hero-cta-btns {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .hero-cta-btns a {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
+          }
         }
       `}</style>
 
@@ -580,13 +593,14 @@ const Homepage = () => {
               style={{
                 background: "linear-gradient(135deg, #1A241A 0%, #0D6E38 100%)",
                 color: "#F8FAF6",
-                padding: "12px 28px",
+                padding: "13px 28px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
                 display: "inline-flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: 8,
                 boxShadow: "0 10px 24px rgba(13,110,56,0.22)",
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -599,7 +613,7 @@ const Homepage = () => {
               style={{
                 background: "var(--kalbe-surface)",
                 color: "var(--kalbe-text-main)",
-                padding: "11px 24px",
+                padding: "12px 24px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
@@ -607,6 +621,9 @@ const Homepage = () => {
                 border: "1.5px solid var(--kalbe-border)",
                 boxShadow: "var(--kalbe-card-shadow)",
                 transition: "all 0.2s ease",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               About Our Mission
