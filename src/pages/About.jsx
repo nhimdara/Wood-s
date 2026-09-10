@@ -108,7 +108,7 @@ const About = () => {
                 alignItems: "center",
               }}
             >
-              <KalbeLogo isDark={isDark} height={32} />
+              <KalbeLogo isDark={isDark} height={24} />
             </div>
           </div>
 
