@@ -566,11 +566,11 @@ const Homepage = () => {
                         />
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontWeight: 700, fontSize: 14 }}>{item.title}</div>
-                          <div style={{ fontSize: 12, color: "#0D6E38" }}>
+                          <div style={{ fontSize: 12, color: "var(--kalbe-green)", fontWeight: 600 }}>
                             {item.portfolioTitle} • {item.genericName}
                           </div>
                         </div>
-                        <HiOutlineChevronRight style={{ color: "#0D6E38", flexShrink: 0 }} />
+                        <HiOutlineChevronRight style={{ color: "var(--kalbe-green)", flexShrink: 0 }} />
                       </Link>
                     ))}
                     {filteredProducts.length > 8 && (

@@ -164,7 +164,7 @@ const Product = () => {
               font-size: 13px;
             }
             .product-breadcrumbs-container {
-              padding-top: clamp(125px, 15vw, 150px) !important;
+              padding-top: calc(74px + env(safe-area-inset-top, 24px) + 20px) !important;
             }
           }
         `}</style>
@@ -177,7 +177,7 @@ const Product = () => {
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(125px, 12vw, 150px) 5% 0",
+            padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",
@@ -667,11 +667,19 @@ const Product = () => {
         <Nav />
 
         {/* Breadcrumb */}
+        <style>{`
+          @media (max-width: 768px) {
+            .portfolio-breadcrumbs-container {
+              padding-top: calc(74px + env(safe-area-inset-top, 24px) + 16px) !important;
+            }
+          }
+        `}</style>
         <div
+          className="portfolio-breadcrumbs-container"
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",

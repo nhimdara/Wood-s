@@ -152,7 +152,7 @@ const Contact = () => {
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(75px, 8vw, 95px) 5% 32px",
+          padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 32px",
           background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
           borderBottom: "1px solid var(--kalbe-border)",
         }}

@@ -766,7 +766,7 @@ export default function Nav() {
                           <div style={{ fontWeight: 700, fontSize: 13, color: "var(--kalbe-text-main)" }}>
                             {prod.title}
                           </div>
-                          <div style={{ fontSize: 11, color: "#0D6E38", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          <div style={{ fontSize: 11, color: "var(--kalbe-green)", fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                             {prod.portfolioTitle} • {prod.genericName || prod.categoryTag}
                           </div>
                         </div>
@@ -954,7 +954,7 @@ export default function Nav() {
                         <div style={{ fontWeight: 700, fontSize: 13, color: "var(--kalbe-text-main)" }}>
                           {prod.title}
                         </div>
-                        <div style={{ fontSize: 11, color: "#0D6E38" }}>
+                        <div style={{ fontSize: 11, color: "var(--kalbe-green)", fontWeight: 600 }}>
                           {prod.portfolioTitle} • {prod.genericName || prod.categoryTag}
                         </div>
                       </div>
