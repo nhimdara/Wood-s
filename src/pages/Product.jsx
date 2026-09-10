@@ -173,7 +173,7 @@ const Product = () => {
           style={{
             maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(90px, 11vw, 120px) 5% 0",
+            padding: "calc(68px + env(safe-area-inset-top, 28px) + 24px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",

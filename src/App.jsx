@@ -1,6 +1,7 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { App as CapApp } from "@capacitor/app";
+import SplashScreen from "./components/layout/ui/SplashScreen";
 
 // Lazy-loaded route pages for optimal bundle splitting and fast initial page load
 const Homepage = lazy(() => import("./pages/Homepage"));
@@ -41,6 +42,7 @@ const PageLoader = () => (
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const backListenerPromise = CapApp.addListener("backButton", () => {
@@ -76,17 +78,20 @@ const App = () => {
   }, [location.pathname, navigate]);
 
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/product/:id/:subId" element={<Product />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/category/:category" element={<Product />} />
-        <Route path="/category/:category/:subcategory" element={<Product />} />
-      </Routes>
-    </Suspense>
+    <>
+      {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/product/:id/:subId" element={<Product />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/category/:category" element={<Product />} />
+          <Route path="/category/:category/:subcategory" element={<Product />} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 

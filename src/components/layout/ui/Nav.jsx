@@ -568,6 +568,7 @@ export default function Nav() {
           left: 0,
           right: 0,
           zIndex: 1000,
+          paddingTop: "env(safe-area-inset-top, 0px)",
           background: "var(--kalbe-nav-bg)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",

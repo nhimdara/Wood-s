@@ -198,7 +198,7 @@ const Homepage = () => {
           grid-template-columns: 1.05fr 0.95fr;
           align-items: center;
           gap: clamp(32px, 4.5vw, 64px);
-          padding: clamp(90px, 11vw, 130px) 5% 56px;
+          padding: calc(68px + env(safe-area-inset-top, 28px) + 28px) 5% 56px;
           max-width: 1320px;
           margin: 0 auto;
           position: relative;
@@ -322,7 +322,7 @@ const Homepage = () => {
         }
 
         @media (max-width: 768px) {
-          .hero-section { padding: 84px 4% 32px; gap: 26px; }
+          .hero-section { padding: calc(68px + env(safe-area-inset-top, 28px) + 20px) 4% 32px; gap: 26px; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
         }
@@ -960,13 +960,15 @@ const Homepage = () => {
 
                 <div
                   style={{
-                    height: "clamp(140px, 20vw, 185px)",
+                    height: "clamp(180px, 25vw, 240px)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "var(--kalbe-bg-alt)",
-                    borderRadius: 14,
-                    padding: "8px 12px",
+                    background: "#FFFFFF",
+                    borderRadius: 16,
+                    padding: "6px",
+                    overflow: "hidden",
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
                   <img
@@ -975,10 +977,9 @@ const Homepage = () => {
                     loading="lazy"
                     decoding="async"
                     style={{
-                      maxHeight: "100%",
-                      maxWidth: "100%",
+                      width: "100%",
+                      height: "100%",
                       objectFit: "contain",
-                      filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.08))",
                       transition: "transform 0.3s ease",
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
