@@ -410,48 +410,6 @@ const Product = () => {
                 <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>Kalbe Standard</span>
               </div>
             </div>
-
-            {/* Quick action buttons: Distinct Back & Home buttons */}
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
-              <Link
-                to={`/product/${id}`}
-                style={{
-                  background: isDark ? "var(--kalbe-surface-elevated)" : "transparent",
-                  color: isDark ? "var(--kalbe-text-main)" : theme.primary,
-                  padding: "9px 20px",
-                  borderRadius: 40,
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  fontSize: 13,
-                  border: `1.5px solid ${theme.primary}`,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <HiOutlineArrowLeft /> Back to {parentProduct.title}
-              </Link>
-              <Link
-                to="/"
-                style={{
-                  background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 110, 56, 0.08)",
-                  color: isDark ? "var(--kalbe-text-main)" : "#0D6E38",
-                  padding: "9px 20px",
-                  borderRadius: 40,
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  fontSize: 13,
-                  border: isDark ? "1px solid var(--kalbe-border)" : "1.5px solid rgba(13, 110, 56, 0.2)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <HiOutlineHome /> Home
-              </Link>
-            </div>
           </div>
         </section>
 
