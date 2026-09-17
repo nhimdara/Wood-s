@@ -1,13 +1,12 @@
-import React, { useEffect, useState, lazy, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { App as CapApp } from "@capacitor/app";
-import { HiOutlineChevronUp } from "react-icons/hi";
+import SplashScreen from "./components/layout/ui/SplashScreen";
 
-// Lazy load page components for optimal bundle splitting and fast initial render
-const Homepage = lazy(() => import("./pages/Homepage"));
-const Product = lazy(() => import("./pages/Product"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
+import Homepage from "./pages/Homepage";
+import Product from "./pages/Product";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -92,6 +91,7 @@ const PageLoader = () => (
 const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     const backListenerPromise = CapApp.addListener("backButton", () => {
@@ -126,6 +126,7 @@ const App = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes>
@@ -140,6 +141,18 @@ const App = () => {
         </Routes>
       </Suspense>
       <BackToTopButton />
+=======
+      {showSplash && <SplashScreen onFinish={() => setShowSplash(false)} />}
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/product/:id/:subId" element={<Product />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/category/:category" element={<Product />} />
+        <Route path="/category/:category/:subcategory" element={<Product />} />
+      </Routes>
+>>>>>>> origin/feat/dark_mode
     </>
   );
 };

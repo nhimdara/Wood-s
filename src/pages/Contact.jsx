@@ -63,9 +63,11 @@ const Contact = () => {
     <div
       style={{
         fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
-        background: "#F8FAF6",
+        background: "var(--kalbe-bg)",
+        color: "var(--kalbe-text-main)",
         minHeight: "100vh",
         overflowX: "hidden",
+        transition: "background 0.3s ease, color 0.3s ease",
       }}
     >
       <style>{`
@@ -81,42 +83,46 @@ const Contact = () => {
         }
         .contact-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 16px 32px rgba(13,110,56,0.08) !important;
+          box-shadow: 0 16px 32px rgba(13,110,56,0.15) !important;
           border-color: #0D6E38 !important;
         }
         
         .input-field {
           width: 100%;
-          padding: 12px 16px;
-          border: 1px solid rgba(13,110,56,0.2);
-          border-radius: 12px;
-          font-size: 13.5px;
-          background: #FFFFFF;
+          padding: 9px 14px;
+          border: 1px solid var(--kalbe-border);
+          border-radius: 10px;
+          font-size: 12px;
+          background: var(--kalbe-input-bg);
           transition: all 0.2s ease;
           font-family: inherit;
-          color: #1A241A;
+          color: var(--kalbe-text-main);
           box-sizing: border-box;
         }
         .input-field:focus {
           outline: none;
           border-color: #0D6E38;
-          box-shadow: 0 0 0 3px rgba(13,110,56,0.12);
+          box-shadow: 0 0 0 3px rgba(13,110,56,0.2);
+        }
+        .input-field option {
+          background: var(--kalbe-surface);
+          color: var(--kalbe-text-main);
         }
 
         .channel-row {
           display: flex;
           align-items: center;
-          justifyContent: space-between;
-          padding: 12px 16px;
-          border-radius: 14px;
-          background: #F8FAF6;
-          border: 1px solid rgba(13,110,56,0.1);
+          justify-content: space-between;
+          padding: 9px 14px;
+          border-radius: 12px;
+          background: var(--kalbe-bg-alt);
+          border: 1px solid var(--kalbe-border);
           text-decoration: none;
-          color: #1A241A;
+          color: var(--kalbe-text-main);
           transition: all 0.2s ease;
         }
         .channel-row:hover {
-          background: rgba(13,110,56,0.1);
+          background: rgba(13,110,56,0.15);
           transform: translateX(4px);
           border-color: #0D6E38;
         }
@@ -141,29 +147,29 @@ const Contact = () => {
       {/* Hero Section */}
       <section
         style={{
-          minHeight: "35vh",
+          minHeight: "30vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "clamp(95px, 12vw, 120px) 5% 40px",
-          background: "linear-gradient(135deg, #F0FDF4 0%, #EBF5E5 100%)",
-          borderBottom: "1px solid rgba(13,110,56,0.1)",
+          padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 32px",
+          background: "linear-gradient(135deg, var(--kalbe-bg-alt) 0%, var(--kalbe-bg) 100%)",
+          borderBottom: "1px solid var(--kalbe-border)",
         }}
       >
-        <div style={{ maxWidth: 750, margin: "0 auto" }}>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
           <span
             className="fade-up"
             style={{
               display: "inline-block",
-              fontSize: "12px",
+              fontSize: "10.5px",
               fontWeight: 700,
-              letterSpacing: "2px",
+              letterSpacing: "1.5px",
               color: "#0D6E38",
-              marginBottom: 12,
+              marginBottom: 10,
               textTransform: "uppercase",
-              background: "rgba(13,110,56,0.1)",
-              padding: "4px 14px",
+              background: "rgba(13,110,56,0.12)",
+              padding: "3px 12px",
               borderRadius: 30,
             }}
           >
@@ -173,11 +179,11 @@ const Contact = () => {
             className="fade-up"
             style={{
               fontFamily: "Georgia, 'Times New Roman', serif",
-              fontSize: "clamp(32px, 5.5vw, 52px)",
+              fontSize: "clamp(22px, 3.5vw, 34px)",
               fontWeight: 800,
-              color: "#1A241A",
-              lineHeight: 1.15,
-              marginBottom: 14,
+              color: "var(--kalbe-text-main)",
+              lineHeight: 1.2,
+              marginBottom: 10,
             }}
           >
             Contact &{" "}
@@ -194,10 +200,10 @@ const Contact = () => {
           <p
             className="fade-up"
             style={{
-              fontSize: "clamp(14px, 2.5vw, 16px)",
-              lineHeight: 1.7,
-              color: "#4A5A4A",
-              maxWidth: 620,
+              fontSize: "clamp(12.5px, 1.8vw, 13.5px)",
+              lineHeight: 1.6,
+              color: "var(--kalbe-text-muted)",
+              maxWidth: 580,
               margin: "0 auto",
             }}
           >
@@ -209,17 +215,17 @@ const Contact = () => {
       {/* Top 4 Contact Info Cards */}
       <section
         style={{
-          maxWidth: 1200,
+          maxWidth: 1320,
           margin: "0 auto",
-          padding: "40px 5% 30px",
+          padding: "24px 5% 20px",
         }}
       >
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
-            gap: 16,
-            marginBottom: 40,
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
+            gap: 12,
+            marginBottom: 28,
           }}
         >
           {contactInfo.map((info) => {
@@ -230,35 +236,35 @@ const Contact = () => {
                 className="contact-card"
                 style={{
                   textAlign: "center",
-                  padding: "24px 18px",
-                  background: "#FFFFFF",
-                  borderRadius: "20px",
-                  border: "1px solid rgba(13,110,56,0.12)",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.02)",
+                  padding: "16px 14px",
+                  background: "var(--kalbe-surface)",
+                  borderRadius: "16px",
+                  border: "1px solid var(--kalbe-border)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
                 <div
                   style={{
-                    width: 44,
-                    height: 44,
+                    width: 36,
+                    height: 36,
                     borderRadius: "50%",
-                    background: "rgba(13,110,56,0.1)",
-                    color: "#0D6E38",
+                    background: "rgba(13,110,56,0.15)",
+                    color: "#10B981",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    margin: "0 auto 12px",
-                    fontSize: 18,
+                    margin: "0 auto 8px",
+                    fontSize: 15,
                   }}
                 >
                   <Icon />
                 </div>
                 <h3
                   style={{
-                    fontSize: 16,
+                    fontSize: 13,
                     fontWeight: 700,
-                    color: "#1A241A",
-                    marginBottom: 8,
+                    color: "var(--kalbe-text-main)",
+                    marginBottom: 4,
                   }}
                 >
                   {info.title}
@@ -270,11 +276,11 @@ const Contact = () => {
                       href={info.link}
                       style={{
                         display: "block",
-                        color: "#4A5A4A",
+                        color: "var(--kalbe-text-muted)",
                         textDecoration: "none",
-                        fontSize: 13,
+                        fontSize: 11.5,
                         fontWeight: 500,
-                        marginBottom: 3,
+                        marginBottom: 2,
                       }}
                     >
                       {detail}
@@ -283,9 +289,9 @@ const Contact = () => {
                     <p
                       key={i}
                       style={{
-                        color: "#4A5A4A",
-                        fontSize: 13,
-                        margin: "0 0 3px 0",
+                        color: "var(--kalbe-text-muted)",
+                        fontSize: 11.5,
+                        margin: "0 0 2px 0",
                       }}
                     >
                       {detail}
@@ -302,11 +308,11 @@ const Contact = () => {
           {/* Left Column: Contact Form */}
           <div
             style={{
-              background: "#FFFFFF",
-              borderRadius: 24,
-              padding: "clamp(24px, 4vw, 36px)",
-              border: "1px solid rgba(13,110,56,0.15)",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+              background: "var(--kalbe-surface)",
+              borderRadius: 20,
+              padding: "22px 24px",
+              border: "1px solid var(--kalbe-border)",
+              boxShadow: "var(--kalbe-card-shadow)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -316,21 +322,21 @@ const Contact = () => {
               <h2
                 style={{
                   fontFamily: "Georgia, serif",
-                  fontSize: "clamp(22px, 3.5vw, 28px)",
+                  fontSize: "clamp(17px, 2.5vw, 20px)",
                   fontWeight: 800,
-                  color: "#1A241A",
-                  marginBottom: 6,
+                  color: "var(--kalbe-text-main)",
+                  marginBottom: 4,
                 }}
               >
                 Send an Inquiry
               </h2>
-              <p style={{ fontSize: 13, color: "#4A5A4A", marginBottom: 20 }}>
+              <p style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", marginBottom: 14 }}>
                 បំពេញព័ត៌មានខាងក្រោមដើម្បីទាក់ទងមកកាន់ក្រុមការងាររបស់យើង
               </p>
 
               <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 14 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 5 }}>
+                <div style={{ marginBottom: 10 }}>
+                  <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
                     Full Name / ឈ្មោះ
                   </label>
                   <input
@@ -346,13 +352,13 @@ const Contact = () => {
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
-                    gap: 12,
-                    marginBottom: 14,
+                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 160px), 1fr))",
+                    gap: 10,
+                    marginBottom: 10,
                   }}
                 >
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 5 }}>
+                    <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
                       Email Address
                     </label>
                     <input
@@ -365,7 +371,7 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 5 }}>
+                    <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
                       Phone Number
                     </label>
                     <input
@@ -378,8 +384,8 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: 14 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 5 }}>
+                <div style={{ marginBottom: 10 }}>
+                  <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
                     Inquiry Category / ប្រធានបទ
                   </label>
                   <select
@@ -395,8 +401,8 @@ const Contact = () => {
                   </select>
                 </div>
 
-                <div style={{ marginBottom: 18 }}>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 5 }}>
+                <div style={{ marginBottom: 14 }}>
+                  <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
                     Message / សារ
                   </label>
                   <textarea
@@ -404,7 +410,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
-                    rows={4}
+                    rows={3}
                     className="input-field"
                     style={{ resize: "vertical" }}
                   />
@@ -414,19 +420,19 @@ const Contact = () => {
                   type="submit"
                   style={{
                     width: "100%",
-                    padding: "12px 24px",
+                    padding: "10px 18px",
                     background: "linear-gradient(135deg, #1A241A 0%, #0D6E38 100%)",
                     color: "#F8FAF6",
                     border: "none",
-                    borderRadius: 12,
-                    fontSize: 14,
+                    borderRadius: 10,
+                    fontSize: 12.5,
                     fontWeight: 700,
                     cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: 8,
-                    boxShadow: "0 6px 16px rgba(13,110,56,0.25)",
+                    gap: 6,
+                    boxShadow: "0 4px 12px rgba(13,110,56,0.25)",
                   }}
                 >
                   Send Message <HiOutlineChevronRight />
@@ -435,18 +441,19 @@ const Contact = () => {
                 {submitted && (
                   <div
                     style={{
-                      marginTop: 14,
-                      padding: "10px 14px",
-                      background: "#ECFDF5",
-                      color: "#065F46",
-                      borderRadius: 10,
-                      fontSize: 13,
+                      marginTop: 12,
+                      padding: "8px 12px",
+                      background: "rgba(16, 185, 129, 0.15)",
+                      color: "#10B981",
+                      border: "1px solid rgba(16, 185, 129, 0.3)",
+                      borderRadius: 8,
+                      fontSize: 11.5,
                       display: "flex",
                       alignItems: "center",
-                      gap: 8,
+                      gap: 6,
                     }}
                   >
-                    <HiOutlineCheckCircle style={{ fontSize: 18, color: "#059669" }} />
+                    <HiOutlineCheckCircle style={{ fontSize: 16, color: "#10B981" }} />
                     Thank you! Your message has been received. Our medical team will respond shortly.
                   </div>
                 )}
@@ -457,14 +464,14 @@ const Contact = () => {
           {/* Right Column: Unified Healthcare Hub & Channels */}
           <div
             style={{
-              background: "#FFFFFF",
-              borderRadius: 24,
-              padding: "clamp(24px, 4vw, 36px)",
-              border: "1px solid rgba(13,110,56,0.15)",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+              background: "var(--kalbe-surface)",
+              borderRadius: 20,
+              padding: "22px 24px",
+              border: "1px solid var(--kalbe-border)",
+              boxShadow: "var(--kalbe-card-shadow)",
               display: "flex",
               flexDirection: "column",
-              gap: 20,
+              gap: 16,
               justifyContent: "space-between",
             }}
           >
@@ -472,71 +479,71 @@ const Contact = () => {
             <div
               style={{
                 background: "linear-gradient(135deg, #1A241A 0%, #006400 100%)",
-                borderRadius: 18,
-                padding: "20px 22px",
+                borderRadius: 14,
+                padding: "14px 16px",
                 color: "#F8FAF6",
-                boxShadow: "0 8px 20px rgba(13,110,56,0.15)",
+                boxShadow: "0 6px 16px rgba(13,110,56,0.15)",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
                 <div
                   style={{
-                    width: 32,
-                    height: 32,
+                    width: 28,
+                    height: 28,
                     borderRadius: "50%",
                     background: "rgba(250,246,240,0.15)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: "#F8FAF6",
-                    fontSize: 15,
+                    fontSize: 13,
                   }}
                 >
                   <FaStethoscope />
                 </div>
-                <h4 style={{ fontSize: 16, fontFamily: "Georgia, serif", fontWeight: 700, margin: 0, color: "#F8FAF6" }}>
+                <h4 style={{ fontSize: 13.5, fontFamily: "Georgia, serif", fontWeight: 700, margin: 0, color: "#F8FAF6" }}>
                   For Doctors & Pharmacists
                 </h4>
               </div>
-              <p style={{ fontSize: 12.5, color: "rgba(250,246,240,0.88)", lineHeight: 1.6, margin: 0 }}>
+              <p style={{ fontSize: 11, color: "rgba(250,246,240,0.88)", lineHeight: 1.5, margin: 0 }}>
                 Need medical samples, product booklets, or KDIGO guideline literature for your clinic or hospital? Contact our medical representatives directly via phone or Telegram.
               </p>
             </div>
 
             {/* Official Messaging Channels */}
             <div>
-              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 18, color: "#1A241A", fontWeight: 700, marginBottom: 12 }}>
+              <h3 style={{ fontFamily: "Georgia, serif", fontSize: 13.5, color: "var(--kalbe-text-main)", fontWeight: 700, marginBottom: 8 }}>
                 Official Social & Messaging
               </h3>
-              <div style={{ display: "grid", gap: 10 }}>
+              <div style={{ display: "grid", gap: 8 }}>
                 <a
                   href="https://t.me/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="channel-row"
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div
                       style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 10,
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
                         background: "#0088CC",
                         color: "#FFFFFF",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: 18,
+                        fontSize: 15,
                       }}
                     >
                       <FaTelegramPlane />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Telegram Medical Support</div>
-                      <div style={{ fontSize: 11.5, color: "#4A5A4A" }}>Fast consultation & samples</div>
+                      <div style={{ fontWeight: 700, fontSize: 12, color: "var(--kalbe-text-main)" }}>Telegram Medical Support</div>
+                      <div style={{ fontSize: 10, color: "var(--kalbe-text-muted)" }}>Fast consultation & samples</div>
                     </div>
                   </div>
-                  <HiOutlineChevronRight style={{ color: "#0D6E38" }} />
+                  <HiOutlineChevronRight style={{ color: "#10B981", fontSize: 14 }} />
                 </a>
 
                 <a
@@ -545,28 +552,28 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="channel-row"
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div
                       style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 10,
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
                         background: "#1877F2",
                         color: "#FFFFFF",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: 18,
+                        fontSize: 15,
                       }}
                     >
                       <FaFacebook />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Facebook Official Page</div>
-                      <div style={{ fontSize: 11.5, color: "#4A5A4A" }}>@kalbecambodia updates</div>
+                      <div style={{ fontWeight: 700, fontSize: 12, color: "var(--kalbe-text-main)" }}>Facebook Official Page</div>
+                      <div style={{ fontSize: 10, color: "var(--kalbe-text-muted)" }}>@kalbecambodia updates</div>
                     </div>
                   </div>
-                  <HiOutlineChevronRight style={{ color: "#0D6E38" }} />
+                  <HiOutlineChevronRight style={{ color: "#10B981", fontSize: 14 }} />
                 </a>
 
                 <a
@@ -575,28 +582,28 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="channel-row"
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div
                       style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 10,
+                        width: 32,
+                        height: 32,
+                        borderRadius: 8,
                         background: "linear-gradient(45deg, #F58529, #DD2A7B, #8134AF)",
                         color: "#FFFFFF",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: 18,
+                        fontSize: 15,
                       }}
                     >
                       <FaInstagram />
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, fontSize: 13.5 }}>Instagram Healthcare Feed</div>
-                      <div style={{ fontSize: 11.5, color: "#4A5A4A" }}>Product guides & wellness</div>
+                      <div style={{ fontWeight: 700, fontSize: 12, color: "var(--kalbe-text-main)" }}>Instagram Healthcare Feed</div>
+                      <div style={{ fontSize: 10, color: "var(--kalbe-text-muted)" }}>Product guides & wellness</div>
                     </div>
                   </div>
-                  <HiOutlineChevronRight style={{ color: "#0D6E38" }} />
+                  <HiOutlineChevronRight style={{ color: "#10B981", fontSize: 14 }} />
                 </a>
               </div>
             </div>
@@ -604,29 +611,29 @@ const Contact = () => {
             {/* Quick Hotline Bar */}
             <div
               style={{
-                background: "#F8FAF6",
-                borderRadius: 14,
-                padding: "14px 18px",
-                border: "1px solid rgba(13,110,56,0.12)",
+                background: "var(--kalbe-bg-alt)",
+                borderRadius: 12,
+                padding: "10px 14px",
+                border: "1px solid var(--kalbe-border)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                gap: 10,
+                gap: 8,
               }}
             >
               <div>
-                <div style={{ fontSize: 11.5, color: "#4A5A4A", fontWeight: 600 }}>DIRECT MEDICAL HOTLINE</div>
-                <div style={{ fontSize: 15, fontWeight: 800, color: "#0D6E38" }}>+855 93 923 291 / +855 23 221 531</div>
+                <div style={{ fontSize: 10, color: "var(--kalbe-text-muted)", fontWeight: 600 }}>DIRECT MEDICAL HOTLINE</div>
+                <div style={{ fontSize: 12.5, fontWeight: 800, color: "#10B981" }}>+855 93 923 291 / +855 23 221 531</div>
               </div>
               <a
                 href="tel:+85593923291"
                 style={{
                   background: "#0D6E38",
                   color: "#FFFFFF",
-                  padding: "6px 14px",
-                  borderRadius: 20,
-                  fontSize: 12,
+                  padding: "5px 12px",
+                  borderRadius: 18,
+                  fontSize: 10.5,
                   fontWeight: 700,
                   textDecoration: "none",
                 }}

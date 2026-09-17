@@ -1,5 +1,5 @@
-// Service Worker for Full Offline Capability
-const CACHE_NAME = 'kalbe-product-v1';
+// Service Worker for 100% Offline Capability
+const CACHE_NAME = 'kalbe-product-v2';
 
 const STATIC_ASSETS = [
   '/',
@@ -44,16 +44,25 @@ const STATIC_ASSETS = [
   '/images/claventin.png',
   '/images/paxus.png',
   '/images/leucogen.png',
-  '/images/carcan.png',
-  '/images/brexel.png',
-  '/images/rexta.png'
+  '/images/carcan.png'
 ];
 
-// Install Event - Pre-cache critical assets
+// Install Event - Pre-cache critical assets individually (resilient to single-file errors)
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      await Promise.allSettled(
+        STATIC_ASSETS.map(async (url) => {
+          try {
+            const res = await fetch(url);
+            if (res.ok) {
+              await cache.put(url, res);
+            }
+          } catch (e) {
+            // Silently ignore individual network hiccups during cache warmup
+          }
+        })
+      );
     }).then(() => self.skipWaiting())
   );
 });
@@ -73,9 +82,9 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Cache-first with network fallback strategy
+// Fetch Event - Cache-first with network fallback and dynamic caching
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and http/https schemes
+  // Only handle GET requests with http/https schemes
   if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) {
     return;
   }
@@ -87,18 +96,18 @@ self.addEventListener('fetch', (event) => {
       }
       return fetch(event.request)
         .then((networkResponse) => {
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          if (!networkResponse || networkResponse.status !== 200) {
             return networkResponse;
           }
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
+            cache.put(event.request, responseToCache).catch(() => {});
           });
           return networkResponse;
         })
         .catch(() => {
-          // If offline and request is for a page navigation, return index.html
-          if (event.request.mode === 'navigate') {
+          // If offline and request is for a page navigation or HTML document, return cached index.html
+          if (event.request.mode === 'navigate' || event.request.destination === 'document') {
             return caches.match('/index.html') || caches.match('/');
           }
         });

@@ -48,11 +48,11 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
   return (
     <div
       style={{
-        background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAF6 100%)",
+        background: "var(--kalbe-surface)",
         borderRadius: "clamp(16px, 3vw, 24px)",
-        border: `1px solid ${theme.border}`,
+        border: "1px solid var(--kalbe-border)",
         padding: "clamp(16px, 3.5vw, 28px)",
-        boxShadow: `0 20px 40px ${theme.glow}`,
+        boxShadow: "var(--kalbe-card-shadow)",
         transition: "all 0.3s ease",
       }}
     >
@@ -77,7 +77,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             letterSpacing: "1.5px",
             color: theme.primary,
             textTransform: "uppercase",
-            background: theme.light,
+            background: "rgba(13, 110, 56, 0.15)",
             padding: "4px 12px",
             borderRadius: 20,
             display: "inline-block",
@@ -90,7 +90,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           style={{
             fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: "clamp(18px, 3.5vw, 24px)",
-            color: "#1A241A",
+            color: "var(--kalbe-text-main)",
             fontWeight: 800,
             margin: "2px 0",
           }}
@@ -115,10 +115,10 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           style={{
             border:
               selectedProduct === "kalmaxime-ds"
-                ? "2px solid #1D4ED8"
-                : "1px solid rgba(0,0,0,0.1)",
-            background: selectedProduct === "kalmaxime-ds" ? "#1D4ED8" : "#FFFFFF",
-            color: selectedProduct === "kalmaxime-ds" ? "#FFFFFF" : "#1A241A",
+                ? "2px solid #3B82F6"
+                : "1px solid var(--kalbe-border)",
+            background: selectedProduct === "kalmaxime-ds" ? "#2563EB" : "var(--kalbe-bg-alt)",
+            color: selectedProduct === "kalmaxime-ds" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
           KALMAXIME DS (តាមទម្ងន់)
@@ -129,10 +129,10 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           style={{
             border:
               selectedProduct === "prospan"
-                ? "2px solid #16A34A"
-                : "1px solid rgba(0,0,0,0.1)",
-            background: selectedProduct === "prospan" ? "#16A34A" : "#FFFFFF",
-            color: selectedProduct === "prospan" ? "#FFFFFF" : "#1A241A",
+                ? "2px solid #10B981"
+                : "1px solid var(--kalbe-border)",
+            background: selectedProduct === "prospan" ? "#059669" : "var(--kalbe-bg-alt)",
+            color: selectedProduct === "prospan" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
           PROSPAN (តាមអាយុ)
@@ -143,10 +143,10 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           style={{
             border:
               selectedProduct === "rillus-jr"
-                ? "2px solid #EA580C"
-                : "1px solid rgba(0,0,0,0.1)",
-            background: selectedProduct === "rillus-jr" ? "#EA580C" : "#FFFFFF",
-            color: selectedProduct === "rillus-jr" ? "#FFFFFF" : "#1A241A",
+                ? "2px solid #F97316"
+                : "1px solid var(--kalbe-border)",
+            background: selectedProduct === "rillus-jr" ? "#EA580C" : "var(--kalbe-bg-alt)",
+            color: selectedProduct === "rillus-jr" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
           RILLUS JR (តាមរោគសញ្ញា)
@@ -157,15 +157,15 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
       {selectedProduct === "kalmaxime-ds" && (
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             borderRadius: 16,
             padding: "16px",
-            border: "1px solid #DBEAFE",
+            border: "1px solid var(--kalbe-border)",
           }}
         >
           <div style={{ marginBottom: 14 }}>
-            <label style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 6 }}>
-              បញ្ចូលទម្ងន់កុមារ: <strong style={{ color: "#1D4ED8", fontSize: 17 }}>{weightKg} kg</strong>
+            <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 6 }}>
+              បញ្ចូលទម្ងន់កុមារ: <strong style={{ color: "#3B82F6", fontSize: 17 }}>{weightKg} kg</strong>
             </label>
             <input
               type="range"
@@ -173,9 +173,9 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
               max="50"
               value={weightKg}
               onChange={(e) => setWeightKg(Number(e.target.value))}
-              style={{ width: "100%", accentColor: "#1D4ED8", cursor: "pointer" }}
+              style={{ width: "100%", accentColor: "#3B82F6", cursor: "pointer" }}
             />
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "#4A5A4A" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "var(--kalbe-text-muted)" }}>
               <span>5 kg</span>
               <span>25 kg</span>
               <span>50 kg (Max 400mg)</span>
@@ -183,7 +183,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={{ fontSize: 12.5, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 6 }}>
+            <label style={{ fontSize: 12.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 6 }}>
               កាលវិភាគនៃការប្រើប្រាស់:
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 8 }}>
@@ -192,9 +192,9 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                 style={{
                   padding: "8px 6px",
                   borderRadius: 10,
-                  border: kalmaximeFreq === "once" ? "2px solid #1D4ED8" : "1px solid #E5E7EB",
-                  background: kalmaximeFreq === "once" ? "#EFF6FF" : "#F9FAFB",
-                  color: kalmaximeFreq === "once" ? "#1D4ED8" : "#1A241A",
+                  border: kalmaximeFreq === "once" ? "2px solid #3B82F6" : "1px solid var(--kalbe-border)",
+                  background: kalmaximeFreq === "once" ? "rgba(59, 130, 246, 0.15)" : "var(--kalbe-surface)",
+                  color: kalmaximeFreq === "once" ? "#3B82F6" : "var(--kalbe-text-main)",
                   fontSize: 11.5,
                   fontWeight: kalmaximeFreq === "once" ? 700 : 500,
                   cursor: "pointer",
@@ -207,9 +207,9 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                 style={{
                   padding: "8px 6px",
                   borderRadius: 10,
-                  border: kalmaximeFreq === "twice" ? "2px solid #1D4ED8" : "1px solid #E5E7EB",
-                  background: kalmaximeFreq === "twice" ? "#EFF6FF" : "#F9FAFB",
-                  color: kalmaximeFreq === "twice" ? "#1D4ED8" : "#1A241A",
+                  border: kalmaximeFreq === "twice" ? "2px solid #3B82F6" : "1px solid var(--kalbe-border)",
+                  background: kalmaximeFreq === "twice" ? "rgba(59, 130, 246, 0.15)" : "var(--kalbe-surface)",
+                  color: kalmaximeFreq === "twice" ? "#3B82F6" : "var(--kalbe-text-main)",
                   fontSize: 11.5,
                   fontWeight: kalmaximeFreq === "twice" ? 700 : 500,
                   cursor: "pointer",
@@ -223,23 +223,23 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           {/* Results Box */}
           <div
             style={{
-              background: "#EFF6FF",
+              background: "rgba(59, 130, 246, 0.12)",
               borderRadius: 14,
               padding: "16px",
-              border: "1px solid #BFDBFE",
+              border: "1px solid rgba(59, 130, 246, 0.3)",
             }}
           >
-            <div style={{ fontSize: 12, color: "#1E40AF", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
+            <div style={{ fontSize: 12, color: "#60A5FA", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
               លទ្ធផលគណនាកម្រិតប្រើប្រាស់ (Recommended Dose)
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#1D4ED8", margin: "4px 0" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#3B82F6", margin: "4px 0" }}>
               {kalmaximeDoseMl.toFixed(1)} mL{" "}
-              <span style={{ fontSize: 14, fontWeight: 600, color: "#1E40AF" }}>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "#93C5FD" }}>
                 ({kalmaximeFreq === "once" ? "លេប 1 ដង / ថ្ងៃ" : "លេប 2 ដង / ថ្ងៃ (រៀងរាល់ 12 ម៉ោង)"})
               </span>
             </div>
-            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#4B5563" }}>
-              ស្មើនឹង <strong>{(kalmaximeDoseMl * 20).toFixed(0)} mg</strong> ក្នុងមួយដង (សរុបប្រចាំថ្ងៃ: {kalmaximeTotalMg} mg)
+            <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
+              ស្មើនឹង <strong style={{ color: "var(--kalbe-text-main)" }}>{(kalmaximeDoseMl * 20).toFixed(0)} mg</strong> ក្នុងមួយដង (សរុបប្រចាំថ្ងៃ: {kalmaximeTotalMg} mg)
             </p>
           </div>
         </div>
@@ -249,14 +249,14 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
       {selectedProduct === "prospan" && (
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             borderRadius: 16,
             padding: "16px",
-            border: "1px solid #BBF7D0",
+            border: "1px solid var(--kalbe-border)",
           }}
         >
           <div style={{ marginBottom: 14 }}>
-            <label style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 8 }}>
+            <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 8 }}>
               ជ្រើសរើសក្រុមអាយុអ្នកជំងឺ:
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 8 }}>
@@ -271,9 +271,9 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                   style={{
                     padding: "9px 8px",
                     borderRadius: 10,
-                    border: prospanAgeGroup === grp.id ? "2px solid #16A34A" : "1px solid #E5E7EB",
-                    background: prospanAgeGroup === grp.id ? "#F0FDF4" : "#F9FAFB",
-                    color: prospanAgeGroup === grp.id ? "#16A34A" : "#1A241A",
+                    border: prospanAgeGroup === grp.id ? "2px solid #10B981" : "1px solid var(--kalbe-border)",
+                    background: prospanAgeGroup === grp.id ? "rgba(16, 185, 129, 0.15)" : "var(--kalbe-surface)",
+                    color: prospanAgeGroup === grp.id ? "#10B981" : "var(--kalbe-text-main)",
                     fontSize: 12,
                     fontWeight: prospanAgeGroup === grp.id ? 700 : 500,
                     cursor: "pointer",
@@ -288,23 +288,23 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           {/* Results Box */}
           <div
             style={{
-              background: "#F0FDF4",
+              background: "rgba(16, 185, 129, 0.12)",
               borderRadius: 14,
               padding: "16px",
-              border: "1px solid #86EFAC",
+              border: "1px solid rgba(16, 185, 129, 0.3)",
             }}
           >
-            <div style={{ fontSize: 12, color: "#166534", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
+            <div style={{ fontSize: 12, color: "#34D399", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
               កម្រិតប្រើប្រាស់ណែនាំ ({prospanDosing.ageLabel})
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#16A34A", margin: "4px 0" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#10B981", margin: "4px 0" }}>
               {prospanDosing.dose}{" "}
-              <span style={{ fontSize: 15, fontWeight: 600, color: "#166534" }}>
+              <span style={{ fontSize: 15, fontWeight: 600, color: "#6EE7B7" }}>
                 ({prospanDosing.times})
               </span>
             </div>
-            <p style={{ margin: "4px 0 0", fontSize: 12, color: "#4B5563" }}>
-              សរុបប្រចាំថ្ងៃ: <strong>{prospanDosing.totalDaily}</strong> (អង្រួនដបមុនប្រើ)
+            <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
+              សរុបប្រចាំថ្ងៃ: <strong style={{ color: "var(--kalbe-text-main)" }}>{prospanDosing.totalDaily}</strong> (អង្រួនដបមុនប្រើ)
             </p>
           </div>
         </div>
@@ -314,14 +314,14 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
       {selectedProduct === "rillus-jr" && (
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             borderRadius: 16,
             padding: "16px",
-            border: "1px solid #FED7AA",
+            border: "1px solid var(--kalbe-border)",
           }}
         >
           <div style={{ marginBottom: 14 }}>
-            <label style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", display: "block", marginBottom: 8 }}>
+            <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 8 }}>
               ជ្រើសរើសស្ថានភាព / រោគសញ្ញា:
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 8 }}>
@@ -337,9 +337,9 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                   style={{
                     padding: "9px 8px",
                     borderRadius: 10,
-                    border: rillusIndication === ind.id ? "2px solid #EA580C" : "1px solid #E5E7EB",
-                    background: rillusIndication === ind.id ? "#FFF7ED" : "#F9FAFB",
-                    color: rillusIndication === ind.id ? "#EA580C" : "#1A241A",
+                    border: rillusIndication === ind.id ? "2px solid #F97316" : "1px solid var(--kalbe-border)",
+                    background: rillusIndication === ind.id ? "rgba(249, 115, 22, 0.15)" : "var(--kalbe-surface)",
+                    color: rillusIndication === ind.id ? "#F97316" : "var(--kalbe-text-main)",
                     fontSize: 12,
                     fontWeight: rillusIndication === ind.id ? 700 : 500,
                     cursor: "pointer",
@@ -354,22 +354,22 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
           {/* Results Box */}
           <div
             style={{
-              background: "#FFF7ED",
+              background: "rgba(249, 115, 22, 0.12)",
               borderRadius: 14,
               padding: "16px",
-              border: "1px solid #FDBA74",
+              border: "1px solid rgba(249, 115, 22, 0.3)",
             }}
           >
-            <div style={{ fontSize: 12, color: "#C2410C", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
+            <div style={{ fontSize: 12, color: "#FB923C", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
               កម្រិតប្រើប្រាស់សម្រាប់ {rillusDosing.label}
             </div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: "#EA580C", margin: "4px 0" }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#F97316", margin: "4px 0" }}>
               {rillusDosing.dose}
             </div>
-            <p style={{ margin: "4px 0 2px", fontSize: 12.5, color: "#374151" }}>
+            <p style={{ margin: "4px 0 2px", fontSize: 12.5, color: "var(--kalbe-text-main)" }}>
               <strong>រយៈពេលប្រើ:</strong> {rillusDosing.duration}
             </p>
-            <p style={{ margin: "2px 0 0", fontSize: 12, color: "#6B7280" }}>
+            <p style={{ margin: "2px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
               💡 {rillusDosing.note}
             </p>
           </div>

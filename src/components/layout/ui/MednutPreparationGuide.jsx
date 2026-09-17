@@ -28,11 +28,11 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
   return (
     <div
       style={{
-        background: "linear-gradient(145deg, #FFFFFF 0%, #F8FAF6 100%)",
+        background: "var(--kalbe-surface)",
         borderRadius: "clamp(16px, 3vw, 24px)",
-        border: `1px solid ${theme.border}`,
+        border: "1px solid var(--kalbe-border)",
         padding: "clamp(16px, 3.5vw, 28px)",
-        boxShadow: `0 20px 40px ${theme.glow}`,
+        boxShadow: "var(--kalbe-card-shadow)",
         transition: "all 0.3s ease",
       }}
     >
@@ -90,7 +90,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
               letterSpacing: "1.5px",
               color: theme.primary,
               textTransform: "uppercase",
-              background: theme.light,
+              background: "rgba(13, 110, 56, 0.15)",
               padding: "4px 12px",
               borderRadius: 20,
               display: "inline-block",
@@ -103,14 +103,14 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
             style={{
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: "clamp(18px, 3.5vw, 24px)",
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               fontWeight: 700,
               margin: 0,
             }}
           >
             MEDNUT Product Preparation Guide
           </h3>
-          <p style={{ fontSize: 12.5, color: "#4A5A4A", marginTop: 2, marginBottom: 0 }}>
+          <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", marginTop: 2, marginBottom: 0 }}>
             មគ្គុទ្ទេសក៍ និងឧបករណ៍គណនាកម្រិតលាយម្សៅអាហារូបត្ថម្ភវេជ្ជសាស្ត្រ
           </p>
         </div>
@@ -121,14 +121,14 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
             display: "flex",
             alignItems: "center",
             gap: 10,
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             padding: "5px 12px",
             borderRadius: 30,
-            border: `1px solid ${theme.border}`,
+            border: "1px solid var(--kalbe-border)",
             boxShadow: `0 2px 8px ${theme.glow}`,
           }}
         >
-          <span style={{ fontSize: 12.5, fontWeight: 600, color: "#1A241A" }}>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--kalbe-text-main)" }}>
             ចំនួន Serving:
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -188,9 +188,9 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
               onClick={() => setSelectedId(p.id)}
               className="mednut-pill-btn"
               style={{
-                border: isSelected ? `2px solid ${pTheme.primary}` : "1px solid rgba(0,0,0,0.1)",
-                background: isSelected ? pTheme.primary : "#FFFFFF",
-                color: isSelected ? "#FFFFFF" : "#1A241A",
+                border: isSelected ? `2px solid ${pTheme.primary}` : "1px solid var(--kalbe-border)",
+                background: isSelected ? pTheme.primary : "var(--kalbe-surface)",
+                color: isSelected ? "#FFFFFF" : "var(--kalbe-text-main)",
                 boxShadow: isSelected ? `0 4px 12px ${pTheme.primary}40` : "none",
               }}
             >
@@ -205,20 +205,20 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
         {/* Metric 1: Energy */}
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             padding: "14px 10px",
             borderRadius: 14,
-            border: `1px solid ${theme.border}`,
+            border: "1px solid var(--kalbe-border)",
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
             ថាមពល (ENERGY)
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalCalories} <span style={{ fontSize: 12, fontWeight: 600 }}>kcal</span>
           </div>
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", marginTop: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", marginTop: 2 }}>
             ({selectedProduct.energyKcal} kcal/srv)
           </div>
         </div>
@@ -226,20 +226,20 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
         {/* Metric 2: Protein */}
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             padding: "14px 10px",
             borderRadius: 14,
-            border: `1px solid ${theme.border}`,
+            border: "1px solid var(--kalbe-border)",
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
             ប្រូតេអ៊ីន (PROTEIN)
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalProtein} <span style={{ fontSize: 12, fontWeight: 600 }}>g</span>
           </div>
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", marginTop: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", marginTop: 2 }}>
             ({selectedProduct.proteinG} g/srv)
           </div>
         </div>
@@ -247,20 +247,20 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
         {/* Metric 3: Water Required */}
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             padding: "14px 10px",
             borderRadius: 14,
-            border: `1px solid ${theme.border}`,
+            border: "1px solid var(--kalbe-border)",
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
             ទឹកក្តៅអ៊ុនៗ
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalWater} <span style={{ fontSize: 12, fontWeight: 600 }}>mL</span>
           </div>
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", marginTop: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", marginTop: 2 }}>
             ({selectedProduct.waterMl} mL/srv)
           </div>
         </div>
@@ -268,20 +268,20 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
         {/* Metric 4: Total Volume Yield */}
         <div
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg-alt)",
             padding: "14px 10px",
             borderRadius: 14,
-            border: `1px solid ${theme.border}`,
+            border: "1px solid var(--kalbe-border)",
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
             បរិមាណលាយរួច (YIELD)
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalYield} <span style={{ fontSize: 12, fontWeight: 600 }}>mL</span>
           </div>
-          <div style={{ fontSize: 10.5, color: "#4A5A4A", marginTop: 2 }}>
+          <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", marginTop: 2 }}>
             ({selectedProduct.totalYieldMl} mL/srv)
           </div>
         </div>
@@ -290,22 +290,22 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
       {/* Detail Specs Bar */}
       <div
         style={{
-          background: theme.bg,
+          background: "var(--kalbe-bg-alt)",
           borderRadius: 14,
           padding: "14px 16px",
-          border: `1px solid ${theme.border}`,
+          border: "1px solid var(--kalbe-border)",
           marginBottom: 16,
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
-          <strong style={{ fontSize: 14, color: "#1A241A" }}>
+          <strong style={{ fontSize: 14, color: "var(--kalbe-text-main)" }}>
             {selectedProduct.name} ({selectedProduct.indicationKh}): {selectedProduct.servingDose}
           </strong>
-          <span style={{ fontSize: 11.5, color: theme.primary, fontWeight: 700, background: theme.light, padding: "3px 10px", borderRadius: 10 }}>
+          <span style={{ fontSize: 11.5, color: theme.primary, fontWeight: 700, background: "rgba(13, 110, 56, 0.15)", padding: "3px 10px", borderRadius: 10 }}>
             រសជាតិ: {selectedProduct.flavors}
           </span>
         </div>
-        <p style={{ fontSize: 12.5, color: "#4A5A4A", margin: 0, lineHeight: 1.5 }}>
+        <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", margin: 0, lineHeight: 1.5 }}>
           <strong>លក្ខណៈពិសេស:</strong> {selectedProduct.specialNote}
         </p>
       </div>
@@ -313,13 +313,13 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
       {/* Standard Mixing Protocol */}
       <div
         style={{
-          background: "#FFFFFF",
+          background: "var(--kalbe-bg-alt)",
           borderRadius: 14,
           padding: "14px 16px",
-          border: `1px solid ${theme.border}`,
+          border: "1px solid var(--kalbe-border)",
         }}
       >
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#1A241A", marginBottom: 10 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", marginBottom: 10 }}>
           របៀបលាយត្រឹមត្រូវ (Standard Mixing Protocol):
         </div>
         <div
@@ -337,11 +337,12 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
                 gap: 10,
                 alignItems: "flex-start",
                 padding: "10px 12px",
-                background: theme.bg,
+                background: "var(--kalbe-surface)",
                 borderRadius: 10,
                 fontSize: 12.5,
-                color: "#1A241A",
+                color: "var(--kalbe-text-main)",
                 lineHeight: 1.5,
+                border: "1px solid var(--kalbe-border)",
               }}
             >
               <div

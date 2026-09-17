@@ -160,7 +160,8 @@ const Homepage = () => {
     <div
       style={{
         fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
-        background: "#F8FAF6",
+        background: "var(--kalbe-bg)",
+        color: "var(--kalbe-text-main)",
         minHeight: "100vh",
         overflowX: "hidden",
       }}
@@ -197,7 +198,7 @@ const Homepage = () => {
           grid-template-columns: 1.05fr 0.95fr;
           align-items: center;
           gap: clamp(32px, 4.5vw, 64px);
-          padding: clamp(90px, 11vw, 130px) 5% 56px;
+          padding: calc(68px + env(safe-area-inset-top, 28px) + 28px) 5% 56px;
           max-width: 1320px;
           margin: 0 auto;
           position: relative;
@@ -262,8 +263,8 @@ const Homepage = () => {
         @media (max-width: 1024px) {
           .hero-section {
             grid-template-columns: 1fr;
-            padding: 96px 5% 40px;
-            gap: 36px;
+            padding: calc(64px + env(safe-area-inset-top, 12px) + 16px) 5% 32px;
+            gap: 28px;
             text-align: center;
           }
           .hero-content {
@@ -271,6 +272,7 @@ const Homepage = () => {
             flex-direction: column;
             align-items: center;
             text-align: center;
+            width: 100%;
           }
           .hero-badge-row {
             justify-content: center !important;
@@ -282,18 +284,32 @@ const Homepage = () => {
           .hero-search-wrapper {
             margin-left: auto !important;
             margin-right: auto !important;
+            width: 100% !important;
+            max-width: 640px !important;
           }
           .hero-quick-tags {
             justify-content: center !important;
           }
           .hero-cta-btns {
+            width: 100% !important;
+            max-width: 640px !important;
+            flex-direction: column !important;
+            align-items: stretch !important;
             justify-content: center !important;
+          }
+          .hero-cta-btns a {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            text-align: center !important;
+            box-sizing: border-box !important;
           }
           .hero-trust-strip {
             justify-content: center !important;
           }
           .hero-bg-blob { display: none; }
-          .floating-hero-card { max-width: 620px; margin: 0 auto; }
+          .hero-visual { width: 100% !important; max-width: 640px !important; margin: 0 auto; }
+          .floating-hero-card { width: 100% !important; max-width: 640px !important; margin: 0 auto; }
         }
 
         @media (max-width: 920px) {
@@ -305,8 +321,13 @@ const Homepage = () => {
           .portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
         }
 
-        @media (max-width: 640px) {
-          .hero-section { padding: 84px 4% 32px; gap: 26px; }
+        @media (max-width: 768px) {
+          .hero-section {
+            padding: calc(60px + env(safe-area-inset-top, 12px) + 12px) 4% calc(24px + env(safe-area-inset-bottom, 12px));
+            gap: 18px;
+            min-height: auto;
+          }
+          .hero-visual { display: none !important; }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
         }
@@ -353,9 +374,9 @@ const Homepage = () => {
               style={{
                 fontSize: 11.5,
                 fontWeight: 700,
-                color: "#4A5A4A",
-                background: "rgba(255,255,255,0.8)",
-                border: "1px solid rgba(13,110,56,0.12)",
+                color: "var(--kalbe-text-muted)",
+                background: "var(--kalbe-surface-elevated)",
+                border: "1px solid var(--kalbe-border)",
                 padding: "5px 12px",
                 borderRadius: 20,
               }}
@@ -370,7 +391,7 @@ const Homepage = () => {
               fontSize: "clamp(34px, 5.2vw, 56px)",
               fontWeight: 900,
               lineHeight: 1.15,
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               letterSpacing: "-0.03em",
               marginBottom: 16,
             }}
@@ -394,7 +415,7 @@ const Homepage = () => {
             style={{
               fontSize: "clamp(14px, 1.8vw, 15.5px)",
               lineHeight: 1.7,
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               maxWidth: 540,
               marginBottom: 24,
             }}
@@ -411,11 +432,11 @@ const Homepage = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 borderRadius: 50,
                 padding: "9px 18px",
-                border: "2px solid rgba(13,110,56,0.2)",
-                boxShadow: "0 12px 30px rgba(13,110,56,0.08)",
+                border: "2px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
                 transition: "border-color 0.2s ease, box-shadow 0.2s ease",
               }}
             >
@@ -430,7 +451,7 @@ const Homepage = () => {
                   outline: "none",
                   width: "100%",
                   fontSize: 13.5,
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   background: "transparent",
                   fontFamily: "inherit",
                 }}
@@ -462,7 +483,7 @@ const Homepage = () => {
 
             {/* Quick tags */}
             <div className="hero-quick-tags" style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 11.5, color: "#4A5A4A", fontWeight: 600 }}>ពេញនិយម:</span>
+              <span style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", fontWeight: 600 }}>ពេញនិយម:</span>
               {["EFESA", "BRAINACT", "HEPAFIT", "MEROFEN", "PAXUS", "CAR-Q 100", "PROSPAN", "NEPHRISOL"].map(
                 (tag) => (
                   <button
@@ -472,7 +493,7 @@ const Homepage = () => {
                     style={{
                       background: "rgba(13,110,56,0.07)",
                       color: "#0D6E38",
-                      border: "1px solid rgba(13,110,56,0.12)",
+                      border: "1px solid var(--kalbe-border)",
                       borderRadius: 20,
                       padding: "3px 11px",
                       fontSize: 11,
@@ -494,10 +515,10 @@ const Homepage = () => {
                   top: "calc(100% + 6px)",
                   left: 0,
                   right: 0,
-                  background: "#FFFFFF",
+                  background: "var(--kalbe-surface-elevated)",
                   borderRadius: 18,
-                  border: "1px solid rgba(13,110,56,0.15)",
-                  boxShadow: "0 24px 48px rgba(0,0,0,0.14)",
+                  border: "1px solid var(--kalbe-border)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                   maxHeight: 340,
                   overflowY: "auto",
                   zIndex: 500,
@@ -510,7 +531,7 @@ const Homepage = () => {
                       style={{
                         fontSize: 11,
                         fontWeight: 700,
-                        color: "#4A5A4A",
+                        color: "var(--kalbe-text-muted)",
                         textTransform: "uppercase",
                         letterSpacing: "1px",
                         padding: "8px 12px 4px",
@@ -529,10 +550,10 @@ const Homepage = () => {
                           padding: "10px 12px",
                           borderRadius: 12,
                           textDecoration: "none",
-                          color: "#1A241A",
+                          color: "var(--kalbe-text-main)",
                           transition: "background 0.15s",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.07)")}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(13,110,56,0.1)")}
                         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                       >
                         <img
@@ -542,7 +563,7 @@ const Homepage = () => {
                             width: 42,
                             height: 42,
                             objectFit: "contain",
-                            background: "#F8FAF6",
+                            background: "var(--kalbe-bg-alt)",
                             borderRadius: 10,
                             padding: 4,
                             flexShrink: 0,
@@ -550,21 +571,21 @@ const Homepage = () => {
                         />
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontWeight: 700, fontSize: 14 }}>{item.title}</div>
-                          <div style={{ fontSize: 12, color: "#0D6E38" }}>
+                          <div style={{ fontSize: 12, color: "var(--kalbe-green)", fontWeight: 600 }}>
                             {item.portfolioTitle} • {item.genericName}
                           </div>
                         </div>
-                        <HiOutlineChevronRight style={{ color: "#0D6E38", flexShrink: 0 }} />
+                        <HiOutlineChevronRight style={{ color: "var(--kalbe-green)", flexShrink: 0 }} />
                       </Link>
                     ))}
                     {filteredProducts.length > 8 && (
-                      <div style={{ padding: "8px 12px", fontSize: 12, color: "#4A5A4A", textAlign: "center" }}>
+                      <div style={{ padding: "8px 12px", fontSize: 12, color: "var(--kalbe-text-muted)", textAlign: "center" }}>
                         + ផលិតផល {filteredProducts.length - 8} ទៀត...
                       </div>
                     )}
                   </>
                 ) : (
-                  <div style={{ padding: "20px", textAlign: "center", color: "#4A5A4A", fontSize: 13 }}>
+                  <div style={{ padding: "20px", textAlign: "center", color: "var(--kalbe-text-muted)", fontSize: 13 }}>
                     មិនមានផលិតផលត្រូវនឹងពាក្យស្វែងរក "{searchQuery}"
                   </div>
                 )}
@@ -573,19 +594,20 @@ const Homepage = () => {
           </div>
 
           {/* CTAs */}
-          <div className="hero-cta-btns" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
+          <div className="hero-cta-btns" style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 20, width: "100%", maxWidth: 640 }}>
             <a
               href="#portfolios"
               style={{
                 background: "linear-gradient(135deg, #1A241A 0%, #0D6E38 100%)",
                 color: "#F8FAF6",
-                padding: "12px 28px",
+                padding: "13px 28px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
                 display: "inline-flex",
                 alignItems: "center",
+                justifyContent: "center",
                 gap: 8,
                 boxShadow: "0 10px 24px rgba(13,110,56,0.22)",
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -596,16 +618,19 @@ const Homepage = () => {
             <Link
               to="/about"
               style={{
-                background: "#FFFFFF",
-                color: "#0D6E38",
-                padding: "11px 24px",
+                background: "var(--kalbe-surface)",
+                color: "var(--kalbe-text-main)",
+                padding: "12px 24px",
                 borderRadius: 40,
                 textDecoration: "none",
                 fontWeight: 700,
                 fontSize: 14,
-                border: "1.5px solid rgba(13,110,56,0.3)",
-                boxShadow: "0 4px 14px rgba(0,0,0,0.04)",
+                border: "1.5px solid var(--kalbe-border)",
+                boxShadow: "var(--kalbe-card-shadow)",
                 transition: "all 0.2s ease",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               About Our Mission
@@ -624,28 +649,28 @@ const Homepage = () => {
             className="floating-hero-card"
             style={{
               position: "relative",
-              background: "rgba(255, 255, 255, 0.92)",
+              background: "var(--kalbe-surface)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
               borderRadius: "clamp(22px, 3.5vw, 32px)",
               padding: "clamp(18px, 3vw, 28px)",
-              boxShadow: `0 30px 70px -15px ${heroSlides[currentHeroSlide].glowColor}, 0 0 0 1px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.04)`,
-              border: `1px solid rgba(13,110,56,0.12)`,
+              boxShadow: `0 30px 70px -15px ${heroSlides[currentHeroSlide].glowColor}, 0 0 0 1px var(--kalbe-border-subtle), var(--kalbe-card-shadow)`,
+              border: `1px solid var(--kalbe-border)`,
               transition: "box-shadow 0.5s ease",
             }}
           >
-            {/* Header: Badge + Counter + Dots */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16, flexWrap: "wrap", gap: 10 }}>
+            {/* Header: Category Badge + SKU Count + Progress Dots */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span
                   key={`badge-${currentHeroSlide}`}
                   className="hero-slide-img"
                   style={{
-                    fontSize: 11.5,
+                    fontSize: 11,
                     fontWeight: 800,
                     color: "#FFFFFF",
                     background: heroSlides[currentHeroSlide].badgeGradient,
-                    padding: "5px 14px",
+                    padding: "4px 12px",
                     borderRadius: 20,
                     textTransform: "uppercase",
                     letterSpacing: "0.8px",
@@ -657,13 +682,13 @@ const Homepage = () => {
                 </span>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 10.5,
                     fontWeight: 700,
                     color: heroSlides[currentHeroSlide].accentColor,
-                    background: "rgba(255,255,255,0.9)",
-                    padding: "4px 10px",
-                    borderRadius: 14,
-                    border: "1px solid rgba(0,0,0,0.06)",
+                    background: "var(--kalbe-surface-elevated)",
+                    padding: "3px 9px",
+                    borderRadius: 12,
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
                   {heroSlides[currentHeroSlide].skuCount} Products
@@ -671,8 +696,8 @@ const Homepage = () => {
               </div>
 
               {/* Progress Indicator */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#6B7280", marginRight: 4 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-muted)", marginRight: 2 }}>
                   0{currentHeroSlide + 1} / 0{heroSlides.length}
                 </span>
                 {heroSlides.map((_, i) => (
@@ -683,13 +708,13 @@ const Homepage = () => {
                     role="button"
                     aria-label={`Go to slide ${i + 1}`}
                     style={{
-                      width: currentHeroSlide === i ? 24 : 7,
-                      height: 7,
-                      borderRadius: 4,
+                      width: currentHeroSlide === i ? 20 : 6,
+                      height: 6,
+                      borderRadius: 3,
                       background:
                         currentHeroSlide === i
                           ? heroSlides[currentHeroSlide].accentColor
-                          : "rgba(0,0,0,0.12)",
+                          : "rgba(0,0,0,0.15)",
                       cursor: "pointer",
                       display: "inline-block",
                       transition: "all 0.3s cubic-bezier(0.2, 0, 0, 1)",
@@ -703,12 +728,12 @@ const Homepage = () => {
             <div
               style={{
                 position: "relative",
-                height: "clamp(230px, 32vw, 300px)",
+                height: "clamp(180px, 28vw, 260px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 background: "transparent",
-                padding: "16px 48px",
+                padding: "10px 40px",
                 overflow: "hidden",
               }}
             >
@@ -719,23 +744,23 @@ const Homepage = () => {
                 aria-label="Previous Slide"
                 style={{
                   position: "absolute",
-                  left: 12,
+                  left: 8,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.92)",
+                  background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  width: 38,
-                  height: 38,
+                  border: "1px solid var(--kalbe-border)",
+                  width: 34,
+                  height: 34,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#1A241A",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.08)",
+                  color: "var(--kalbe-text-main)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
-                <HiOutlineChevronLeft style={{ fontSize: 18 }} />
+                <HiOutlineChevronLeft style={{ fontSize: 16 }} />
               </button>
 
               <Link
@@ -759,7 +784,7 @@ const Homepage = () => {
                     maxHeight: "100%",
                     maxWidth: "100%",
                     objectFit: "contain",
-                    filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.12))",
+                    filter: "drop-shadow(0 8px 18px rgba(0,0,0,0.1))",
                     transition: "transform 0.4s cubic-bezier(0.2, 0, 0, 1)",
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
@@ -774,28 +799,28 @@ const Homepage = () => {
                 aria-label="Next Slide"
                 style={{
                   position: "absolute",
-                  right: 12,
+                  right: 8,
                   zIndex: 2,
-                  background: "rgba(255,255,255,0.92)",
+                  background: "var(--kalbe-surface-elevated)",
                   backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  width: 38,
-                  height: 38,
+                  border: "1px solid var(--kalbe-border)",
+                  width: 34,
+                  height: 34,
                   borderRadius: "50%",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
-                  color: "#1A241A",
-                  boxShadow: "0 6px 16px rgba(0,0,0,0.08)",
+                  color: "var(--kalbe-text-main)",
+                  boxShadow: "var(--kalbe-card-shadow)",
                 }}
               >
-                <HiOutlineChevronRight style={{ fontSize: 18 }} />
+                <HiOutlineChevronRight style={{ fontSize: 16 }} />
               </button>
             </div>
 
             {/* Slide Info & Quick Link */}
-            <div style={{ marginTop: 18, textAlign: "center" }}>
+            <div style={{ marginTop: 14, textAlign: "center" }}>
               <Link
                 to={`/product/${heroSlides[currentHeroSlide].portfolioId}`}
                 style={{ textDecoration: "none", color: "inherit", display: "inline-block" }}
@@ -805,27 +830,27 @@ const Homepage = () => {
                   className="hero-slide-img"
                   style={{
                     fontFamily: "'Montserrat', 'Inter', sans-serif",
-                    fontSize: "clamp(20px, 2.6vw, 25px)",
+                    fontSize: "clamp(18px, 2.4vw, 22px)",
                     fontWeight: 900,
-                    color: "#1A241A",
+                    color: "var(--kalbe-text-main)",
                     letterSpacing: "0.5px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: 8,
+                    gap: 6,
                   }}
                 >
                   {heroSlides[currentHeroSlide].title}
-                  <HiOutlineChevronRight style={{ fontSize: 18, color: heroSlides[currentHeroSlide].accentColor }} />
+                  <HiOutlineChevronRight style={{ fontSize: 16, color: heroSlides[currentHeroSlide].accentColor }} />
                 </div>
               </Link>
               <div
                 style={{
-                  fontSize: "clamp(12.5px, 1.7vw, 13.5px)",
-                  color: "#4A5A4A",
+                  fontSize: "clamp(12px, 1.5vw, 13px)",
+                  color: "var(--kalbe-text-muted)",
                   fontWeight: 500,
-                  marginTop: 6,
-                  lineHeight: 1.5,
+                  marginTop: 4,
+                  lineHeight: 1.4,
                 }}
               >
                 {heroSlides[currentHeroSlide].desc}
@@ -847,9 +872,10 @@ const Homepage = () => {
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "1.5px",
-              color: "#0D6E38",
+              color: "var(--kalbe-green)",
               textTransform: "uppercase",
-              background: "rgba(13,110,56,0.1)",
+              background: "rgba(16, 185, 129, 0.15)",
+              border: "1px solid rgba(16, 185, 129, 0.25)",
               padding: "5px 16px",
               borderRadius: 20,
               display: "inline-block",
@@ -862,7 +888,7 @@ const Homepage = () => {
             style={{
               fontFamily: "Georgia, serif",
               fontSize: "clamp(26px, 4.5vw, 40px)",
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               fontWeight: 800,
               margin: 0,
             }}
@@ -884,13 +910,13 @@ const Homepage = () => {
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && setSelectedPortfolioId(p.id)}
                 style={{
-                  background: "#FFFFFF",
+                  background: "var(--kalbe-surface)",
                   borderRadius: 22,
                   padding: "clamp(18px, 2.4vw, 24px)",
-                  border: isSelected ? "2px solid #0D6E38" : "2px solid rgba(13,110,56,0.12)",
+                  border: isSelected ? "2px solid var(--kalbe-green)" : "2px solid var(--kalbe-border)",
                   boxShadow: isSelected
-                    ? "0 20px 44px rgba(13,110,56,0.16)"
-                    : "0 6px 18px rgba(0,0,0,0.04)",
+                    ? "0 20px 44px var(--kalbe-glow)"
+                    : "var(--kalbe-card-shadow)",
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: "column",
@@ -903,10 +929,13 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(10.5px, 1.1vw, 11.5px)",
                       fontWeight: 700,
-                      color: isSelected ? "#FFFFFF" : "#1A241A",
+                      color: isSelected ? "#FFFFFF" : "var(--kalbe-green)",
                       background: isSelected
                         ? "linear-gradient(135deg, #0D6E38, #16A34A)"
-                        : "rgba(13,110,56,0.08)",
+                        : "rgba(16, 185, 129, 0.15)",
+                      border: isSelected
+                        ? "1px solid #16A34A"
+                        : "1px solid rgba(16, 185, 129, 0.3)",
                       padding: "4px 10px",
                       borderRadius: 20,
                       whiteSpace: "nowrap",
@@ -920,10 +949,11 @@ const Homepage = () => {
                   <span
                     style={{
                       fontSize: "clamp(10.5px, 1.1vw, 11.5px)",
-                      color: "#4A5A4A",
+                      color: "var(--kalbe-text-muted)",
                       fontWeight: 700,
                       whiteSpace: "nowrap",
-                      background: "rgba(0,0,0,0.04)",
+                      background: "var(--kalbe-surface-elevated)",
+                      border: "1px solid var(--kalbe-border)",
                       padding: "4px 9px",
                       borderRadius: 20,
                       flexShrink: 0,
@@ -935,13 +965,15 @@ const Homepage = () => {
 
                 <div
                   style={{
-                    height: "clamp(140px, 20vw, 185px)",
+                    height: "clamp(180px, 25vw, 240px)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     background: "#FFFFFF",
-                    borderRadius: 14,
-                    padding: "8px 12px",
+                    borderRadius: 16,
+                    padding: "6px",
+                    overflow: "hidden",
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
                   <img
@@ -950,10 +982,9 @@ const Homepage = () => {
                     loading="lazy"
                     decoding="async"
                     style={{
-                      maxHeight: "100%",
-                      maxWidth: "100%",
+                      width: "100%",
+                      height: "100%",
                       objectFit: "contain",
-                      filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.08))",
                       transition: "transform 0.3s ease",
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
@@ -964,11 +995,10 @@ const Homepage = () => {
                 <div>
                   <h3
                     style={{
-                      fontFamily: "'Montserrat', 'Inter', sans-serif",
-                      fontSize: "clamp(17px, 2.2vw, 21px)",
-                      fontWeight: 900,
-                      letterSpacing: "0.4px",
-                      color: isSelected ? "#0D6E38" : "#1A241A",
+                      fontFamily: "Georgia, serif",
+                      fontSize: "clamp(18px, 2.3vw, 23px)",
+                      fontWeight: 800,
+                      color: isSelected ? "var(--kalbe-green)" : "var(--kalbe-text-main)",
                       marginBottom: 6,
                       lineHeight: 1.25,
                     }}
@@ -978,7 +1008,7 @@ const Homepage = () => {
                   <p
                     style={{
                       fontSize: "clamp(12.5px, 1.4vw, 13px)",
-                      color: "#4A5A4A",
+                      color: "var(--kalbe-text-muted)",
                       lineHeight: 1.55,
                       margin: 0,
                     }}
@@ -995,7 +1025,7 @@ const Homepage = () => {
                     justifyContent: "space-between",
                     gap: 8,
                     paddingTop: 12,
-                    borderTop: "1px solid rgba(13,110,56,0.12)",
+                    borderTop: "1px solid var(--kalbe-border)",
                     minHeight: 44,
                   }}
                 >
@@ -1003,7 +1033,7 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(11.5px, 1.3vw, 12.5px)",
                       fontWeight: 700,
-                      color: isSelected ? "#0D6E38" : "#4A5A4A",
+                      color: isSelected ? "var(--kalbe-green)" : "var(--kalbe-text-muted)",
                       whiteSpace: "nowrap",
                       display: "inline-flex",
                       alignItems: "center",
@@ -1015,8 +1045,8 @@ const Homepage = () => {
                         width: 7,
                         height: 7,
                         borderRadius: "50%",
-                        background: isSelected ? "#0D6E38" : "transparent",
-                        border: isSelected ? "none" : "1.5px solid #9CA3AF",
+                        background: isSelected ? "var(--kalbe-green)" : "transparent",
+                        border: isSelected ? "none" : "1.5px solid var(--kalbe-text-muted)",
                         display: "inline-block",
                         flexShrink: 0,
                       }}
@@ -1029,21 +1059,22 @@ const Homepage = () => {
                     style={{
                       fontSize: "clamp(11.5px, 1.3vw, 12.5px)",
                       fontWeight: 700,
-                      color: "#1A241A",
+                      color: "var(--kalbe-text-main)",
                       textDecoration: "none",
                       whiteSpace: "nowrap",
                       padding: "5px 12px",
                       borderRadius: 10,
-                      background: "rgba(13,110,56,0.07)",
+                      background: "var(--kalbe-surface-elevated)",
+                      border: "1px solid var(--kalbe-border)",
                       transition: "all 0.2s ease",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#0D6E38";
+                      e.currentTarget.style.background = "var(--kalbe-green)";
                       e.currentTarget.style.color = "#fff";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(13,110,56,0.07)";
-                      e.currentTarget.style.color = "#1A241A";
+                      e.currentTarget.style.background = "var(--kalbe-surface-elevated)";
+                      e.currentTarget.style.color = "var(--kalbe-text-main)";
                     }}
                   >
                     បើកទំព័រពេញ →
@@ -1071,20 +1102,20 @@ const Homepage = () => {
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(19px, 2.6vw, 24px)",
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   fontWeight: 800,
                 }}
               >
                 {currentPortfolio.title} Products
               </h3>
-              <p style={{ fontSize: 13, color: "#4A5A4A", margin: "4px 0 0", lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13, color: "var(--kalbe-text-muted)", margin: "4px 0 0", lineHeight: 1.5 }}>
                 {currentPortfolio.description}
               </p>
             </div>
             <Link
               to={`/product/${currentPortfolio.id}`}
               style={{
-                color: "#0D6E38",
+                color: "var(--kalbe-green)",
                 fontWeight: 700,
                 fontSize: 13,
                 textDecoration: "none",
@@ -1094,17 +1125,18 @@ const Homepage = () => {
                 gap: 4,
                 padding: "8px 16px",
                 borderRadius: 30,
-                border: "1.5px solid rgba(13,110,56,0.3)",
+                background: "var(--kalbe-surface-elevated)",
+                border: "1.5px solid var(--kalbe-border)",
                 transition: "all 0.2s ease",
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#0D6E38";
+                e.currentTarget.style.background = "var(--kalbe-green)";
                 e.currentTarget.style.color = "#fff";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#0D6E38";
+                e.currentTarget.style.background = "var(--kalbe-surface-elevated)";
+                e.currentTarget.style.color = "var(--kalbe-green)";
               }}
             >
               View Full Portfolio →

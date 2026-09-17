@@ -15,24 +15,24 @@ const Card = ({ image, title, id }) => {
     >
       <div
         style={{
-          background: "#FFFFFF",
+          background: "var(--kalbe-surface)",
           borderRadius: 24,
           overflow: "hidden",
-          border: "1px solid rgba(13,110,56, 0.12)",
+          border: "1px solid var(--kalbe-border)",
           transition: "all 0.4s cubic-bezier(0.2, 0, 0, 1)",
           cursor: "pointer",
-          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.04)",
+          boxShadow: "var(--kalbe-card-shadow)",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "translateY(-10px)";
           e.currentTarget.style.boxShadow =
-            "0 25px 45px rgba(13,110,56, 0.18)";
-          e.currentTarget.style.borderColor = "rgba(13,110,56, 0.3)";
+            "0 25px 45px var(--kalbe-glow)";
+          e.currentTarget.style.borderColor = "var(--kalbe-green)";
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "translateY(0)";
-          e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.04)";
-          e.currentTarget.style.borderColor = "rgba(13,110,56, 0.12)";
+          e.currentTarget.style.boxShadow = "var(--kalbe-card-shadow)";
+          e.currentTarget.style.borderColor = "var(--kalbe-border)";
         }}
       >
         <div
@@ -40,7 +40,7 @@ const Card = ({ image, title, id }) => {
             position: "relative",
             overflow: "hidden",
             height: "clamp(200px, 35vw, 280px)",
-            backgroundColor: "#F8FAF6",
+            backgroundColor: "var(--kalbe-bg-alt)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -82,7 +82,7 @@ const Card = ({ image, title, id }) => {
           />
         </div>
         <div
-          style={{ padding: "clamp(16px, 4vw, 20px)", background: "#FFFFFF" }}
+          style={{ padding: "clamp(16px, 4vw, 20px)", background: "var(--kalbe-surface)" }}
         >
           <h3
             style={{
@@ -95,20 +95,20 @@ const Card = ({ image, title, id }) => {
               fontSize: "clamp(18px, 4vw, 22px)",
               fontWeight: 800,
               letterSpacing: "0.5px",
-              color: "#1A241A",
+              color: "var(--kalbe-text-main)",
               margin: "0 0 8px 0",
               lineHeight: 1.3,
               transition: "color 0.2s",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#0D6E38")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#1A241A")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--kalbe-text-main)")}
           >
             {title}
           </h3>
           <p
             style={{
               fontSize: "clamp(12px, 3vw, 13px)",
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               marginBottom: 16,
               lineHeight: 1.4,
             }}

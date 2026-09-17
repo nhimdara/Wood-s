@@ -8,11 +8,13 @@ import ClinicalComparisonSection from "../components/layout/ui/ClinicalCompariso
 import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCalculator";
 import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
 import { products, PRODUCT_THEMES } from "../components/data/products";
-import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight } from "react-icons/hi";
+import { useTheme } from "../context/ThemeContext";
+import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight, HiOutlineHome } from "react-icons/hi";
 import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 
 const Product = () => {
   const { id, subId } = useParams();
+  const { isDark } = useTheme();
   const [activeTab, setActiveTab] = useState("framework");
   const [imgError, setImgError] = useState(false);
 
@@ -88,7 +90,8 @@ const Product = () => {
       <div
         style={{
           fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-          background: "#F8FAF6",
+          background: "var(--kalbe-bg)",
+          color: "var(--kalbe-text-main)",
           minHeight: "100vh",
           overflowX: "hidden",
         }}
@@ -109,7 +112,7 @@ const Product = () => {
             touch-action: pan-x;
             overscroll-behavior-y: none;
             -webkit-overflow-scrolling: touch;
-            border-bottom: 2px solid ${theme.border};
+
             margin-bottom: 30px;
             padding-top: 4px;
             padding-bottom: 0;
@@ -131,7 +134,7 @@ const Product = () => {
             padding: 10px 18px;
             font-size: 14px;
             font-weight: 600;
-            color: #4A5A4A;
+            color: var(--kalbe-text-muted);
             background: none;
             border: none;
             cursor: pointer;
@@ -144,21 +147,24 @@ const Product = () => {
 
           .product-tab-btn:hover {
             color: ${theme.primary};
-            background: ${theme.light};
+            background: ${isDark ? "rgba(255, 255, 255, 0.06)" : theme.light};
           }
 
           .product-tab-btn.active {
             color: ${theme.primary} !important;
             border-bottom: 3px solid ${theme.primary} !important;
             font-weight: 700 !important;
-            background: #FFFFFF;
-            box-shadow: 0 -2px 8px ${theme.glow};
+            background: var(--kalbe-surface) !important;
+            box-shadow: 0 -2px 8px ${isDark ? "rgba(0, 0, 0, 0.3)" : theme.glow};
           }
 
           @media (max-width: 768px) {
             .product-tab-btn {
               padding: 9px 14px;
               font-size: 13px;
+            }
+            .product-breadcrumbs-container {
+              padding-top: calc(74px + env(safe-area-inset-top, 24px) + 20px) !important;
             }
           }
         `}</style>
@@ -167,10 +173,11 @@ const Product = () => {
 
         {/* Breadcrumbs */}
         <div
+          className="product-breadcrumbs-container"
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",
@@ -183,7 +190,7 @@ const Product = () => {
               alignItems: "center",
               gap: 8,
               fontSize: "clamp(12px, 2.5vw, 13px)",
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
               flexWrap: "wrap",
             }}
           >
@@ -195,7 +202,7 @@ const Product = () => {
               {parentProduct.title}
             </Link>
             <span>›</span>
-            <span style={{ color: "#1A241A", fontWeight: 700, fontFamily: categoryFont }}>
+            <span style={{ color: "var(--kalbe-text-main)", fontWeight: 700, fontFamily: categoryFont }}>
               {subProduct.title}
             </span>
           </div>
@@ -204,7 +211,7 @@ const Product = () => {
         {/* Hero Product Section */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "30px 5% 40px",
             display: "grid",
@@ -218,7 +225,7 @@ const Product = () => {
             <div
               style={{
                 position: "relative",
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 borderRadius: "clamp(18px, 3.5vw, 28px)",
                 border: `1px solid ${theme.border}`,
                 boxShadow: `0 25px 50px ${theme.glow}`,
@@ -317,8 +324,9 @@ const Product = () => {
                   fontSize: 12,
                   fontWeight: 700,
                   letterSpacing: "1.5px",
-                  color: theme.primary,
-                  background: theme.light,
+                  color: isDark ? "var(--kalbe-text-main)" : theme.primary,
+                  background: isDark ? "var(--kalbe-surface-elevated)" : theme.light,
+                  border: isDark ? "1px solid var(--kalbe-border)" : "none",
                   padding: "5px 14px",
                   borderRadius: 30,
                   marginBottom: 12,
@@ -336,7 +344,7 @@ const Product = () => {
                 fontSize: "clamp(32px, 5.5vw, 52px)",
                 fontWeight: theme.fontWeight || 900,
                 letterSpacing: theme.letterSpacing || "0px",
-                color: theme.primary,
+                color: isDark ? (theme.light ? theme.primary : "var(--kalbe-text-main)") : theme.primary,
                 lineHeight: 1.15,
                 marginBottom: 8,
               }}
@@ -348,7 +356,7 @@ const Product = () => {
               <p
                 style={{
                   fontSize: "clamp(14px, 2.5vw, 16px)",
-                  color: theme.primary,
+                  color: isDark ? "var(--kalbe-text-muted)" : theme.primary,
                   fontWeight: 600,
                   marginBottom: 16,
                 }}
@@ -362,15 +370,17 @@ const Product = () => {
               <div
                 className="fade-up"
                 style={{
-                  background: theme.light,
+                  background: isDark ? "var(--kalbe-surface-elevated)" : theme.light,
                   padding: "16px 18px",
                   borderRadius: 16,
+                  border: isDark ? "1px solid var(--kalbe-border)" : "none",
                   borderLeft: `4px solid ${theme.primary}`,
                   marginBottom: 20,
                   fontSize: "clamp(13px, 2.5vw, 14px)",
                   lineHeight: 1.6,
-                  color: "#1A241A",
+                  color: isDark ? "var(--kalbe-text-main)" : "#1A241A",
                   fontWeight: 500,
+                  boxShadow: isDark ? "var(--kalbe-card-shadow)" : "none",
                 }}
               >
                 {subProduct.keySellingPoint}
@@ -389,39 +399,16 @@ const Product = () => {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaLeaf style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>High Quality</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>High Quality</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaHeartbeat style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>Clinically Proven</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>Clinically Proven</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaStar style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "#4A5A4A", fontWeight: 500 }}>Kalbe Standard</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>Kalbe Standard</span>
               </div>
-            </div>
-
-            {/* Quick action buttons */}
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Link
-                to={`/product/${id}`}
-                style={{
-                  background: "transparent",
-                  color: theme.primary,
-                  padding: "9px 20px",
-                  borderRadius: 40,
-                  textDecoration: "none",
-                  fontWeight: 600,
-                  fontSize: 13,
-                  border: `1.5px solid ${theme.primary}`,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <HiOutlineArrowLeft /> More in {parentProduct.title}
-              </Link>
             </div>
           </div>
         </section>
@@ -429,12 +416,11 @@ const Product = () => {
         {/* Interactive Tabs Section */}
         <section
           style={{
-            background: "#FFFFFF",
+            background: "var(--kalbe-bg)",
             padding: "clamp(36px, 6vw, 56px) 5%",
-            borderTop: `1px solid ${theme.border}`,
           }}
         >
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             {/* Tab Navigation with tablet/mobile responsive labels */}
             <div className="product-tabs-container">
               {tabs.map((tab) => (
@@ -460,18 +446,18 @@ const Product = () => {
               <div className="fade-up">
                 <div
                   style={{
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-surface-elevated)",
                     borderRadius: 20,
                     padding: "clamp(20px, 4vw, 32px)",
                     border: `1px solid ${theme.border}`,
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.03)",
+                    boxShadow: "var(--kalbe-card-shadow)",
                   }}
                 >
                   <h3
                     style={{
                       fontFamily: "Georgia, serif",
                       fontSize: "clamp(20px, 3.5vw, 24px)",
-                      color: "#1A241A",
+                      color: "var(--kalbe-text-main)",
                       fontWeight: 700,
                       marginBottom: 18,
                     }}
@@ -487,7 +473,7 @@ const Product = () => {
                           alignItems: "center",
                           gap: 12,
                           padding: "12px 16px",
-                          background: theme.bg,
+                          background: "var(--kalbe-bg-alt)",
                           borderRadius: 14,
                           border: `1px solid ${theme.border}`,
                         }}
@@ -497,7 +483,7 @@ const Product = () => {
                             width: 26,
                             height: 26,
                             borderRadius: "50%",
-                            background: theme.light,
+                            background: isDark ? "rgba(255,255,255,0.08)" : theme.light,
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -506,7 +492,7 @@ const Product = () => {
                         >
                           <HiOutlineCheck style={{ color: theme.primary, fontSize: 15 }} />
                         </div>
-                        <span style={{ fontSize: 13.5, color: "#1A241A", fontWeight: 500 }}>
+                        <span style={{ fontSize: 13.5, color: "var(--kalbe-text-main)", fontWeight: 500 }}>
                           {benefit}
                         </span>
                       </div>
@@ -521,16 +507,16 @@ const Product = () => {
               <div className="fade-up" style={{ display: "grid", gap: 20 }}>
                 <div
                   style={{
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-surface-elevated)",
                     borderRadius: 20,
                     padding: "clamp(18px, 3.5vw, 28px)",
-                    border: "1px solid rgba(13,110,56,0.12)",
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
-                  <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "#1A241A", fontWeight: 700 }}>
+                  <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
                     Active Ingredients & Formulation
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "#1A241A", lineHeight: 1.8 }}>
+                  <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "var(--kalbe-text-main)", lineHeight: 1.8 }}>
                     {details.ingredients.map((item, idx) => (
                       <li key={idx}><strong>{item}</strong></li>
                     ))}
@@ -539,19 +525,19 @@ const Product = () => {
 
                 <div
                   style={{
-                    background: "#FFFFFF",
+                    background: "var(--kalbe-surface-elevated)",
                     borderRadius: 20,
                     padding: "clamp(18px, 3.5vw, 28px)",
-                    border: "1px solid rgba(13,110,56,0.12)",
+                    border: "1px solid var(--kalbe-border)",
                   }}
                 >
-                  <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "#1A241A", fontWeight: 700 }}>
+                  <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
                     How to Use & Storage
                   </h4>
-                  <p style={{ fontSize: 13.5, color: "#4A5A4A", lineHeight: 1.6, marginBottom: 14 }}>
+                  <p style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6, marginBottom: 14 }}>
                     <strong>កម្រិតប្រើប្រាស់:</strong> {details.howToUse}
                   </p>
-                  <p style={{ fontSize: 13.5, color: "#4A5A4A", lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6, margin: 0 }}>
                     <strong>ការរក្សាទុក:</strong> {details.storage}
                   </p>
                 </div>
@@ -583,21 +569,21 @@ const Product = () => {
         {/* Other Products in this Portfolio */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "clamp(40px, 6vw, 60px) 5%",
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
             <div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "#0D6E38", textTransform: "uppercase" }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--kalbe-green)", textTransform: "uppercase" }}>
                 Related Portfolio
               </span>
               <h3
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(20px, 3.5vw, 26px)",
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   fontWeight: 800,
                   margin: 0,
                 }}
@@ -606,18 +592,22 @@ const Product = () => {
               </h3>
             </div>
             <Link
-              to={`/product/${id}`}
+              to="/"
               style={{
-                color: "#0D6E38",
+                color: "var(--kalbe-green)",
                 fontWeight: 700,
                 fontSize: 13,
                 textDecoration: "none",
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 4,
+                gap: 6,
+                padding: "6px 14px",
+                borderRadius: 20,
+                background: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(13, 110, 56, 0.08)",
+                border: "1px solid var(--kalbe-border)",
               }}
             >
-              See all {parentProduct.subProducts.length} <HiOutlineArrowRight />
+              <HiOutlineHome /> Back to Home
             </Link>
           </div>
 
@@ -649,7 +639,8 @@ const Product = () => {
       <div
         style={{
           fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
-          background: "#F8FAF6",
+          background: "var(--kalbe-bg)",
+          color: "var(--kalbe-text-main)",
           minHeight: "100vh",
           overflowX: "hidden",
         }}
@@ -657,11 +648,19 @@ const Product = () => {
         <Nav />
 
         {/* Breadcrumb */}
+        <style>{`
+          @media (max-width: 768px) {
+            .portfolio-breadcrumbs-container {
+              padding-top: calc(74px + env(safe-area-inset-top, 24px) + 16px) !important;
+            }
+          }
+        `}</style>
         <div
+          className="portfolio-breadcrumbs-container"
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
-            padding: "clamp(75px, 11vw, 90px) 5% 0",
+            padding: "calc(74px + env(safe-area-inset-top, 24px) + 24px) 5% 0",
             display: "flex",
             alignItems: "center",
             flexWrap: "wrap",
@@ -674,14 +673,14 @@ const Product = () => {
               alignItems: "center",
               gap: 8,
               fontSize: "clamp(12px, 2.5vw, 13px)",
-              color: "#4A5A4A",
+              color: "var(--kalbe-text-muted)",
             }}
           >
-            <Link to="/" style={{ color: "#0D6E38", textDecoration: "none", fontWeight: 600 }}>
+            <Link to="/" style={{ color: "var(--kalbe-green)", textDecoration: "none", fontWeight: 600 }}>
               Home
             </Link>
             <span>›</span>
-            <span style={{ color: "#1A241A", fontWeight: 700 }}>
+            <span style={{ color: "var(--kalbe-text-main)", fontWeight: 700 }}>
               {parentProduct.title}
             </span>
           </div>
@@ -690,7 +689,7 @@ const Product = () => {
         {/* Hero Portfolio Banner */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "30px 5% 40px",
             display: "grid",
@@ -706,8 +705,9 @@ const Product = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "1.5px",
-                color: "#0D6E38",
-                background: "rgba(13,110,56,0.1)",
+                color: "var(--kalbe-green)",
+                background: "rgba(16, 185, 129, 0.15)",
+                border: "1px solid rgba(16, 185, 129, 0.25)",
                 padding: "4px 14px",
                 borderRadius: 20,
                 marginBottom: 12,
@@ -726,7 +726,7 @@ const Product = () => {
                 fontSize: "clamp(32px, 5vw, 52px)",
                 fontWeight: 900,
                 letterSpacing: "1px",
-                color: "#1A241A",
+                color: "var(--kalbe-text-main)",
                 lineHeight: 1.15,
                 marginBottom: 12,
               }}
@@ -738,7 +738,7 @@ const Product = () => {
                 style={{
                   fontSize: 14.5,
                   fontWeight: 600,
-                  color: "#0D6E38",
+                  color: "var(--kalbe-green)",
                   marginBottom: 14,
                 }}
               >
@@ -749,7 +749,7 @@ const Product = () => {
               style={{
                 fontSize: "clamp(14px, 2.5vw, 16px)",
                 lineHeight: 1.7,
-                color: "#4A5A4A",
+                color: "var(--kalbe-text-muted)",
                 marginBottom: 20,
               }}
             >
@@ -760,11 +760,11 @@ const Product = () => {
           <div style={{ textAlign: "center" }}>
             <div
               style={{
-                background: "#FFFFFF",
+                background: "var(--kalbe-surface)",
                 borderRadius: 24,
                 padding: "clamp(18px, 4vw, 32px)",
-                boxShadow: "0 20px 40px rgba(13,110,56,0.08)",
-                border: "1px solid rgba(13,110,56,0.12)",
+                boxShadow: "var(--kalbe-card-shadow)",
+                border: "1px solid var(--kalbe-border)",
               }}
             >
               <img
@@ -785,7 +785,7 @@ const Product = () => {
         {/* Portfolio Products Grid */}
         <section
           style={{
-            maxWidth: 1200,
+            maxWidth: 1320,
             margin: "0 auto",
             padding: "10px 5% 60px",
           }}
@@ -796,9 +796,10 @@ const Product = () => {
                 fontSize: 12,
                 fontWeight: 700,
                 letterSpacing: "1.5px",
-                color: "#0D6E38",
+                color: "var(--kalbe-green)",
                 textTransform: "uppercase",
-                background: "rgba(13,110,56,0.1)",
+                background: "rgba(16, 185, 129, 0.15)",
+                border: "1px solid rgba(16, 185, 129, 0.25)",
                 padding: "4px 14px",
                 borderRadius: 20,
                 display: "inline-block",
@@ -811,7 +812,7 @@ const Product = () => {
               style={{
                 fontFamily: "Georgia, serif",
                 fontSize: "clamp(24px, 4vw, 36px)",
-                color: "#1A241A",
+                color: "var(--kalbe-text-main)",
                 fontWeight: 800,
                 margin: 0,
               }}
@@ -836,21 +837,21 @@ const Product = () => {
         {/* Clinical Module for Parent View */}
         <section
           style={{
-            background: "#F0FDF4",
+            background: "var(--kalbe-bg)",
             padding: "clamp(40px, 6vw, 60px) 5%",
-            borderTop: "1px solid rgba(13,110,56,0.1)",
           }}
         >
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 30 }}>
               <span
                 style={{
                   fontSize: 12,
                   fontWeight: 700,
                   letterSpacing: "1.5px",
-                  color: "#0D6E38",
+                  color: "var(--kalbe-green)",
                   textTransform: "uppercase",
-                  background: "rgba(13,110,56,0.1)",
+                  background: "rgba(16, 185, 129, 0.15)",
+                  border: "1px solid rgba(16, 185, 129, 0.25)",
                   padding: "4px 14px",
                   borderRadius: 20,
                   display: "inline-block",
@@ -863,7 +864,7 @@ const Product = () => {
                 style={{
                   fontFamily: "Georgia, serif",
                   fontSize: "clamp(22px, 4vw, 32px)",
-                  color: "#1A241A",
+                  color: "var(--kalbe-text-main)",
                   fontWeight: 800,
                   margin: 0,
                 }}
@@ -888,7 +889,7 @@ const Product = () => {
   return (
     <div style={{ padding: 100, textAlign: "center", fontFamily: "sans-serif" }}>
       <h2>Product not found</h2>
-      <Link to="/" style={{ color: "#0D6E38", fontWeight: 700 }}>
+      <Link to="/" style={{ color: "var(--kalbe-green)", fontWeight: 700 }}>
         Back to Home
       </Link>
     </div>
