@@ -117,10 +117,11 @@ const getVibrantBrandColor = (colorHex, dark) => {
   return colorMap[upper] || colorHex || "#34D399";
 };
 
-function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
+function NestedDropdown({ items, onMouseEnter, onMouseLeave, onClose }) {
   const [nestedOpen, setNestedOpen] = useState(null);
   const nestedTimer = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { isDark } = useTheme();
 
   const clearNested = () => {
@@ -131,7 +132,7 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
     setNestedOpen(label);
   };
   const closeNested = () => {
-    nestedTimer.current = setTimeout(() => setNestedOpen(null), 120);
+    nestedTimer.current = setTimeout(() => setNestedOpen(null), 250);
   };
 
   const glassBase = {
@@ -144,6 +145,7 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
   };
 
   const isActive = (href) => {
+    if (!href) return false;
     if (href === "/") return location.pathname === "/";
     return location.pathname === href || location.pathname.startsWith(href + "/");
   };
@@ -151,210 +153,227 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave }) {
   return (
     <div
       style={{
-        ...glassBase,
         position: "absolute",
-        top: "calc(100% + 10px)",
-        left: "50%",
-        transform: "translateX(-50%)",
-        minWidth: 220,
+        top: "100%",
+        left: 0,
+        paddingTop: 6,
         zIndex: 200,
-        animation: "fadeInDown 0.18s ease-out",
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {items.map((item) => (
-        <div key={item.label} style={{ position: "relative" }}>
-          {item.children ? (
-            <>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: 10,
-                  padding: "10px 14px",
-                  borderRadius: 12,
-                  cursor: "pointer",
-                  background:
-                    nestedOpen === item.label
-                      ? isDark
-                        ? "rgba(16, 185, 129, 0.15)"
-                        : "rgba(13,110,56,0.08)"
-                      : "transparent",
-                  color:
-                    nestedOpen === item.label || isActive(item.href)
-                      ? isDark
-                        ? "#10B981"
-                        : "#0D6E38"
-                      : "var(--kalbe-text-main)",
-                  fontWeight:
-                    nestedOpen === item.label || isActive(item.href)
-                      ? 700
-                      : 500,
-                  fontSize: 13.5,
-                  transition: "all 0.15s ease",
-                }}
-                onMouseEnter={() => openNested(item.label)}
-                onMouseLeave={closeNested}
-              >
-                <span>{item.label}</span>
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  style={{
-                    transform:
-                      nestedOpen === item.label
-                        ? "translateX(2px)"
-                        : "none",
-                    opacity: 0.7,
-                    transition: "transform 0.15s",
-                  }}
-                >
-                  <path
-                    d="M4 2l4 4-4 4"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-
-              {nestedOpen === item.label && (
+      <div
+        style={{
+          ...glassBase,
+          minWidth: 230,
+          animation: "fadeInDown 0.18s ease-out",
+        }}
+      >
+        {items.map((item) => (
+          <div key={item.label} style={{ position: "relative" }}>
+            {item.children ? (
+              <>
                 <div
                   style={{
-                    ...glassBase,
-                    position: "absolute",
-                    top: 0,
-                    left: "calc(100% + 8px)",
-                    minWidth: 180,
-                    zIndex: 300,
-                    animation: "slideInRight 0.18s ease-out",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 10,
+                    padding: "10px 14px",
+                    borderRadius: 14,
+                    cursor: "pointer",
+                    background:
+                      nestedOpen === item.label
+                        ? isDark
+                          ? "rgba(16, 185, 129, 0.15)"
+                          : "#EAF5EE"
+                        : "transparent",
+                    color:
+                      nestedOpen === item.label
+                        ? isDark
+                          ? "#10B981"
+                          : "#0D6E38"
+                        : "var(--kalbe-text-main)",
+                    fontWeight: nestedOpen === item.label ? 800 : 600,
+                    fontSize: 13.5,
+                    transition: "all 0.15s ease",
                   }}
-                  onMouseEnter={() => {
-                    clearNested();
-                    setNestedOpen(item.label);
-                  }}
+                  onMouseEnter={() => openNested(item.label)}
                   onMouseLeave={closeNested}
+                  onClick={() => {
+                    setNestedOpen(nestedOpen === item.label ? null : item.label);
+                  }}
                 >
-                  {item.children.map((child) => {
-                    const childId = child.href.split("/").pop();
-                    const childTheme = PRODUCT_THEMES[childId] || {
-                      primary: "#0D6E38",
-                      light: "rgba(13,110,56,0.1)",
-                      fontFamily: "'Montserrat', sans-serif",
-                    };
-                    const isChildActive = isActive(child.href);
-                    const brandColor = getVibrantBrandColor(childTheme.primary, isDark);
-                    const activeBg = isDark
-                      ? (childTheme.glow || "rgba(16, 185, 129, 0.15)")
-                      : (childTheme.light || "rgba(13,110,56,0.1)");
+                  <span style={{ flex: 1, textTransform: "uppercase" }}>{item.label}</span>
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    style={{
+                      transform:
+                        nestedOpen === item.label
+                          ? "translateX(2px)"
+                          : "none",
+                      opacity: nestedOpen === item.label ? 1 : 0.6,
+                      transition: "transform 0.15s",
+                    }}
+                  >
+                    <path
+                      d="M4 2l4 4-4 4"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
 
-                    return (
-                      <Link
-                        key={child.label}
-                        to={child.href}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          padding: "10px 14px",
-                          borderRadius: 10,
-                          textDecoration: "none",
-                          fontSize: 14,
-                          fontFamily: childTheme.fontFamily || "'Montserrat', sans-serif",
-                          fontWeight: 800,
-                          letterSpacing: childTheme.letterSpacing || "0.5px",
-                          color: brandColor,
-                          background: isChildActive
-                            ? activeBg
-                            : "transparent",
-                          borderLeft: isChildActive
-                            ? `3px solid ${brandColor}`
-                            : "3px solid transparent",
-                          transition: "all 0.15s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = activeBg;
-                          e.currentTarget.style.borderLeftColor = brandColor;
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!isChildActive) {
-                            e.currentTarget.style.background = "transparent";
-                            e.currentTarget.style.borderLeftColor = "transparent";
-                          }
-                        }}
-                      >
-                        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <span
-                            style={{
-                              width: 8,
-                              height: 8,
-                              borderRadius: "50%",
-                              background: brandColor,
-                              display: "inline-block",
-                              flexShrink: 0,
+                {nestedOpen === item.label && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: -6,
+                      left: "100%",
+                      paddingLeft: 6,
+                      minWidth: 195,
+                      zIndex: 300,
+                    }}
+                    onMouseEnter={() => {
+                      clearNested();
+                      setNestedOpen(item.label);
+                    }}
+                    onMouseLeave={closeNested}
+                  >
+                    <div
+                      style={{
+                        ...glassBase,
+                        animation: "slideInRight 0.18s ease-out",
+                      }}
+                    >
+                      {item.children.map((child) => {
+                        const childId = child.href.split("/").pop();
+                        const childTheme = PRODUCT_THEMES[childId] || {
+                          primary: "#0D6E38",
+                          light: "rgba(13,110,56,0.1)",
+                          fontFamily: "'Montserrat', sans-serif",
+                        };
+                        const isChildActive = isActive(child.href);
+                        const brandColor = getVibrantBrandColor(childTheme.primary, isDark);
+                        const activeBg = isDark
+                          ? (childTheme.glow || "rgba(16, 185, 129, 0.15)")
+                          : (childTheme.light || "rgba(13,110,56,0.1)");
+
+                        return (
+                          <Link
+                            key={child.label}
+                            to={child.href}
+                            onClick={() => {
+                              if (onClose) onClose();
                             }}
-                          />
-                          {child.label}
-                        </span>
-                        {isChildActive && (
-                          <span
                             style={{
-                              fontSize: 10,
-                              fontWeight: 700,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              padding: "10px 14px",
+                              borderRadius: 10,
+                              textDecoration: "none",
+                              fontSize: 14,
+                              fontFamily: childTheme.fontFamily || "'Montserrat', sans-serif",
+                              fontWeight: 800,
+                              letterSpacing: childTheme.letterSpacing || "0.5px",
                               color: brandColor,
-                              textTransform: "uppercase",
-                              background: isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(255,255,255,0.8)",
-                              padding: "2px 6px",
-                              borderRadius: 6,
-                              border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "none",
+                              background: isChildActive
+                                ? activeBg
+                                : "transparent",
+                              borderLeft: isChildActive
+                                ? `3px solid ${brandColor}`
+                                : "3px solid transparent",
+                              transition: "all 0.15s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = activeBg;
+                              e.currentTarget.style.borderLeftColor = brandColor;
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isChildActive) {
+                                e.currentTarget.style.background = "transparent";
+                                e.currentTarget.style.borderLeftColor = "transparent";
+                              }
                             }}
                           >
-                            Active
-                          </span>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </>
-          ) : (
-            <Link
-              to={item.href}
-              style={{
-                display: "block",
-                padding: "10px 14px",
-                borderRadius: 12,
-                textDecoration: "none",
-                fontSize: 14,
-                fontWeight: isActive(item.href) ? 600 : 500,
-                color: isActive(item.href) ? "#0D6E38" : "#1A241A",
-                background: isActive(item.href)
-                  ? "rgba(13,110,56,0.1)"
-                  : "transparent",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive(item.href)) {
-                  e.currentTarget.style.background = "rgba(13,110,56,0.08)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive(item.href)) {
-                  e.currentTarget.style.background = "transparent";
-                }
-              }}
-            >
-              {item.label}
-            </Link>
-          )}
-        </div>
-      ))}
+                            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <span
+                                style={{
+                                  width: 8,
+                                  height: 8,
+                                  borderRadius: "50%",
+                                  background: brandColor,
+                                  display: "inline-block",
+                                  flexShrink: 0,
+                                }}
+                              />
+                              {child.label}
+                            </span>
+                            {isChildActive && (
+                              <span
+                                style={{
+                                  fontSize: 10,
+                                  fontWeight: 700,
+                                  color: brandColor,
+                                  textTransform: "uppercase",
+                                  background: isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(255,255,255,0.8)",
+                                  padding: "2px 6px",
+                                  borderRadius: 6,
+                                  border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "none",
+                                }}
+                              >
+                                Active
+                              </span>
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <Link
+                to={item.href}
+                onClick={() => {
+                  if (onClose) onClose();
+                }}
+                style={{
+                  display: "block",
+                  padding: "10px 14px",
+                  borderRadius: 12,
+                  textDecoration: "none",
+                  fontSize: 14,
+                  fontWeight: isActive(item.href) ? 600 : 500,
+                  color: isActive(item.href) ? "#0D6E38" : "#1A241A",
+                  background: isActive(item.href)
+                    ? "rgba(13,110,56,0.1)"
+                    : "transparent",
+                  transition: "background 0.15s",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive(item.href)) {
+                    e.currentTarget.style.background = "rgba(13,110,56,0.08)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive(item.href)) {
+                    e.currentTarget.style.background = "transparent";
+                  }
+                }}
+              >
+                {item.label}
+              </Link>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -409,7 +428,7 @@ export default function Nav() {
     setOpen(label);
   };
   const closeMenu = () => {
-    closeTimer.current = setTimeout(() => setOpen(null), 150);
+    closeTimer.current = setTimeout(() => setOpen(null), 250);
   };
   const keepOpen = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -467,8 +486,8 @@ export default function Nav() {
     <>
       <style>{`
         @keyframes fadeInDown {
-          from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-          to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes slideInRight {
           from { opacity: 0; transform: translateX(-8px); }
@@ -498,7 +517,7 @@ export default function Nav() {
           display: flex; align-items: center; gap: 5px;
           white-space: nowrap; text-decoration: none;
         }
-        .nav-link-btn:hover { color: #0D6E38; background: rgba(13,110,56,0.06); }
+        .nav-link-btn:hover, .nav-link-btn.open { color: #0D6E38; background: rgba(13,110,56,0.08); }
         .nav-link-btn.active { color: #0D6E38; background: rgba(13,110,56,0.1); font-weight: 800; }
 
         .nav-search-input {
@@ -619,7 +638,13 @@ export default function Nav() {
                   onMouseEnter={() => openMenu(item.label)}
                   onMouseLeave={closeMenu}
                 >
-                  <button className={`nav-link-btn${getActiveClass(item)}`}>
+                  <button
+                    className={`nav-link-btn${getActiveClass(item)}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpen(open === item.label ? null : item.label);
+                    }}
+                  >
                     {item.label}
                     <svg
                       width="11"
@@ -647,6 +672,7 @@ export default function Nav() {
                       items={item.children}
                       onMouseEnter={keepOpen}
                       onMouseLeave={closeMenu}
+                      onClose={() => setOpen(null)}
                     />
                   )}
                 </div>
@@ -1062,6 +1088,24 @@ export default function Nav() {
                             </button>
                             {mobileL3 === child.label && (
                                 <div className="mob-sub mob-sub-sub">
+                                  {child.href && (
+                                    <Link
+                                      to={child.href}
+                                      onClick={() => setMobileOpen(false)}
+                                      style={{
+                                        display: "block",
+                                        padding: "7px 16px 7px 36px",
+                                        textDecoration: "none",
+                                        fontSize: 12.5,
+                                        fontWeight: 700,
+                                        color: "#0D6E38",
+                                        borderBottom: "1px dashed var(--kalbe-border)",
+                                        marginBottom: 4,
+                                      }}
+                                    >
+                                      View {child.label} Portfolio →
+                                    </Link>
+                                  )}
                                   {child.children.map((sub) => {
                                     const subId = sub.href.split("/").pop();
                                     const subTheme = PRODUCT_THEMES[subId] || {
