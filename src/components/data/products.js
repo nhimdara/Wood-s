@@ -1367,10 +1367,10 @@ export const products = [
   },
   {
     id: 4,
-    title: "CREBROVASCULAR",
+    title: "CEREBROVASCULAR",
     subtitle: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy & Immune Support",
     image: "/images/CELEBROVASCULAR.png",
-    badge: "CREBROVASCULAR & Cardio-Vascular Care",
+    badge: "CEREBROVASCULAR & Cardio-Vascular Care",
     description: "ដំណោះស្រាយថែទាំប្រព័ន្ធប្រសាទ និងសរសៃឈាមខួរក្បាល សម្រាប់ Acute Stroke, Traumatic Brain Injury, Post-Stroke Cognitive Impairment, Muscle Spasticity និង Energy/Immune Support។",
     subProducts: [
       {
@@ -1504,7 +1504,7 @@ export const products = [
           ],
           how: {
             postStrokeCognitive: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) យ៉ាងហោចណាស់ 6 ខែឡើងទៅ",
-            mildCognitiveImpairmentDose: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) សម្រាប់ Mild Cognitive Impairment",
+            mildCognitiveImpairment: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) សម្រាប់ Mild Cognitive Impairment",
             storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C"
           },
           say: "Brainact 500mg Tablet ផ្តល់ Citicoline 500mg សម្រាប់ Post Stroke Cognitive Impairment និង Mild Cognitive Impairment លើមនុស្សចាស់ ប្រើ 1g/ថ្ងៃ ដើម្បីជួយថែរក្សា និងស្តារការចងចាំ។"

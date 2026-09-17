@@ -118,9 +118,7 @@ export default function PositioningFrameworkCard({ product }) {
         >
           Product Positioning Framework
         </h3>
-        <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", margin: "4px 0 0" }}>
-          5-Step Product Detailing Framework (WHO, WHAT, WHY, HOW, SAY) for <strong style={{ color: theme.primary }}>{product.title}</strong>
-        </p>
+
       </div>
 
       {/* Interactive Step Navigator */}
