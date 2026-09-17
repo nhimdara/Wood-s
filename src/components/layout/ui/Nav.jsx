@@ -44,7 +44,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "CELEBROVASCULAR",
+        label: "CEREBROVASCULAR",
         href: "/product/4",
         children: [
           { label: "BRAINACT 1000 mg Inj", href: "/product/4/brainact-inj" },

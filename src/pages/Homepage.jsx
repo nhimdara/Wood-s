@@ -56,8 +56,8 @@ const Homepage = () => {
       },
       {
         id: 4,
-        title: "CELEBROVASCULAR",
-        badge: "Neuro & Vascular Care",
+        title: "CEREBROVASCULAR",
+        badge: "Cardiovascular",
         image: "/images/CELEBROVASCULAR.png",
         desc: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy Booster",
         portfolioId: 4,
@@ -396,7 +396,7 @@ const Homepage = () => {
               marginBottom: 16,
             }}
           >
-            Product Positioning
+            PRODUCT Information
             <br />
             <span
               style={{
@@ -420,9 +420,9 @@ const Homepage = () => {
               marginBottom: 24,
             }}
           >
-            ស្វែងយល់ពីផលប័ត្រផលិតផលឱសថ និងអាហារូបត្ថម្ភវេជ្ជសាស្ត្រកម្រិតខ្ពស់ទាំង ៦ ក្រុមឯកទេស៖{" "}
+            ពត៌មានផលិតផលឱសថ និងអាហារូបត្ថម្ភចាំបាច់ សំរាប់ជំងឺទាំង ៦ ប្រភេទ៖{" "}<br />
             <strong>ENDO METABOLIC</strong>, <strong>MEDNUT</strong>,{" "}
-            <strong>CHILDREN PRODUCT</strong>, <strong>CELEBROVASCULAR</strong>,{" "}
+            <strong>CHILDREN PRODUCT</strong>, <strong>CEREBROVASCULAR</strong>,{" "}
             <strong>HOSPITAL LINE</strong>, និង <strong>ONCOLOGY</strong>។
           </p>
 
@@ -893,7 +893,7 @@ const Homepage = () => {
               margin: 0,
             }}
           >
-            ផលប័ត្រផលិតផលតាមក្រុមឯកទេស
+            ពត៌មានផលិតផលតាមប្រភេទជំងឺនិមួយៗ
           </h2>
         </div>
 

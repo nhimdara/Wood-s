@@ -119,7 +119,7 @@ export default function PositioningFrameworkCard({ product }) {
           Product Positioning Framework
         </h3>
         <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", margin: "4px 0 0" }}>
-          ក្របខណ្ឌបង្ហាញផលិតផល 5 ជំហាន (WHO, WHAT, WHY, HOW, SAY) សម្រាប់ <strong style={{ color: theme.primary }}>{product.title}</strong>
+          5-Step Product Detailing Framework (WHO, WHAT, WHY, HOW, SAY) for <strong style={{ color: theme.primary }}>{product.title}</strong>
         </p>
       </div>
 
@@ -169,10 +169,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                1. WHO — សម្រាប់អ្នកជំងឺណា? (Target Patient / Indication)
+                1. WHO — Target Patient / Indication
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                បញ្ជាក់យ៉ាងច្បាស់លាស់នូវក្រុមអ្នកជំងឺដែលត្រូវប្រើប្រាស់
+                Clearly specify the target patient group and clinical indications
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -210,10 +210,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                2. WHAT — អត្តសញ្ញាណ & សមាសធាតុ (Identity + Composition)
+                2. WHAT — Identity & Composition
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                ព័ត៌មានលម្អិតអំពីសារធាតុសកម្ម កម្រិត ទម្រង់ និងបច្ចេកវិទ្យា
+                Detailed information on active ingredients, dosage form, strength, and technology
               </span>
             </div>
             <div
@@ -234,7 +234,7 @@ export default function PositioningFrameworkCard({ product }) {
                   }}
                 >
                   <div style={{ fontSize: 11, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600 }}>
-                    {key.replace(/([A-Z])/g, " $1")}
+                    {key.replace(/([a-z0-9])([A-Z])/g, "$1 $2")}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: theme.primary, marginTop: 4 }}>
                     {val}
@@ -250,10 +250,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                3. WHY — ហេតុអ្វីជ្រើសរើស? (Feature → Benefit)
+                3. WHY — Feature → Benefit
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                លក្ខណៈពិសេសនីមួយៗផ្តល់អត្ថប្រយោជន៍ព្យាបាលជាក់ស្តែង
+                Key product features providing tangible clinical and patient benefits
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -303,10 +303,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                4. HOW — របៀបប្រើប្រាស់ & កម្រិត (Dose, Preparation & Use)
+                4. HOW — Dose, Preparation & Use
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                កម្រិតប្រើប្រាស់ ការតាមដាន និងការរក្សាទុកត្រឹមត្រូវ
+                Dosage guidelines, administration, monitoring, and proper storage
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -337,7 +337,7 @@ export default function PositioningFrameworkCard({ product }) {
                       marginTop: 2,
                     }}
                   >
-                    {key}
+                    {key.replace(/([a-z0-9])([A-Z])/g, "$1 $2")}
                   </span>
                   <span style={{ fontSize: 13.5, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
                     {val}
@@ -353,10 +353,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                5. SAY — សារសំខាន់សម្រាប់វេជ្ជបណ្ឌិត (Product Detailing / Elevator Pitch)
+                5. SAY — Key Detailing Message / Pitch
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                សារសង្ខេបគន្លឹះដើម្បី Detailing ទៅកាន់ Healthcare Professionals
+                Core summary detailing message for Healthcare Professionals
               </span>
             </div>
             <div

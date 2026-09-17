@@ -34,7 +34,7 @@ const Product = () => {
     const isMednut = id === "2" || parentProduct.title?.toLowerCase().includes("mednut");
     const isPediatric = id === "3" || parentProduct.title?.toLowerCase().includes("children");
     const isEndo = id === "1" || parentProduct.title?.toLowerCase().includes("endo");
-    const isCelebro = id === "4" || parentProduct.title?.toLowerCase().includes("celebrovascular");
+    const isCelebro = id === "4" || parentProduct.title?.toLowerCase().includes("celebro") || parentProduct.title?.toLowerCase().includes("cerebro");
     const isHospital = id === "5" || parentProduct.title?.toLowerCase().includes("hospital");
     const isOnco = id === "6" || parentProduct.title?.toLowerCase().includes("oncology");
 
@@ -370,20 +370,30 @@ const Product = () => {
               <div
                 className="fade-up"
                 style={{
-                  background: isDark ? "var(--kalbe-surface-elevated)" : theme.light,
-                  padding: "16px 18px",
-                  borderRadius: 16,
-                  border: isDark ? "1px solid var(--kalbe-border)" : "none",
-                  borderLeft: `4px solid ${theme.primary}`,
+                  background: isDark
+                    ? "linear-gradient(135deg, var(--kalbe-surface-elevated), rgba(255, 255, 255, 0.03))"
+                    : `linear-gradient(135deg, ${theme.light || "rgba(13, 110, 56, 0.08)"} 0%, var(--kalbe-surface) 100%)`,
+                  padding: "16px 20px",
+                  borderRadius: 18,
+                  border: "1px solid var(--kalbe-border)",
+                  borderLeft: `5px solid ${theme.primary}`,
                   marginBottom: 20,
-                  fontSize: "clamp(13px, 2.5vw, 14px)",
-                  lineHeight: 1.6,
-                  color: isDark ? "var(--kalbe-text-main)" : "#1A241A",
-                  fontWeight: 500,
-                  boxShadow: isDark ? "var(--kalbe-card-shadow)" : "none",
+                  boxShadow: "var(--kalbe-card-shadow)",
+                  position: "relative",
                 }}
               >
-                {subProduct.keySellingPoint}
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "clamp(13.5px, 2.2vw, 14.5px)",
+                    lineHeight: 1.65,
+                    color: "var(--kalbe-text-main)",
+                    fontWeight: 500,
+                    overflowWrap: "break-word",
+                  }}
+                >
+                  {subProduct.keySellingPoint}
+                </p>
               </div>
             )}
 

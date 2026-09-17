@@ -556,8 +556,7 @@ export const products = [
           ],
           how: {
             startingDose: "4 mcg/kg ចាក់ក្រោមស្បែក (SC) រៀងរាល់ 2 សប្ដាហ៍ (Q2W)",
-            monitoring: "តាមដាន Hb រៀងរាល់ 2–4 សប្ដាហ៍ ដើម្បីរក្សាកម្រិត Hb ឱ្យមានស្ថេរភាព និងស្ថិតក្នុងគោលដៅព្យាបាល",
-            targetHb: "10–12 g/dL",
+            monitoring: "តាមដាន Hb រៀងរាល់ 2–4 សប្ដាហ៍ ដើម្បីរក្សាកម្រិត Hb ឱ្យមានស្ថេរភាព និងស្ថិតក្នុងគោលដៅព្យាបាល (10–12 g/dL)",
             storage: "រក្សាទុកក្នុងទូរទឹកកក (2–8°C) ការពារពីពន្លឺ និងហាមកក"
           },
           say: "EFESA ជា Long-acting ESA ដែលប្រើបច្ចេកវិទ្យា HyFc® សម្រាប់ព្យាបាលជំងឺ CKD Anemia មិនទាន់លាងឈាម ដែលមានចន្លោះពេលចាក់វែង ជួយកាត់បន្ថយការចាក់ញឹកញាប់ និងផ្តល់ភាពងាយស្រួលក្នុងការគ្រប់គ្រងការព្យាបាល។"
@@ -645,7 +644,7 @@ export const products = [
         origin: "Indonesia",
         badge: "KDIGO Guideline",
         categoryTag: "Pre-dialysis CKD Nutrition",
-        keySellingPoint: "Keto Acid Supplement ជួយបំពេញតម្រូវការ EAA ជាមួយ Low Nitrogen Load សមស្របសម្រាប់អ្នកជំងឺ CKD មិនទាន់លាងឈាម ប្រើរួមជាមួយរបបអាហារ Low-Protein Diet។",
+        keySellingPoint: "Keto Acid Supplement ជួយបំពេញតម្រូវការ Essential Amino Acid ជាមួយ Low Nitrogen Load \u200Bសមស្របសម្រាប់អ្នកជំងឺ CKD មិនទាន់លាងឈាម ប្រើរួមជាមួយរបបអាហារ Low\u2011Protein Diet។",
         framework: {
           who: [
             "សម្រាប់អ្នកជំងឺ CKD មិនទាន់លាងឈាម (Pre-dialysis CKD)",
@@ -773,8 +772,8 @@ export const products = [
             { feature: "Synergy with KALXID", benefit: "KALXID (Antioxidant) + KALMECO (Nerve Repair) បំពេញគ្នាទៅវិញទៅមកយ៉ាងល្អឥតខ្ចោះ" }
           ],
           how: {
-            b12Deficiency: "1 គ្រាប់ / ថ្ងៃ",
-            dpnDosage: "1 គ្រាប់ 2–3 ដង / ថ្ងៃ, ប្រើបន្ទាប់ពីអាហារ",
+            "B12 Deficiency dosage": "1 គ្រាប់ / ថ្ងៃ",
+            "DPN dosage": "1 គ្រាប់ 2–3 ដង / ថ្ងៃ, ប្រើបន្ទាប់ពីអាហារ",
             storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C ក្នុងកន្លែងស្ងួត និងការពារពីពន្លឺ"
           },
           say: "KALMECO មាន Mecobalamin ដែលជាទម្រង់សកម្មរបស់វីតាមីន B12 មានតួនាទីរក្សាមុខងារសរសៃប្រសាទ និង Myelin ប្រើក្នុងការគ្រប់គ្រង Peripheral Neuropathy និង DPN។"
@@ -1214,7 +1213,7 @@ export const products = [
             composition: "Multi-Strain Probiotics + Prebiotic (FOS)",
             technology: "Dual Coating™ Technology (បច្ចេកវិទ្យាស្រោបពីរជាន់)",
             form: "Sachet Powder (ម្សៅកញ្ចប់ 2.5 g)",
-            flavor: "Milk Taste (រសជាតិទឹកដោះគោគោ ងាយទទួលទាន)"
+            flavor: "Milk Taste (រសជាតិទឹកដោះគោ ងាយទទួលទាន)"
           },
           why: [
             { feature: "Synbiotic: Multi-Strain Probiotics + Prebiotic (FOS)", benefit: "មានប្រសិទ្ធភាពប្រសើរជាងប្រើ Probiotic ឬ Prebiotic តែមួយមុខ" },
@@ -1224,10 +1223,10 @@ export const products = [
             { feature: "Milk Taste and Easy to Combine", benefit: "រសជាតិទឹកដោះគោ ងាយទទួលទានសម្រាប់កុមារ" }
           ],
           how: {
-            diarrheaDose: "កុមាររាគ៖ 1–2 កញ្ចប់/ថ្ងៃ",
-            antibioticDose: "រាគដែលទាក់ទងនឹងការប្រើ Antibiotics៖ 1–2 កញ្ចប់/ថ្ងៃ រហូតដល់ 14 ថ្ងៃ",
-            constipationDose: "ទល់លាមក៖ 2–4 កញ្ចប់/ថ្ងៃ",
-            maintenanceDose: "ថែរក្សាតុល្យភាពក្នុងពោះវៀន៖ 1 កញ្ចប់/ថ្ងៃ",
+            diarrhea: "កុមាររាគ៖ 1–2 កញ្ចប់/ថ្ងៃ",
+            antibiotic: "រាគដែលទាក់ទងនឹងការប្រើ Antibiotics៖ 1–2 កញ្ចប់/ថ្ងៃ រហូតដល់ 14 ថ្ងៃ",
+            constipation: "ទល់លាមក៖ 2–4 កញ្ចប់/ថ្ងៃ",
+            maintenance: "ថែរក្សាតុល្យភាពក្នុងពោះវៀន៖ 1 កញ្ចប់/ថ្ងៃ",
             storage: "រក្សាទុកក្នុងកន្លែងត្រជាក់ និងស្ងួត"
           },
           say: "RILLUS JR ជា Synbiotic សម្រាប់កុមារ ដែលរួមបញ្ចូល Multi-Strain Probiotics + Prebiotic (FOS) ជាមួយបច្ចេកវិទ្យាស្រោបពីរជាន់ ជួយការពារ Probiotics ពេលឆ្លងកាត់អាស៊ីតក្រពះ និងជួយរក្សាសុខភាពពោះវៀន ព្រមទាំងបន្ថែមជាមួយ Vitamins & Minerals និងរសជាតិទឹកដោះគោ ងាយទទួលទានសម្រាប់កុមារ។"
@@ -1288,7 +1287,6 @@ export const products = [
             children1to5: "កុមារ 1 - 5 ឆ្នាំ៖ 2.5 mL, 3 ដង/ថ្ងៃ",
             children6to17: "កុមារ 6 – 17 ឆ្នាំ៖ 5 mL, 3 ដង/ថ្ងៃ",
             adults: "មនុស្សពេញវ័យ៖ 7.5 mL, 3 ដង/ថ្ងៃ",
-            instruction: "ក្រឡុកដបឱ្យសព្វមុនពេលប្រើប្រាស់",
             storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C"
           },
           say: "PROSPAN ជាស៊ីរ៉ូក្អកពីធម្មជាតិ មកពីប្រទេសអាល្លឺម៉ង់ ប្រើ Special Ivy Leaf Extract EA 575® ដែលជាសារធាតុសំខាន់ និងមានការសិក្សាគ្លីនិកដោយផ្ទាល់លើ EA 575® ផ្តល់សកម្មភាព 4 យ៉ាង៖ ជួយរំលាយស្លេស្ម ជួយពង្រីកទងសួត ជួយបន្ថយការរលាក និងជួយបន្ថយការក្អក។"
@@ -1340,9 +1338,9 @@ export const products = [
             { feature: "Oral Suspension Form", benefit: "ទម្រង់ជាម្សៅលាយទឹក សមស្របសម្រាប់កុមារដែលពិបាកលេបថ្នាំគ្រាប់" }
           ],
           how: {
-            doseCalculation: "8 mg/kg/day ប្រើ 1 ដង/ថ្ងៃ ឬ 4 mg/kg/dose ប្រើ 2 ដង/ថ្ងៃ (រៀងរាល់ 12 ម៉ោង)",
-            maxDose: "400 mg / day (20 mL / day)",
-            mixingInstruction: "ត្រូវលាយជាមួយទឹកស្អាតតាមសញ្ញាសម្គាល់លើដប ហើយក្រឡុកឱ្យសព្វរៀងរាល់មុនពេលប្រើប្រាស់",
+            "Dose Calculation": "8 mg/kg/day ប្រើ 1 ដង/ថ្ងៃ ឬ 4 mg/kg/dose ប្រើ 2 ដង/ថ្ងៃ (រៀងរាល់ 12 ម៉ោង)",
+            "Max Dose": "400 mg / day (20 mL / day)",
+            "Mixing Instruction": "ត្រូវលាយជាមួយទឹកស្អាតតាមសញ្ញាសម្គាល់លើដប ហើយក្រឡុកឱ្យសព្វរៀងរាល់មុនពេលប្រើប្រាស់",
             storage: "រក្សាទុកម្សៅស្ងួតក្រោម 30°C។ បន្ទាប់ពីលាយរួច ត្រូវបិទគ្របឱ្យជិត និងប្រើប្រាស់តាមការណែនាំ"
           },
           say: "KALMAXIME DS មាន Cefixime 100 mg/5mL ជាថ្នាំអង់ទីប៊ីយូទិក មកពីប្រទេសឥណ្ឌូនេស៊ី ក្នុងទម្រង់ជា ម្សៅលាយទឹក សម្រាប់ព្យាបាលការឆ្លងមេរោគដែលបង្កឡើងដោយបាក់តេរី និងងាយស្រួលកំណត់ dose តាមទម្ងន់កុមារ។"
@@ -1369,10 +1367,10 @@ export const products = [
   },
   {
     id: 4,
-    title: "CELEBROVASCULAR",
+    title: "CREBROVASCULAR",
     subtitle: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy & Immune Support",
     image: "/images/CELEBROVASCULAR.png",
-    badge: "Neuro & Vascular Care",
+    badge: "CREBROVASCULAR & Cardio-Vascular Care",
     description: "ដំណោះស្រាយថែទាំប្រព័ន្ធប្រសាទ និងសរសៃឈាមខួរក្បាល សម្រាប់ Acute Stroke, Traumatic Brain Injury, Post-Stroke Cognitive Impairment, Muscle Spasticity និង Energy/Immune Support។",
     subProducts: [
       {
@@ -1405,7 +1403,7 @@ export const products = [
           how: {
             dosage: "ចាក់ម្តង 1 ក្រាម (1 ampoule) 1 ថ្ងៃ 2 ដង",
             method: "ចាក់តាមសរសៃវ៉ែន (IV) ឬព្យួរសេរ៉ូមតាមសរសៃវ៉ែន",
-            duration: "រយៈពេល 7 ទៅ 10 ថ្ងៃក្នុងវគ្គស្រួចស្រាវ",
+            duration: "រយៈពេល 7 ទៅ 10 ថ្ងៃ ដំណាក់កាលស្រួចស្រាវ",
             storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C ការពារពីពន្លឺ"
           },
           say: "Brainact 1000mg Injection ជា Citicoline ថ្នាំចាក់ សម្រាប់ Acute Stroke និង Traumatic Brain Injury ដែលជួយរារាំងការស្លាប់កោសិកាខួរក្បាលភ្លាមៗ និងជំរុញការបង្កើតកោសិកាប្រសាទឡើងវិញ តាមរយៈសកម្មភាព Neurogenesis និង Synaptogenesis។"
@@ -1450,7 +1448,7 @@ export const products = [
             category: "Nootropic / Neuroprotective Agent"
           },
           why: [
-            { feature: "High Dose Oral Citicoline", benefit: "បន្តប្រសិទ្ធភាពព្យាបាល និងជួសជុលកោសិកាខួរក្បាលពីថ្នាំចាក់" },
+            { feature: "High Dose Oral Citicoline", benefit: "បន្តប្រសិទ្ធភាពព្យាបាល និងជួសជុលកោសិកាខួរក្បាលបន្តពីថ្នាំចាក់" },
             { feature: "Neurogenesis & Synaptogenesis", benefit: "ជួយបង្កើតចំណុចតភ្ជាប់សរសៃប្រសាទ និងស្តារការចងចាំ" },
             { feature: "Convenient Caplet Form", benefit: "ងាយស្រួលលេបសម្រាប់អ្នកជំងឺដឹងខ្លួន ព្យាបាលបន្តនៅផ្ទះ" }
           ],
@@ -1506,7 +1504,7 @@ export const products = [
           ],
           how: {
             postStrokeCognitive: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) យ៉ាងហោចណាស់ 6 ខែឡើងទៅ",
-            mciDose: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) សម្រាប់ Mild Cognitive Impairment",
+            mildCognitiveImpairmentDose: "1 ក្រាម / ថ្ងៃ (1 គ្រាប់ 2 ដង/ថ្ងៃ) សម្រាប់ Mild Cognitive Impairment",
             storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C"
           },
           say: "Brainact 500mg Tablet ផ្តល់ Citicoline 500mg សម្រាប់ Post Stroke Cognitive Impairment និង Mild Cognitive Impairment លើមនុស្សចាស់ ប្រើ 1g/ថ្ងៃ ដើម្បីជួយថែរក្សា និងស្តារការចងចាំ។"
@@ -1587,7 +1585,7 @@ export const products = [
         origin: "Indonesia",
         badge: "Dual Energy & Cardiac Support",
         categoryTag: "Heart Failure & Statin Myopathy",
-        keySellingPoint: "បន្សំ L-Carnitine 500mg + CoQ10 100mg ផ្តល់ថាមពលទ្វេដងដល់បេះដូង និងសាច់ដុំ ព្យាបាលខ្សោយបេះដូង, ឈឺសាច់ដុំពី Statin និងអស់កម្លាំងលើមនុស្សចាស់។",
+        keySellingPoint: "បន្សំ L-Carnitine 500mg + CoQ10 100mg ផ្តល់ថាមពលទ្វេដងដល់បេះដូង និងសាច់ដុំ ព្យាបាលខ្សោយបេះដូង, ឈឺសាច់ដុំបណ្តាលមកពី Statin និងអស់កម្លាំងលើមនុស្សចាស់។",
         framework: {
           who: [
             "អ្នកជំងឺខ្សោយបេះដូង (Heart Failure) និង Atherosclerosis",
@@ -1662,8 +1660,8 @@ export const products = [
             { feature: "Pregnancy Nausea Relief", benefit: "ជួយកាត់បន្ថយអាការៈចង្អោរ ក្អួត អំឡុងពេលមានផ្ទៃពោះ" }
           ],
           how: {
-            dosage: "1 គ្រាប់ 1 ថ្ងៃ 1 ដង (មុន ឬក្រោយអាហារ)",
-            storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C ក្នុងប្រអប់ជិត"
+            dosage: "1 ទៅ 3 គ្រាប់ ក្នុង 1 ថ្ងៃ (មុន ឬក្រោយអាហារ)",
+            storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C"
           },
           say: "Daneuron រួមផ្សំ High-Dose Vitamin B1 (100mg), B6 (200mg), B12 (200mg) គ្រាប់តូច រសជាតិផ្អែម គ្មានក្លិន ងាយលេប សម្រាប់ព្យាបាល Polyneuritis, ឈឺសរសៃប្រសាទ និងចង្អោរពេលមានផ្ទៃពោះ។"
         },
@@ -1686,7 +1684,7 @@ export const products = [
             b6: "200 mg",
             b12: "200 mg"
           },
-          howToUse: "1 គ្រាប់ 1 ថ្ងៃ 1 ដង (មុន ឬក្រោយអាហារ)។",
+          howToUse: "1 ទៅ 3 គ្រាប់ ក្នុង 1 ថ្ងៃ (មុន ឬក្រោយអាហារ)។",
           storage: "រក្សាទុកសីតុណ្ហភាពក្រោម 30°C។"
         }
       },
@@ -1817,7 +1815,7 @@ export const products = [
         origin: "Indonesia",
         badge: "Advanced Liver Protection",
         categoryTag: "Fatty Liver & Hepatitis",
-        keySellingPoint: "Siliphos® (Silybin + Phosphatidylcholine) ផ្តល់ប្រសិទ្ធភាព 4 ដងលើស Silymarin ធម្មតា + Schisandra & Vit E ព្យាបាលខ្លាញ់រុំថ្លើម (Fatty Liver) និងដកពុលថ្លើមពីថ្នាំ/ស្រា។",
+        keySellingPoint: "Siliphos® (Silybin + Phosphatidylcholine) ផ្តល់ប្រសិទ្ធភាព 4 ដងលើស Silymarin ធម្មតា + Schisandra & Vit E ព្យាបាលខ្លាញ់រុំថ្លើម (Fatty Liver) និងកាត់បន្ថយជាតិពុលថ្លើមដែលបណ្តាលមកពីថ្នាំ ឬ ស្រា។",
         framework: {
           who: [
             "អ្នកជំងឺខ្លាញ់រុំថ្លើម (Fatty Liver Disease)",
@@ -2025,7 +2023,7 @@ export const products = [
         origin: "Indonesia",
         badge: "Ultra Broad-Spectrum Carbapenem",
         categoryTag: "MDR Infections & Febrile Neutropenia",
-        keySellingPoint: "Meropenem 1g Carbapenem កម្រិតខ្ពស់ សុវត្ថិភាពខ្ពស់លើប្រព័ន្ធប្រសាទ (Low Neurotoxicity) ព្យាបាលបាក់តេរីស៊ាំថ្នាំ (MDR), Meningitis, ឆ្លងរោគក្នុងពោះ និង Febrile Neutropenia។",
+        keySellingPoint: "Meropenem 1g កម្រិតខ្ពស់ សុវត្ថិភាពខ្ពស់លើប្រព័ន្ធប្រសាទ (Low Neurotoxicity) ព្យាបាលបាក់តេរីស៊ាំថ្នាំ (MDR), Meningitis, ឆ្លងរោគក្នុងពោះ និង Febrile Neutropenia។",
         framework: {
           who: [
             "អ្នកជំងឺឆ្លងមេរោគបាក់តេរីស៊ាំនឹងថ្នាំផ្សះផ្សេងៗ (Multidrug-resistant / MDR infections)",
@@ -2154,7 +2152,7 @@ export const products = [
             category: "Taxane Cytotoxic Chemotherapy"
           },
           why: [
-            { feature: "Plant Cell Culture (PCC) Tech", benefit: "បច្ចេកវិទ្យាផលិតសុទ្ធសាធ បង្កើនភាពស្អាត និងសុវត្ថិភាពថ្នាំ" },
+            { feature: "Plant Cell Culture (PCC) Tech", benefit: "បច្ចេកវិទ្យាតែមួយគត់ ដែលបង្កើនភាពសុទ្ធ Paclitaxel រហូតដល់ 99.96% មានប្រសិទ្ធភាព និង សុវត្តិភាពខ្ពស់ និង មានជាតិពុលទាបជាង Paclitaxel ដទៃផ្សេងទៀត" },
             { feature: "Taxane Cytotoxic Action", benefit: "ទប់ស្កាត់ការបែងចែកកោសិកាមហារីក តាមរយៈការរក្សាស្ថេរភាព Microtubule" },
             { feature: "Standard Regimen Integration", benefit: "ប្រើក្នុង Ovarian & Breast Cancer Regimens តាមស្តង់ដារអន្តរជាតិ" }
           ],
