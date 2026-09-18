@@ -323,11 +323,20 @@ const Homepage = () => {
 
         @media (max-width: 768px) {
           .hero-section {
-            padding: calc(60px + env(safe-area-inset-top, 12px) + 12px) 4% calc(24px + env(safe-area-inset-bottom, 12px));
-            gap: 18px;
+            padding: calc(60px + env(safe-area-inset-top, 12px) + 12px) 4% 24px;
+            gap: 24px;
             min-height: auto;
           }
-          .hero-visual { display: none !important; }
+          .hero-visual {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 8px auto 0 !important;
+          }
+          .floating-hero-card {
+            padding: 16px 14px !important;
+            border-radius: 20px !important;
+          }
           .portfolio-grid { grid-template-columns: 1fr; gap: 14px; }
           .subproducts-grid { grid-template-columns: 1fr; gap: 14px; }
         }
