@@ -104,14 +104,14 @@ const Homepage = () => {
     [heroSlides.length]
   );
 
-  // Auto-play with pause on hover / interaction
+  // Auto-play with pause on hover / interaction - resets interval on slide change
   useEffect(() => {
     if (!isAutoPlaying) return;
     const timer = setInterval(() => {
       setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 4000);
+    }, 3500);
     return () => clearInterval(timer);
-  }, [isAutoPlaying, heroSlides.length]);
+  }, [isAutoPlaying, currentHeroSlide, heroSlides.length]);
 
   // Close search dropdown on outside click
   useEffect(() => {
@@ -644,6 +644,8 @@ const Homepage = () => {
           style={{ width: "100%", maxWidth: 640, margin: "0 auto" }}
           onMouseEnter={() => setIsAutoPlaying(false)}
           onMouseLeave={() => setIsAutoPlaying(true)}
+          onTouchStart={() => setIsAutoPlaying(false)}
+          onTouchEnd={() => setIsAutoPlaying(true)}
         >
           <div
             className="floating-hero-card"
@@ -893,7 +895,7 @@ const Homepage = () => {
               margin: 0,
             }}
           >
-            ពត៌មានផលិតផលតាមប្រភេទជំងឺនិមួយៗ
+            ពត៌មានផលិតផលតាមប្រភេទជំងឺនីមួយៗ
           </h2>
         </div>
 
