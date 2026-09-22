@@ -1219,8 +1219,7 @@ export const products = [
             { feature: "Synbiotic: Multi-Strain Probiotics + Prebiotic (FOS)", benefit: "មានប្រសិទ្ធភាពប្រសើរជាងប្រើ Probiotic ឬ Prebiotic តែមួយមុខ" },
             { feature: "Dual Coating™ Technology", benefit: "ជួយការពារ Probiotics និងបង្កើនភាពធន់ក្នុងពេលឆ្លងកាត់អាស៊ីតក្រពះ" },
             { feature: "Multi-Strain Probiotics", benefit: "មាន Probiotics ច្រើនប្រភេទ ដែលធ្វើការរួមគ្នាជួយរក្សាសុខភាពពោះវៀន" },
-            { feature: "Complete with Vitamins & Minerals", benefit: "បន្ថែមជាមួយ Vitamins & Minerals ជួយដល់ការលូតលាស់" },
-            { feature: "Milk Taste and Easy to Combine", benefit: "រសជាតិទឹកដោះគោ ងាយទទួលទានសម្រាប់កុមារ" }
+            { feature: "Chewable Milk Taste", benefit: "គ្រាប់ទំពារ រសជាតិវ៉ាន់នីឡាទឹកដោះគោ ងាយស្រួលទទួលទាន" }
           ],
           how: {
             diarrhea: "កុមាររាគ៖ 1–2 កញ្ចប់/ថ្ងៃ",
@@ -1762,7 +1761,8 @@ export const products = [
           who: [
             "អ្នកជំងឺរលាកពោះវៀនធំរ៉ាំរ៉ៃ (Irritable Bowel Syndrome / IBS)",
             "អ្នកជំងឺរាគដោយសារប្រើថ្នាំអង់ទីប៊ីយ៉ូទិក (Antibiotic-Associated Diarrhea)",
-            "អ្នកជំងឺទល់លាមក (Constipation) និងសមតុល្យបាក់តេរីពោះវៀន"
+            "អ្នកជំងឺទល់លាមក (Constipation)",
+            "ជួយរក្សាតុល្យភាពបាក់តេរីល្អក្នុងពោះវៀន"
           ],
           what: {
             probiotics: "B. bifidum 2.55mg, S. thermophilus 8.55mg, L. plantarum 8.55mg",
