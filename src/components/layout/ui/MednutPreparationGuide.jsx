@@ -1,8 +1,9 @@
-// components/layout/ui/MednutPreparationGuide.jsx
 import React, { useState } from "react";
 import { MEDNUT_PREPARATION_MATRIX, MEDNUT_MIXING_TIPS, PRODUCT_THEMES } from "../../data/products";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function MednutPreparationGuide({ initialProduct = "nephrisol" }) {
+  const { t, isKhmer } = useLanguage();
   const [selectedId, setSelectedId] = useState(initialProduct);
   const [servings, setServings] = useState(1);
 
@@ -111,7 +112,9 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
             MEDNUT Product Preparation Guide
           </h3>
           <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", marginTop: 2, marginBottom: 0 }}>
-            មគ្គុទ្ទេសក៍ និងឧបករណ៍គណនាកម្រិតលាយម្សៅអាហារូបត្ថម្ភវេជ្ជសាស្ត្រ
+            {isKhmer
+              ? "មគ្គុទ្ទេសក៍ និងឧបករណ៍គណនាកម្រិតលាយម្សៅអាហារូបត្ថម្ភវេជ្ជសាស្ត្រ"
+              : "Clinical instructions and calculator for specialized medical nutrition powder"}
           </p>
         </div>
 
@@ -129,7 +132,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
           }}
         >
           <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--kalbe-text-main)" }}>
-            ចំនួន Serving:
+            {isKhmer ? "ចំនួន Serving:" : "Servings:"}
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button
@@ -213,7 +216,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
           }}
         >
           <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
-            ថាមពល (ENERGY)
+            {isKhmer ? "ថាមពល (ENERGY)" : "Energy (kcal)"}
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalCalories} <span style={{ fontSize: 12, fontWeight: 600 }}>kcal</span>
@@ -234,7 +237,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
           }}
         >
           <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
-            ប្រូតេអ៊ីន (PROTEIN)
+            {isKhmer ? "ប្រូតេអ៊ីន (PROTEIN)" : "Protein (g)"}
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalProtein} <span style={{ fontSize: 12, fontWeight: 600 }}>g</span>
@@ -255,7 +258,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
           }}
         >
           <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
-            ទឹកក្តៅអ៊ុនៗ
+            {isKhmer ? "ទឹកក្តៅអ៊ុនៗ" : "Warm Water (mL)"}
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalWater} <span style={{ fontSize: 12, fontWeight: 600 }}>mL</span>
@@ -276,7 +279,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
           }}
         >
           <div style={{ fontSize: 10.5, color: "var(--kalbe-text-muted)", textTransform: "uppercase", fontWeight: 600, marginBottom: 2 }}>
-            បរិមាណលាយរួច (YIELD)
+            {isKhmer ? "បរិមាណលាយរួច (YIELD)" : "Total Yield (mL)"}
           </div>
           <div style={{ fontSize: 20, fontWeight: 800, color: theme.primary }}>
             {totalYield} <span style={{ fontSize: 12, fontWeight: 600 }}>mL</span>
@@ -299,14 +302,14 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
           <strong style={{ fontSize: 14, color: "var(--kalbe-text-main)" }}>
-            {selectedProduct.name} ({selectedProduct.indicationKh}): {selectedProduct.servingDose}
+            {selectedProduct.name} ({isKhmer ? selectedProduct.indicationKh : (selectedProduct.indicationEn || selectedProduct.indicationKh)}): {isKhmer ? selectedProduct.servingDose : (selectedProduct.servingDoseEn || selectedProduct.servingDose.replace("កញ្ចប់", "sachet").replace("ស្លាបព្រា", "scoops"))}
           </strong>
           <span style={{ fontSize: 11.5, color: theme.primary, fontWeight: 700, background: "rgba(13, 110, 56, 0.15)", padding: "3px 10px", borderRadius: 10 }}>
-            រសជាតិ: {selectedProduct.flavors}
+            {isKhmer ? "រសជាតិ:" : "Flavors:"} {selectedProduct.flavors}
           </span>
         </div>
         <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", margin: 0, lineHeight: 1.5 }}>
-          <strong>លក្ខណៈពិសេស:</strong> {selectedProduct.specialNote}
+          <strong>{isKhmer ? "លក្ខណៈពិសេស:" : "Features:"}</strong> {selectedProduct.specialNote}
         </p>
       </div>
 
@@ -320,7 +323,7 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
         }}
       >
         <div style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", marginBottom: 10 }}>
-          របៀបលាយត្រឹមត្រូវ (Standard Mixing Protocol):
+          {isKhmer ? "របៀបលាយត្រឹមត្រូវ (Standard Mixing Protocol):" : "Standard Mixing Protocol:"}
         </div>
         <div
           style={{
@@ -329,7 +332,16 @@ export default function MednutPreparationGuide({ initialProduct = "nephrisol" })
             gap: 10,
           }}
         >
-          {MEDNUT_MIXING_TIPS.map((stepText, idx) => (
+          {(isKhmer
+            ? MEDNUT_MIXING_TIPS
+            : [
+                "Pour warm boiled water into a glass first, then gradually add the nutrition powder and stir thoroughly.",
+                "A shaker may be used for complete dissolution, especially when mixing with cool water.",
+                "Suitable for oral sip feeding or enteral tube feeding.",
+                "Can be used as a clinical nutritional snack or supplemental meal replacement.",
+                "Take 1–3 servings daily between meals, morning/evening, or before bedtime."
+              ]
+          ).map((stepText, idx) => (
             <div
               key={idx}
               style={{

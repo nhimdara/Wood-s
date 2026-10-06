@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
 import KalbeLogo from "../components/layout/ui/KalbeLogo";
 import {
   HiOutlineShieldCheck,
@@ -26,6 +27,7 @@ import {
 
 const About = () => {
   const { isDark } = useTheme();
+  const { t, isKhmer } = useLanguage();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -34,7 +36,7 @@ const About = () => {
   return (
     <div
       style={{
-        fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+        fontFamily: "inherit",
         background: "var(--kalbe-bg)",
         color: "var(--kalbe-text-main)",
         minHeight: "100vh",
@@ -126,7 +128,7 @@ const About = () => {
                 borderRadius: 30,
               }}
             >
-              About Us • PT Kalbe Farma Tbk
+              {t.about.badge}
             </span>
           </div>
 
@@ -141,7 +143,7 @@ const About = () => {
               marginBottom: 10,
             }}
           >
-            Improving Health For A{" "}
+            {t.about.heroTitle1}{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #0D6E38 0%, #68A62A 100%)",
@@ -149,7 +151,7 @@ const About = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Better Life
+              {t.about.heroTitle2}
             </span>
           </h1>
 
@@ -163,7 +165,7 @@ const About = () => {
               margin: "0 auto",
             }}
           >
-            Established in 1966, Kalbe has grown from a humble garage operation to become the leading pharmaceutical company in Indonesia and the largest publicly-listed pharmaceutical company in Southeast Asia.
+            {t.about.heroSubtitle}
           </p>
         </div>
       </section>
@@ -185,15 +187,15 @@ const About = () => {
               </div>
               <div>
                 <div style={{ fontSize: 10.5, fontWeight: 800, color: "#2E7D32", letterSpacing: 1.5, textTransform: "uppercase" }}>
-                  Our Mission
+                  {t.about.missionBadge}
                 </div>
                 <h3 style={{ fontFamily: "Georgia, serif", fontSize: 16, color: "var(--kalbe-text-main)", margin: 0 }}>
-                  Mission
+                  {t.about.missionTitle}
                 </h3>
               </div>
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--kalbe-text-main)", fontWeight: 600, margin: 0 }}>
-              To improve Health for a Better Life.
+              {t.about.missionText}
             </p>
           </div>
 
@@ -205,15 +207,15 @@ const About = () => {
               </div>
               <div>
                 <div style={{ fontSize: 10.5, fontWeight: 800, color: "#0D6E38", letterSpacing: 1.5, textTransform: "uppercase" }}>
-                  Our Vision
+                  {t.about.visionBadge}
                 </div>
                 <h3 style={{ fontFamily: "Georgia, serif", fontSize: 16, color: "var(--kalbe-text-main)", margin: 0 }}>
-                  Vision
+                  {t.about.visionTitle}
                 </h3>
               </div>
             </div>
             <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--kalbe-text-main)", margin: 0 }}>
-              To be dominant in the health care business in Indonesia and exist in the global market with strong brands, enabled by excellent management, science and technology.
+              {t.about.visionText}
             </p>
           </div>
         </div>
@@ -223,31 +225,17 @@ const About = () => {
       <section style={{ maxWidth: 1320, margin: "0 auto", padding: "24px 5% 0" }}>
         <div className="about-card unabridged-text" style={{ padding: "22px 28px" }}>
           <span style={{ fontSize: 10.5, fontWeight: 800, color: "#0D6E38", letterSpacing: 1.5, textTransform: "uppercase", display: "inline-block", marginBottom: 6 }}>
-            Overview
+            {t.about.overviewBadge}
           </span>
           <h2 style={{ fontFamily: "Georgia, serif", fontSize: "clamp(18px, 2.5vw, 24px)", color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 14 }}>
-            Kalbe At A Glance
+            {t.about.overviewTitle}
           </h2>
 
-          <p>
-            Established in 1966, Kalbe has gone a long way from a humble operation that started in a garage to become the leading pharmaceutical company in Indonesia.
-          </p>
-
-          <p>
-            Growing both organically and through mergers & acquisitions, Kalbe expands its business interests and transformed itself to become a provider of an integrated healthcare solution through its 4 business divisions: the <strong>Prescription Pharmaceutical Division</strong> (23% contribution), <strong>Consumer Health Division</strong> (17% contribution), <strong>Nutritionals Division</strong> (30% contribution) and <strong>Distribution and Logistics Division</strong> (30% contribution). These business divisions manage an extensive portfolio of prescription pharmaceuticals and OTC drugs, energy drink and nutrition products, as well as a robust distribution arm serving over one million outlets across Indonesia’s vast archipelago.
-          </p>
-
-          <p>
-            In the international market, the Company has established its footprint in ASEAN countries, Nigeria, and South Africa, positioning Kalbe as a national pharmaceutical company with a competitive edge in the export market.
-          </p>
-
-          <p>
-            Since its founding, the Company has been aware of the importance of innovation to grow its business. Kalbe Farma has established a robust research and development activities in leading edge generic drug formulation and continuous development of innovative consumer and nutritional products. Through strategic alliances with international partners, Kalbe have also started to support several successful research and development venture working on cancer drugs, stem cells and biotechnology research.
-          </p>
-
-          <p style={{ marginBottom: 0 }}>
-            With more than 17,000 employees, today Kalbe Farma is the largest healthcare provider in Indonesia, with unrivaled marketing, branding, distribution, financial strength and research and development expertise. Kalbe Farma is also the largest publicly-listed pharmaceutical company in Southeast Asia, commanding a market capitalization of Rp71 trillion and sales turnover Rp21 trillion by end of 2018.
-          </p>
+          <p>{t.about.overviewP1}</p>
+          <p>{t.about.overviewP2}</p>
+          <p>{t.about.overviewP3}</p>
+          <p>{t.about.overviewP4}</p>
+          <p style={{ marginBottom: 0 }}>{t.about.overviewP5}</p>
         </div>
       </section>
 
@@ -320,23 +308,19 @@ const About = () => {
             }}
           >
             <h3 style={{ fontSize: 13, fontWeight: 800, color: "#0D6E38", marginTop: 0, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>
-              Embedding The Kalbe Panca Sradha Spirit
+              {t.about.valuesTitle}
             </h3>
             <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", marginBottom: 10 }}>
-              In 2010, Kalbe Group formally defined its corporate values, Kalbe Panca Sradha, reflecting the following five principles:
+              {t.about.valuesSubtitle}
             </p>
 
             <ul style={{ paddingLeft: 20, margin: 0, display: "grid", gap: 6, fontSize: 12.5, color: "var(--kalbe-text-main)", fontWeight: 600 }}>
-              <li>Trust is the glue of life</li>
-              <li>Mindfulness is the foundation of our action</li>
-              <li>Innovation is the key to our success</li>
-              <li>Strive to be the best</li>
-              <li>Interconnectedness is a universal of life</li>
+              {t.about.values.map((v) => (
+                <li key={v.num}>
+                  <strong>{v.title}:</strong> {v.desc}
+                </li>
+              ))}
             </ul>
-
-            <p style={{ fontSize: 12, color: "var(--kalbe-text-muted)", marginTop: 10, marginBottom: 0 }}>
-              Kalbe Panca Sradha values form the foundation of mentality to unify Kalbe Group’s more than 17,000 employees, who work in 24 distinct business entities in Indonesia and overseas.
-            </p>
           </div>
 
           {/* Priority */}

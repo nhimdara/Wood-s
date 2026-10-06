@@ -1,8 +1,9 @@
-// components/layout/ui/Card.jsx
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const Card = ({ image, title, id }) => {
+  const { isKhmer } = useLanguage();
   const productUrl = `/product/${id}`;
 
   return (

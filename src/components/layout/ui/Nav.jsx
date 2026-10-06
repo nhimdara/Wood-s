@@ -1,18 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import KalbeLogo from "./KalbeLogo";
 import { products, PRODUCT_THEMES } from "../../data/products";
+import { getLocalizedProducts } from "../../../utils/localizedProducts";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 import { useTheme } from "../../../context/ThemeContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
-const NAV_ITEMS = [
-  { label: "Home", href: "/" },
+const getNavItems = (t) => [
+  { label: t.nav.home, href: "/" },
   {
-    label: "Category",
+    label: t.nav.category,
     children: [
       {
-        label: "ENDO METABOLIC",
+        label: t.nav.categories.endo,
         href: "/product/1",
         children: [
           { label: "EFESA", href: "/product/1/efesa" },
@@ -24,7 +27,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "MEDNUT",
+        label: t.nav.categories.mednut,
         href: "/product/2",
         children: [
           { label: "NEPHRISOL", href: "/product/2/nephrisol" },
@@ -35,7 +38,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "CHILDREN PRODUCT",
+        label: t.nav.categories.children,
         href: "/product/3",
         children: [
           { label: "RILLUS JR", href: "/product/3/rillus-jr" },
@@ -44,7 +47,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "CEREBROVASCULAR",
+        label: t.nav.categories.cerebro,
         href: "/product/4",
         children: [
           { label: "BRAINACT 1000 mg Inj", href: "/product/4/brainact-inj" },
@@ -57,7 +60,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "HOSPITAL LINE",
+        label: t.nav.categories.hospital,
         href: "/product/5",
         children: [
           { label: "RILLUS TAB", href: "/product/5/rillus-tab" },
@@ -70,7 +73,7 @@ const NAV_ITEMS = [
         ],
       },
       {
-        label: "ONCOLOGY",
+        label: t.nav.categories.oncology,
         href: "/product/6",
         children: [
           { label: "PAXUS", href: "/product/6/paxus" },
@@ -82,9 +85,10 @@ const NAV_ITEMS = [
       },
     ],
   },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: t.nav.about, href: "/about" },
+  { label: t.nav.contact, href: "/contact" },
 ];
+
 
 function useOutsideClick(ref, handler) {
   useEffect(() => {
@@ -380,6 +384,8 @@ function NestedDropdown({ items, onMouseEnter, onMouseLeave, onClose }) {
 
 export default function Nav() {
   const { isDark } = useTheme();
+  const { t, isKhmer, language } = useLanguage();
+  const navItems = useMemo(() => getNavItems(t), [t]);
   const [open, setOpen] = useState(null);
   const [isScrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -462,7 +468,8 @@ export default function Nav() {
   };
 
   // Flattened products for search
-  const allSubProducts = products.flatMap((portfolio) =>
+  const localizedProducts = useMemo(() => getLocalizedProducts(language), [language]);
+  const allSubProducts = localizedProducts.flatMap((portfolio) =>
     portfolio.subProducts.map((sp) => ({
       ...sp,
       portfolioId: portfolio.id,
@@ -630,7 +637,7 @@ export default function Nav() {
               gap: "clamp(2px, 1vw, 6px)",
             }}
           >
-            {NAV_ITEMS.map((item) =>
+            {navItems.map((item) =>
               item.children ? (
                 <div
                   key={item.label}
@@ -709,7 +716,7 @@ export default function Nav() {
                 />
                 <input
                   type="text"
-                  placeholder="Search products (Efesa, Prospan, Nephrisol...)"
+                  placeholder={t.nav.searchPlaceholder}
                   value={navSearchQuery}
                   onChange={(e) => {
                     setNavSearchQuery(e.target.value);
@@ -800,12 +807,15 @@ export default function Nav() {
                     ))
                   ) : (
                     <div style={{ padding: "14px", textAlign: "center", color: "var(--kalbe-text-muted)", fontSize: 12 }}>
-                      No products found for "{navSearchQuery}"
+                      {t.nav.noProductsFound.replace("{query}", navSearchQuery)}
                     </div>
                   )}
                 </div>
               )}
             </div>
+
+            {/* Desktop Language Toggle */}
+            <LanguageToggle />
 
             {/* Desktop Theme Toggle */}
             <ThemeToggle />
@@ -843,6 +853,7 @@ export default function Nav() {
                 <FaSearch style={{ fontSize: 14 }} />
               </button>
             )}
+            <LanguageToggle isMobile={true} />
             <ThemeToggle />
             <button
               className="hamburger"
@@ -896,7 +907,7 @@ export default function Nav() {
               />
               <input
                 type="text"
-                placeholder="Search products (Efesa, Prospan, Nephrisol...)"
+                placeholder={t.nav.searchPlaceholder}
                 value={navSearchQuery}
                 onChange={(e) => setNavSearchQuery(e.target.value)}
                 autoFocus
@@ -990,7 +1001,7 @@ export default function Nav() {
                   ))
                 ) : (
                   <div style={{ padding: "12px", textAlign: "center", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                    No products found for "{navSearchQuery}"
+                    {t.nav.noProductsFound.replace("{query}", navSearchQuery)}
                   </div>
                 )}
               </div>
@@ -1012,7 +1023,7 @@ export default function Nav() {
             }}
           >
             {/* Mobile Nav Links */}
-            {NAV_ITEMS.map((item) =>
+            {navItems.map((item) =>
               item.children ? (
                 <div key={item.label}>
                   <button
@@ -1196,6 +1207,9 @@ export default function Nav() {
                 </Link>
               ),
             )}
+
+            {/* Mobile Drawer Language Switcher */}
+            <LanguageToggle isDrawer={true} />
           </div>
         )}
       </nav>

@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
+import { useLanguage } from "../context/LanguageContext";
 import { FaFacebook, FaInstagram, FaTelegramPlane } from "react-icons/fa";
 import { FaLocationDot, FaPhone, FaClock, FaEnvelope, FaHospital, FaStethoscope } from "react-icons/fa6";
 import { HiOutlineChevronRight, HiOutlineCheckCircle } from "react-icons/hi";
 
 const Contact = () => {
+  const { t, isKhmer } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,29 +34,29 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: FaLocationDot,
-      title: "Headquarters",
+      title: t.contact.infoHQTitle,
       details: [
-        "Morgan Tower, 14th Floor, Room 8B-13",
-        "Sopheakmongkul St., Tonle Bassac, Phnom Penh",
+        t.contact.infoHQLine1,
+        t.contact.infoHQLine2,
       ],
       link: "https://maps.google.com/?q=Morgan+Tower+Phnom+Penh",
     },
     {
       icon: FaPhone,
-      title: "Call Support",
-      details: ["+855 93 923 291", "+855 23 221 531"],
+      title: t.contact.infoPhoneTitle,
+      details: [t.contact.infoPhone1, t.contact.infoPhone2],
       link: "tel:+85593923291",
     },
     {
       icon: FaEnvelope,
-      title: "Email Inquiries",
-      details: ["kalbe.cambodia@gmail.com", "info@kalbe.com.kh"],
+      title: t.contact.infoEmailTitle,
+      details: [t.contact.infoEmail1, t.contact.infoEmail2],
       link: "mailto:kalbe.cambodia@gmail.com",
     },
     {
       icon: FaClock,
-      title: "Operating Hours",
-      details: ["Mon - Sat: 8:00 AM - 5:30 PM", "Sunday: Closed"],
+      title: t.contact.infoHoursTitle,
+      details: [t.contact.infoHours1, t.contact.infoHours2],
       link: null,
     },
   ];
@@ -62,7 +64,7 @@ const Contact = () => {
   return (
     <div
       style={{
-        fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
+        fontFamily: "inherit",
         background: "var(--kalbe-bg)",
         color: "var(--kalbe-text-main)",
         minHeight: "100vh",
@@ -173,7 +175,7 @@ const Contact = () => {
               borderRadius: 30,
             }}
           >
-            Get In Touch
+            {t.contact.badge}
           </span>
           <h1
             className="fade-up"
@@ -186,7 +188,7 @@ const Contact = () => {
               marginBottom: 10,
             }}
           >
-            Contact &{" "}
+            {t.contact.heroTitle1}{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #0D6E38 0%, #68A62A 100%)",
@@ -194,7 +196,7 @@ const Contact = () => {
                 WebkitTextFillColor: "transparent",
               }}
             >
-              Support Center
+              {t.contact.heroTitle2}
             </span>
           </h1>
           <p
@@ -207,7 +209,7 @@ const Contact = () => {
               margin: "0 auto",
             }}
           >
-            Have inquiries regarding product availability, clinical details, medical nutrition guidance, or partnership opportunities? Our healthcare team is here to support you.
+            {t.contact.heroSubtitle}
           </p>
         </div>
       </section>
@@ -328,20 +330,20 @@ const Contact = () => {
                   marginBottom: 4,
                 }}
               >
-                Send an Inquiry
+                {t.contact.formTitle}
               </h2>
               <p style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", marginBottom: 14 }}>
-                បំពេញព័ត៌មានខាងក្រោមដើម្បីទាក់ទងមកកាន់ក្រុមការងាររបស់យើង
+                {t.contact.formSubtitle}
               </p>
 
               <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: 10 }}>
                   <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
-                    Full Name / ឈ្មោះ
+                    {t.contact.nameLabel}
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Dr. Sokha / លោក ឈុន"
+                    placeholder={t.contact.namePlaceholder}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
@@ -359,11 +361,11 @@ const Contact = () => {
                 >
                   <div>
                     <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
-                      Email Address
+                      {t.contact.emailLabel}
                     </label>
                     <input
                       type="email"
-                      placeholder="name@example.com"
+                      placeholder={t.contact.emailPlaceholder}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       required
@@ -372,11 +374,11 @@ const Contact = () => {
                   </div>
                   <div>
                     <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
-                      Phone Number
+                      {t.contact.phoneLabel}
                     </label>
                     <input
                       type="tel"
-                      placeholder="+855 ..."
+                      placeholder={t.contact.phonePlaceholder}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="input-field"
@@ -386,27 +388,26 @@ const Contact = () => {
 
                 <div style={{ marginBottom: 10 }}>
                   <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
-                    Inquiry Category / ប្រធានបទ
+                    {t.contact.inquiryTypeLabel}
                   </label>
                   <select
                     value={formData.inquiryType}
                     onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                     className="input-field"
                   >
-                    <option value="general">General Healthcare Inquiry</option>
-                    <option value="endo">ENDO METABOLIC (EFESA, HEMAPO, NOCID, KALXID, KALMECO, NEVOX XR)</option>
-                    <option value="mednut">MEDNUT Nutrition (Nephrisol, Nephrisol-D, Pulmosol, Nutrican, Hepatosol)</option>
-                    <option value="pediatric">Children Products (Prospan, Rillus Jr, Kalmaxime DS)</option>
-                    <option value="pharmacy">Pharmacy & Clinic Distribution</option>
+                    <option value="general">{t.contact.inquiryGeneral}</option>
+                    <option value="product">{t.contact.inquiryProduct}</option>
+                    <option value="clinical">{t.contact.inquiryClinical}</option>
+                    <option value="partnership">{t.contact.inquiryPartnership}</option>
                   </select>
                 </div>
 
                 <div style={{ marginBottom: 14 }}>
                   <label style={{ fontSize: 10.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 3 }}>
-                    Message / សារ
+                    {t.contact.messageLabel}
                   </label>
                   <textarea
-                    placeholder="How can we assist you with our products or clinical guidance?"
+                    placeholder={t.contact.messagePlaceholder}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
@@ -435,7 +436,7 @@ const Contact = () => {
                     boxShadow: "0 4px 12px rgba(13,110,56,0.25)",
                   }}
                 >
-                  Send Message <HiOutlineChevronRight />
+                  {t.contact.sendMessageBtn} <HiOutlineChevronRight />
                 </button>
 
                 {submitted && (
@@ -454,7 +455,7 @@ const Contact = () => {
                     }}
                   >
                     <HiOutlineCheckCircle style={{ fontSize: 16, color: "#10B981" }} />
-                    Thank you! Your message has been received. Our medical team will respond shortly.
+                    {t.contact.messageSentSuccess}
                   </div>
                 )}
               </form>

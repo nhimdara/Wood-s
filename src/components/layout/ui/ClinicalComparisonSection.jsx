@@ -1,11 +1,12 @@
-// components/layout/ui/ClinicalComparisonSection.jsx
 import React, { useState } from "react";
 import { CLINICAL_COMPARISONS } from "../../data/products";
 import { useTheme } from "../../../context/ThemeContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo" }) {
   const [activeTab, setActiveTab] = useState(defaultTab);
   const { isDark } = useTheme();
+  const { t, isKhmer } = useLanguage();
 
   const { efesaVsHemapo, kalxidKalmecoSynergy, nocidLowProtein } =
     CLINICAL_COMPARISONS;
@@ -36,7 +37,7 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             marginBottom: 8,
           }}
         >
-          Clinical Evidence & Unified Positioning
+          {t.clinical?.badge || "Clinical Evidence & Unified Positioning"}
         </span>
         <h3
           style={{
@@ -47,7 +48,7 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             margin: "4px 0",
           }}
         >
-          ការប្រៀបធៀប និងប្រសិទ្ធភាពព្យាបាល
+          {t.clinical?.title || (isKhmer ? "ការប្រៀបធៀប និងប្រសិទ្ធភាពព្យាបាល" : "Clinical Comparison & Therapeutic Matrix")}
         </h3>
       </div>
 
@@ -203,7 +204,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               borderLeft: "4px solid #DC2626",
             }}
           >
-            {efesaVsHemapo.summaryKh}
+            {isKhmer
+              ? efesaVsHemapo.summaryKh
+              : "Both HEMAPO and EFESA are ESAs indicated for CKD Anemia, but feature distinct dosing intervals, technology platforms, and patient positioning."}
           </div>
 
           <div
@@ -252,11 +255,11 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 </span>
               </div>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
-                <li><strong>សារធាតុ:</strong> Efepoetin alfa (0.3mg/0.3mL)</li>
-                <li><strong>បច្ចេកវិទ្យា:</strong> Hybrid Fc (HyFc®) Technology</li>
-                <li><strong>កាលវិភាគចាក់:</strong> ចាក់ក្រោមស្បែក (SC) រៀងរាល់ 2–4 សប្ដាហ៍</li>
-                <li><strong>អ្នកជំងឺគោលដៅ:</strong> CKD Anemia មិនទាន់លាងឈាម (ND-CKD)</li>
-                <li><strong>អត្ថប្រយោជន៍:</strong> កាត់បន្ថយការចាក់ញឹកញាប់ ងាយស្រួលគ្រប់គ្រង</li>
+                <li><strong>{isKhmer ? "សារធាតុ:" : "Substance:"}</strong> Efepoetin alfa (0.3mg/0.3mL)</li>
+                <li><strong>{isKhmer ? "បច្ចេកវិទ្យា:" : "Technology:"}</strong> Hybrid Fc (HyFc®) Technology</li>
+                <li><strong>{isKhmer ? "កាលវិភាគចាក់:" : "Dosing Schedule:"}</strong> {isKhmer ? "ចាក់ក្រោមស្បែក (SC) រៀងរាល់ 2–4 សប្ដាហ៍" : "Subcutaneous (SC) once every 2–4 weeks"}</li>
+                <li><strong>{isKhmer ? "អ្នកជំងឺគោលដៅ:" : "Target Population:"}</strong> {isKhmer ? "CKD Anemia មិនទាន់លាងឈាម (ND-CKD)" : "Non-dialysis CKD Anemia (ND-CKD)"}</li>
+                <li><strong>{isKhmer ? "អត្ថប្រយោជន៍:" : "Clinical Benefit:"}</strong> {isKhmer ? "កាត់បន្ថយការចាក់ញឹកញាប់ ងាយស្រួលគ្រប់គ្រង" : "Reduced injection frequency, convenient disease management"}</li>
               </ul>
             </div>
 
@@ -298,11 +301,11 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 </span>
               </div>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
-                <li><strong>សារធាតុ:</strong> Epoetin alfa (3000 IU/0.5mL)</li>
-                <li><strong>ទម្រង់:</strong> Recombinant Human Erythropoietin</li>
-                <li><strong>កាលវិភាគចាក់:</strong> ចាក់ SC ឬ IV 2-3 ដងក្នុងមួយសប្ដាហ៍</li>
-                <li><strong>អ្នកជំងឺគោលដៅ:</strong> CKD Anemia ទាំងមិនទាន់ និងកំពុងលាងឈាម</li>
-                <li><strong>អត្ថប្រយោជន៍:</strong> បត់បែនខ្ពស់ក្នុងការកែតម្រូវ Dose តាមការឆ្លើយតប</li>
+                <li><strong>{isKhmer ? "សារធាតុ:" : "Substance:"}</strong> Epoetin alfa (3000 IU/0.5mL)</li>
+                <li><strong>{isKhmer ? "ទម្រង់:" : "Form:"}</strong> Recombinant Human Erythropoietin</li>
+                <li><strong>{isKhmer ? "កាលវិភាគចាក់:" : "Dosing Schedule:"}</strong> {isKhmer ? "ចាក់ SC ឬ IV 2-3 ដងក្នុងមួយសប្ដាហ៍" : "SC or IV 2–3 times per week"}</li>
+                <li><strong>{isKhmer ? "អ្នកជំងឺគោលដៅ:" : "Target Population:"}</strong> {isKhmer ? "CKD Anemia ទាំងមិនទាន់ និងកំពុងលាងឈាម" : "Both Non-dialysis & Dialysis CKD Anemia"}</li>
+                <li><strong>{isKhmer ? "អត្ថប្រយោជន៍:" : "Clinical Benefit:"}</strong> {isKhmer ? "បត់បែនខ្ពស់ក្នុងការកែតម្រូវ Dose តាមការឆ្លើយតប" : "High flexibility to adjust dose and frequency based on Hb response"}</li>
               </ul>
             </div>
           </div>
@@ -316,11 +319,17 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             }}
           >
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", marginBottom: 8 }}>
-              ចំណុចសំខាន់ត្រូវចងចាំ:
+              {isKhmer ? "ចំណុចសំខាន់ត្រូវចងចាំ:" : "Key Takeaways to Remember:"}
             </div>
-            {efesaVsHemapo.takeaways.map((t, idx) => (
+            {(isKhmer
+              ? efesaVsHemapo.takeaways
+              : [
+                  "EFESA → Long-acting ESA → Infrequent injections → Convenience and adherence in ND-CKD",
+                  "HEMAPO → Short-acting ESA → Flexible titration of dose and frequency for acute/dialysis control"
+                ]
+            ).map((tItem, idx) => (
               <div key={idx} style={{ fontSize: 13, color: "var(--kalbe-text-muted)", marginBottom: 4 }}>
-                • {t}
+                • {tItem}
               </div>
             ))}
           </div>
@@ -343,7 +352,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               borderLeft: "4px solid #0D9488",
             }}
           >
-            {kalxidKalmecoSynergy.whyCombineKh}
+            {isKhmer
+              ? kalxidKalmecoSynergy.whyCombineKh
+              : "Why Combine? KALXID directly targets oxidative stress and protects nerves from oxidative damage, while KALMECO (Active B12) repairs and maintains neuronal function and the myelin sheath. Together, they provide synergistic dual action for comprehensive DPN management."}
           </div>
 
           <div
@@ -385,10 +396,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 </span>
               </div>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
-                <li>ផ្តោតលើការកាត់បន្ថយ <strong>Oxidative Stress</strong></li>
-                <li>ការពារសរសៃប្រសាទពី <strong>Oxidative Damage</strong></li>
-                <li>កាត់បន្ថយអាការៈឈឺ ចុក រមួល ក្តៅ ឬស្ពឹកដៃជើង</li>
-                <li>លេបតែ <strong>1 គ្រាប់ / ថ្ងៃ</strong> មុនអាហារ 30 នាទី</li>
+                {isKhmer ? (
+                  <>
+                    <li>ផ្តោតលើការកាត់បន្ថយ <strong>Oxidative Stress</strong></li>
+                    <li>ការពារសរសៃប្រសាទពី <strong>Oxidative Damage</strong></li>
+                    <li>កាត់បន្ថយអាការៈឈឺ ចុក រមួល ក្តៅ ឬស្ពឹកដៃជើង</li>
+                    <li>លេបតែ <strong>1 គ្រាប់ / ថ្ងៃ</strong> មុនអាហារ 30 នាទី</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Directly targets and neutralizes <strong>Oxidative Stress</strong></li>
+                    <li>Protects peripheral nerves from <strong>Oxidative Damage</strong></li>
+                    <li>Relieves neuropathic numbness, tingling, burning pain, and cramps</li>
+                    <li>Convenient once-daily dosing: <strong>1 caplet / day</strong> 30 min before meals</li>
+                  </>
+                )}
               </ul>
             </div>
 
@@ -423,10 +445,21 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 </span>
               </div>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.7 }}>
-                <li>ជាទម្រង់សកម្ម <strong>Mecobalamin</strong> រាងកាយប្រើបានភ្លាមៗ</li>
-                <li>ជួយជួសជុល និងស្តារ <strong>មុខងារសរសៃប្រសាទ</strong></li>
-                <li>ជំរុញការបង្កើត និងការពារ <strong>ស្រទាប់ Myelin</strong></li>
-                <li>លេប <strong>1 គ្រាប់ 2–3 ដង / ថ្ងៃ</strong> ក្រោយអាហារ</li>
+                {isKhmer ? (
+                  <>
+                    <li>ជាទម្រង់សកម្ម <strong>Mecobalamin</strong> រាងកាយប្រើបានភ្លាមៗ</li>
+                    <li>ជួយជួសជុល និងស្តារ <strong>មុខងារសរសៃប្រសាទ</strong></li>
+                    <li>ជំរុញការបង្កើត និងការពារ <strong>ស្រទាប់ Myelin</strong></li>
+                    <li>លេប <strong>1 គ្រាប់ 2–3 ដង / ថ្ងៃ</strong> ក្រោយអាហារ</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Active coenzyme form <strong>Mecobalamin</strong> directly utilized by neural tissues</li>
+                    <li>Repairs, regenerates, and restores <strong>peripheral nerve function</strong></li>
+                    <li>Stimulates synthesis and preservation of the protective <strong>Myelin Sheath</strong></li>
+                    <li>Dosing: <strong>1 capsule 2–3 times / day</strong> after meals</li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
@@ -441,7 +474,7 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             }}
           >
             <div style={{ fontSize: 14, fontWeight: 700, color: "var(--kalbe-text-main)", marginBottom: 8 }}>
-              {kalxidKalmecoSynergy.rAlaVsRacemic.title}
+              {isKhmer ? kalxidKalmecoSynergy.rAlaVsRacemic.title : "Why R-ALA (KALXID), not Racemic ALA?"}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
               {kalxidKalmecoSynergy.rAlaVsRacemic.points.map((p, idx) => (
@@ -462,7 +495,11 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                   <strong style={{ color: idx === 0 ? (isDark ? "#2DD4BF" : "#0D9488") : (isDark ? "#F87171" : "#EF4444") }}>
                     {p.label}:
                   </strong>{" "}
-                  {p.text}
+                  {isKhmer
+                    ? p.text
+                    : idx === 0
+                      ? "Natural biological form providing 100% pure R-enantiomer, directly recognized and metabolized with superior clinical bioavailability and therapeutic efficacy."
+                      : "Synthetic 50:50 racemic mixture containing both R- and S-enantiomers; the synthetic S-form is metabolically inactive and may reduce bioavailability."}
                 </div>
               ))}
             </div>
@@ -492,12 +529,22 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               }}
             >
               <h4 style={{ margin: "0 0 10px", fontSize: 16, color: isDark ? "#F87171" : "#991B1B", fontWeight: 700 }}>
-                Low-Protein Diet តែឯង
+                {isKhmer ? "Low-Protein Diet តែឯង" : "Low-Protein Diet Alone"}
               </h4>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
-                <li>កំណត់ការទទួលទានប្រូតេអ៊ីន</li>
-                <li>អាចប្រឈមនឹងការខ្វះ <strong>Essential Amino Acids (EAA)</strong></li>
-                <li>ហានិភ័យកង្វះអាហារូបត្ថម្ភ (Malnutrition in CKD)</li>
+                {isKhmer ? (
+                  <>
+                    <li>កំណត់ការទទួលទានប្រូតេអ៊ីន</li>
+                    <li>អាចប្រឈមនឹងការខ្វះ <strong>Essential Amino Acids (EAA)</strong></li>
+                    <li>ហានិភ័យកង្វះអាហារូបត្ថម្ភ (Malnutrition in CKD)</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Restricts dietary protein intake</li>
+                    <li>Risk of deficiency in <strong>Essential Amino Acids (EAAs)</strong></li>
+                    <li>High vulnerability to Protein-Energy Wasting (PEW) and CKD malnutrition</li>
+                  </>
+                )}
               </ul>
             </div>
 
@@ -513,12 +560,22 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               }}
             >
               <h4 style={{ margin: "0 0 10px", fontSize: 16, color: isDark ? "#4ADE80" : "#166534", fontWeight: 700 }}>
-                Low-Protein Diet + NOCID (KDIGO Guideline)
+                {isKhmer ? "Low-Protein Diet + NOCID (KDIGO Guideline)" : "Low-Protein Diet + NOCID (KDIGO Guideline)"}
               </h4>
               <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
-                <li>កំណត់ប្រូតេអ៊ីន + បន្ថែម Keto Acids & EAA</li>
-                <li>បំពេញតម្រូវការ EAA គ្រប់គ្រាន់ដោយមិនបង្កើត <strong>Nitrogen Waste</strong></li>
-                <li>កាត់បន្ថយបន្ទុកការងារតម្រងនោម និងពន្យារពេលការលាងឈាម</li>
+                {isKhmer ? (
+                  <>
+                    <li>កំណត់ប្រូតេអ៊ីន + បន្ថែម Keto Acids & EAA</li>
+                    <li>បំពេញតម្រូវការ EAA គ្រប់គ្រាន់ដោយមិនបង្កើត <strong>Nitrogen Waste</strong></li>
+                    <li>កាត់បន្ថយបន្ទុកការងារតម្រងនោម និងពន្យារពេលការលាងឈាម</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Protein restriction supplemented with essential Keto Acids & EAAs</li>
+                    <li>Fulfills essential amino acid requirements without generating <strong>Nitrogen Waste</strong></li>
+                    <li>Relieves renal workload and significantly delays dialysis initiation</li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
@@ -532,9 +589,15 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
             }}
           >
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", marginBottom: 8 }}>
-              ចំណុចសំខាន់ត្រូវចងចាំ:
+              {isKhmer ? "ចំណុចសំខាន់ត្រូវចងចាំ:" : "Key Takeaways to Remember:"}
             </div>
-            {nocidLowProtein.takeaways.map((t, idx) => (
+            {(isKhmer
+              ? nocidLowProtein.takeaways
+              : [
+                  "NOCID is not a standard protein supplement, but a specialized Keto Amino Acid therapy designed for synergy with a Low-Protein Diet.",
+                  "It fulfills essential amino acid requirements while maintaining minimal nitrogen load, safely preserving renal function in pre-dialysis CKD."
+                ]
+            ).map((t, idx) => (
               <div key={idx} style={{ fontSize: 13, color: "var(--kalbe-text-muted)", marginBottom: 4 }}>
                 • {t}
               </div>
@@ -559,7 +622,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
               borderLeft: "4px solid #0284C7",
             }}
           >
-            Differentiate between our 4 SKU of Brainact (Acute Stroke / TBI / Post Stroke / MCI)
+            {isKhmer
+              ? "ស្វែងយល់ពីភាពខុសគ្នានៃ Brainact ទាំង ៤ SKU (Acute Stroke / TBI / Post Stroke / MCI)"
+              : "Differentiate between our 4 SKUs of Brainact (Acute Stroke / TBI / Post Stroke / MCI)"}
           </div>
 
           <div
@@ -602,7 +667,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 Acute Stroke & TBI
               </p>
               <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
-                ចាក់ម្តង ១ ក្រាម ១ ថ្ងៃ ២ ដង រយៈពេល ៧ ទៅ ១០ ថ្ងៃ តាមសរសៃវ៉ែន ឬព្យួរសេរ៉ូម។
+                {isKhmer
+                  ? "ចាក់ម្តង ១ ក្រាម ១ ថ្ងៃ ២ ដង រយៈពេល ៧ ទៅ ១០ ថ្ងៃ តាមសរសៃវ៉ែន ឬព្យួរសេរ៉ូម។"
+                  : "Administer 1 g (1 ampoule) IV push or IV infusion twice daily for 7 to 10 days during acute phase."}
               </p>
             </div>
 
@@ -638,7 +705,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 Acute Stroke & TBI (Awake)
               </p>
               <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
-                ក្រោយអ្នកជំងឺភ្ញាក់ដឹងខ្លួន បន្តជាមួយថ្នាំគ្រាប់ ២ ក្រាម ក្នុង ១ ថ្ងៃ រហូតដល់ ៦ សប្តាហ៍។
+                {isKhmer
+                  ? "ក្រោយអ្នកជំងឺភ្ញាក់ដឹងខ្លួន បន្តជាមួយថ្នាំគ្រាប់ ២ ក្រាម ក្នុង ១ ថ្ងៃ រហូតដល់ ៦ សប្តាហ៍។"
+                  : "Once patient regains consciousness, transition to oral 2 g/day (1 caplet BID) for up to 6 weeks."}
               </p>
             </div>
 
@@ -674,7 +743,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 Post Stroke Cognitive Impairment
               </p>
               <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
-                ១ ក្រាម ក្នុង ១ ថ្ងៃ យ៉ាងហោចណាស់ ៦ ខែឡើងទៅ។
+                {isKhmer
+                  ? "១ ក្រាម ក្នុង ១ ថ្ងៃ យ៉ាងហោចណាស់ ៦ ខែឡើងទៅ។"
+                  : "1 g/day (500 mg BID) for cognitive rehabilitation for at least 6 months."}
               </p>
             </div>
 
@@ -710,7 +781,9 @@ export default function ClinicalComparisonSection({ defaultTab = "efesaVsHemapo"
                 MCI & Dysphagia / Multi-med
               </p>
               <p style={{ fontSize: 12.5, color: isDark ? "var(--kalbe-text-muted)" : "#475569", lineHeight: 1.6, margin: 0 }}>
-                ថ្នាំបៀមរលាយក្នុងមាត់ រសជាតិផ្លែឈើចម្រុះ ១ ក្រាម/ថ្ងៃ សម្រាប់ការធ្លាក់ចុះសមត្ថភាពខួរក្បាលលើមនុស្សចាស់។
+                {isKhmer
+                  ? "ថ្នាំបៀមរលាយក្នុងមាត់ រសជាតិផ្លែឈើចម្រុះ ១ ក្រាម/ថ្ងៃ សម្រាប់ការធ្លាក់ចុះសមត្ថភាពខួរក្បាលលើមនុស្សចាស់។"
+                  : "Orally disintegrating tablet (tutti-frutti flavor) dissolving in seconds without water; 1 g/day for elderly patients with dysphagia and mild cognitive decline."}
               </p>
             </div>
           </div>

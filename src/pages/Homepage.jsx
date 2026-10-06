@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
 import { products } from "../components/data/products";
+import { getLocalizedProducts } from "../utils/localizedProducts";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
+import { useLanguage } from "../context/LanguageContext";
 
 const Homepage = () => {
+  const { t, isKhmer, language } = useLanguage();
+  const localizedProducts = useMemo(() => getLocalizedProducts(language), [language]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPortfolioId, setSelectedPortfolioId] = useState(1);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
@@ -18,9 +22,9 @@ const Homepage = () => {
       {
         id: 1,
         title: "ENDO METABOLIC",
-        badge: "Specialized Therapy",
+        badge: t.home.slides[1]?.badge || "Specialized Therapy",
         image: "/images/ENDO-METABOLIC.png",
-        desc: "CKD Anemia • CKD Nutrition • DPN • Diabetes Management",
+        desc: t.home.slides[1]?.desc || "CKD Anemia • CKD Nutrition • DPN • Diabetes Management",
         portfolioId: 1,
         skuCount: 6,
         accentColor: "#DC2626",
@@ -31,9 +35,9 @@ const Homepage = () => {
       {
         id: 2,
         title: "MEDNUT",
-        badge: "Clinical Nutrition",
+        badge: t.home.slides[2]?.badge || "Clinical Nutrition",
         image: "/images/Mednut.png",
-        desc: "Precision Medical Nutrition for Specific Disease Conditions",
+        desc: t.home.slides[2]?.desc || "Precision Medical Nutrition for Specific Disease Conditions",
         portfolioId: 2,
         skuCount: 5,
         accentColor: "#16A34A",
@@ -44,9 +48,9 @@ const Homepage = () => {
       {
         id: 3,
         title: "CHILDREN PRODUCT",
-        badge: "Pediatric Care",
+        badge: t.home.slides[3]?.badge || "Pediatric Care",
         image: "/images/Children-Product.png",
-        desc: "Gut Health • Cough Relief • Pediatric Antibiotics",
+        desc: t.home.slides[3]?.desc || "Gut Health • Cough Relief • Pediatric Antibiotics",
         portfolioId: 3,
         skuCount: 3,
         accentColor: "#D97706",
@@ -57,9 +61,9 @@ const Homepage = () => {
       {
         id: 4,
         title: "CEREBROVASCULAR",
-        badge: "Cardiovascular",
+        badge: t.home.slides[4]?.badge || "Cardiovascular & Neuro",
         image: "/images/CELEBROVASCULAR.png",
-        desc: "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy Booster",
+        desc: t.home.slides[4]?.desc || "Acute Stroke • TBI • Post Stroke • Muscle Relaxant • Energy Booster",
         portfolioId: 4,
         skuCount: 7,
         accentColor: "#0284C7",
@@ -70,9 +74,9 @@ const Homepage = () => {
       {
         id: 5,
         title: "HOSPITAL LINE",
-        badge: "Hospital & Clinical Care",
+        badge: t.home.slides[5]?.badge || "Hospital & Clinical Care",
         image: "/images/Hospital-Line.png",
-        desc: "Gut Microbiota • Hepato-Protection • Antibiotics • Skin Care",
+        desc: t.home.slides[5]?.desc || "Gut Microbiota • Hepato-Protection • Antibiotics • Skin Care",
         portfolioId: 5,
         skuCount: 7,
         accentColor: "#4338CA",
@@ -83,9 +87,9 @@ const Homepage = () => {
       {
         id: 6,
         title: "ONCOLOGY",
-        badge: "Cancer Care",
+        badge: t.home.slides[6]?.badge || "Cancer Care",
         image: "/images/Oncology.png",
-        desc: "Chemotherapy • Supportive Care • Protocol-Based Treatment",
+        desc: t.home.slides[6]?.desc || "Chemotherapy • Supportive Care • Protocol-Based Treatment",
         portfolioId: 6,
         skuCount: 5,
         accentColor: "#701A75",
@@ -94,7 +98,7 @@ const Homepage = () => {
         badgeGradient: "linear-gradient(135deg, #701A75 0%, #581C87 100%)",
       },
     ],
-    []
+    [t]
   );
 
   const goToSlide = useCallback(
@@ -127,14 +131,14 @@ const Homepage = () => {
   // Flatten all sub-products for search - Memoized
   const allSubProducts = useMemo(
     () =>
-      products.flatMap((portfolio) =>
+      localizedProducts.flatMap((portfolio) =>
         portfolio.subProducts.map((sp) => ({
           ...sp,
           portfolioId: portfolio.id,
           portfolioTitle: portfolio.title,
         }))
       ),
-    []
+    [localizedProducts]
   );
 
   const filteredProducts = useMemo(() => {
@@ -152,14 +156,14 @@ const Homepage = () => {
   }, [searchQuery, allSubProducts]);
 
   const currentPortfolio = useMemo(
-    () => products.find((p) => p.id === selectedPortfolioId) || products[0],
-    [selectedPortfolioId]
+    () => localizedProducts.find((p) => p.id === selectedPortfolioId) || localizedProducts[0],
+    [selectedPortfolioId, localizedProducts]
   );
 
   return (
     <div
       style={{
-        fontFamily: "'Inter', 'Kantumruy Pro', 'Segoe UI', 'Roboto', sans-serif",
+        fontFamily: "inherit",
         background: "var(--kalbe-bg)",
         color: "var(--kalbe-text-main)",
         minHeight: "100vh",
@@ -377,7 +381,7 @@ const Homepage = () => {
                   boxShadow: "0 0 0 3px rgba(13,110,56,0.25)",
                 }}
               />
-              Kalbe International
+              {t.home.brandBadge}
             </span>
             <span
               style={{
@@ -390,7 +394,7 @@ const Homepage = () => {
                 borderRadius: 20,
               }}
             >
-              6 Specialized Portfolios
+              {t.home.portfoliosBadge}
             </span>
           </div>
 
@@ -405,7 +409,7 @@ const Homepage = () => {
               marginBottom: 16,
             }}
           >
-            PRODUCT Information
+            {t.home.heroTitleLine1}
             <br />
             <span
               style={{
@@ -415,7 +419,7 @@ const Homepage = () => {
                 display: "inline-block",
               }}
             >
-              & Clinical Solutions
+              {t.home.heroTitleLine2}
             </span>
           </h1>
 
@@ -429,10 +433,7 @@ const Homepage = () => {
               marginBottom: 24,
             }}
           >
-            ពត៌មានផលិតផលឱសថ និងអាហារូបត្ថម្ភចាំបាច់ សំរាប់ជំងឺទាំង ៦ ប្រភេទ៖{" "}<br />
-            <strong>ENDO METABOLIC</strong>, <strong>MEDNUT</strong>,{" "}
-            <strong>CHILDREN PRODUCT</strong>, <strong>CEREBROVASCULAR</strong>,{" "}
-            <strong>HOSPITAL LINE</strong>, និង <strong>ONCOLOGY</strong>។
+            {t.home.heroSubtitle}
           </p>
 
           {/* Search Box */}
@@ -452,7 +453,7 @@ const Homepage = () => {
               <FaSearch style={{ color: "#0D6E38", fontSize: 16, marginRight: 10, flexShrink: 0 }} />
               <input
                 type="text"
-                placeholder="ស្វែងរកផលិតផល (ឧ. Efesa, Brainact, Hepafit...)"
+                placeholder={t.home.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -468,7 +469,7 @@ const Homepage = () => {
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  aria-label="Clear search"
+                  aria-label={t.home.clearSearch}
                   style={{
                     background: "rgba(13,110,56,0.08)",
                     border: "none",
@@ -492,7 +493,7 @@ const Homepage = () => {
 
             {/* Quick tags */}
             <div className="hero-quick-tags" style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 10, alignItems: "center" }}>
-              <span style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", fontWeight: 600 }}>ពេញនិយម:</span>
+              <span style={{ fontSize: 11.5, color: "var(--kalbe-text-muted)", fontWeight: 600 }}>{t.home.popularSearch}</span>
               {["EFESA", "BRAINACT", "HEPAFIT", "MEROFEN", "PAXUS", "CAR-Q 100", "PROSPAN", "NEPHRISOL"].map(
                 (tag) => (
                   <button
@@ -546,7 +547,7 @@ const Homepage = () => {
                         padding: "8px 12px 4px",
                       }}
                     >
-                      លទ្ធផល ({filteredProducts.length})
+                      {t.home.searchResults} ({filteredProducts.length})
                     </div>
                     {filteredProducts.slice(0, 8).map((item) => (
                       <Link
@@ -589,13 +590,13 @@ const Homepage = () => {
                     ))}
                     {filteredProducts.length > 8 && (
                       <div style={{ padding: "8px 12px", fontSize: 12, color: "var(--kalbe-text-muted)", textAlign: "center" }}>
-                        + ផលិតផល {filteredProducts.length - 8} ទៀត...
+                        + {filteredProducts.length - 8} {t.home.moreProductsSuffix}
                       </div>
                     )}
                   </>
                 ) : (
                   <div style={{ padding: "20px", textAlign: "center", color: "var(--kalbe-text-muted)", fontSize: 13 }}>
-                    មិនមានផលិតផលត្រូវនឹងពាក្យស្វែងរក "{searchQuery}"
+                    {t.home.noMatchingProducts.replace("{query}", searchQuery)}
                   </div>
                 )}
               </div>
@@ -622,7 +623,7 @@ const Homepage = () => {
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
               }}
             >
-              Explore Portfolios <HiOutlineChevronRight />
+              {t.home.ctaExplore} <HiOutlineChevronRight />
             </a>
             <Link
               to="/about"
@@ -642,7 +643,7 @@ const Homepage = () => {
                 justifyContent: "center",
               }}
             >
-              About Our Mission
+              {t.home.ctaAbout}
             </Link>
           </div>
         </div>
@@ -702,7 +703,7 @@ const Homepage = () => {
                     border: "1px solid var(--kalbe-border)",
                   }}
                 >
-                  {heroSlides[currentHeroSlide].skuCount} Products
+                  {heroSlides[currentHeroSlide].skuCount} {t.home.productsCountSuffix}
                 </span>
               </div>
 
@@ -893,7 +894,7 @@ const Homepage = () => {
               marginBottom: 10,
             }}
           >
-            Core Healthcare Portfolios
+            {t.home.corePortfoliosBadge}
           </span>
           <h2
             style={{
@@ -904,13 +905,13 @@ const Homepage = () => {
               margin: 0,
             }}
           >
-            ពត៌មានផលិតផលតាមប្រភេទជំងឺនីមួយៗ
+            {t.home.portfoliosHeading}
           </h2>
         </div>
 
         {/* Portfolio tabs */}
         <div className="portfolio-grid">
-          {products.map((p) => {
+          {localizedProducts.map((p) => {
             const isSelected = p.id === selectedPortfolioId;
             return (
               <div
@@ -970,7 +971,7 @@ const Homepage = () => {
                       flexShrink: 0,
                     }}
                   >
-                    {p.subProducts.length} ផលិតផល
+                    {p.subProducts.length} {t.home.productsCountSuffix}
                   </span>
                 </div>
 
@@ -1024,7 +1025,9 @@ const Homepage = () => {
                       margin: 0,
                     }}
                   >
-                    {p.subtitle || p.description.substring(0, 65) + "..."}
+                    {isKhmer
+                      ? (p.subtitle || p.description.substring(0, 65) + "...")
+                      : (t.home.portfolioDescriptions?.[p.id] || p.subtitle || p.description.substring(0, 65) + "...")}
                   </p>
                 </div>
 
@@ -1062,7 +1065,7 @@ const Homepage = () => {
                         flexShrink: 0,
                       }}
                     />
-                    {isSelected ? "កំពុងមើល" : "ជ្រើសរើសដើម្បីមើល"}
+                    {isSelected ? t.home.currentlyViewing : t.home.selectToView}
                   </span>
                   <Link
                     to={`/product/${p.id}`}
@@ -1088,7 +1091,7 @@ const Homepage = () => {
                       e.currentTarget.style.color = "var(--kalbe-text-main)";
                     }}
                   >
-                    បើកទំព័រពេញ →
+                    {t.home.openFullPage}
                   </Link>
                 </div>
               </div>
@@ -1117,10 +1120,12 @@ const Homepage = () => {
                   fontWeight: 800,
                 }}
               >
-                {currentPortfolio.title} Products
+                {currentPortfolio.title} {t.home.productsOf}
               </h3>
               <p style={{ fontSize: 13, color: "var(--kalbe-text-muted)", margin: "4px 0 0", lineHeight: 1.5 }}>
-                {currentPortfolio.description}
+                {isKhmer
+                  ? currentPortfolio.description
+                  : (t.home.portfolioDescriptions?.[currentPortfolio.id] || currentPortfolio.description)}
               </p>
             </div>
             <Link
@@ -1150,7 +1155,7 @@ const Homepage = () => {
                 e.currentTarget.style.color = "var(--kalbe-green)";
               }}
             >
-              View Full Portfolio →
+              {t.home.viewFullPortfolio}
             </Link>
           </div>
 

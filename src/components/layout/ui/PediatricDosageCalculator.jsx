@@ -1,8 +1,9 @@
-// components/layout/ui/PediatricDosageCalculator.jsx
 import React, { useState } from "react";
 import { PRODUCT_THEMES } from "../../data/products";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-ds" }) {
+  const { t, isKhmer } = useLanguage();
   const [selectedProduct, setSelectedProduct] = useState(initialProduct);
 
   // Kalmaxime State
@@ -32,17 +33,52 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
 
   // Prospan Calculations
   const prospanDosing = {
-    "1to5": { ageLabel: "កុមារអាយុ 1–5 ឆ្នាំ", dose: "2.5 mL", times: "3 ដង / ថ្ងៃ", totalDaily: "7.5 mL / ថ្ងៃ" },
-    "6to17": { ageLabel: "កុមារអាយុ 6–17 ឆ្នាំ", dose: "5.0 mL", times: "3 ដង / ថ្ងៃ", totalDaily: "15.0 mL / ថ្ងៃ" },
-    "adult": { ageLabel: "មនុស្សពេញវ័យ (Adults)", dose: "7.5 mL", times: "3 ដង / ថ្ងៃ", totalDaily: "22.5 mL / ថ្ងៃ" },
+    "1to5": {
+      ageLabel: isKhmer ? "កុមារអាយុ 1–5 ឆ្នាំ" : "Children 1–5 yrs",
+      dose: "2.5 mL",
+      times: isKhmer ? "3 ដង / ថ្ងៃ" : "3 times / day",
+      totalDaily: isKhmer ? "7.5 mL / ថ្ងៃ" : "7.5 mL / day",
+    },
+    "6to17": {
+      ageLabel: isKhmer ? "កុមារអាយុ 6–17 ឆ្នាំ" : "Children 6–17 yrs",
+      dose: "5.0 mL",
+      times: isKhmer ? "3 ដង / ថ្ងៃ" : "3 times / day",
+      totalDaily: isKhmer ? "15.0 mL / ថ្ងៃ" : "15.0 mL / day",
+    },
+    adult: {
+      ageLabel: isKhmer ? "មនុស្សពេញវ័យ (Adults)" : "Adults (> 17 yrs)",
+      dose: "7.5 mL",
+      times: isKhmer ? "3 ដង / ថ្ងៃ" : "3 times / day",
+      totalDaily: isKhmer ? "22.5 mL / ថ្ងៃ" : "22.5 mL / day",
+    },
   }[prospanAgeGroup];
 
   // Rillus Jr Calculations
   const rillusDosing = {
-    diarrhea: { label: "កុមាររាគ (Diarrhea)", dose: "1–2 កញ្ចប់ / ថ្ងៃ", duration: "រហូតដល់ជាសះស្បើយ", note: "ញ៉ាំជាមួយទឹក ទឹកដោះគោ ឬអាហារ" },
-    antibiotic: { label: "រាគដោយសារថ្នាំ Antibiotics", dose: "1–2 កញ្ចប់ / ថ្ងៃ", duration: "រហូតដល់ 14 ថ្ងៃ", note: "ប្រើឃ្លាតពីថ្នាំអង់ទីប៊ីយ៉ូទិកយ៉ាងហោចណាស់ 2 ម៉ោង" },
-    constipation: { label: "ទល់លាមក (Constipation)", dose: "2–4 កញ្ចប់ / ថ្ងៃ", duration: "តាមការណែនាំរបស់គ្រូពេទ្យ", note: "ញ៉ាំទឹកឱ្យបានច្រើន" },
-    maintenance: { label: "ថែរក្សាតុល្យភាពពោះវៀន (Gut Health)", dose: "1 កញ្ចប់ / ថ្ងៃ", duration: "ប្រើប្រចាំថ្ងៃ", note: "រសជាតិទឹកដោះគោឆ្ងាញ់ ងាយស្រួលញ៉ាំ" },
+    diarrhea: {
+      label: isKhmer ? "កុមាររាគ (Diarrhea)" : "Acute Diarrhea",
+      dose: isKhmer ? "1–2 កញ្ចប់ / ថ្ងៃ" : "1–2 sachets / day",
+      duration: isKhmer ? "រហូតដល់ជាសះស្បើយ" : "Until resolved",
+      note: isKhmer ? "ញ៉ាំជាមួយទឹក ទឹកដោះគោ ឬអាហារ" : "Take with water, milk, or food",
+    },
+    antibiotic: {
+      label: isKhmer ? "រាគដោយសារថ្នាំ Antibiotics" : "Antibiotic-Associated Diarrhea",
+      dose: isKhmer ? "1–2 កញ្ចប់ / ថ្ងៃ" : "1–2 sachets / day",
+      duration: isKhmer ? "រហូតដល់ 14 ថ្ងៃ" : "Up to 14 days",
+      note: isKhmer ? "ប្រើឃ្លាតពីថ្នាំអង់ទីប៊ីយ៉ូទិកយ៉ាងហោចណាស់ 2 ម៉ោង" : "Take at least 2 hours apart from antibiotics",
+    },
+    constipation: {
+      label: isKhmer ? "ទល់លាមក (Constipation)" : "Constipation",
+      dose: isKhmer ? "2–4 កញ្ចប់ / ថ្ងៃ" : "2–4 sachets / day",
+      duration: isKhmer ? "តាមការណែនាំរបស់គ្រូពេទ្យ" : "As directed by physician",
+      note: isKhmer ? "ញ៉ាំទឹកឱ្យបានច្រើន" : "Drink plenty of water",
+    },
+    maintenance: {
+      label: isKhmer ? "ថែរក្សាតុល្យភាពពោះវៀន (Gut Health)" : "Daily Gut Health Maintenance",
+      dose: isKhmer ? "1 កញ្ចប់ / ថ្ងៃ" : "1 sachet / day",
+      duration: isKhmer ? "ប្រើប្រចាំថ្ងៃ" : "Daily use",
+      note: isKhmer ? "រសជាតិទឹកដោះគោឆ្ងាញ់ ងាយស្រួលញ៉ាំ" : "Pleasant milky flavor, easy to take",
+    },
   }[rillusIndication];
 
   return (
@@ -84,7 +120,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             marginBottom: 6,
           }}
         >
-          Pediatric Care Guidance
+          {t.pediatric?.badge || "Pediatric Care Guidance"}
         </span>
         <h3
           style={{
@@ -95,7 +131,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             margin: "2px 0",
           }}
         >
-          ឧបករណ៍គណនាកម្រិតប្រើប្រាស់សម្រាប់កុមារ
+          {t.pediatric?.title || (isKhmer ? "ឧបករណ៍គណនាកម្រិតប្រើប្រាស់សម្រាប់កុមារ" : "Pediatric Dosage Calculator")}
         </h3>
       </div>
 
@@ -121,7 +157,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             color: selectedProduct === "kalmaxime-ds" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
-          KALMAXIME DS (តាមទម្ងន់)
+          {isKhmer ? "KALMAXIME DS (តាមទម្ងន់)" : "KALMAXIME DS (Weight-based)"}
         </button>
         <button
           onClick={() => setSelectedProduct("prospan")}
@@ -135,7 +171,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             color: selectedProduct === "prospan" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
-          PROSPAN (តាមអាយុ)
+          {isKhmer ? "PROSPAN (តាមអាយុ)" : "PROSPAN (Age-based)"}
         </button>
         <button
           onClick={() => setSelectedProduct("rillus-jr")}
@@ -149,7 +185,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             color: selectedProduct === "rillus-jr" ? "#FFFFFF" : "var(--kalbe-text-main)",
           }}
         >
-          RILLUS JR (តាមរោគសញ្ញា)
+          {isKhmer ? "RILLUS JR (តាមរោគសញ្ញា)" : "RILLUS JR (Indication-based)"}
         </button>
       </div>
 
@@ -165,7 +201,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
         >
           <div style={{ marginBottom: 14 }}>
             <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 6 }}>
-              បញ្ចូលទម្ងន់កុមារ: <strong style={{ color: "#3B82F6", fontSize: 17 }}>{weightKg} kg</strong>
+              {isKhmer ? "បញ្ចូលទម្ងន់កុមារ:" : "Child's Weight (kg):"} <strong style={{ color: "#3B82F6", fontSize: 17 }}>{weightKg} kg</strong>
             </label>
             <input
               type="range"
@@ -184,7 +220,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
 
           <div style={{ marginBottom: 16 }}>
             <label style={{ fontSize: 12.5, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 6 }}>
-              កាលវិភាគនៃការប្រើប្រាស់:
+              {isKhmer ? "កាលវិភាគនៃការប្រើប្រាស់:" : "Dosing Frequency / Regimen:"}
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 8 }}>
               <button
@@ -200,7 +236,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                   cursor: "pointer",
                 }}
               >
-                1 ដង / ថ្ងៃ (8 mg/kg)
+                {isKhmer ? "1 ដង / ថ្ងៃ (8 mg/kg)" : "Once Daily (8 mg/kg)"}
               </button>
               <button
                 onClick={() => setKalmaximeFreq("twice")}
@@ -215,7 +251,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
                   cursor: "pointer",
                 }}
               >
-                2 ដង / ថ្ងៃ (4 mg/kg x 2)
+                {isKhmer ? "2 ដង / ថ្ងៃ (4 mg/kg x 2)" : "Twice Daily (4 mg/kg x 2)"}
               </button>
             </div>
           </div>
@@ -230,16 +266,20 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             }}
           >
             <div style={{ fontSize: 12, color: "#60A5FA", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
-              លទ្ធផលគណនាកម្រិតប្រើប្រាស់ (Recommended Dose)
+              {isKhmer ? "លទ្ធផលគណនាកម្រិតប្រើប្រាស់ (Recommended Dose)" : "Calculated Recommended Dose"}
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#3B82F6", margin: "4px 0" }}>
               {kalmaximeDoseMl.toFixed(1)} mL{" "}
               <span style={{ fontSize: 14, fontWeight: 600, color: "#93C5FD" }}>
-                ({kalmaximeFreq === "once" ? "លេប 1 ដង / ថ្ងៃ" : "លេប 2 ដង / ថ្ងៃ (រៀងរាល់ 12 ម៉ោង)"})
+                ({kalmaximeFreq === "once" ? (isKhmer ? "លេប 1 ដង / ថ្ងៃ" : "Once Daily") : (isKhmer ? "លេប 2 ដង / ថ្ងៃ (រៀងរាល់ 12 ម៉ោង)" : "Twice Daily (Every 12 hrs)")})
               </span>
             </div>
             <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-              ស្មើនឹង <strong style={{ color: "var(--kalbe-text-main)" }}>{(kalmaximeDoseMl * 20).toFixed(0)} mg</strong> ក្នុងមួយដង (សរុបប្រចាំថ្ងៃ: {kalmaximeTotalMg} mg)
+              {isKhmer ? (
+                <>ស្មើនឹង <strong style={{ color: "var(--kalbe-text-main)" }}>{(kalmaximeDoseMl * 20).toFixed(0)} mg</strong> ក្នុងមួយដង (សរុបប្រចាំថ្ងៃ: {kalmaximeTotalMg} mg)</>
+              ) : (
+                <>Equivalent to <strong style={{ color: "var(--kalbe-text-main)" }}>{(kalmaximeDoseMl * 20).toFixed(0)} mg</strong> per dose (Total daily: {kalmaximeTotalMg} mg)</>
+              )}
             </p>
           </div>
         </div>
@@ -257,13 +297,13 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
         >
           <div style={{ marginBottom: 14 }}>
             <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 8 }}>
-              ជ្រើសរើសក្រុមអាយុអ្នកជំងឺ:
+              {isKhmer ? "ជ្រើសរើសក្រុមអាយុអ្នកជំងឺ:" : "Select Patient Age Group:"}
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 8 }}>
               {[
-                { id: "1to5", label: "កុមារ 1–5 ឆ្នាំ" },
-                { id: "6to17", label: "កុមារ 6–17 ឆ្នាំ" },
-                { id: "adult", label: "មនុស្សពេញវ័យ" },
+                { id: "1to5", label: isKhmer ? "កុមារ 1–5 ឆ្នាំ" : "Child 1–5 yrs" },
+                { id: "6to17", label: isKhmer ? "កុមារ 6–17 ឆ្នាំ" : "Child 6–17 yrs" },
+                { id: "adult", label: isKhmer ? "មនុស្សពេញវ័យ" : "Adults (> 17 yrs)" },
               ].map((grp) => (
                 <button
                   key={grp.id}
@@ -295,7 +335,7 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             }}
           >
             <div style={{ fontSize: 12, color: "#34D399", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
-              កម្រិតប្រើប្រាស់ណែនាំ ({prospanDosing.ageLabel})
+              {isKhmer ? `កម្រិតប្រើប្រាស់ណែនាំ (${prospanDosing.ageLabel})` : `Recommended Dosage (${prospanDosing.ageLabel})`}
             </div>
             <div style={{ fontSize: 24, fontWeight: 800, color: "#10B981", margin: "4px 0" }}>
               {prospanDosing.dose}{" "}
@@ -304,7 +344,11 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
               </span>
             </div>
             <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-              សរុបប្រចាំថ្ងៃ: <strong style={{ color: "var(--kalbe-text-main)" }}>{prospanDosing.totalDaily}</strong> (អង្រួនដបមុនប្រើ)
+              {isKhmer ? (
+                <>សរុបប្រចាំថ្ងៃ: <strong style={{ color: "var(--kalbe-text-main)" }}>{prospanDosing.totalDaily}</strong> (អង្រួនដបមុនប្រើ)</>
+              ) : (
+                <>Total Daily: <strong style={{ color: "var(--kalbe-text-main)" }}>{prospanDosing.totalDaily}</strong> (Shake well before use)</>
+              )}
             </p>
           </div>
         </div>
@@ -322,14 +366,14 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
         >
           <div style={{ marginBottom: 14 }}>
             <label style={{ fontSize: 13, fontWeight: 700, color: "var(--kalbe-text-main)", display: "block", marginBottom: 8 }}>
-              ជ្រើសរើសស្ថានភាព / រោគសញ្ញា:
+              {isKhmer ? "ជ្រើសរើសស្ថានភាព / រោគសញ្ញា:" : "Select Clinical Indication:"}
             </label>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 8 }}>
               {[
-                { id: "diarrhea", label: "កុមាររាគ" },
-                { id: "antibiotic", label: "រាគដោយថ្នាំផ្សះ" },
-                { id: "constipation", label: "ទល់លាមក" },
-                { id: "maintenance", label: "សុខភាពពោះវៀនទូទៅ" },
+                { id: "diarrhea", label: isKhmer ? "កុមាររាគ" : "Acute Diarrhea" },
+                { id: "antibiotic", label: isKhmer ? "រាគដោយថ្នាំផ្សះ" : "Antibiotic Diarrhea" },
+                { id: "constipation", label: isKhmer ? "ទល់លាមក" : "Constipation" },
+                { id: "maintenance", label: isKhmer ? "សុខភាពពោះវៀនទូទៅ" : "Gut Health" },
               ].map((ind) => (
                 <button
                   key={ind.id}
@@ -361,13 +405,13 @@ export default function PediatricDosageCalculator({ initialProduct = "kalmaxime-
             }}
           >
             <div style={{ fontSize: 12, color: "#FB923C", fontWeight: 700, textTransform: "uppercase", marginBottom: 4 }}>
-              កម្រិតប្រើប្រាស់សម្រាប់ {rillusDosing.label}
+              {isKhmer ? `កម្រិតប្រើប្រាស់សម្រាប់ ${rillusDosing.label}` : `Recommended Regimen for ${rillusDosing.label}`}
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: "#F97316", margin: "4px 0" }}>
               {rillusDosing.dose}
             </div>
             <p style={{ margin: "4px 0 2px", fontSize: 12.5, color: "var(--kalbe-text-main)" }}>
-              <strong>រយៈពេលប្រើ:</strong> {rillusDosing.duration}
+              <strong>{isKhmer ? "រយៈពេលប្រើ:" : "Duration:"}</strong> {rillusDosing.duration}
             </p>
             <p style={{ margin: "2px 0 0", fontSize: 12, color: "var(--kalbe-text-muted)" }}>
               💡 {rillusDosing.note}

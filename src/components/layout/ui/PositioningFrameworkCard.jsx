@@ -1,11 +1,12 @@
-// components/layout/ui/PositioningFrameworkCard.jsx
 import React, { useState } from "react";
 import { PRODUCT_THEMES } from "../../data/products";
 import { useTheme } from "../../../context/ThemeContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function PositioningFrameworkCard({ product }) {
   const [activeStep, setActiveStep] = useState("who");
   const { isDark } = useTheme();
+  const { t, isKhmer } = useLanguage();
 
   if (!product || !product.framework) return null;
   const fw = product.framework;
@@ -22,11 +23,11 @@ export default function PositioningFrameworkCard({ product }) {
   };
 
   const steps = [
-    { id: "who", label: "1. WHO", title: "Target Patient" },
-    { id: "what", label: "2. WHAT", title: "Identity & Composition" },
-    { id: "why", label: "3. WHY", title: "Feature → Benefit" },
-    { id: "how", label: "4. HOW", title: "Dose & Preparation" },
-    { id: "say", label: "5. SAY", title: "Product Detailing" },
+    { id: "who", label: t.positioning?.steps?.who?.label || "1. WHO", title: t.positioning?.steps?.who?.title || "Target Patient" },
+    { id: "what", label: t.positioning?.steps?.what?.label || "2. WHAT", title: t.positioning?.steps?.what?.title || "Identity & Composition" },
+    { id: "why", label: t.positioning?.steps?.why?.label || "3. WHY", title: t.positioning?.steps?.why?.title || "Feature → Benefit" },
+    { id: "how", label: t.positioning?.steps?.how?.label || "4. HOW", title: t.positioning?.steps?.how?.title || "Dose & Preparation" },
+    { id: "say", label: t.positioning?.steps?.say?.label || "5. SAY", title: t.positioning?.steps?.say?.title || "Product Detailing" },
   ];
 
   return (
@@ -105,7 +106,7 @@ export default function PositioningFrameworkCard({ product }) {
             marginBottom: 6,
           }}
         >
-          Standardized Detailing System
+          {t.positioning?.badge || "Standardized Detailing System"}
         </span>
         <h3
           style={{
@@ -116,7 +117,7 @@ export default function PositioningFrameworkCard({ product }) {
             margin: "2px 0",
           }}
         >
-          Product Positioning Framework
+          {t.positioning?.title || "Product Positioning Framework"}
         </h3>
 
       </div>
@@ -167,10 +168,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                1. WHO — Target Patient / Indication
+                {t.positioning?.steps?.who?.header || "1. WHO — Target Patient / Indication"}
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                Clearly specify the target patient group and clinical indications
+                {t.positioning?.steps?.who?.subtitle || "Clearly specify the target patient group and clinical indications"}
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -208,10 +209,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                2. WHAT — Identity & Composition
+                {t.positioning?.steps?.what?.header || "2. WHAT — Identity & Composition"}
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                Detailed information on active ingredients, dosage form, strength, and technology
+                {t.positioning?.steps?.what?.subtitle || "Active ingredient, formulation, dose, and technology platform"}
               </span>
             </div>
             <div
@@ -248,10 +249,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                3. WHY — Feature → Benefit
+                {t.positioning?.steps?.why?.header || "3. WHY — Feature → Benefit"}
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                Key product features providing tangible clinical and patient benefits
+                {t.positioning?.steps?.why?.subtitle || "Key product features providing tangible clinical and patient benefits"}
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -301,10 +302,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                4. HOW — Dose, Preparation & Use
+                {t.positioning?.steps?.how?.header || "4. HOW — Dose, Preparation & Use"}
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                Dosage guidelines, administration, monitoring, and proper storage
+                {t.positioning?.steps?.how?.subtitle || "Dosage guidelines, administration, monitoring, and proper storage"}
               </span>
             </div>
             <div style={{ display: "grid", gap: 10 }}>
@@ -351,10 +352,10 @@ export default function PositioningFrameworkCard({ product }) {
           <div>
             <div style={{ marginBottom: 14 }}>
               <h4 style={{ margin: 0, fontSize: 17, color: theme.primary, fontWeight: 700 }}>
-                5. SAY — Key Detailing Message / Pitch
+                {t.positioning?.steps?.say?.header || "5. SAY — Key Detailing Message / Pitch"}
               </h4>
               <span style={{ fontSize: 12, color: "var(--kalbe-text-muted)" }}>
-                Core summary detailing message for Healthcare Professionals
+                {t.positioning?.steps?.say?.subtitle || "Core summary detailing message for Healthcare Professionals"}
               </span>
             </div>
             <div

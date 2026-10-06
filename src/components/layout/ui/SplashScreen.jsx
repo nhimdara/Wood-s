@@ -1,10 +1,21 @@
-// src/components/layout/ui/SplashScreen.jsx
 import React, { useState, useEffect } from "react";
 import kalbeIcon from "../../assets/logo/kalbe-icon.png";
 import { useTheme } from "../../../context/ThemeContext";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const SplashScreen = ({ onFinish }) => {
   const [phase, setPhase] = useState("enter"); // enter | hold | exit
+  let t = null;
+  let language = "km";
+  try {
+    const langCtx = useLanguage();
+    if (langCtx) {
+      t = langCtx.t;
+      language = langCtx.language || "km";
+    }
+  } catch (e) {
+    language = document.documentElement.lang || "km";
+  }
 
   let isDark = false;
   try {
@@ -68,13 +79,15 @@ const SplashScreen = ({ onFinish }) => {
 
       {/* Wordmark */}
       <div className="splash-stagger" style={{ "--d": "0.12s", zIndex: 2, marginTop: 22 }}>
-        <div className={`splash-wordmark ${isDark ? "dark" : "light"}`}>KALBE</div>
+        <div className={`splash-wordmark latin-tracking ${isDark ? "dark" : "light"}`}>KALBE</div>
       </div>
 
       {/* Tagline */}
       <div className="splash-stagger" style={{ "--d": "0.24s", zIndex: 2, marginTop: 10 }}>
-        <div className={`splash-tagline ${isDark ? "dark" : "light"}`}>
-          Innovation for a Better Life
+        <div
+          className={`splash-tagline ${isDark ? "dark" : "light"} ${language === "km" ? "is-khmer" : ""}`}
+        >
+          {t?.splash?.tagline || "Innovation for a Better Life"}
         </div>
       </div>
 
@@ -211,7 +224,7 @@ const SplashScreen = ({ onFinish }) => {
         }
 
         .splash-tagline.dark {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Kantumruy Pro', 'Inter', sans-serif;
           font-weight: 600;
           font-size: 11px;
           letter-spacing: 0.18em;
@@ -219,12 +232,20 @@ const SplashScreen = ({ onFinish }) => {
           color: rgba(0, 214, 114, 0.85);
         }
         .splash-tagline.light {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Kantumruy Pro', 'Inter', sans-serif;
           font-weight: 600;
           font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: #0D6E38;
+        }
+        .splash-tagline.is-khmer {
+          font-family: 'Kantumruy Pro', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+          font-weight: 600 !important;
+          font-size: 13px !important;
+          letter-spacing: normal !important;
+          text-transform: none !important;
+          line-height: 1.5 !important;
         }
 
         .splash-footer {

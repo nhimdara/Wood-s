@@ -1,5 +1,5 @@
 // pages/Product.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
@@ -8,13 +8,16 @@ import ClinicalComparisonSection from "../components/layout/ui/ClinicalCompariso
 import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCalculator";
 import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
 import { products, PRODUCT_THEMES } from "../components/data/products";
+import { getLocalizedProducts } from "../utils/localizedProducts";
 import { useTheme } from "../context/ThemeContext";
+import { useLanguage } from "../context/LanguageContext";
 import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight, HiOutlineHome } from "react-icons/hi";
 import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
 
 const Product = () => {
   const { id, subId } = useParams();
   const { isDark } = useTheme();
+  const { t, isKhmer, language } = useLanguage();
   const [activeTab, setActiveTab] = useState("framework");
   const [imgError, setImgError] = useState(false);
 
@@ -24,7 +27,8 @@ const Product = () => {
     setImgError(false);
   }, [id, subId]);
 
-  const parentProduct = products.find((p) => String(p.id) === id);
+  const localizedProducts = useMemo(() => getLocalizedProducts(language), [language]);
+  const parentProduct = localizedProducts.find((p) => String(p.id) === id);
   const subProduct =
     subId && parentProduct?.subProducts?.find((sp) => sp.id === subId);
 
@@ -54,27 +58,27 @@ const Product = () => {
     const tabs = [
       {
         id: "framework",
-        label: "5-Step Positioning",
+        label: t.product.tabs.framework,
       },
       {
         id: "benefits",
-        label: "Benefits & Features",
+        label: t.product.tabs.benefits,
       },
       {
         id: "ingredients",
-        label: "Composition & Usage",
+        label: t.product.tabs.ingredients,
       },
       ...(hasToolsTab
         ? [
             {
               id: "tools",
               label: isMednut
-                ? "Preparation Guide"
+                ? t.product.tabs.toolsPrep
                 : isPediatric
-                  ? "Dosage Calculator"
+                  ? t.product.tabs.toolsDosage
                   : isCelebro
-                    ? "4 SKUs Matrix"
-                    : "Clinical Comparison",
+                    ? t.product.tabs.toolsMatrix
+                    : t.product.tabs.toolsClinical,
             },
           ]
         : []),
@@ -89,7 +93,7 @@ const Product = () => {
     return (
       <div
         style={{
-          fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+          fontFamily: "inherit",
           background: "var(--kalbe-bg)",
           color: "var(--kalbe-text-main)",
           minHeight: "100vh",
@@ -195,7 +199,7 @@ const Product = () => {
             }}
           >
             <Link to="/" style={{ color: theme.primary, textDecoration: "none", fontWeight: 600 }}>
-              Home
+              {t.product.breadcrumbsHome}
             </Link>
             <span>›</span>
             <Link to={`/product/${id}`} style={{ color: theme.primary, textDecoration: "none", fontWeight: 600 }}>
@@ -409,15 +413,15 @@ const Product = () => {
             >
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaLeaf style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>High Quality</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>{t.product.keyHighlights}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaHeartbeat style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>Clinically Proven</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>{t.product.clinicallyProven}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <FaStar style={{ color: theme.primary, fontSize: 15 }} />
-                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>Kalbe Standard</span>
+                <span style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", fontWeight: 500 }}>{t.product.kalbeStandard}</span>
               </div>
             </div>
           </div>
@@ -472,7 +476,7 @@ const Product = () => {
                       marginBottom: 18,
                     }}
                   >
-                    Clinical Benefits & Key Highlights
+                    {t.product.benefitsHeading}
                   </h3>
                   <div style={{ display: "grid", gap: 12 }}>
                     {details.benefits.map((benefit, index) => (
@@ -524,7 +528,7 @@ const Product = () => {
                   }}
                 >
                   <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
-                    Active Ingredients & Formulation
+                    {isKhmer ? "សារធាតុផ្សំ និងរូបមន្ត" : "Active Ingredients & Formulation"}
                   </h4>
                   <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "var(--kalbe-text-main)", lineHeight: 1.8 }}>
                     {details.ingredients.map((item, idx) => (
@@ -542,13 +546,13 @@ const Product = () => {
                   }}
                 >
                   <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
-                    How to Use & Storage
+                    {isKhmer ? "របៀបប្រើប្រាស់ និងការរក្សាទុក" : "How to Use & Storage"}
                   </h4>
                   <p style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6, marginBottom: 14 }}>
-                    <strong>កម្រិតប្រើប្រាស់:</strong> {details.howToUse}
+                    <strong>{isKhmer ? "កម្រិតប្រើប្រាស់:" : "How to Use:"}</strong> {details.howToUse}
                   </p>
                   <p style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6, margin: 0 }}>
-                    <strong>ការរក្សាទុក:</strong> {details.storage}
+                    <strong>{isKhmer ? "ការរក្សាទុក:" : "Storage:"}</strong> {details.storage}
                   </p>
                 </div>
               </div>
@@ -648,7 +652,7 @@ const Product = () => {
     return (
       <div
         style={{
-          fontFamily: "'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif",
+          fontFamily: "inherit",
           background: "var(--kalbe-bg)",
           color: "var(--kalbe-text-main)",
           minHeight: "100vh",
@@ -687,7 +691,7 @@ const Product = () => {
             }}
           >
             <Link to="/" style={{ color: "var(--kalbe-green)", textDecoration: "none", fontWeight: 600 }}>
-              Home
+              {t.product.breadcrumbsHome}
             </Link>
             <span>›</span>
             <span style={{ color: "var(--kalbe-text-main)", fontWeight: 700 }}>
@@ -724,7 +728,7 @@ const Product = () => {
                 textTransform: "uppercase",
               }}
             >
-              Specialized Portfolio
+              {t.product.specializedPortfolio}
             </span>
             <h1
               style={{
@@ -763,7 +767,9 @@ const Product = () => {
                 marginBottom: 20,
               }}
             >
-              {parentProduct.description}
+              {isKhmer
+                ? parentProduct.description
+                : (t.home.portfolioDescriptions?.[parentProduct.id] || parentProduct.description)}
             </p>
           </div>
 
@@ -816,7 +822,7 @@ const Product = () => {
                 marginBottom: 8,
               }}
             >
-              Clinical Solutions
+              {t.product.clinicalSolutionsBadge}
             </span>
             <h2
               style={{
@@ -827,7 +833,7 @@ const Product = () => {
                 margin: 0,
               }}
             >
-              All {parentProduct.title} Products ({parentProduct.subProducts.length})
+              {t.product.allProductsHeading.replace("{title}", parentProduct.title).replace("{count}", parentProduct.subProducts.length)}
             </h2>
           </div>
 
@@ -868,7 +874,7 @@ const Product = () => {
                   marginBottom: 8,
                 }}
               >
-                Specialized Detailing Guide
+                {t.product.specializedDetailingBadge}
               </span>
               <h2
                 style={{
@@ -880,10 +886,10 @@ const Product = () => {
                 }}
               >
                 {isMednut
-                  ? "Mednut Clinical Preparation Matrix"
+                  ? t.product.matrixMednut
                   : isPediatric
-                    ? "Pediatric Dosage Protocol"
-                    : "Clinical Comparison & Therapeutic Matrix"}
+                    ? t.product.matrixPediatric
+                    : t.product.matrixClinical}
               </h2>
             </div>
 
@@ -898,9 +904,9 @@ const Product = () => {
 
   return (
     <div style={{ padding: 100, textAlign: "center", fontFamily: "sans-serif" }}>
-      <h2>Product not found</h2>
+      <h2>{t.product.productNotFound}</h2>
       <Link to="/" style={{ color: "var(--kalbe-green)", fontWeight: 700 }}>
-        Back to Home
+        {t.product.backToHome}
       </Link>
     </div>
   );

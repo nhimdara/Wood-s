@@ -1,10 +1,11 @@
-// components/layout/ui/SubProductCard.jsx
 import React, { useState, memo } from "react";
 import { Link } from "react-router-dom";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { PRODUCT_THEMES } from "../../data/products";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const SubProductCard = ({ product, parentId }) => {
+  const { isKhmer } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [imgError, setImgError] = useState(false);
 
