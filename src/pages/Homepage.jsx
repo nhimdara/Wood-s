@@ -7,8 +7,10 @@ import { getLocalizedProducts } from "../utils/localizedProducts";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import { useLanguage } from "../context/LanguageContext";
+import { useTheme } from "../context/ThemeContext";
 
 const Homepage = () => {
+  const { isDark } = useTheme();
   const { t, isKhmer, language } = useLanguage();
   const localizedProducts = useMemo(() => getLocalizedProducts(language), [language]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -981,11 +983,12 @@ const Homepage = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    background: "#FFFFFF",
+                    backgroundColor: "var(--kalbe-bg-alt)",
                     borderRadius: 16,
-                    padding: "6px",
+                    padding: "12px",
                     overflow: "hidden",
                     border: "1px solid var(--kalbe-border)",
+                    transition: "background-color 0.25s ease, border-color 0.25s ease",
                   }}
                 >
                   <img

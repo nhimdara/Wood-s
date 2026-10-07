@@ -2,6 +2,7 @@
 import React from "react";
 import { useLanguage } from "../../../context/LanguageContext";
 import { useTheme } from "../../../context/ThemeContext";
+import { FlagUK, FlagCambodia } from "./FlagIcons";
 
 export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
   const { language, isKhmer, toggleLanguage, setLanguage } = useLanguage();
@@ -67,9 +68,13 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
               background: !isKhmer ? "var(--kalbe-green)" : "transparent",
               color: !isKhmer ? "#FFFFFF" : "var(--kalbe-text-muted)",
               boxShadow: !isKhmer ? "0 2px 6px rgba(13,110,56,0.3)" : "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
             }}
           >
-            🇬🇧 EN
+            <FlagUK width={16} height={11} />
+            <span>EN</span>
           </button>
           <button
             type="button"
@@ -85,9 +90,13 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
               background: isKhmer ? "var(--kalbe-green)" : "transparent",
               color: isKhmer ? "#FFFFFF" : "var(--kalbe-text-muted)",
               boxShadow: isKhmer ? "0 2px 6px rgba(13,110,56,0.3)" : "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
             }}
           >
-            🇰🇭 ខ្មែរ
+            <FlagCambodia width={16} height={11} />
+            <span>ខ្មែរ</span>
           </button>
         </div>
       </div>
@@ -106,7 +115,7 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
-          gap: 4,
+          gap: 6,
           height: 36,
           padding: "0 10px",
           borderRadius: 20,
@@ -125,7 +134,7 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
           transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
         }}
       >
-        <span style={{ fontSize: 13 }}>{isKhmer ? "🇰🇭" : "🇬🇧"}</span>
+        {isKhmer ? <FlagCambodia width={17} height={12} /> : <FlagUK width={17} height={12} />}
         <span>{isKhmer ? "KH" : "EN"}</span>
       </button>
     );
@@ -142,7 +151,7 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        gap: 6,
+        gap: 7,
         height: 36,
         padding: "0 12px",
         borderRadius: 24,
@@ -179,7 +188,7 @@ export default function LanguageToggle({ isMobile = false, isDrawer = false }) {
         e.currentTarget.style.boxShadow = "none";
       }}
     >
-      <span style={{ fontSize: 14 }}>{isKhmer ? "🇰🇭" : "🇬🇧"}</span>
+      {isKhmer ? <FlagCambodia width={19} height={13} /> : <FlagUK width={19} height={13} />}
       <span>{isKhmer ? "ភាសាខ្មែរ" : "English"}</span>
       <span
         style={{

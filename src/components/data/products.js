@@ -491,29 +491,29 @@ export const PRODUCT_THEMES = {
   },
   brexel: {
     title: "BREXEL",
-    primary: "#0D9488", // Teal / Emerald from Brexel Box
-    dark: "#0F766E",
+    primary: "#EA580C", // Vibrant Red-Orange from Brexel Box
+    dark: "#C2410C",
     bg: "#F8FAF6",
-    light: "#CCFBF1",
+    light: "#FFEDD5",
     fontFamily: "'Outfit', 'Montserrat', sans-serif",
     fontWeight: 900,
     letterSpacing: "1px",
-    badge: "linear-gradient(135deg, #0D9488, #0F766E)",
-    glow: "rgba(13, 148, 136, 0.15)",
-    border: "rgba(13, 148, 136, 0.2)",
+    badge: "linear-gradient(135deg, #EA580C, #C2410C)",
+    glow: "rgba(234, 88, 12, 0.15)",
+    border: "rgba(234, 88, 12, 0.2)",
   },
   rexta: {
     title: "REXTA",
-    primary: "#1D4ED8", // Royal Blue from Rexta Box
-    dark: "#1E40AF",
+    primary: "#6B3F24", // Chocolate Bronze / Dark Brown from Rexta Box
+    dark: "#3E2314",
     bg: "#F8FAF6",
-    light: "#DBEAFE",
+    light: "#F5ECE6",
     fontFamily: "'Outfit', 'Montserrat', sans-serif",
     fontWeight: 900,
     letterSpacing: "1px",
-    badge: "linear-gradient(135deg, #1D4ED8, #1E40AF)",
-    glow: "rgba(29, 78, 216, 0.15)",
-    border: "rgba(29, 78, 216, 0.2)",
+    badge: "linear-gradient(135deg, #7A492C, #3E2314)",
+    glow: "rgba(107, 63, 36, 0.15)",
+    border: "rgba(107, 63, 36, 0.2)",
   }
 };
 
@@ -2286,7 +2286,7 @@ export const products = [
         id: "brexel",
         title: "BREXEL",
         genericName: "Docetaxel 80 mg Injection",
-        image: "",
+        image: "/images/brexel.png",
         origin: "Indonesia",
         badge: "Potent Taxane Chemotherapy",
         categoryTag: "Breast, Lung & Prostate Cancer",
@@ -2337,7 +2337,7 @@ export const products = [
         id: "rexta",
         title: "REXTA",
         genericName: "Oxaliplatin 50 mg & 100 mg Injection",
-        image: "",
+        image: "/images/rexta.png",
         origin: "Indonesia",
         badge: "3rd Gen Platinum for CRC",
         categoryTag: "Colorectal Cancer (FOLFOX Regimen)",

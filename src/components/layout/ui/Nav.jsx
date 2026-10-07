@@ -117,6 +117,8 @@ const getVibrantBrandColor = (colorHex, dark) => {
     "#4338CA": "#818CF8", // Hospital - Indigo
     "#701A75": "#E879F9", // Oncology - Pink/Magenta
     "#D97706": "#FBBF24", // Children - Amber
+    "#4D7C0F": "#A3E635", // Myores - Lime Green
+    "#6B3F24": "#D4A373", // Rexta - Warm Bronze/Caramel
   };
   return colorMap[upper] || colorHex || "#34D399";
 };
