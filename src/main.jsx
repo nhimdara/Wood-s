@@ -18,11 +18,20 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   </React.StrictMode>
 );
 
-// Unregister any existing service worker that might be causing caching issues in Capacitor
+// Smart Service Worker handling:
+// - On Web: Register Service Worker in production for instant repeat loads, asset caching & offline PWA
+// - Inside Capacitor native app: Unregister to prevent WebView local file caching conflicts
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    for (let registration of registrations) {
-      registration.unregister();
-    }
-  });
+  const isCapacitorNative = Boolean(window.Capacitor?.isNativePlatform?.());
+  if (isCapacitorNative) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    });
+  } else if (import.meta.env.PROD) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(() => {});
+    });
+  }
 }

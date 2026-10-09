@@ -1,18 +1,46 @@
 // pages/Product.jsx
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
-import MednutPreparationGuide from "../components/layout/ui/MednutPreparationGuide";
-import ClinicalComparisonSection from "../components/layout/ui/ClinicalComparisonSection";
-import PediatricDosageCalculator from "../components/layout/ui/PediatricDosageCalculator";
-import PositioningFrameworkCard from "../components/layout/ui/PositioningFrameworkCard";
-import { products, PRODUCT_THEMES } from "../components/data/products";
+import { PRODUCT_THEMES } from "../components/data/products";
 import { getLocalizedProducts } from "../utils/localizedProducts";
 import { useTheme } from "../context/ThemeContext";
 import { useLanguage } from "../context/LanguageContext";
 import { HiOutlineCheck, HiOutlineArrowLeft, HiOutlineArrowRight, HiOutlineHome } from "react-icons/hi";
 import { FaLeaf, FaHeartbeat, FaStar } from "react-icons/fa";
+
+// Lazy-loaded heavy clinical calculation and comparison tools for fast initial page load
+const MednutPreparationGuide = lazy(() => import("../components/layout/ui/MednutPreparationGuide"));
+const ClinicalComparisonSection = lazy(() => import("../components/layout/ui/ClinicalComparisonSection"));
+const PediatricDosageCalculator = lazy(() => import("../components/layout/ui/PediatricDosageCalculator"));
+const PositioningFrameworkCard = lazy(() => import("../components/layout/ui/PositioningFrameworkCard"));
+
+const ToolSkeleton = () => (
+  <div
+    style={{
+      minHeight: 180,
+      borderRadius: 20,
+      background: "var(--kalbe-surface-elevated)",
+      border: "1px solid var(--kalbe-border)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 30,
+    }}
+  >
+    <div
+      style={{
+        width: 32,
+        height: 32,
+        borderRadius: "50%",
+        border: "3px solid rgba(13, 110, 56, 0.15)",
+        borderTopColor: "var(--kalbe-green)",
+        animation: "spin 0.6s linear infinite",
+      }}
+    />
+  </div>
+);
 
 const Product = () => {
   const { id, subId } = useParams();
@@ -451,7 +479,9 @@ const Product = () => {
             {/* TAB CONTENT: 5-Step Positioning */}
             {activeTab === "framework" && (
               <div className="fade-up">
-                <PositioningFrameworkCard product={subProduct} />
+                <Suspense fallback={<ToolSkeleton />}>
+                  <PositioningFrameworkCard product={subProduct} />
+                </Suspense>
               </div>
             )}
 
@@ -893,9 +923,11 @@ const Product = () => {
               </h2>
             </div>
 
-            {isMednut && <MednutPreparationGuide initialProduct="nephrisol" />}
-            {isPediatric && <PediatricDosageCalculator initialProduct="kalmaxime-ds" />}
-            {isEndo && <ClinicalComparisonSection defaultTab="efesaVsHemapo" />}
+            <Suspense fallback={<ToolSkeleton />}>
+              {isMednut && <MednutPreparationGuide initialProduct="nephrisol" />}
+              {isPediatric && <PediatricDosageCalculator initialProduct="kalmaxime-ds" />}
+              {isEndo && <ClinicalComparisonSection defaultTab="efesaVsHemapo" />}
+            </Suspense>
           </div>
         </section>
       </div>

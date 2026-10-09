@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from "react"
 import { Link } from "react-router-dom";
 import Nav from "../components/layout/ui/Nav";
 import SubProductCard from "../components/layout/ui/SubProductCard";
-import { products } from "../components/data/products";
 import { getLocalizedProducts } from "../utils/localizedProducts";
 import { FaSearch } from "react-icons/fa";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
@@ -110,14 +109,14 @@ const Homepage = () => {
     [heroSlides.length]
   );
 
-  // Auto-play with pause on hover / interaction - resets interval on slide change
+  // Auto-play with pause on hover / interaction
   useEffect(() => {
     if (!isAutoPlaying) return;
     const timer = setInterval(() => {
       setCurrentHeroSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 3500);
+    }, 4000);
     return () => clearInterval(timer);
-  }, [isAutoPlaying, currentHeroSlide, heroSlides.length]);
+  }, [isAutoPlaying, heroSlides.length]);
 
   // Close search dropdown on outside click
   useEffect(() => {
@@ -793,6 +792,8 @@ const Homepage = () => {
                   src={heroSlides[currentHeroSlide].image}
                   alt={heroSlides[currentHeroSlide].title}
                   className="hero-slide-img"
+                  loading="eager"
+                  fetchPriority="high"
                   decoding="async"
                   style={{
                     maxHeight: "100%",

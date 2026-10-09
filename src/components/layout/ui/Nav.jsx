@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import KalbeLogo from "./KalbeLogo";
-import { products, PRODUCT_THEMES } from "../../data/products";
+import { PRODUCT_THEMES } from "../../data/products";
 import { getLocalizedProducts } from "../../../utils/localizedProducts";
 import { FaSearch } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
