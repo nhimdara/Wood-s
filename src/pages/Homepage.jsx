@@ -354,19 +354,19 @@ const Homepage = () => {
 
         {/* Left: copy + search */}
         <div className="hero-content">
-          <div className="hero-badge-row" style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18, flexWrap: "wrap" }}>
+          <div className="hero-badge-row" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20, flexWrap: "wrap" }}>
             <span
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                fontSize: 12,
+                fontSize: 11.5,
                 fontWeight: 800,
                 letterSpacing: "1.2px",
-                color: "#0D6E38",
+                color: isDark ? "#34D399" : "#0D6E38",
                 textTransform: "uppercase",
-                background: "rgba(13,110,56,0.1)",
-                border: "1px solid rgba(13,110,56,0.2)",
+                background: isDark ? "rgba(16, 185, 129, 0.1)" : "rgba(13, 110, 56, 0.1)",
+                border: isDark ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid rgba(13, 110, 56, 0.2)",
                 padding: "6px 16px",
                 borderRadius: 40,
                 backdropFilter: "blur(8px)",
@@ -375,52 +375,52 @@ const Homepage = () => {
               <span
                 style={{
                   display: "inline-block",
-                  width: 7,
-                  height: 7,
+                  width: 8,
+                  height: 8,
                   borderRadius: "50%",
-                  background: "#0D6E38",
-                  boxShadow: "0 0 0 3px rgba(13,110,56,0.25)",
+                  background: isDark ? "#34D399" : "#0D6E38",
+                  boxShadow: isDark ? "0 0 8px rgba(52, 211, 153, 0.6)" : "0 0 0 3px rgba(13, 110, 56, 0.2)",
                 }}
               />
-              {t.home.brandBadge}
+              {t.home.brandBadge || "KALBE INTERNATIONAL"}
             </span>
             <span
               style={{
                 fontSize: 11.5,
                 fontWeight: 700,
-                color: "var(--kalbe-text-muted)",
-                background: "var(--kalbe-surface-elevated)",
-                border: "1px solid var(--kalbe-border)",
-                padding: "5px 12px",
+                color: isDark ? "#D1D5DB" : "var(--kalbe-text-muted)",
+                background: isDark ? "rgba(255, 255, 255, 0.05)" : "var(--kalbe-surface-elevated)",
+                border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid var(--kalbe-border)",
+                padding: "6px 14px",
                 borderRadius: 20,
               }}
             >
-              {t.home.portfoliosBadge}
+              {t.home.portfoliosBadge || "6 Specialized Portfolios"}
             </span>
           </div>
 
           <h1
             style={{
               fontFamily: "'Montserrat', 'Inter', 'Segoe UI', sans-serif",
-              fontSize: "clamp(34px, 5.2vw, 56px)",
+              fontSize: "clamp(36px, 5.6vw, 62px)",
               fontWeight: 900,
-              lineHeight: 1.15,
-              color: "var(--kalbe-text-main)",
-              letterSpacing: "-0.03em",
-              marginBottom: 16,
+              lineHeight: 1.08,
+              color: isDark ? "#FFFFFF" : "var(--kalbe-text-main)",
+              letterSpacing: "-0.025em",
+              marginBottom: 18,
             }}
           >
-            {t.home.heroTitleLine1}
-            <br />
+            <span style={{ display: "block" }}>PRODUCT</span>
+            <span style={{ display: "block" }}>Information</span>
             <span
               style={{
-                background: "linear-gradient(120deg, #0D6E38 0%, #16A34A 50%, #68A62A 100%)",
+                background: "linear-gradient(120deg, #10B981 0%, #16A34A 50%, #68A62A 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 display: "inline-block",
               }}
             >
-              {t.home.heroTitleLine2}
+              & Clinical Solutions
             </span>
           </h1>
 
@@ -704,7 +704,7 @@ const Homepage = () => {
                     border: "1px solid var(--kalbe-border)",
                   }}
                 >
-                  {heroSlides[currentHeroSlide].skuCount} {t.home.productsCountSuffix}
+                  {heroSlides[currentHeroSlide].skuCount} {t.home.heroProductsCountSuffix || "Products"}
                 </span>
               </div>
 

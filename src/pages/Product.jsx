@@ -558,7 +558,7 @@ const Product = () => {
                   }}
                 >
                   <h4 style={{ margin: "0 0 14px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
-                    {isKhmer ? "សារធាតុផ្សំ និងរូបមន្ត" : "Active Ingredients & Formulation"}
+                    Active Ingredients & Formulation
                   </h4>
                   <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13.5, color: "var(--kalbe-text-main)", lineHeight: 1.8 }}>
                     {details.ingredients.map((item, idx) => (
@@ -576,7 +576,7 @@ const Product = () => {
                   }}
                 >
                   <h4 style={{ margin: "0 0 10px", fontSize: 17, color: "var(--kalbe-text-main)", fontWeight: 700 }}>
-                    {isKhmer ? "របៀបប្រើប្រាស់ និងការរក្សាទុក" : "How to Use & Storage"}
+                    How to Use & Storage
                   </h4>
                   <p style={{ fontSize: 13.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6, marginBottom: 14 }}>
                     <strong>{isKhmer ? "កម្រិតប្រើប្រាស់:" : "How to Use:"}</strong> {details.howToUse}

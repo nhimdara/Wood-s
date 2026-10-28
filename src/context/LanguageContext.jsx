@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import translations from "../locales/translations";
 
 const STORAGE_KEY = "kalbe-language";
+const DEFAULT_LANGUAGE = "km";
 
 const LanguageContext = createContext({
   language: "en",
@@ -16,15 +17,9 @@ const LanguageContext = createContext({
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "en" || saved === "km") {
-        return saved;
-      }
-    } catch (e) {
-      // LocalStorage access failure fallback
-    }
-    return "km"; // Default initial language matches original site
+    // Always start in the original Khmer mode. A saved English preference
+    // must not silently translate the app on a fresh launch.
+    return DEFAULT_LANGUAGE;
   });
 
   // Keep <html> lang attribute updated and apply language class

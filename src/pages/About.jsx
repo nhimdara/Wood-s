@@ -307,20 +307,24 @@ const About = () => {
               border: "1px solid var(--kalbe-border)",
             }}
           >
-            <h3 style={{ fontSize: 13, fontWeight: 800, color: "#0D6E38", marginTop: 0, marginBottom: 8, textTransform: "uppercase", letterSpacing: 1 }}>
-              {t.about.valuesTitle}
+            <h3 style={{ fontSize: 12.5, fontWeight: 800, color: "#0D6E38", marginTop: 0, marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>
+              EMBEDDING THE KALBE PANCA SRADHA SPIRIT
             </h3>
-            <p style={{ fontSize: 12.5, color: "var(--kalbe-text-muted)", marginBottom: 10 }}>
-              {t.about.valuesSubtitle}
+            <p style={{ fontSize: 12.5, color: "var(--kalbe-text-main)", marginBottom: 12, lineHeight: 1.6 }}>
+              In 2010, Kalbe Group formally defined its corporate values, Kalbe Panca Sradha, reflecting the following five principles:
             </p>
 
-            <ul style={{ paddingLeft: 20, margin: 0, display: "grid", gap: 6, fontSize: 12.5, color: "var(--kalbe-text-main)", fontWeight: 600 }}>
-              {t.about.values.map((v) => (
-                <li key={v.num}>
-                  <strong>{v.title}:</strong> {v.desc}
-                </li>
-              ))}
+            <ul style={{ paddingLeft: 18, margin: "0 0 12px 0", display: "grid", gap: 6, fontSize: 12.5, color: "var(--kalbe-text-main)", lineHeight: 1.5 }}>
+              <li><strong>Trust is the glue of life</strong></li>
+              <li><strong>Mindfulness is the foundation of our action</strong></li>
+              <li><strong>Innovation is the key to our success</strong></li>
+              <li><strong>Strive to be the best</strong></li>
+              <li><strong>Interconnectedness is a universal of life</strong></li>
             </ul>
+
+            <p style={{ margin: 0, fontSize: 12.5, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
+              Kalbe Panca Sradha values form the foundation of mentality to unify Kalbe Group's more than 17,000 employees, who work in 24 distinct business entities in Indonesia and overseas.
+            </p>
           </div>
 
           {/* Priority */}
@@ -329,15 +333,14 @@ const About = () => {
               background: "var(--kalbe-bg-alt)",
               borderRadius: 14,
               padding: "16px 20px",
-              borderLeft: "4px solid #0D6E38",
               border: "1px solid var(--kalbe-border)",
             }}
           >
-            <h4 style={{ fontSize: 12.5, fontWeight: 800, color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 6, textTransform: "uppercase" }}>
-              Priority: "Leader Creates Leaders"
+            <h4 style={{ fontSize: 12.5, fontWeight: 800, color: "var(--kalbe-text-main)", marginTop: 0, marginBottom: 8, textTransform: "uppercase" }}>
+              PRIORITY: "LEADER CREATES LEADERS"
             </h4>
-            <p style={{ margin: 0, fontSize: 12.5, color: "var(--kalbe-text-muted)", lineHeight: 1.6 }}>
-              We are committed to place top priority on people development based on the “Leader creates Leaders” principle to nurture Kalbe’s future business leaders. Ability to build crossfunctional and cross-business synergies remains a crucial element of leadership to be developed through individual development plan, coaching, counseling and mentoring with the involvement of management in the process.
+            <p style={{ margin: 0, fontSize: 12.5, color: "var(--kalbe-text-main)", lineHeight: 1.6 }}>
+              We are committed to place top priority on people development based on the "Leader creates Leaders" principle to nurture Kalbe's future business leaders. Ability to build crossfunctional and cross-business synergies remains a crucial element of leadership to be developed through individual development plan, coaching, counseling and mentoring with the involvement of management in the process.
             </p>
           </div>
         </div>
